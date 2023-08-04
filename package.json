@@ -9,6 +9,7 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.10",
     "autoprefixer": "10.4.14",
     "next": "13.4.12",
     "next-sanity": "^5.1.3",
