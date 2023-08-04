@@ -10,7 +10,7 @@ export default defineType({
       name: 'alt',
       title: 'Alternative text',
       description: 'Alternative text of the image',
-      type: 'string',
+      type: 'locale_string',
     }),
   ],
   preview: {
