@@ -1,8 +1,13 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { displayNumber, joinStrings } from '@/lib/utils/utils'
+import { RocketLaunch } from '@phosphor-icons/react'
+
 export const feature_section = defineType({
   name: 'feature_section',
   title: 'Feature Section',
+  description: 'Features section with a title and a list of features',
+  icon: RocketLaunch,
   type: 'object',
   fields: [
     defineField({
@@ -31,6 +36,18 @@ export const feature_section = defineType({
       of: [defineArrayMember({ type: 'feature' })],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title.en',
+      features: 'features',
+    },
+    prepare: ({ title, features }) => {
+      return {
+        title: `Feature Section`,
+        subtitle: `${joinStrings('|', title, displayNumber(features?.length, 'feature'))}`,
+      }
+    },
+  },
 })
 
 export const feature = defineType({
@@ -47,7 +64,7 @@ export const feature = defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      description: 'Description for the feature',
+      description: 'Description for the feature (used for long feature sections)',
       type: 'locale_string',
     }),
     defineField({
@@ -57,4 +74,18 @@ export const feature = defineType({
       type: 'icon',
     }),
   ],
+  preview: {
+    select: {
+      title: 'title.en',
+      subtitle: 'description.en',
+      media: 'icon',
+    },
+    prepare: ({ title, subtitle, media }) => {
+      return {
+        title: 'Feature',
+        subtitle: `${joinStrings('|', title, subtitle)}`,
+        media,
+      }
+    },
+  },
 })

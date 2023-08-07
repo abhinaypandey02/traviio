@@ -12,7 +12,7 @@ export default defineType({
       type: 'locale_string',
     }),
     defineField({
-      name: 'heading',
+      name: 'title',
       title: 'Heading',
       description: 'Title for the deals section',
       type: 'locale_string',
