@@ -1,6 +1,8 @@
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 
+import { visionTool } from '@sanity/vision'
+
 import { schemaTypes } from './schemas'
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
@@ -13,7 +15,7 @@ export default defineConfig({
   projectId,
   dataset,
 
-  plugins: [deskTool()],
+  plugins: [deskTool(), visionTool()],
 
   schema: {
     types: schemaTypes,
