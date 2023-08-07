@@ -3,8 +3,9 @@ import icon from './atoms/Icon'
 import link from './atoms/Link'
 import link_button from './atoms/LinkButton'
 import locale_string from './atoms/LocaleString'
+import meta_data from './atoms/MetaData'
 import photo from './atoms/Photo'
-import { page } from './documents/page'
+import Page from './documents/Page'
 import blog_section from './sections/BlogSection'
 import deals_section from './sections/DealsSection'
 import { faq, faq_section } from './sections/FAQSection'
@@ -24,6 +25,7 @@ export const schemaTypes = [
   link_button,
   locale_string,
   photo,
+  meta_data,
   // sections
   blog_section,
   deals_section,
@@ -38,5 +40,5 @@ export const schemaTypes = [
   testimonial_section,
   testimonial,
   // documents
-  page,
+  Page,
 ]
