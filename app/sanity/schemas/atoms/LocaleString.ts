@@ -1,16 +1,16 @@
 import { defineType } from 'sanity'
 
-type SupportedLanguage = {
-  id: string
+export type SupportedLanguage = {
+  id: 'en' | 'id'
   title: string
 }
 
-const defaultLanguage: SupportedLanguage = {
+export const defaultLanguage: SupportedLanguage = {
   id: 'en',
   title: 'English',
 }
 
-const supportedLanguages: SupportedLanguage[] = [{ id: 'id', title: 'Bahasa Indonesia' }]
+export const supportedLanguages: SupportedLanguage[] = [{ id: 'id', title: 'Bahasa Indonesia' }]
 
 export default defineType({
   name: 'locale_string',

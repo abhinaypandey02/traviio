@@ -8,4 +8,4 @@ export const sections = [
   'index_section',
   'newsletter_section',
   'testimonial_section',
-]
+] as const
