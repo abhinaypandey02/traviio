@@ -1,7 +1,20 @@
-import { SupportedLanguage } from '@/app/sanity/schemas/atoms/LocaleString'
+import { content_layouts } from '@/app/sanity/schemas/atoms/content'
+import { SupportedLanguage } from '@/app/sanity/schemas/atoms/locale'
 import { sections } from '@/app/sanity/schemas/sections'
 
-// Atoms
+//                  ____      __          _ ____
+//                 /  _/___  / /_  __  __(_) / /_
+//                 / // __ \/ __ \/ / / / / / __/
+//               _/ // / / / /_/ / /_/ / / / /_
+//              /___/_/ /_/_.___/\__,_/_/_/\__/
+
+export type SanityString = string
+
+//                ___   __
+//               /   | / /_____  ____ ___  _____
+//              / /| |/ __/ __ \/ __ `__ \/ ___/
+//             / ___ / /_/ /_/ / / / / / (__  )
+//            /_/  |_\__/\____/_/ /_/ /_/____/
 
 export type SanityLocale = SupportedLanguage['id']
 
@@ -79,7 +92,53 @@ export type SanityMetaData = {
   meta_image: SanityImage
 }
 
-// Sections
+//                   ______            __             __
+//                  / ____/___  ____  / /____  ____  / /_
+//                 / /   / __ \/ __ \/ __/ _ \/ __ \/ __/
+//                / /___/ /_/ / / / / /_/  __/ / / / /_
+//                \____/\____/_/ /_/\__/\___/_/ /_/\__/
+
+export type SanityContentNames = (typeof content_layouts)[number]
+
+export type SanityContentTypes =
+  | SanityContentGroup
+  | SanityContentStack
+  | SanityContentImage
+  | SanityContentText
+  | SanityContentRichText
+
+export type SanityContentText = {
+  _type: 'content_text'
+  _key: string
+  text: SanityString
+}
+
+export type SanityContentImage = {
+  _type: 'content_image'
+  _key: string
+  image: SanityImage
+  alt: SanityString
+}
+
+export type SanityContentGroup = {
+  _type: 'layout_group'
+  _key: string
+  items: SanityContentTypes[]
+}
+
+export type SanityContentStack = {
+  _type: 'layout_stack'
+  _key: string
+  items: SanityContentTypes[]
+}
+
+export type SanityContentRichText = any
+
+//                 _____           __  _
+//                / ___/___  _____/ /_(_)___  ____  _____
+//                \__ \/ _ \/ ___/ __/ / __ \/ __ \/ ___/
+//               ___/ /  __/ /__/ /_/ / /_/ / / / (__  )
+//              /____/\___/\___/\__/_/\____/_/ /_/____/
 
 export type SanitySectionNames = (typeof sections)[number]
 
