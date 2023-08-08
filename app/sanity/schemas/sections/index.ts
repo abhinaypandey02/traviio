@@ -1,5 +1,6 @@
 export const sections = [
   'blog_section',
+  'content_section',
   'deals_section',
   'faq_section',
   'feature_section',

@@ -14,6 +14,7 @@ import meta_data from './atoms/MetaData'
 import photo from './atoms/Photo'
 import Page from './documents/Page'
 import blog_section from './sections/BlogSection'
+import content_section from './sections/ContentSection'
 import deals_section from './sections/DealsSection'
 import { faq, faq_section } from './sections/FAQSection'
 import { feature, feature_section } from './sections/FeatureSection'
@@ -33,7 +34,6 @@ export const schemaTypes = [
   icon,
   link,
   link_button,
-  locale_string,
   photo,
   meta_data,
   // content
@@ -44,6 +44,7 @@ export const schemaTypes = [
   rich_text,
   // sections
   blog_section,
+  content_section,
   deals_section,
   faq_section,
   faq,
