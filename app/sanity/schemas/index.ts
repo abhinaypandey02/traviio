@@ -1,3 +1,8 @@
+import layout_group from './atoms/content/Group'
+import content_image from './atoms/content/Image'
+import rich_text from './atoms/content/Richtext'
+import layout_stack from './atoms/content/Stack'
+import content_text from './atoms/content/Text'
 import { form_button, form_input_field } from './atoms/Form'
 import icon from './atoms/Icon'
 import link from './atoms/Link'
@@ -31,6 +36,12 @@ export const schemaTypes = [
   locale_string,
   photo,
   meta_data,
+  // content
+  content_text,
+  content_image,
+  layout_group,
+  layout_stack,
+  rich_text,
   // sections
   blog_section,
   deals_section,
