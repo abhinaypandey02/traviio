@@ -1,16 +1,6 @@
 import { defineType } from 'sanity'
 
-export type SupportedLanguage = {
-  id: 'en' | 'id'
-  title: string
-}
-
-export const defaultLanguage: SupportedLanguage = {
-  id: 'en',
-  title: 'English',
-}
-
-export const supportedLanguages: SupportedLanguage[] = [{ id: 'id', title: 'Bahasa Indonesia' }]
+import Locales from '.'
 
 export default defineType({
   name: 'locale_string',
@@ -28,11 +18,11 @@ export default defineType({
   ],
   fields: [
     {
-      name: defaultLanguage.id,
-      title: defaultLanguage.title,
+      name: Locales.defaultLanguage.id,
+      title: Locales.defaultLanguage.title,
       type: 'string',
     },
-    ...supportedLanguages.map((lang) => ({
+    ...Locales.supportedLanguages.map((lang) => ({
       title: lang.title,
       name: lang.id,
       type: 'string',
@@ -41,7 +31,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: defaultLanguage.id,
+      title: Locales.defaultLanguage.id,
     },
   },
 })

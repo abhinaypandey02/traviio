@@ -2,7 +2,9 @@ import { form_button, form_input_field } from './atoms/Form'
 import icon from './atoms/Icon'
 import link from './atoms/Link'
 import link_button from './atoms/LinkButton'
-import locale_string from './atoms/LocaleString'
+import { locale_rich_text } from './atoms/locale/LocaleRichtext'
+import locale_string from './atoms/locale/LocaleString'
+import locale_text from './atoms/locale/LocaleText'
 import meta_data from './atoms/MetaData'
 import photo from './atoms/Photo'
 import Page from './documents/Page'
@@ -18,6 +20,9 @@ import { testimonial, testimonial_section } from './sections/TestimonialSection'
 
 export const schemaTypes = [
   // atoms
+  locale_string,
+  locale_text,
+  locale_rich_text,
   form_button,
   form_input_field,
   icon,
