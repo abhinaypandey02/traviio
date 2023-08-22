@@ -1,8 +1,8 @@
-import { LocalizedString } from '@/contexts/LocaleProvider'
 import Image from 'next/image'
 
-import { SanityFeature, SanityFeatureSection } from '../../sanity/types'
 import { urlFor } from '@/sanity/client'
+
+import { SanityFeature, SanityFeatureSection } from '../../sanity/types'
 
 export type FeatureSectionProps = {
   data: SanityFeatureSection

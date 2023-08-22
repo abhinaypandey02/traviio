@@ -1,7 +1,9 @@
-import { urlFor } from '@/sanity/client'
-import { SanityHeroSection } from '@/sanity/types'
 import React from 'react'
 import Image from 'next/image'
+
+import { urlFor } from '@/sanity/client'
+import { SanityHeroSection } from '@/sanity/types'
+
 import PrimaryButton from '../buttons/PrimaryButton'
 import SecondaryButton from '../buttons/SecondaryButton'
 
@@ -15,7 +17,8 @@ const HeroSection = ({ data }: HeroSectionProps) => {
   return (
     <>
       <p className="w-full h-[40px] bg-darkblue text-[14px] font-[400] leading-[24px] flex items-center justify-center ">
-        More summer for less. Save up to 20% off selected trips*. <span className='underline cursor-pointer'>Book now</span>
+        More summer for less. Save up to 20% off selected trips*.{' '}
+        <span className="underline cursor-pointer">Book now</span>
       </p>
       <section
         className="h-[538px] flex items-center md:items-start justify-center md:justify-between flex-col px-[80px] py-[48px]"

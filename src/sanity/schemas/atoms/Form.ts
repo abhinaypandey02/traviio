@@ -1,8 +1,12 @@
 import { defineField, defineType } from 'sanity'
 
+import { HandPointing, Textbox } from '@phosphor-icons/react'
+
 export const form_input_field = defineType({
   name: 'form_input_field',
   title: 'Form Input Field',
+  icon: Textbox,
+  description: 'Form input field',
   type: 'object',
   fields: [
     defineField({
@@ -23,12 +27,20 @@ export const form_input_field = defineType({
 export const form_button = defineType({
   name: 'form_button',
   title: 'Form Button',
+  icon: HandPointing,
+  description: 'Form button',
   type: 'object',
   fields: [
     defineField({
       name: 'is_icon',
       title: 'Is Icon',
       description: 'Is the button only an icon?',
+      type: 'boolean',
+    }),
+    defineField({
+      name: 'is_inline',
+      title: 'Is inline?',
+      description: 'Is the button inline?',
       type: 'boolean',
     }),
     defineField({

@@ -142,13 +142,6 @@ export type SanityContentRichText = any
 
 export type SanitySectionNames = (typeof sections)[number]
 
-export type SanityBlogSection = {
-  _type: 'blog_section'
-  _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-}
-
 export type SanityDealsSection = {
   _type: 'deals_section'
   _key: string

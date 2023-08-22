@@ -1,27 +1,28 @@
 import { defineField, defineType } from 'sanity'
 
 import { displayNumber, joinStrings } from '@/utils/utils'
-import { Browser } from '@phosphor-icons/react'
+import { Files } from '@phosphor-icons/react'
 
-import { sections } from '../sections'
+import { BlogSections } from '../sections/Blog'
 
 export default defineType({
-  name: 'page',
-  title: 'Pages',
+  name: 'blog_page',
+  title: 'Blog Pages',
+  icon: Files,
+  description: 'A blog page',
   type: 'document',
-  icon: Browser,
   fields: [
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      description: 'Slug for the page',
-      type: 'slug',
-    }),
     defineField({
       name: 'meta_data',
       title: 'Meta Data',
       description: 'Meta Data for SEO',
       type: 'meta_data',
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug (relative to /blog)',
+      description: 'Slug for the page',
+      type: 'slug',
     }),
     defineField({
       name: 'promo_banner',
@@ -34,7 +35,13 @@ export default defineType({
       title: 'Sections',
       description: 'Sections for the page',
       type: 'array',
-      of: sections.map((section) => ({ type: section })),
+      of: BlogSections.map((blog_section) => ({ type: blog_section })),
+    }),
+    defineField({
+      name: 'sidebar',
+      title: 'Sidebar',
+      description: 'Sidebar for the page',
+      type: 'blog_sidebar',
     }),
   ],
   preview: {

@@ -6,7 +6,6 @@ import FeatureSection from './FeatureSection'
 import HeroSection from './HeroSection'
 
 export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {
-  hero_section:HeroSection,
+  hero_section: HeroSection,
   feature_section: FeatureSection,
-  
 }
