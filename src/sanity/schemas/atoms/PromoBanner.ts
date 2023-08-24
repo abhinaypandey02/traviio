@@ -8,6 +8,10 @@ export default defineType({
   icon: Megaphone,
   description: 'Promo banner for the hero section',
   type: 'object',
+  options: {
+    collapsible: true,
+    collapsed: true,
+  },
   fields: [
     defineField({
       name: 'text',

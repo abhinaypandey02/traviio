@@ -18,6 +18,7 @@ import Article from './documents/Article'
 import blog_page from './documents/BlogPage'
 import Page from './documents/Page'
 import Tag from './documents/Tag'
+import tour_page from './documents/TourPage'
 import { BlogSectionExports } from './sections/Blog'
 import content_section from './sections/ContentSection'
 import deals_section from './sections/DealsSection'
@@ -31,6 +32,7 @@ import newsletter_section from './sections/NewsletterSection'
 import office_locations_section from './sections/OfficeLocationsSection'
 import reviews_section from './sections/ReviewsSection'
 import { testimonial, testimonial_section } from './sections/TestimonialSection'
+import { TourSectionExports } from './sections/Tours'
 
 export const schemaTypes = [
   // atoms
@@ -70,9 +72,11 @@ export const schemaTypes = [
   testimonial,
   // Blog Sections
   ...BlogSectionExports,
+  ...TourSectionExports,
   // documents
   Article,
   blog_page,
+  tour_page,
   Page,
   Tag,
 ]

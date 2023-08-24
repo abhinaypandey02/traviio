@@ -10,6 +10,8 @@ import { schemaTypes } from './schemas'
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
 
+const customDocumentTypes = new Set(['page', 'article', 'blog_page', 'tag'])
+
 const deskToolOptions: DeskToolOptions = {
   name: 'Traviio',
   title: 'Traviio',
@@ -17,6 +19,10 @@ const deskToolOptions: DeskToolOptions = {
     S.list()
       .title('Traviio')
       .items([
+        S.listItem()
+          .title('General Pages')
+          .icon(Browsers)
+          .child(S.documentTypeList('page').title('General Pages')),
         S.listItem()
           .title('Blog')
           .icon(Article)
@@ -35,10 +41,13 @@ const deskToolOptions: DeskToolOptions = {
                 S.listItem().title('Tags').icon(Tag).child(S.documentTypeList('tag').title('Tags')),
               ])
           ),
-        S.listItem()
-          .title('General Pages')
-          .icon(Browsers)
-          .child(S.documentTypeList('page').title('General Pages')),
+        ...S.documentTypeListItems().filter((item: any) => {
+          return !customDocumentTypes.has(
+            typeof item.getSchemaType() === 'string'
+              ? item.getSchemaType()
+              : item.getSchemaType()?.name || ''
+          )
+        }),
       ]),
 }
 
