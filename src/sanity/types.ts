@@ -248,7 +248,6 @@ export type SanityPage = {
   }
   meta_data: SanityMetaData
   sections: (
-    | SanityBlogSection
     | SanityDealsSection
     | SanityFAQSection
     | SanityFeatureSection

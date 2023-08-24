@@ -14,7 +14,7 @@ const client = createClient({
   useCdn: true,
 })
 export default client
-export function urlFor(source: SanityPhoto|SanityIcon|SanityImage): string {
+export function urlFor(source: SanityPhoto | SanityIcon | SanityImage): string {
   if (!source) return ''
   return imageUrlBuilder(client).image(source).url()
 }
