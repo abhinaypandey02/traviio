@@ -1,5 +1,6 @@
-import { SanityFAQSection } from '@/sanity/types'
 import React from 'react'
+
+import { SanityFAQSection } from '@/sanity/types'
 
 export type FAQSectionProps = {
   data: SanityFAQSection
@@ -22,7 +23,9 @@ const FAQSection = ({ data }: FAQSectionProps) => {
             <summary className="cursor-pointer text-[16px] md:text-[20px] font-[500] leading-[24px] md:leading-[32px] text-darkblue ">
               {faq.question.en}
             </summary>
-            <div className="mt-2 ml-5 text-[12px] md:text-[16px] font-[400] leading-[20px] md:leading-[24px] text-gray">{faq.answer.en}</div>
+            <div className="mt-2 ml-5 text-[12px] md:text-[16px] font-[400] leading-[20px] md:leading-[24px] text-gray">
+              {faq.answer.en}
+            </div>
           </details>
         ))}
       </div>

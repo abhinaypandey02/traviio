@@ -31,6 +31,13 @@ export default defineType({
       type: 'promo_banner',
     }),
     defineField({
+      name: 'article',
+      title: 'Article',
+      description: 'Article for the page',
+      type: 'reference',
+      to: [{ type: 'article' }],
+    }),
+    defineField({
       name: 'sections',
       title: 'Sections',
       description: 'Sections for the page',

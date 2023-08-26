@@ -2,9 +2,9 @@ import { FunctionComponent } from 'react'
 
 import { SanitySectionNames } from '@/sanity/types'
 
+import FAQSection from './FAQSection'
 import FeatureSection from './FeatureSection'
 import HeroSection from './HeroSection'
-import FAQSection from './FAQSection'
 import NewsletterSection from './NewsletterSection'
 
 export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {

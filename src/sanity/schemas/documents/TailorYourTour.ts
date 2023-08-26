@@ -12,6 +12,11 @@ export default defineType({
   ],
   fields: [
     defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+    }),
+    defineField({
       name: 'step_1',
       title: 'Step 1 | Choose destination',
       type: 'object',
@@ -62,7 +67,7 @@ export default defineType({
           ],
         }),
         defineField({
-          name: 'next_step_btn',
+          name: 'next_btn',
           title: 'Next Step Button',
           type: 'locale_string',
         }),

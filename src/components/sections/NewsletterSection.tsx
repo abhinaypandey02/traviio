@@ -1,7 +1,8 @@
+import React from 'react'
+import Image from 'next/image'
+
 import { urlFor } from '@/sanity/client'
 import { SanityNewsletterSection } from '@/sanity/types'
-import Image from 'next/image'
-import React from 'react'
 
 export type NewsletterSectionProps = {
   data: SanityNewsletterSection
@@ -24,7 +25,11 @@ const NewsletterSection = ({ data }: NewsletterSectionProps) => {
             {data.subtitle.en}
           </h3>
           <div className="relative flex items-center">
-            <input className="w-[250px] md:w-[420px] h-[40px] md:h-[48px] rounded-[60px] px-3 md:px-5 text-[12px] md:text-[16px] font-[400] leading-[22px] md:leading-[24px] " type="text" placeholder={data.email_form.placeholder.en} />
+            <input
+              className="w-[250px] md:w-[420px] h-[40px] md:h-[48px] rounded-[60px] px-3 md:px-5 text-[12px] md:text-[16px] font-[400] leading-[22px] md:leading-[24px] "
+              type="text"
+              placeholder={data.email_form.placeholder.en}
+            />
             <button className="flex items-center justify-center absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-2 rounded-[30px] bg-blue-500 text-white bg-yellow w-[78px] md:w-[95px] h-[30px] md:h-[38px] text-[12px] md:text-[16px] font-[500] md:font-[700] leading-[17px] md:leading-[24px] ">
               {data.email_form.submit_button.label.en}
             </button>

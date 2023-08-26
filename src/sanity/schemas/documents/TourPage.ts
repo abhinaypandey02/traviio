@@ -104,9 +104,9 @@ export default defineType({
           type: 'link_button',
         }),
         defineField({
-          name: 'cta_subtitle',
-          title: 'CTA Subtitle',
-          description: 'CTA subtitle for the tour',
+          name: 'cta_helper_text',
+          title: 'CTA Helper Text',
+          description: 'CTA helper text for the tour',
           type: 'locale_string',
         }),
       ],
