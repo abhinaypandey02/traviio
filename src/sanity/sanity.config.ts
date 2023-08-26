@@ -2,7 +2,7 @@ import { defineConfig } from 'sanity'
 import type { DeskToolOptions } from 'sanity/desk'
 import { deskTool } from 'sanity/desk'
 
-import { Article, Browsers, Files, PenNib, Tag } from '@phosphor-icons/react'
+import { Article, Browsers, Files, MapTrifold, PenNib, Tag } from '@phosphor-icons/react'
 import { visionTool } from '@sanity/vision'
 
 import { schemaTypes } from './schemas'
@@ -10,7 +10,9 @@ import { schemaTypes } from './schemas'
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
 
-const customDocumentTypes = new Set(['page', 'article', 'blog_page', 'tag'])
+const CustomDocumentTypes = new Set(['page', 'article', 'blog_page', 'tag'])
+
+const Singletons = new Set(['tailor_your_tour'])
 
 const deskToolOptions: DeskToolOptions = {
   name: 'Traviio',
@@ -42,12 +44,25 @@ const deskToolOptions: DeskToolOptions = {
               ])
           ),
         ...S.documentTypeListItems().filter((item: any) => {
-          return !customDocumentTypes.has(
-            typeof item.getSchemaType() === 'string'
-              ? item.getSchemaType()
-              : item.getSchemaType()?.name || ''
+          return (
+            !CustomDocumentTypes.has(
+              typeof item.getSchemaType() === 'string'
+                ? item.getSchemaType()
+                : item.getSchemaType()?.name || ''
+            ) &&
+            !Singletons.has(
+              typeof item.getSchemaType() === 'string'
+                ? item.getSchemaType()
+                : item.getSchemaType()?.name || ''
+            )
           )
         }),
+        S.divider(),
+        S.listItem()
+          .title('Tailor Your Tour')
+          .icon(MapTrifold)
+          .id('tailor_your_tour')
+          .child(S.document().schemaType('tailor_your_tour').documentId('tailor_your_tour')),
       ]),
 }
 
