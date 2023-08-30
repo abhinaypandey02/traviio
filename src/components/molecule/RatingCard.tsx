@@ -5,7 +5,7 @@ const RatingCard = (
 ) => {
  
   return (
-    <div className={varient==1?'w-[360px]':'w-full rounded-2xl border-[1px] border-gray  px-5 py-2 shadow-xl'}>
+    <div className={varient==1?'w-full':'w-full rounded-2xl  border-gray  px-5 py-2 shadow-xl'}>
        <ReactStars
         count={5} onChange={()=>{}} value={star} size={24} color2={'#ffd700'} />
         <h3 className='text-lg font-medium'>{title.substring(0, 33)}...</h3>

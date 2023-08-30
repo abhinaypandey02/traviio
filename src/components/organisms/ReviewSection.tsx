@@ -40,7 +40,7 @@ const ReviewSection = () => {
         </div>
         <div className='gap-y-3 grid grid-flow-row grid-cols-1'>
             {
-                data.map((item,index)=>{
+                data.map((item:any,index:Number)=>{
                     return(
                         <RatingCard
                          title={item.title}

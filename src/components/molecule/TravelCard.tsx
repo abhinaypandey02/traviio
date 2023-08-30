@@ -4,11 +4,10 @@ import Button from '../buttons/Button'
 const TravelCard = () => {
     
   return (
-    <div className='bg-white h-fit  shadow-2xl rounded-2xl w-[320px] cursor-pointer'>
-        <span className='bg-red absolute my-2 mx-2 left-[270px] px-2 py-1 text-white font-bold text-sm rounded-full'>Hot Deal</span>
+    <div className='bg-white h-fit  shadow-2xl rounded-2xl cursor-pointer'>
+        <span className='bg-red absolute my-2 mx-2 right-0 px-2 py-1 text-white font-bold text-sm rounded-full'>Hot Deal</span>
       <img 
-      width={500}
-      height={300}
+      
       className="rounded-t-2xl"
       src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dHJhdmVsfGVufDB8fDB8fHww&w=1000&q=80"
       />
