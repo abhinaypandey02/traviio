@@ -1,23 +1,17 @@
 import React from 'react'
-import ReviewSection from '@/components/organisms/ReviewSection'
+import ContactCTA from '@/components/sections/ContactCTA'
+import PopularTours from '@/components/sections/PopularTours'
+import PopularAttractions from '@/components/sections/PopularAttractions'
 import Layout from '@/components/layout'
-import HappyTravelerSection from '@/components/organisms/HappyTravelerSection'
-import BlogSection from '@/components/organisms/BlogSection'
-import HotDeals from '@/components/organisms/HotDeals'
-import FAQ from '@/components/organisms/FAQ'
-import DestinationsSection from '@/components/organisms/DestinationsSection'
-
 
 const demo = () => {
   
   return (
     <Layout>
-      <HotDeals/>
-      <HappyTravelerSection/>
-      <BlogSection/>
-      
-      <DestinationsSection/> 
-      <ReviewSection />
+      <ContactCTA />
+      <PopularTours />
+      <hr className='mx-auto w-[90%] my-10 border-none bg-primary h-[3px] '/>
+      <PopularAttractions />
     </Layout>
   )
 }

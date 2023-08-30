@@ -18,7 +18,7 @@ module.exports = {
         whilte:"#FFFFFF",
         yellow:"#FFBB0B",
         red:"#D10002",
-        primary: "#F2FAFF"
+        primary: "#F2FAFF",
       }
     },
   },
