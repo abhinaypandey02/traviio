@@ -1,9 +1,13 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { displayNumber, joinStrings } from '@/utils/utils'
+import { Question } from '@phosphor-icons/react'
+
 export const faq_section = defineType({
   name: 'faq_section',
   title: 'FAQ Section',
   type: 'object',
+  icon: Question,
   fields: [
     defineField({
       name: 'title',
@@ -25,6 +29,18 @@ export const faq_section = defineType({
       of: [defineArrayMember({ type: 'faq' })],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title.en',
+      faqs: 'faqs',
+    },
+    prepare: ({ title, faqs }) => {
+      return {
+        title: `FAQ Section`,
+        subtitle: joinStrings('|', title, displayNumber(faqs?.length, 'FAQ')),
+      }
+    },
+  },
 })
 
 export const faq = defineType({
@@ -42,7 +58,17 @@ export const faq = defineType({
       name: 'answer',
       title: 'Answer',
       description: 'Answer for the FAQ',
-      type: 'locale_string',
+      type: 'locale_text',
     }),
   ],
+  preview: {
+    select: {
+      question: 'question.en',
+    },
+    prepare({ question }) {
+      return {
+        title: `FAQ: ${question}`,
+      }
+    },
+  },
 })

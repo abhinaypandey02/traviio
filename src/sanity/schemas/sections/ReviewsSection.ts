@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { displayNumber, joinStrings } from '@/utils/utils'
 import { Star } from '@phosphor-icons/react'
 
 export default defineType({
@@ -69,6 +70,18 @@ export default defineType({
               type: 'locale_string',
             }),
           ],
+          preview: {
+            select: {
+              name: 'name.en',
+              rating: 'rating',
+            },
+            prepare: ({ name, rating }) => {
+              return {
+                title: 'Review',
+                subtitle: joinStrings('|', name, displayNumber(rating, 'Star')),
+              }
+            },
+          },
         }),
       ],
     }),

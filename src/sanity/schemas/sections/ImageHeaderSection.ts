@@ -1,10 +1,13 @@
 import { defineField, defineType } from 'sanity'
 
+import { Image } from '@phosphor-icons/react'
+
 export default defineType({
   name: 'image_header_section',
   title: 'Image Header Section',
   description: 'A section with a header and an image',
   type: 'object',
+  icon: Image,
   fields: [
     defineField({
       name: 'header',

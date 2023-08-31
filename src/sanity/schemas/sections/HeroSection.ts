@@ -6,6 +6,7 @@ export default defineType({
   name: 'hero_section',
   title: 'Hero Section',
   type: 'object',
+  icon: Image,
   fields: [
     defineField({
       name: 'title',
@@ -64,11 +65,11 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'title.id',
-      subtitle: 'subtitle.id',
+      title: 'title.en',
+      subtitle: 'subtitle.en',
     },
     prepare: ({ title, subtitle }) => ({
-      title: `Head Section: ${title}`,
+      title: `Hero Section: ${title ?? 'Untitled'}`,
       subtitle,
     }),
   },

@@ -1,9 +1,13 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { displayNumber, joinStrings } from '@/utils/utils'
+import { Megaphone } from '@phosphor-icons/react'
+
 export const testimonial_section = defineType({
   name: 'testimonial_section',
   title: 'Testimonial Section',
   type: 'object',
+  icon: Megaphone,
   fields: [
     defineField({
       name: 'title',
@@ -31,6 +35,16 @@ export const testimonial_section = defineType({
       of: [defineArrayMember({ type: 'testimonial' })],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title.en',
+      testimonials: 'testimonials',
+    },
+    prepare: ({ title, testimonials }) => ({
+      title: `Testimonial Section`,
+      subtitle: joinStrings('|', title, displayNumber(testimonials?.length, 'Testimonial')),
+    }),
+  },
 })
 
 export const testimonial = defineType({
@@ -57,6 +71,12 @@ export const testimonial = defineType({
       type: 'locale_string',
     }),
     defineField({
+      name: 'avatar',
+      title: 'Avatar',
+      description: 'Avatar for the testimonial',
+      type: 'image',
+    }),
+    defineField({
       name: 'rating',
       title: 'Rating',
       description: 'Rating for the testimonial (out of 5)',
@@ -75,4 +95,14 @@ export const testimonial = defineType({
       type: 'locale_string',
     }),
   ],
+  preview: {
+    select: {
+      name: 'name.en',
+      rating: 'rating',
+    },
+    prepare: ({ name, rating }) => ({
+      title: 'Testimonial',
+      subtitle: joinStrings('|', name, displayNumber(rating, 'Star')),
+    }),
+  },
 })

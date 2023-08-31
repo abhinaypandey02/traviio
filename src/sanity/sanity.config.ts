@@ -2,7 +2,7 @@ import { defineConfig } from 'sanity'
 import type { DeskToolOptions } from 'sanity/desk'
 import { deskTool } from 'sanity/desk'
 
-import { Article, Browsers, Files, MapTrifold, PenNib, Tag } from '@phosphor-icons/react'
+import { Article, Browsers, Files, Globe, MapTrifold, PenNib, Tag } from '@phosphor-icons/react'
 import { visionTool } from '@sanity/vision'
 
 import { schemaTypes } from './schemas'
@@ -12,7 +12,7 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
 
 const CustomDocumentTypes = new Set(['page', 'article', 'blog_page', 'tag'])
 
-const Singletons = new Set(['tailor_your_tour'])
+const Singletons = new Set(['tailor_your_tour', 'globals'])
 
 const deskToolOptions: DeskToolOptions = {
   name: 'Traviio',
@@ -58,6 +58,11 @@ const deskToolOptions: DeskToolOptions = {
           )
         }),
         S.divider(),
+        S.listItem()
+          .title('Global Components')
+          .icon(Globe)
+          .id('globals')
+          .child(S.document().schemaType('globals').documentId('globals')),
         S.listItem()
           .title('Tailor Your Tour')
           .icon(MapTrifold)

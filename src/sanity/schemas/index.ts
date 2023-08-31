@@ -16,6 +16,7 @@ import photo from './atoms/Photo'
 import promo_banner from './atoms/PromoBanner'
 import Article from './documents/Article'
 import blog_page from './documents/BlogPage'
+import Globals from './documents/Globals'
 import Page from './documents/Page'
 import Tag from './documents/Tag'
 import tailor_your_tour from './documents/TailorYourTour'
@@ -84,6 +85,7 @@ export const schemaTypes = [
   tour_page,
   Page,
   Tag,
+  Globals,
   travel_guide,
   travel_wiki,
 ]

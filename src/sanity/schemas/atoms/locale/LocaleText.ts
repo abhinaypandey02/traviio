@@ -20,14 +20,12 @@ export default defineType({
     {
       name: Locales.defaultLanguage.id,
       title: Locales.defaultLanguage.title,
-      type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }],
+      type: 'text',
     },
     ...Locales.supportedLanguages.map((lang) => ({
       title: lang.title,
       name: lang.id,
-      type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }],
+      type: 'text',
       fieldset: 'translations',
     })),
   ],

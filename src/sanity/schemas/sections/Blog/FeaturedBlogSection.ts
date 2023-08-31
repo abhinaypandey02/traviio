@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { displayNumber, joinStrings } from '@/utils/utils'
 import { Article } from '@phosphor-icons/react'
 
 export default defineType({
@@ -38,4 +39,16 @@ export default defineType({
       ],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title.en',
+      blogs: 'featured_blogs',
+    },
+    prepare({ title, blogs }) {
+      return {
+        title: `Featured Blogs Section`,
+        subtitle: joinStrings('|', title, displayNumber(blogs?.length, 'Blog')),
+      }
+    },
+  },
 })

@@ -10,7 +10,7 @@ export default defineType({
       name: 'text',
       title: 'Text',
       description: 'Text for the link',
-      type: 'string',
+      type: 'locale_string',
     }),
     defineField({
       name: 'url',
@@ -25,7 +25,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'text.id',
+      title: 'text.en',
       subtitle: 'url',
     },
   },

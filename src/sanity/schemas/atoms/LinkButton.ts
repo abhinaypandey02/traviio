@@ -43,7 +43,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'label.id',
+      title: 'label.en',
       subtitle: 'url',
     },
   },

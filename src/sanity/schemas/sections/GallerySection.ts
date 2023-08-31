@@ -1,9 +1,13 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { displayNumber, joinStrings } from '@/utils/utils'
+import { Image } from '@phosphor-icons/react'
+
 export default defineType({
   name: 'gallery_section',
   title: 'Gallery Section',
   type: 'object',
+  icon: Image,
   fields: [
     defineField({
       name: 'title',
@@ -25,4 +29,16 @@ export default defineType({
       of: [defineArrayMember({ type: 'image' })],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title.en',
+      images: 'images',
+    },
+    prepare: ({ title, images }) => {
+      return {
+        title: `Gallery Section`,
+        subtitle: joinStrings('|', title, displayNumber(images?.length, 'Image')),
+      }
+    },
+  },
 })
