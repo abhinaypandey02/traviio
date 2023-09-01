@@ -19,12 +19,14 @@ export type SanityString = string
 export type SanityLocale = SupportedLanguage['id']
 
 export type SanityLocaleString = {
-  [x in SanityLocale]: string
+  [x in SanityLocale]?: string
 } & {
   _type: 'localeString'
 }
 
-export type SanityLocaleText = any
+export type SanityLocaleText = {
+  _type: 'locale_text'
+} & { [x in SanityLocale]?: string }
 
 export type SanityImage = {
   _type: 'image'
@@ -58,47 +60,47 @@ export type SanityIcon = {
 export type SanityFormButton = {
   _type: 'form_button'
   _key: string
-  is_icon: boolean
-  label: SanityLocaleString
-  icon: SanityIcon
+  is_icon?: boolean
+  label?: SanityLocaleString
+  icon?: SanityIcon
 }
 
 export type SanityFormInputField = {
   _type: 'form_input_field'
   _key: string
-  placeholder: SanityLocaleString
-  submit_button: SanityFormButton
+  placeholder?: SanityLocaleString
+  submit_button?: SanityFormButton
 }
 
 export type SanityLink = {
   _type: 'link'
   _key: string
-  text: SanityLocaleString
-  url: string
+  text?: SanityLocaleString
+  url?: string
 }
 
 export type SanityLinkButton = {
   _type: 'link_button'
   _key: string
-  type: 'primary' | 'secondary'
-  label: SanityLocaleString
-  url: string
-  icon: SanityIcon
+  type?: 'primary' | 'secondary'
+  label?: SanityLocaleString
+  url?: string
+  icon?: SanityIcon
 }
 
 export type SanityMetaData = {
   _type: 'meta_data'
   _key: string
-  meta_title: SanityLocaleString
-  meta_description: SanityLocaleString
-  meta_image: SanityImage
+  meta_title?: SanityLocaleString
+  meta_description?: SanityLocaleString
+  meta_image?: SanityImage
 }
 
 export type SanityPromoBanner = {
   _type: 'promo_banner'
   _key: string
-  text: SanityLocaleString
-  link: SanityLink
+  text?: SanityLocaleString
+  link?: SanityLink
 }
 
 //                   ______            __             __
@@ -119,26 +121,26 @@ export type SanityContentTypes =
 export type SanityContentText = {
   _type: 'content_text'
   _key: string
-  text: SanityString
+  text?: SanityString
 }
 
 export type SanityContentImage = {
   _type: 'content_image'
   _key: string
-  image: SanityImage
-  alt: SanityString
+  image?: SanityImage
+  alt?: SanityString
 }
 
 export type SanityContentGroup = {
   _type: 'layout_group'
   _key: string
-  items: SanityContentTypes[]
+  items?: SanityContentTypes[]
 }
 
 export type SanityContentStack = {
   _type: 'layout_stack'
   _key: string
-  items: SanityContentTypes[]
+  items?: SanityContentTypes[]
 }
 
 export type SanityContentRichText = any
@@ -154,153 +156,149 @@ export type SanitySectionNames = (typeof sections)[number]
 export type SanityDealsSection = {
   _type: 'deals_section'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
 }
 
 export type SanityFAQ = {
   _type: 'faq'
   _key: string
-  question: SanityLocaleString
-  answer: SanityLocaleString
+  question?: SanityLocaleString
+  answer?: SanityLocaleText
 }
 
 export type SanityFAQSection = {
   _type: 'faq_section'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  faqs: SanityFAQ[]
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  faqs?: SanityFAQ[]
 }
 
 export type SanityFeature = {
   _type: 'feature'
   _key: string
-  title: SanityLocaleString
-  description: SanityLocaleString
-  icon: SanityIcon
+  title?: SanityLocaleString
+  description?: SanityLocaleString
+  icon?: SanityIcon
 }
 
 export type SanityFeatureSection = {
   _type: 'feature_section'
   _key: string
-  type: 'small' | 'large'
-  title: SanityLocaleString
-  features: SanityFeature[]
+  type?: 'small' | 'large'
+  title?: SanityLocaleString
+  features?: SanityFeature[]
 }
 
 export type SanityGallerySection = {
   _type: 'gallery_section'
   _key: string
-  title: SanityLocaleString
-  subtitle: SanityLocaleString
-  images: SanityImage[]
+  title?: SanityLocaleString
+  subtitle?: SanityLocaleString
+  images?: SanityImage[]
 }
 
 export type SanityHeroSection = {
   _type: 'hero_section'
   _key: string
-  title: SanityLocaleString
-  subtitle: SanityLocaleString
-  image: SanityImage
-  cta_buttons: SanityLinkButton[]
-  cta_helper_text: SanityLocaleString
-  has_search: boolean
-  form_input_field: SanityFormInputField
-  scores: SanityImage[]
+  title?: SanityLocaleString
+  subtitle?: SanityLocaleString
+  image?: SanityImage
+  cta_buttons?: SanityLinkButton[]
+  cta_helper_text?: SanityLocaleString
+  has_search?: boolean
+  form_input_field?: SanityFormInputField
+  scores?: SanityImage[]
 }
 
 export type SanityImageHeaderSection = {
   _type: 'image_header_section'
   _key: string
-  header: SanityLocaleString
-  image: SanityImage
+  header?: SanityLocaleString
+  image?: SanityImage
 }
 
 export type SanityIndexSection = {
   _type: 'index_section'
   _key: string
-  title: SanityLocaleString
-  links: SanityLink[]
+  title?: SanityLocaleString
+  links?: SanityLink[]
 }
 
 export type SanityNewsletterSection = {
   _type: 'newsletter_section'
   _key: string
-  title: SanityLocaleString
-  subtitle: SanityLocaleString
-  image: SanityImage
-  email_form: SanityFormInputField
-  query_section_title: SanityLocaleString
-  query_section_subtitle: SanityLocaleString
-  query_section_subtitle_icon: SanityImage
+  title?: SanityLocaleString
+  subtitle?: SanityLocaleString
+  image?: SanityImage
 }
 
 export type SanityReviewsSection = {
   _type: 'reviews_section'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  reviews: {
-    name: SanityLocaleString
-    time: SanityLocaleString
-    country: SanityLocaleString
-    rating: number
-    title: SanityLocaleString
-    text: SanityLocaleString
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  reviews?: {
+    name?: SanityLocaleString
+    time?: SanityLocaleString
+    country?: SanityLocaleString
+    rating?: number
+    title?: SanityLocaleString
+    text?: SanityLocaleString
   }[]
 }
 
 export type SanityTestimonial = {
   _type: 'testimonial'
   _key: string
-  name: SanityLocaleString
-  time: SanityLocaleString
-  country: SanityLocaleString
-  rating: number
-  title: SanityLocaleString
-  text: SanityLocaleString
+  name?: SanityLocaleString
+  time?: SanityLocaleString
+  country?: SanityLocaleString
+  rating?: number
+  title?: SanityLocaleString
+  text?: SanityLocaleString
 }
 
 export type SanityTestimonialSection = {
   _type: 'testimonial_section'
   _key: string
-  title: SanityLocaleString
-  subtitle: SanityLocaleString
-  testimonials: SanityTestimonial[]
+  title?: SanityLocaleString
+  subtitle?: SanityLocaleString
+  testimonials?: SanityTestimonial[]
 }
 
 export type SanityContentSection = {
   _type: 'content_section'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  content: any
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  content?: any
 }
 
 export type SanitySidebarForm = {
   _type: 'sidebar_form'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  form_input_fields: (SanityFormInputField | SanityFormButton)[]
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  form_input_fields?: (SanityFormInputField | SanityFormButton)[]
 }
 
 export type SanitySidebarLatestArticles = {
   _type: 'sidebar_latest_articles'
   _key: string
-  title: SanityLocaleString
-  tagline: SanityLocaleString
-  articles_count: number
+  title?: SanityLocaleString
+  tagline?: SanityLocaleString
+  articles_count?: number
 }
 
 export type SanitySidebarRelatedTours = {
   _type: 'sidebar_related_tours'
   _key: string
-  title: SanityLocaleString
-  tagline: SanityLocaleString
-  tours_count: number
-  tags: {
+  title?: SanityLocaleString
+  tagline?: SanityLocaleString
+  tours_count?: number
+  tags?: {
     _type: 'reference'
     _ref: string
   }
@@ -314,9 +312,9 @@ export type SanityBlogSidebar = {
 export type SanityFeaturedBlogsSection = {
   _type: 'featured_blogs_section'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  featured_blogs: {
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  featured_blogs?: {
     _type: 'reference'
     _ref: string
   }[]
@@ -325,75 +323,75 @@ export type SanityFeaturedBlogsSection = {
 export type SanityFeaturedPlaceBlogsSection = {
   _type: 'featured_place_blogs_section'
   _key: string
-  cards: {
+  cards?: {
     _type: 'card'
     _key: string
-    title: SanityLocaleString
-    link: SanityLink
-    image: SanityImage
+    title?: SanityLocaleString
+    link?: SanityLink
+    image?: SanityImage
   }[]
 }
 
 export type SanityInterestsSection = {
   _type: 'interests_section'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  interests: {
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  interests?: {
     _type: 'interest'
     _key: string
-    title: SanityLocaleString
-    image: SanityImage
+    title?: SanityLocaleString
+    image?: SanityImage
   }[]
 }
 
 export type SanityLatestPostsSection = {
   _type: 'latest_posts_section'
   _key: string
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  filter_tags: {
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  filter_tags?: {
     _type: 'reference'
     _ref: string
   }[]
-  sorting_methods: ('recent' | 'popular' | 'featured')[]
+  sorting_methods?: ('recent' | 'popular' | 'featured')[]
 }
 
 export type SanityAccommodationSection = {
   _type: 'accommodation_section'
   _key: string
-  subtitle: SanityLocaleString
-  title: SanityLocaleString
-  accommodation_types: {
+  subtitle?: SanityLocaleString
+  title?: SanityLocaleString
+  accommodation_types?: {
     accommodation_type: {
-      title: SanityLocaleString
-      subtitle: SanityLocaleString
-      rating: number
-      resorts: {
-        title: SanityLocaleString
-        image: SanityImage
+      title?: SanityLocaleString
+      subtitle?: SanityLocaleString
+      rating?: number
+      resorts?: {
+        title?: SanityLocaleString
+        image?: SanityImage
       }[]
     }
   }[]
 }
 
 export type SanityImageShowcase = {
-  title: SanityLocaleString
-  images_data: {
-    image: SanityImage
-    image_size: {
-      width: number
-      height: number
+  title?: SanityLocaleString
+  images_data?: {
+    image?: SanityImage
+    image_size?: {
+      width?: number
+      height?: number
     }
   }[]
 }
 
 export type SanityFeaturedToursSection = {
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  tour_cards: {
-    badge_content: SanityLocaleString
-    content: {
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  tour_cards?: {
+    badge_content?: SanityLocaleString
+    content?: {
       _type: 'reference'
       _ref: string
     }
@@ -401,22 +399,22 @@ export type SanityFeaturedToursSection = {
 }
 
 export type SanityItinerarySection = {
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  enquire_sidebar: {
-    icon: SanityIcon
-    title: SanityLocaleString
-    subtitle: SanityLocaleString
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  enquire_sidebar?: {
+    icon?: SanityIcon
+    title?: SanityLocaleString
+    subtitle?: SanityLocaleString
   }[]
-  itinerary_day_cards: {
-    title: SanityLocaleString
-    description: SanityLocaleText
-    image: SanityImage
-    itinerary_details_lists: {
-      icon: SanityIcon
-      title: SanityLocaleString
-      itinerary_details_list_items: {
-        title: SanityLocaleString
+  itinerary_day_cards?: {
+    title?: SanityLocaleString
+    description?: SanityLocaleText
+    image?: SanityImage
+    itinerary_details_lists?: {
+      icon?: SanityIcon
+      title?: SanityLocaleString
+      itinerary_details_list_items?: {
+        title?: SanityLocaleString
       }[]
     }[]
   }[]
@@ -424,35 +422,35 @@ export type SanityItinerarySection = {
 
 export type SanityMemorableExperiencesSection = {
   _type: 'memorable_experiences_section'
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  experience_cards: {
-    title: SanityLocaleString
-    image: SanityImage
-    description: SanityLocaleText
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  experience_cards?: {
+    title?: SanityLocaleString
+    image?: SanityImage
+    description?: SanityLocaleText
   }[]
 }
 
 export type SanityPricingSection = {
   _type: 'pricing_section'
-  title: SanityLocaleString
+  title?: SanityLocaleString
 }
 
 export type SanityTravelInfoSection = {
   _type: 'travel_info_section'
-  icon: SanityIcon
-  title: SanityLocaleString
-  subtitle: SanityLocaleString
-  cta: SanityLinkButton
+  icon?: SanityIcon
+  title?: SanityLocaleString
+  subtitle?: SanityLocaleString
+  cta?: SanityLinkButton
 }
 
 export type SanityWhatsIncludedSection = {
   _type: 'whats_included_section'
-  title: SanityLocaleString
-  inclusion_list: {
-    icon: SanityIcon
-    title: SanityLocaleString
-    description: SanityLocaleString[]
+  title?: SanityLocaleString
+  inclusion_list?: {
+    icon?: SanityIcon
+    title?: SanityLocaleString
+    description?: SanityLocaleString[]
   }[]
 }
 
@@ -465,17 +463,17 @@ export type SanityWhatsIncludedSection = {
 export type SanityTag = {
   _type: 'tag'
   _key: string
-  name: SanityLocaleString
+  name?: SanityLocaleString
 }
 
 export type SanityPage = {
   _type: 'page'
-  slug: {
+  slug?: {
     _type: 'slug'
-    current: string
+    current?: string
   }
-  meta_data: SanityMetaData
-  sections: (
+  meta_data?: SanityMetaData
+  sections?: (
     | SanityDealsSection
     | SanityFAQSection
     | SanityFeatureSection
@@ -489,41 +487,41 @@ export type SanityPage = {
 
 export type SanityArticle = {
   _type: 'article'
-  slug: {
+  slug?: {
     _type: 'slug'
-    current: string
+    current?: string
   }
-  cover_image: SanityImage
-  title: SanityLocaleString
-  tags: {
+  cover_image?: SanityImage
+  title?: SanityLocaleString
+  tags?: {
     _type: 'array'
     _key: string
     _ref: string[]
-    _weak: boolean
+    _weak?: boolean
   }
-  introduction: SanityContentRichText
-  author: SanityLocaleString
-  time: SanityLocaleString
-  subsections: {
-    tagline: SanityLocaleString
-    title: SanityLocaleString
-    content: SanityContentRichText[]
+  introduction?: SanityContentRichText
+  author?: SanityLocaleString
+  time?: SanityLocaleString
+  subsections?: {
+    tagline?: SanityLocaleString
+    title?: SanityLocaleString
+    content?: SanityContentRichText[]
   }[]
 }
 
 export type SanityBlogPage = {
   _type: 'blog_page'
-  slug: {
+  slug?: {
     _type: 'slug'
-    current: string
+    current?: string
   }
-  meta_data: SanityMetaData
-  promo_banner: SanityPromoBanner
-  article: {
+  meta_data?: SanityMetaData
+  promo_banner?: SanityPromoBanner
+  article?: {
     _type: 'reference'
     _ref: string
   }
-  sections: (
+  sections?: (
     | SanityFeaturedBlogsSection
     | SanityFeaturedPlaceBlogsSection
     | SanityInterestsSection
@@ -531,81 +529,81 @@ export type SanityBlogPage = {
     | SanityContentSection
     | SanityNewsletterSection
   )[]
-  sidebar: SanityBlogSidebar
+  sidebar?: SanityBlogSidebar
 }
 
 export type SanityTailorYourTour = {
   _type: 'tailor_your_tour'
-  slug: {
+  slug?: {
     _type: 'slug'
-    current: string
+    current?: string
   }
-  step_1: {
-    title: SanityLocaleString
-    tagline: SanityLocaleString
-    place_cards: {
-      title: SanityLocaleString
-      image: SanityImage
-      is_primary_label: boolean
+  step_1?: {
+    title?: SanityLocaleString
+    tagline?: SanityLocaleString
+    place_cards?: {
+      title?: SanityLocaleString
+      image?: SanityImage
+      is_primary_label?: boolean
     }[]
-    next_btn: SanityLocaleString
-    faq_section: SanityFAQSection
+    next_btn?: SanityLocaleString
+    faq_section?: SanityFAQSection
   }
-  step_2: {
-    title: SanityLocaleString
-    tagline: SanityLocaleString
-    calendar_section: {
-      radio_buttons: {
-        text: SanityLocaleString
+  step_2?: {
+    title?: SanityLocaleString
+    tagline?: SanityLocaleString
+    calendar_section?: {
+      radio_buttons?: {
+        text?: SanityLocaleString
       }[]
     }
-    next_btn: SanityLocaleString
-    back_btn: SanityLocaleString
-    faq_section: SanityFAQSection
+    next_btn?: SanityLocaleString
+    back_btn?: SanityLocaleString
+    faq_section?: SanityFAQSection
   }
-  step_3: {
-    title: SanityLocaleString
-    tagline: SanityLocaleString
-    form_section: {
-      radio_buttons: {
-        text: SanityLocaleString
+  step_3?: {
+    title?: SanityLocaleString
+    tagline?: SanityLocaleString
+    form_section?: {
+      radio_buttons?: {
+        text?: SanityLocaleString
       }[]
     }
-    next_btn: SanityLocaleString
-    back_btn: SanityLocaleString
-    faq_section: SanityFAQSection
+    next_btn?: SanityLocaleString
+    back_btn?: SanityLocaleString
+    faq_section?: SanityFAQSection
   }
-  step_4: {
-    title: SanityLocaleString
-    tagline: SanityLocaleString
-    form_section: string
-    faq_section: SanityFAQSection
+  step_4?: {
+    title?: SanityLocaleString
+    tagline?: SanityLocaleString
+    form_section?: string
+    faq_section?: SanityFAQSection
   }
 }
 
 export type SanityTourPage = {
   _type: 'tour_page'
-  meta_data: SanityMetaData
-  slug: {
+  meta_data?: SanityMetaData
+  slug?: {
     _type: 'slug'
-    current: string
+    current?: string
   }
-  promo_banner: SanityPromoBanner
-  hero_section: {
-    title: SanityLocaleString
-    image: SanityImage
+  promo_banner?: SanityPromoBanner
+  hero_section?: {
+    title?: SanityLocaleString
+    image?: SanityImage
   }
-  overview_card: {
-    duration: SanityLocaleString
-    countries: SanityLocaleString
-    cities: number
-    rating: SanityLocaleString
-    about: SanityLocaleString
-    price: SanityLocaleString
-    cta_button: SanityLinkButton
-    cta_helper_text: SanityLocaleString
+  overview_card?: {
+    duration?: SanityLocaleString
+    countries?: SanityLocaleString
+    cities?: number
+    rating?: SanityLocaleString
+    about?: SanityLocaleString
+    price?: SanityLocaleString
+    cta_button?: SanityLinkButton
+    cta_helper_text?: SanityLocaleString
   }
-  sections: (
+  sections?: (
     | SanityContentSection
     | SanityFeatureSection
     | SanityReviewsSection
@@ -623,38 +621,38 @@ export type SanityTourPage = {
 
 export type SanityTravelGuide = {
   _type: 'travel_guide'
-  slug: {
+  slug?: {
     _type: 'slug'
-    current: string
+    current?: string
   }
-  image_hero: {
-    image: SanityImage
-    text: SanityLocaleString
+  image_hero?: {
+    image?: SanityImage
+    text?: SanityLocaleString
   }
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  location: SanityLocaleString
-  sections: {
-    title: SanityLocaleString
-    content: SanityContentRichText
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  location?: SanityLocaleString
+  sections?: {
+    title?: SanityLocaleString
+    content?: SanityContentRichText
   }[]
 }
 
 export type SanityTravelWiki = {
   _type: 'travel_wiki'
-  slug: {
+  slug?: {
     _type: 'slug'
-    current: string
+    current?: string
   }
-  image_hero: {
-    image: SanityImage
-    text: SanityLocaleString
+  image_hero?: {
+    image?: SanityImage
+    text?: SanityLocaleString
   }
-  tagline: SanityLocaleString
-  title: SanityLocaleString
-  location: SanityLocaleString
-  sections: {
-    title: SanityLocaleString
-    content: SanityContentRichText
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  location?: SanityLocaleString
+  sections?: {
+    title?: SanityLocaleString
+    content?: SanityContentRichText
   }[]
 }
