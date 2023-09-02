@@ -13,7 +13,11 @@ type PageProps = {
   globals: SanityGlobals
 } & LocalePage
 
+
+
+
 export default function Page({ data, locale, globals }: PageProps) {
+
   return (
     <LocaleProvider locale={locale}>
       <Slicer components={SectionMap} sections={data.sections} />

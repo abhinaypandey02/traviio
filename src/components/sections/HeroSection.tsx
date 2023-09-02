@@ -22,14 +22,14 @@ const HeroSection = ({ data }: HeroSectionProps) => {
       </p>
       <section
         className="h-[538px] flex items-center md:items-start justify-center md:justify-between flex-col px-[80px] py-[48px]"
-        style={{ backgroundImage: `${linearGradient}, url(${urlFor(data.image)})` }}
+        style={{ backgroundImage: `${linearGradient}, url(${data.image ?urlFor(data.image):""})` }}
       >
         <div className="w-[335px] md:w-[552px] h-[314px]">
           <h1 className="text-[28px] md:text-[56px] font-[900] leading-[38px] md:leading-[78px] text-center md:text-start ">
-            {data.title.en}
+            {data.title?.en}
           </h1>
           <h3 className="text-[14px] md:text-[20px] font-[400] leading-[20px] md:leading-[32px] text-center md:text-start ">
-            {data.subtitle.en}
+            {data?.subtitle?.en}
           </h3>
           <div className="flex gap-0 md:gap-[10px] pt-[48px] items-center justify-center md:justify-start">
             <PrimaryButton title={'Inquire Now'} />
@@ -37,7 +37,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           </div>
         </div>
         <div className="flex items-center">
-          {data.scores.map((score, index) => (
+          {data.scores?.map((score, index) => (
             <React.Fragment key={index}>
               {index !== 0 && (
                 <div className="border-r rounded-[1px] border-yellow mx-4 h-[73px]"></div>
