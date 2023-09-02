@@ -270,6 +270,7 @@ export type SanityTestimonialSection = {
   _type: 'testimonial_section'
   _key: string
   title?: SanityLocaleString
+  image?:SanityLocaleString
   subtitle?: SanityLocaleString
   testimonials?: SanityTestimonial[]
 }
