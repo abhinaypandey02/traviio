@@ -10,6 +10,12 @@ import { sections } from '@/sanity/schemas/sections'
 
 export type SanityString = string
 
+export type SanitySlug = {
+  _type: 'slug'
+  _key: string
+  current: string
+}
+
 //                ___   __
 //               /   | / /_____  ____ ___  _____
 //              / /| |/ __/ __ \/ __ `__ \/ ___/
@@ -468,10 +474,7 @@ export type SanityTag = {
 
 export type SanityPage = {
   _type: 'page'
-  slug?: {
-    _type: 'slug'
-    current?: string
-  }
+  slug?: SanitySlug
   meta_data?: SanityMetaData
   sections?: (
     | SanityDealsSection
@@ -487,10 +490,7 @@ export type SanityPage = {
 
 export type SanityArticle = {
   _type: 'article'
-  slug?: {
-    _type: 'slug'
-    current?: string
-  }
+  slug?: SanitySlug
   cover_image?: SanityImage
   title?: SanityLocaleString
   tags?: {
@@ -511,10 +511,7 @@ export type SanityArticle = {
 
 export type SanityBlogPage = {
   _type: 'blog_page'
-  slug?: {
-    _type: 'slug'
-    current?: string
-  }
+  slug?: SanitySlug
   meta_data?: SanityMetaData
   promo_banner?: SanityPromoBanner
   article?: {
@@ -534,10 +531,7 @@ export type SanityBlogPage = {
 
 export type SanityTailorYourTour = {
   _type: 'tailor_your_tour'
-  slug?: {
-    _type: 'slug'
-    current?: string
-  }
+  slug?: SanitySlug
   step_1?: {
     title?: SanityLocaleString
     tagline?: SanityLocaleString
@@ -584,10 +578,7 @@ export type SanityTailorYourTour = {
 export type SanityTourPage = {
   _type: 'tour_page'
   meta_data?: SanityMetaData
-  slug?: {
-    _type: 'slug'
-    current?: string
-  }
+  slug?: SanitySlug
   promo_banner?: SanityPromoBanner
   hero_section?: {
     title?: SanityLocaleString
@@ -621,10 +612,7 @@ export type SanityTourPage = {
 
 export type SanityTravelGuide = {
   _type: 'travel_guide'
-  slug?: {
-    _type: 'slug'
-    current?: string
-  }
+  slug?: SanitySlug
   image_hero?: {
     image?: SanityImage
     text?: SanityLocaleString
@@ -640,10 +628,7 @@ export type SanityTravelGuide = {
 
 export type SanityTravelWiki = {
   _type: 'travel_wiki'
-  slug?: {
-    _type: 'slug'
-    current?: string
-  }
+  slug?: SanitySlug
   image_hero?: {
     image?: SanityImage
     text?: SanityLocaleString
