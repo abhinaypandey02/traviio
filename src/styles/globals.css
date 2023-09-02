@@ -25,3 +25,39 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.mySwiper .swiper-button-next{
+  color: white;
+  background-color: rgb(34, 155, 247);
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  padding: 10;
+  scale: 0.4;
+  transform:  translateX(50px);
+}
+.mySwiper .swiper-button-prev{
+color: white;
+background-color: rgb(34, 155, 247);
+border-radius: 100%;
+width: 100px;
+height: 100px;
+padding: 10;
+scale: 0.4;
+transform:  translateX(-50px);
+}
+.mySwiper .swiper-button-disabled{
+display: none;
+opacity: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .mySwiper .swiper-button-next {
+    position: absolute;
+   
+  }
+  .mySwiper .swiper-button-prev {
+    position: absolute;
+  }
+ 
+}
