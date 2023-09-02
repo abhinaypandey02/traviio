@@ -1,4 +1,4 @@
-import { SanityLocale, SanityPage } from '@/sanity/types'
+import { SanityLocale, SanitySlug } from '@/sanity/types'
 
 import { getSlugsFromPath } from './utils'
 
@@ -7,7 +7,7 @@ export type LocalePage = {
 }
 
 export function getPaths(
-  sanitySlugs: SanityPage['slug'][],
+  sanitySlugs: SanitySlug[],
   locales: string[] | undefined
 ): {
   params: {
