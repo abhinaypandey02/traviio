@@ -2,16 +2,17 @@ import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
 import { LocaleProvider } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
-import { SanityLocale, SanityPage } from '@/sanity/types'
+import { SanityGlobals, SanityLocale, SanityPage, SanitySlug } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs, getSlugsFromPath } from '@/utils/utils'
 
 type PageProps = {
   slug: string
   data: SanityPage
+  globals: SanityGlobals
 } & LocalePage
 
-export default function Page({ slug, data, locale }: PageProps) {
+export default function Page({ slug, data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
       <div>{JSON.stringify({ slug, data, locale })}</div>
@@ -22,7 +23,7 @@ export default function Page({ slug, data, locale }: PageProps) {
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const slugs = (await client.fetch(
     `*[_type == "page" && slug.current != "/"]{slug}.slug`
-  )) as SanityPage['slug'][]
+  )) as SanitySlug[]
 
   return {
     paths: getPaths(slugs, locales),
@@ -41,11 +42,13 @@ async function fetchPageData(slug: string): Promise<SanityPage> {
 export const getStaticProps: GetStaticProps<PageProps> = async ({ params, locale }) => {
   const slug = getSanitySlugFromSlugs(params?.slug)
   const pageData = await fetchPageData(slug)
+  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {
       slug: slug,
       data: pageData,
       locale: (locale ?? 'en') as SanityLocale,
+      globals,
     },
   }
 }

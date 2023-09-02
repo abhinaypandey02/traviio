@@ -641,3 +641,40 @@ export type SanityTravelWiki = {
     content?: SanityContentRichText
   }[]
 }
+
+export type SanityGlobals = {
+  _type: 'globals'
+  navbar?: {
+    logo?: SanityImage
+    links?: (
+      | SanityLink
+      | {
+          _type: 'dropdown'
+          _key: string
+          title?: SanityLocaleString
+          links?: SanityLink[]
+        }
+    )[]
+    cta?: SanityLinkButton
+  }
+  footer?: {
+    logo?: SanityImage
+    title?: SanityLocaleString
+    description?: SanityLocaleText
+    link_groups?: {
+      _type: 'link_group'
+      _key: string
+      title?: SanityLocaleString
+      links?: SanityLink[]
+    }[]
+    locations?: {
+      _type: 'location'
+      _key: string
+      title?: SanityLocaleString
+      address?: SanityLocaleString
+      phone_number?: SanityLocaleString
+      email?: string
+    }[]
+    copyright_text?: SanityLocaleText
+  }
+}
