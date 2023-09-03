@@ -29,7 +29,6 @@ const BlogCard = () => {
 
 const BlogSection = (props:BlogSectionProps) => {
   const { data: {tagline, title} } = props;
-  console.log(tagline,title)
   return (
     <div className='lg:px-20 px-10 py-10  bg-white text-black'>
     <h2 className='text-blue text-base font-medium text-center'>{tagline?.en}</h2>
