@@ -17,7 +17,8 @@ module.exports = {
         gray:"#726E83",
         whilte:"#FFFFFF",
         yellow:"#FFBB0B",
-        red:"#D10002"
+        red:"#D10002",
+        primary: "#F2FAFF",
       }
     },
   },

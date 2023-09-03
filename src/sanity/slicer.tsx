@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import Layout from '@/components/layout';
 
 export default function Slicer({
   sections,
@@ -8,7 +9,7 @@ export default function Slicer({
   components: { [name in string]: FunctionComponent<any> }
 }) {
   return (
-    <div>
+    <Layout>
       {sections?.map((section) => (
         <React.Fragment key={section._key}>
           {components[section._type] &&
@@ -17,6 +18,6 @@ export default function Slicer({
             })}
         </React.Fragment>
       ))}
-    </div>
+    </Layout>
   )
 }
