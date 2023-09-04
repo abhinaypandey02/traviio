@@ -16,12 +16,12 @@ const HeroSection = ({ data }: HeroSectionProps) => {
     'linear-gradient(75.52deg, #000000 1.5%, rgba(0, 0, 0, 0.8) 9.18%, rgba(0, 0, 0, 0.7) 15.93%, rgba(0, 0, 0, 0.6) 37.5%, rgba(0, 0, 0, 0) 63.68%)'
   return (
     <>
-      <p className="w-full h-[40px] bg-darkblue text-[14px] font-[400] leading-[24px] flex items-center justify-center ">
+      <p className="w-full h-[40px] text-white bg-darkblue text-[14px] font-[400] leading-[24px] flex items-center justify-center ">
         More summer for less. Save up to 20% off selected trips*.{' '}
         <span className="underline cursor-pointer">Book now</span>
       </p>
       <section
-        className="h-[538px] flex items-center md:items-start justify-center md:justify-between flex-col px-[80px] py-[48px]"
+        className="h-[538px] text-white flex items-center md:items-start justify-center md:justify-between flex-col px-[80px] py-[48px]"
         style={{ backgroundImage: `${linearGradient}, url(${data.image ?urlFor(data.image):""})` }}
       >
         <div className="w-[335px] md:w-[552px] h-[314px]">

@@ -40,7 +40,7 @@ function HeaderLink({ item }: { item: TLink | TDropdown }) {
                 <Image src="/down_icon.svg" height="16" width="16" alt="" className='mx-2'></Image>
             </span>
             {
-              <div className={"p-5 w-fit flex flex-col gap-2 bg-primary border-darkblue transition-all bg-blue border rounded-xl absolute top-[100%] left-1/2 " + (open ? " " : "hidden")}>
+              <div className={"p-5 w-fit flex flex-col gap-2 bg-primary border-darkblue transition-all border shadow-md absolute top-[100%] left-1/2 " + (open ? " " : "hidden")}>
                 {item.children.map((element, index) => {
                   return <HeaderLink item={element} key={index} />
                 })}
