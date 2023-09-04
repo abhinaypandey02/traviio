@@ -28,8 +28,8 @@ export type FeatureProps = { data: SanityFeature }
 
 const Feature = ({ data }: FeatureProps) => {
   return (
-    <div className="flex flex-col md:flex-row items-center">
-      {/* <Image src={urlFor(data.icon )} width={48} height={48} alt="" /> */}
+    <div className="flex flex-col md:flex-row items-center justify-center">
+      {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={48} height={48} alt="" />}
       <p className="text-center md:text-start text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] px-[8px]">
         {data.title?.en}
       </p>
