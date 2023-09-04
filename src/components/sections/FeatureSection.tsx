@@ -10,12 +10,12 @@ export type FeatureSectionProps = {
 
 const FeatureSection = ({ data }: FeatureSectionProps) => {
   return (
-    <section className="flex flex-col items-center h-[257px] md:h-[128px] bg-[#F2FAFF] text-[#140D31]">
+    <section className="  text-center h-[257px]py-10   text-[#140D31]">
       <h2 className="text-[20px] md:text-[24px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
         {data.title?.en}
       </h2>
-      <hr className="h-[3px] w-[91px] md:w-[103px] rounded-[2px] bg-yellow" />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full px-[80px] py-[10px]">
+      <hr className="w-[85px] md:w-[117px] my-2 m-auto bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full px-[80px] py-[10px]">
         {data?.features?.map((feature, index) => (
           <Feature key={index} data={feature} />
         ))}
