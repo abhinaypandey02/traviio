@@ -117,7 +117,7 @@ const GallerySection = (props: GallerySectionProps) => {
 
 
          </div>
-            <div className='mx-3 ' >
+            <div className='mx-3 lg:hidden block ' >
                <Swiper
                   navigation={true}
                   slidesPerView={1}
