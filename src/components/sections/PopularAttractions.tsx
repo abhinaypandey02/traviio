@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
 
 const TOURS = [
   {
@@ -87,12 +87,12 @@ const TOURS = [
 const PopularAttractions = () => {
   return (
     <div className="w-[90%] mx-auto">
-      <h1 className='font-semibold text-black text-xl'>Popular Attractions</h1>
+      <h1 className="font-semibold text-black text-xl">Popular Attractions</h1>
       <hr className="lg:w-1/12 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
       <div className="flex flex-wrap my-2">
         {TOURS.map((item, index) => {
           return (
-            <div className="flex my-2">
+            <div key={index} className="flex my-2">
               <Link key={index} href={item.link} className="py-1">
                 {item.name}
               </Link>

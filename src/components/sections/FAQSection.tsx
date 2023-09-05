@@ -16,7 +16,7 @@ const FAQSection = ({ data }: FAQSectionProps) => {
         {data.tagline?.en}
       </h3>
       <hr className="w-[85px] md:w-[117px] bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
-    
+
       <div className="w-full mt-8 space-y-4">
         {data.faqs?.map((faq, index) => (
           <details key={index} className="text-black m-4 md:mx-[80px] ">

@@ -1,4 +1,3 @@
-
 import { MongooseModel } from './index'
 import { IAddUserInput, IMongoose, IUpdateUserInput } from './interface'
 
@@ -6,7 +5,7 @@ const ADMIN = process.env.SITE_ADMINS!?.split(', ')
 
 const QueryResolvers = {
   async user(_: null, args: { email: string }): Promise<IMongoose | null> {
-      return MongooseModel.findOne({ email: args.email })
+    return MongooseModel.findOne({ email: args.email })
   },
   async userById(_: null, args: { id?: string }): Promise<IMongoose | null> {
     if (args.id) {
@@ -25,21 +24,13 @@ const MutationResolvers = {
     return await newUser.save()
   },
 
-  async updateUser(
-    _: any,
-    { user }: IUpdateUserInput,
-  ): Promise<IMongoose | null> {
-    const newUser = await MongooseModel.findOneAndUpdate(
-      { email: user.email },
-      user,
-      { new: true }
-    )
+  async updateUser(_: any, { user }: IUpdateUserInput): Promise<IMongoose | null> {
+    const newUser = await MongooseModel.findOneAndUpdate({ email: user.email }, user, { new: true })
     return newUser
   },
 }
 
-const TypeResolvers = {
-}
+const TypeResolvers = {}
 
 const GQLResolvers = {
   query: QueryResolvers,

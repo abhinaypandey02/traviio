@@ -1,10 +1,13 @@
-import { SanityDealsSection } from '@/sanity/types'
 import React from 'react'
-import Button from '../buttons/Button'
+import { FreeMode, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+
+import { SanityDealsSection } from '@/sanity/types'
+
+import Button from '../buttons/Button'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { Navigation, FreeMode } from 'swiper/modules'
 
 export type DealSectionProps = {
   data: SanityDealsSection

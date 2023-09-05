@@ -22,7 +22,9 @@ const HeroSection = ({ data }: HeroSectionProps) => {
       </p>
       <section
         className="h-[538px] text-white flex items-center md:items-start justify-center md:justify-between flex-col px-[80px] py-[48px]"
-        style={{ backgroundImage: `${linearGradient}, url(${data.image ?urlFor(data.image):""})` }}
+        style={{
+          backgroundImage: `${linearGradient}, url(${data.image ? urlFor(data.image) : ''})`,
+        }}
       >
         <div className="w-[335px] md:w-[552px] h-[314px]">
           <h1 className="text-[28px] md:text-[56px] font-[900] leading-[38px] md:leading-[78px] text-center md:text-start ">

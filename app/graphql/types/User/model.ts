@@ -44,7 +44,6 @@ const GraphqlType = `
 
 export const MongooseSchema = new Schema<IMongoose>(
   {
-
     firstName: {
       type: String,
       required: false,

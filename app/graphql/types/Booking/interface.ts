@@ -16,5 +16,5 @@ export interface IMongoose {
   from: typeof Date
   to: typeof Date
   tour: Types.ObjectId
-  price:number
+  price: number
 }

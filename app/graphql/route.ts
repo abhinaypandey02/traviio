@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server'
 import mongoose from 'mongoose'
 
-import { assertENV } from './helpers/errorHandlers'
 import { ApolloServer } from '@apollo/server'
 import {
   ApolloServerPluginLandingPageLocalDefault,
@@ -9,6 +8,7 @@ import {
 } from '@apollo/server/plugin/landingPage/default'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
 
+import { assertENV } from './helpers/errorHandlers'
 import resolvers from './controller'
 import typeDefs from './model'
 
@@ -19,9 +19,7 @@ if (assertENV(process.env.MONGODB_URI, true)) {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [
-    ApolloServerPluginLandingPageLocalDefault()
-  ],
+  plugins: [ApolloServerPluginLandingPageLocalDefault()],
   introspection: true,
 })
 const handler = startServerAndCreateNextHandler(server)
