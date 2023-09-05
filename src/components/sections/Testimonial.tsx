@@ -93,10 +93,10 @@ const Testimonial = (props: TestimonialSectionProps) => {
     data: { title, subtitle, image, testimonials },
   } = props
 
-  console.log(testimonials)
+ 
 
   return (
-    <div className="w-full bg-[#F2FAFF]  text-black px-10 py-10 lg:flex items-center gap-x-10 bg-primary">
+    <div className="w-full bg-[#F2FAFF]  text-black px-10 py-10 lg:flex items-center gap-x-10 ">
       <div className="lg:w-1/5 w-full">
         {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
         <h3 className="font-semibold text-4xl">{'Hear it from our'}</h3>
