@@ -255,6 +255,20 @@ export type SanityReviewsSection = {
   }[]
 }
 
+export type SanityOfficeLocationsSection = {
+  _type: 'office_locations_section'
+  _key: string
+  title: SanityLocaleString
+  locations: {
+    title: SanityLocaleString
+    image: SanityImage
+    address: SanityLocaleString
+    phone: SanityLocaleString
+    email: SanityLocaleString
+  }[]
+}
+
+
 export type SanityTestimonial = {
   _type: 'testimonial'
   _key: string

@@ -10,6 +10,10 @@ import HeroSection from './HeroSection'
 import NewsletterSection from './NewsletterSection'
 import Testimonial from './Testimonial'
 import GallerySection from './GallerySection'
+import ContentSection from './ContentSection'
+import ReviewSection from './ReviewSection'
+import OfficeLocationSection from './OfficeLocationSection'
+
 
 export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {
   hero_section: HeroSection,
@@ -19,7 +23,10 @@ export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any>
   deals_section: DealsSection,
   testimonial_section: Testimonial,
   featured_blogs_section: BlogSection,
-  gallery_section:GallerySection
+  gallery_section:GallerySection,
+  content_section:ContentSection,
+  reviews_section:ReviewSection,
+  office_locations_section:OfficeLocationSection
   // blog_section,
   // content_section,
   // deals_section,
