@@ -3,7 +3,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { LocaleProvider } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
-import { SanityGlobals, SanityLocale, SanityPage, SanitySlug } from '@/sanity/types'
+import { SanityGlobals, SanityLocale, SanityPage, SanitySlug, SanityTourPage } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
@@ -11,7 +11,7 @@ import { SectionMap } from '@/components/sections'
 
 type PageProps = {
   slug: string
-  data: SanityPage
+  data: SanityTourPage
   globals: SanityGlobals
 } & LocalePage
 
@@ -24,9 +24,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const slugs = (await client.fetch(
-    `*[_type == "page" && slug.current != "/"]{slug}.slug`
-  )) as SanitySlug[]
+  const slugs = (await client.fetch(`*[_type == "tour_page"]{slug}.slug`)) as SanitySlug[]
 
   return {
     paths: getPaths(slugs, locales),
@@ -34,10 +32,10 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   }
 }
 
-async function fetchPageData(slug: string): Promise<SanityPage> {
+async function fetchPageData(slug: string): Promise<SanityTourPage> {
   const page = (await client.fetch(
-    `*[_type == "page"  && slug.current == "${slug}"][0]`
-  )) as SanityPage
+    `*[_type == "tour_page"  && slug.current == "${slug}"][0]`
+  )) as SanityTourPage
 
   return page
 }

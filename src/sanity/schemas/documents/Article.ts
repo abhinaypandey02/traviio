@@ -11,6 +11,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'destination',
+      title: 'Destination',
+      description: 'Destination this article is meant for',
+      type: 'reference',
+      to: [{ type: 'destination_page' }],
+    }),
+    defineField({
       name: 'cover_image',
       title: 'Cover Image',
       description: 'The cover image for the blog',
