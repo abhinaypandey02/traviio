@@ -4,6 +4,9 @@ const nextConfig = {
     locales: ['en', 'es'], // @/src/sanity/schemas/atoms/locale/index
     defaultLocale: 'en',
   },
+  experimental: {
+    serverComponentsExternalPackages: ['mongoose', 'node-fetch']
+  },
   images: {
     remotePatterns: [
       {

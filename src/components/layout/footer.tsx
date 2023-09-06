@@ -1,8 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Footer__links from './components/Footer__links'
+
 import Address from './components/Address'
+import Footer__links from './components/Footer__links'
 
 const SOCIAL_LINKS = [
   {
@@ -158,7 +159,16 @@ const Footer = () => {
           </div>
           <div className="flex flex-wrap gap-2 mt-auto">
             {CARDS.map((item, index) => {
-              return <Image width={50} height={32} src={item} alt="" key={index} className='w-[50px] h-[32px]'/>
+              return (
+                <Image
+                  width={50}
+                  height={32}
+                  src={item}
+                  alt=""
+                  key={index}
+                  className="w-[50px] h-[32px]"
+                />
+              )
             })}
           </div>
         </div>
