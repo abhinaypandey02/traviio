@@ -14,7 +14,11 @@ const Address = ({
 }) => {
   return (
     <div className="flex flex-col text-gray text-sm w-[90%] gap-3">
+<<<<<<< HEAD
       <p className="text-lg text-darkblue">{heading}</p>
+=======
+      <p className='text-lg text-darkblue'>{heading}</p>
+>>>>>>> deep
       <div className="flex items-start gap-2">
         <Image width={20} height={20} alt="" src="/map_icon.svg"></Image>
         <p>{address}</p>
