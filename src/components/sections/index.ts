@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react'
 
 import {
+  SanityBlogPageSectionNames,
   SanityDestinationSectionNames,
   SanitySectionNames,
 } from '@/sanity/types'
@@ -38,4 +39,10 @@ export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any>
   // testimonial_section
 }
 
-export const DestinationSectionsMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {}
+export const DestinationSectionsMap: {
+  [name in SanityDestinationSectionNames]?: FunctionComponent<any>
+} = {}
+
+export const BlogPageSectionsMap: {
+  [name in SanityBlogPageSectionNames]?: FunctionComponent<any>
+} = {}

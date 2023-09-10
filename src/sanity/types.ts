@@ -643,6 +643,16 @@ export type SanityAllBlogsSection = {
   title?: SanityLocaleString
 }
 
+export type SanityBlogPageSection =
+  | SanityFeaturedBlogsSection
+  | SanityFeaturedPlaceBlogsSection
+  | SanityInterestsSection
+  | SanityImageHeaderSection
+  | SanityContentSection
+  | SanityNewsletterSection
+
+export type SanityBlogPageSectionNames = SanityBlogPageSection['_type']
+
 export type SanityBlogPage = {
   _type: 'blog_page'
   slug?: SanitySlug
@@ -652,14 +662,7 @@ export type SanityBlogPage = {
     _type: 'reference'
     _ref: string
   } & SanityArticle
-  sections?: (
-    | SanityFeaturedBlogsSection
-    | SanityFeaturedPlaceBlogsSection
-    | SanityInterestsSection
-    | SanityImageHeaderSection
-    | SanityContentSection
-    | SanityNewsletterSection
-  )[]
+  sections?: SanityBlogPageSection[]
   sidebar?: SanityBlogSidebar
 }
 
