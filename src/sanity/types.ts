@@ -752,6 +752,11 @@ export type SanityTourPage = {
   )[]
 }
 
+export type SanityTravelGuideSection = {
+  title?: SanityLocaleString
+  content?: SanityContentRichText
+}
+
 export type SanityTravelGuide = {
   _type: 'travel_guide'
   slug?: SanitySlug
@@ -762,10 +767,7 @@ export type SanityTravelGuide = {
   tagline?: SanityLocaleString
   title?: SanityLocaleString
   location?: SanityLocaleString
-  sections?: {
-    title?: SanityLocaleString
-    content?: SanityContentRichText
-  }[]
+  sections?: SanityTravelGuideSection[]
 }
 
 export type SanityTravelWiki = {
