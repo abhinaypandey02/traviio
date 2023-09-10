@@ -1,6 +1,8 @@
 import { content_layouts } from '@/sanity/schemas/atoms/content'
 import { SupportedLanguage } from '@/sanity/schemas/atoms/locale'
 import { sections } from '@/sanity/schemas/sections'
+import { DestinationSections } from './schemas/sections/Destination/index'
+import { TourSections } from './schemas/sections/Tours/index'
 
 //                  ____      __          _ ____
 //                 /  _/___  / /_  __  __(_) / /_
@@ -159,6 +161,10 @@ export type SanityContentRichText = any
 
 export type SanitySectionNames = (typeof sections)[number]
 
+export type SanityDestinationSectionNames = (typeof DestinationSections)[number]
+
+export type SanityTourSectionNames = (typeof TourSections)[number]
+
 export type SanityDealsSection = {
   _type: 'deals_section'
   _key: string
@@ -231,6 +237,7 @@ export type SanityImageHeaderSection = {
   _key: string
   header?: SanityLocaleString
   image?: SanityImage
+  content?:SanityLocaleText
 }
 
 export type SanityIndexSection = {
