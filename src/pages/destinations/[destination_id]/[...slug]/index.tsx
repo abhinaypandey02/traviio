@@ -7,7 +7,7 @@ import { SanityGlobals, SanityLocale, SanityPage, SanitySlug, SanityTourPage } f
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
-import { SectionMap } from '@/components/sections'
+import { DestinationSectionsMap } from '@/components/sections'
 
 type PageProps = {
   slug: string
@@ -18,7 +18,7 @@ type PageProps = {
 export default function Page({ slug, data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer components={SectionMap} sections={data.sections} />
+      <Slicer components={DestinationSectionsMap} sections={data.sections} />
     </LocaleProvider>
   )
 }

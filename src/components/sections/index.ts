@@ -1,6 +1,9 @@
 import { FunctionComponent } from 'react'
 
-import { SanitySectionNames } from '@/sanity/types'
+import {
+  SanityDestinationSectionNames,
+  SanitySectionNames,
+} from '@/sanity/types'
 
 import BlogSection from './BlogSection'
 import ContentSection from './ContentSection'

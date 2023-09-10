@@ -571,6 +571,16 @@ export type SanityTag = {
   name?: SanityLocaleString
 }
 
+export type SanityDestinationSection =
+  | SanityFeaturedBlogsSection
+  | SanityFeaturedPlaceBlogsSection
+  | SanityInterestsSection
+  | SanityImageHeaderSection
+  | SanityContentSection
+  | SanityNewsletterSection
+
+export type SanityDestinationSectionNames = SanityDestinationSection['_type']
+
 export type SanityDestinationPage = {
   _type: 'destination_page'
   destination_id?: SanityString
@@ -581,17 +591,7 @@ export type SanityDestinationPage = {
     title?: SanityLocaleString
     image?: SanityImage
   }
-  sections?: (
-    | SanityImageHeaderSection
-    | SanityAllBlogsSection
-    | SanityReviewsSection
-    | SanityFAQSection
-    | SanityHeroCardSection
-    | SanityFeaturedToursSection
-    | SanityTourSelectionSection
-    | SanityTopThingsSection
-    | SanityAtGlanceSection
-  )[]
+  sections?: SanityDestinationSection[]
 }
 
 export type SanityPage = {
