@@ -1,6 +1,14 @@
 import { FunctionComponent } from 'react'
 
-import { SanityDestinationSectionNames, SanitySectionNames } from '@/sanity/types'
+
+
+
+import {
+  SanityBlogPageSectionNames,
+  SanityDestinationSectionNames,
+  SanitySectionNames,
+} from '@/sanity/types'
+
 
 import BlogSection from './BlogSection'
 import ContentSection from './ContentSection'
@@ -37,6 +45,7 @@ export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any>
   // testimonial_section
 }
 
+
 export const DestinationSectionsMap: { [name in SanityDestinationSectionNames]?: FunctionComponent<any> } = {
   image_header_section:ImageHeaderSection,
   reviews_section: ReviewSection,
@@ -47,3 +56,10 @@ export const DestinationSectionsMap: { [name in SanityDestinationSectionNames]?:
 
 
 }
+
+
+
+export const BlogPageSectionsMap: {
+  [name in SanityBlogPageSectionNames]?: FunctionComponent<any>
+} = {}
+

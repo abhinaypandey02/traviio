@@ -578,6 +578,16 @@ export type SanityTag = {
   name?: SanityLocaleString
 }
 
+export type SanityDestinationSection =
+  | SanityFeaturedBlogsSection
+  | SanityFeaturedPlaceBlogsSection
+  | SanityInterestsSection
+  | SanityImageHeaderSection
+  | SanityContentSection
+  | SanityNewsletterSection
+
+export type SanityDestinationSectionNames = SanityDestinationSection['_type']
+
 export type SanityDestinationPage = {
   _type: 'destination_page'
   destination_id?: SanityString
@@ -588,17 +598,7 @@ export type SanityDestinationPage = {
     title?: SanityLocaleString
     image?: SanityImage
   }
-  sections?: (
-    | SanityImageHeaderSection
-    | SanityAllBlogsSection
-    | SanityReviewsSection
-    | SanityFAQSection
-    | SanityHeroCardSection
-    | SanityFeaturedToursSection
-    | SanityTourSelectionSection
-    | SanityTopThingsSection
-    | SanityAtGlanceSection
-  )[]
+  sections?: SanityDestinationSection[]
 }
 
 export type SanityPage = {
@@ -650,6 +650,16 @@ export type SanityAllBlogsSection = {
   title?: SanityLocaleString
 }
 
+export type SanityBlogPageSection =
+  | SanityFeaturedBlogsSection
+  | SanityFeaturedPlaceBlogsSection
+  | SanityInterestsSection
+  | SanityImageHeaderSection
+  | SanityContentSection
+  | SanityNewsletterSection
+
+export type SanityBlogPageSectionNames = SanityBlogPageSection['_type']
+
 export type SanityBlogPage = {
   _type: 'blog_page'
   slug?: SanitySlug
@@ -659,14 +669,7 @@ export type SanityBlogPage = {
     _type: 'reference'
     _ref: string
   } & SanityArticle
-  sections?: (
-    | SanityFeaturedBlogsSection
-    | SanityFeaturedPlaceBlogsSection
-    | SanityInterestsSection
-    | SanityImageHeaderSection
-    | SanityContentSection
-    | SanityNewsletterSection
-  )[]
+  sections?: SanityBlogPageSection[]
   sidebar?: SanityBlogSidebar
 }
 
@@ -756,6 +759,11 @@ export type SanityTourPage = {
   )[]
 }
 
+export type SanityTravelGuideSection = {
+  title?: SanityLocaleString
+  content?: SanityContentRichText
+}
+
 export type SanityTravelGuide = {
   _type: 'travel_guide'
   slug?: SanitySlug
@@ -766,10 +774,12 @@ export type SanityTravelGuide = {
   tagline?: SanityLocaleString
   title?: SanityLocaleString
   location?: SanityLocaleString
-  sections?: {
-    title?: SanityLocaleString
-    content?: SanityContentRichText
-  }[]
+  sections?: SanityTravelGuideSection[]
+}
+
+export type SanityTravelWikiSection = {
+  title?: SanityLocaleString
+  content?: SanityContentRichText
 }
 
 export type SanityTravelWiki = {
@@ -782,10 +792,7 @@ export type SanityTravelWiki = {
   tagline?: SanityLocaleString
   title?: SanityLocaleString
   location?: SanityLocaleString
-  sections?: {
-    title?: SanityLocaleString
-    content?: SanityContentRichText
-  }[]
+  sections?: SanityTravelWikiSection[]
 }
 
 export type SanityGlobals = {

@@ -3,28 +3,30 @@ import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { LocaleProvider } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
-import { SanityGlobals, SanityLocale, SanityPage, SanitySlug, SanityTourPage } from '@/sanity/types'
+import { SanityBlogPage, SanityGlobals, SanityLocale, SanitySlug } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
-import { DestinationSectionsMap } from '@/components/sections'
+import { BlogPageSectionsMap } from '@/components/sections'
 
-type PageProps = {
+type BlogPageProps = {
   slug: string
-  data: SanityTourPage
+  data: SanityBlogPage
   globals: SanityGlobals
 } & LocalePage
 
-export default function Page({ slug, data, locale, globals }: PageProps) {
+export default function BlogPage({ slug, data, locale, globals }: BlogPageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer components={DestinationSectionsMap} sections={data.sections} />
+      <Slicer components={BlogPageSectionsMap} sections={data.sections} />
     </LocaleProvider>
   )
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const slugs = (await client.fetch(`*[_type == "tour_page"]{slug}.slug`)) as SanitySlug[]
+  const slugs = (await client.fetch(
+    `*[_type == "blog_page" && slug.current != "/"]{slug}.slug`
+  )) as SanitySlug[]
 
   return {
     paths: getPaths(slugs, locales),
@@ -32,22 +34,22 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   }
 }
 
-async function fetchPageData(slug: string): Promise<SanityTourPage> {
+async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
   const page = (await client.fetch(
-    `*[_type == "tour_page"  && slug.current == "${slug}"][0]`
-  )) as SanityTourPage
+    `*[_type == "blog_page"  && slug.current == "${slug}"][0]`
+  )) as SanityBlogPage
 
   return page
 }
 
-export const getStaticProps: GetStaticProps<PageProps> = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, locale }) => {
   const slug = getSanitySlugFromSlugs(params?.slug)
-  const pageData = await fetchPageData(slug)
+  const blogPageData = await fetchBlogPageData(slug)
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {
       slug: slug,
-      data: pageData,
+      data: blogPageData,
       locale: (locale ?? 'en') as SanityLocale,
       globals,
     },
