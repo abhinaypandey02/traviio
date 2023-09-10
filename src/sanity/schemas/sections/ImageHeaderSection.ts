@@ -19,6 +19,12 @@ export default defineType({
       title: 'Image',
       type: 'image',
     }),
+    defineField({
+      name: 'content',
+      title: 'Content',
+      type: 'locale_text',
+    }),
+
   ],
   preview: {
     select: {
