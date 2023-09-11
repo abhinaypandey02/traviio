@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import React from 'react'
 
@@ -48,9 +49,11 @@ function IncludedTour({ items }: { items: IIncludedTour[] }) {
   }, [])
 
   return (
-    <>
+    <div className="w-[90%] mx-auto">
+      <h1 className="text-2xl font-semibold text-darkblue">What's Included in the Tour</h1>
+      <hr className="border-yellow border-2 w-[117px] mb-3" />
       {collapsed && (
-        <div className="overflow-hidden shadow-md w-[90%] mx-auto rounded-md">
+        <div className="overflow-hidden shadow-md w-full mx-auto rounded-md">
           <div className="flex w-full justify-evenly px-2 gap-2 bg-blue">
             {items.map((item, index) => {
               return (
@@ -59,7 +62,7 @@ function IncludedTour({ items }: { items: IIncludedTour[] }) {
                   onClick={() => setCurr(index)}
                   className={`${
                     curr === index ? 'border-b-2' : 'opacity-50'
-                  } border-yellow cursor-pointer`}
+                  } border-yellow cursor-pointer grow justify-center flex`}
                 >
                   <Image
                     src={item.icon}
@@ -67,7 +70,7 @@ function IncludedTour({ items }: { items: IIncludedTour[] }) {
                     width={26}
                     alt={item.title}
                     key={index}
-                    className="my-1"
+                    className="my-2"
                     style={{ fill: 'white', stroke: 'white' }}
                   />
                 </div>
@@ -80,33 +83,35 @@ function IncludedTour({ items }: { items: IIncludedTour[] }) {
         </div>
       )}
       {!collapsed && (
-        <table className='w-[90%] mx-auto divide-y-2 divide-gray divide-opacity-20'>
-          {items.map((item, index) => {
-            return (
-              <tr key={index} className=''>
-                <td className="w-fit flex gap-2 text-blue my-4 mr-4">
-                  <Image src={item.icon} height={40} width={40} alt={item.title} />
-                  <p>{item.title}</p>
-                </td>
-                <td className="">
-                  <p>{item.description}</p>
-                  <div className="flex gap-2">
-                    {item.bullets?.map((bullet, index) => {
-                      return (
-                        <div className="flex items-center gap-2 whitespace-nowrap flex-nowrap">
-                          <div className="h-2 w-2 rounded-full bg-black"></div>
-                          <p>{bullet}</p>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </td>
-              </tr>
-            )
-          })}
+        <table className="w-full mx-auto divide-y-2 divide-gray divide-opacity-20">
+          <tbody>
+            {items.map((item, index) => {
+              return (
+                <tr key={index} className="">
+                  <td className="w-fit flex gap-2 text-blue my-10 mr-10 text-xl font-medium whitespace-nowrap">
+                    <Image src={item.icon} height={28} width={28} alt={item.title} />
+                    <p>{item.title}</p>
+                  </td>
+                  <td className="py-10">
+                    <p>{item.description}</p>
+                    <div className="flex gap-2 flex-wrap">
+                      {item?.bullets?.map((bullet, index) => {
+                        return (
+                          <div className="flex items-center gap-2" key={index}>
+                            <div className="h-1 w-1 rounded-full bg-black"></div>
+                            <p>{bullet}</p>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
       )}
-    </>
+    </div>
   )
 }
 

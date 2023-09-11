@@ -26,8 +26,6 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-<<<<<<< HEAD
-=======
 * {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -37,7 +35,6 @@ body {
   display: none;
 }
 
->>>>>>> deep
 .mySwiper .swiper-button-next{
   color: white;
   background-color: rgb(34, 155, 247);

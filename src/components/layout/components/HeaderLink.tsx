@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-=======
-import Link from 'next/link'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import React from 'react'
->>>>>>> deep
 
 type TLink = {
   name: string
@@ -42,7 +35,6 @@ function HeaderLink({ item }: { item: TLink | TDropdown }) {
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
           >
-<<<<<<< HEAD
             <span
               onClick={() => {
                 setOpen(!open)
@@ -59,23 +51,11 @@ function HeaderLink({ item }: { item: TLink | TDropdown }) {
                   (open ? ' ' : 'hidden')
                 }
               >
-=======
-            <span onClick={() => {setOpen(!open)}} className='flex items-center'>
-                <p>{item.name}</p>
-                <Image src="/down_icon.svg" height="16" width="16" alt="" className='mx-2'></Image>
-            </span>
-            {open && (
-              <div className="p-5 w-fit flex flex-col gap-2 bg-primary border-blue border rounded-xl absolute top-[100%] left-1/2">
->>>>>>> deep
                 {item.children.map((element, index) => {
                   return <HeaderLink item={element} key={index} />
                 })}
               </div>
-<<<<<<< HEAD
             }
-=======
-            )}
->>>>>>> deep
           </div>
         </>
       )}

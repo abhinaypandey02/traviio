@@ -3,10 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import ButtonTwo from '../buttons/ButtonTwo'
-<<<<<<< HEAD
-
-=======
->>>>>>> deep
 import HeaderLink from './components/HeaderLink'
 import LanguageDropdown from './components/LanguageDropdown'
 
@@ -108,11 +104,7 @@ const Header = () => {
                 return <HeaderLink item={item} key={index} />
               })}
             </div>
-<<<<<<< HEAD
             <div className="flex gap-2 items-center">
-=======
-            <div className='flex gap-2 items-center'>
->>>>>>> deep
               <Link href="/my-bookings">
                 <ButtonTwo className="flex gap-2 px-4 items-center">
                   <Image height={24} width={24} src="/bookings_icon.svg" alt="" />
