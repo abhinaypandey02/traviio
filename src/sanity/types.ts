@@ -1,6 +1,7 @@
 import { content_layouts } from '@/sanity/schemas/atoms/content'
 import { SupportedLanguage } from '@/sanity/schemas/atoms/locale'
 import { sections } from '@/sanity/schemas/sections'
+
 import { DestinationSections } from './schemas/sections/Destination/index'
 import { TourSections } from './schemas/sections/Tours/index'
 
@@ -161,8 +162,6 @@ export type SanityContentRichText = any
 
 export type SanitySectionNames = (typeof sections)[number]
 
-export type SanityDestinationSectionNames = (typeof DestinationSections)[number]
-
 export type SanityTourSectionNames = (typeof TourSections)[number]
 
 export type SanityDealsSection = {
@@ -237,7 +236,7 @@ export type SanityImageHeaderSection = {
   _key: string
   header?: SanityLocaleString
   image?: SanityImage
-  content?:SanityLocaleText
+  content?: SanityLocaleText
 }
 
 export type SanityIndexSection = {
@@ -579,18 +578,20 @@ export type SanityTag = {
 }
 
 export type SanityDestinationSection =
-  | SanityFeaturedBlogsSection
-  | SanityFeaturedPlaceBlogsSection
-  | SanityInterestsSection
   | SanityImageHeaderSection
-  | SanityContentSection
-  | SanityNewsletterSection
+  | SanityAllBlogsSection
+  | SanityReviewsSection
+  | SanityFAQSection
+  | SanityHeroCardSection
+  | SanityFeaturedToursSection
+  | SanityTourSelectionSection
+  | SanityTopThingsSection
+  | SanityAtGlanceSection
 
 export type SanityDestinationSectionNames = SanityDestinationSection['_type']
 
 export type SanityDestinationPage = {
   _type: 'destination_page'
-  destination_id?: SanityString
   slug?: SanitySlug
   meta_data?: SanityMetaData
   promo_banner?: SanityPromoBanner

@@ -37,10 +37,6 @@ export default defineType({
         {
           type: 'reference',
           to: [{ type: 'article' }],
-          options: {
-            filter: 'destination.destination_id == $destination_id',
-            filterParams: { destination_id: 'destination_id.destination_id' },
-          },
         },
       ],
     }),

@@ -34,10 +34,6 @@ export default defineType({
         {
           type: 'reference',
           to: [{ type: 'tour_page' }],
-          options: {
-            filter: 'destination.destination_id == $destination_id',
-            filterParams: { destination_id: 'destination_id.destination_id' },
-          },
         },
       ],
     }),

@@ -12,10 +12,16 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'destination_id',
-      title: 'Destination ID',
-      description: 'Destination ID for the page, will be used in the url',
-      type: 'string',
+      name: 'name',
+      title: 'Name',
+      description: 'Name of the destination',
+      type: 'locale_string',
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      description: 'Slug for the page',
+      type: 'slug',
     }),
     defineField({
       name: 'meta_data',
@@ -62,14 +68,14 @@ export default defineType({
   preview: {
     select: {
       title: 'meta_data.meta_title.en',
-      destination_id: 'destination_id',
+      name: 'name.en',
       subtitle: 'slug.current',
       media: 'meta_data.meta_image',
       sections: 'sections',
     },
-    prepare: ({ title, destination_id, subtitle, media, sections }) => {
+    prepare: ({ title, name, subtitle, media, sections }) => {
       return {
-        title: destination_id || 'No id',
+        title: name || 'No name',
         subtitle: joinStrings('|', subtitle, title, displayNumber(sections?.length, 'section')),
         media,
       }

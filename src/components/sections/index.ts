@@ -1,15 +1,13 @@
 import { FunctionComponent } from 'react'
 
-
-
-
 import {
   SanityBlogPageSectionNames,
   SanityDestinationSectionNames,
   SanitySectionNames,
+  SanityTourSectionNames,
 } from '@/sanity/types'
 
-
+import AtAGlanceSection from './AtAGlanceSection'
 import BlogSection from './BlogSection'
 import ContentSection from './ContentSection'
 import DealsSection from './DealsSection'
@@ -17,12 +15,11 @@ import FAQSection from './FAQSection'
 import FeatureSection from './FeatureSection'
 import GallerySection from './GallerySection'
 import HeroSection from './HeroSection'
+import ImageHeaderSection from './ImageHeaderSection'
 import NewsletterSection from './NewsletterSection'
 import OfficeLocationSection from './OfficeLocationSection'
 import ReviewSection from './ReviewSection'
 import Testimonial from './Testimonial'
-import ImageHeaderSection from './ImageHeaderSection'
-import AtAGlanceSection from './AtAGlanceSection'
 
 export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {
   hero_section: HeroSection,
@@ -45,21 +42,21 @@ export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any>
   // testimonial_section
 }
 
-
-export const DestinationSectionsMap: { [name in SanityDestinationSectionNames]?: FunctionComponent<any> } = {
-  image_header_section:ImageHeaderSection,
+export const DestinationSectionsMap: {
+  [name in SanityDestinationSectionNames]?: FunctionComponent<any>
+} = {
+  image_header_section: ImageHeaderSection,
   reviews_section: ReviewSection,
   faq_section: FAQSection,
-  all_blogs_section:BlogSection,
-  featured_tours_section:DealsSection,
-  at_glance_section:AtAGlanceSection
-
-
+  all_blogs_section: BlogSection,
+  featured_tours_section: DealsSection,
+  at_glance_section: AtAGlanceSection,
 }
-
-
 
 export const BlogPageSectionsMap: {
   [name in SanityBlogPageSectionNames]?: FunctionComponent<any>
 } = {}
 
+export const TourSectionsMap: {
+  [name in SanityTourSectionNames]?: FunctionComponent<any>
+} = {}
