@@ -23,14 +23,14 @@ const LanguageDropdown = () => {
   return (
     <div className="relative">
       <div
-        className="rounded-full bg-opacity-5 w-fit bg-blue border-blue border border-opacity-10 p-2 h-min flex items-center cursor-pointer gap-2"
+        className="rounded-full bg-opacity-20 w-fit bg-blue border-blue border border-opacity-30 p-2 h-min flex items-center cursor-pointer gap-2"
         onClick={() => setOpen(!open)}
       >
         <Image height={24} width={24} alt={curr} src={currimg} />
         <Image height={16} width={16} alt="" src="/down_icon.svg" />
       </div>
       {open && (
-        <div className="absolute bg-opacity-60 pt-3 px-2 border-blue bg-blue rounded-xl min-w-max right-0 my-2">
+        <div className="absolute pt-3 px-2 border-blue bg-blue rounded-xl min-w-max right-0 my-2">
           {LANGUAGES.map((item, index) => {
             return (
               <div

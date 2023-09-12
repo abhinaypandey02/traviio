@@ -16,6 +16,7 @@ import photo from './atoms/Photo'
 import promo_banner from './atoms/PromoBanner'
 import Article from './documents/Article'
 import blog_page from './documents/BlogPage'
+import destination_page from './documents/DestinationPage'
 import Globals from './documents/Globals'
 import Page from './documents/Page'
 import Tag from './documents/Tag'
@@ -26,9 +27,11 @@ import travel_wiki from './documents/TravelWiki'
 import { BlogSectionExports } from './sections/Blog'
 import content_section from './sections/ContentSection'
 import deals_section from './sections/DealsSection'
+import { DestinationSectionExports } from './sections/Destination'
 import { faq, faq_section } from './sections/FAQSection'
 import { feature, feature_section } from './sections/FeatureSection'
 import gallery_section from './sections/GallerySection'
+import hero_card_section from './sections/HeroCardSection'
 import hero_section from './sections/HeroSection'
 import image_header_section from './sections/ImageHeaderSection'
 import index_section from './sections/IndexSection'
@@ -74,9 +77,11 @@ export const schemaTypes = [
   reviews_section,
   testimonial_section,
   testimonial,
+  hero_card_section,
   // Blog Sections
   ...BlogSectionExports,
   ...TourSectionExports,
+  ...DestinationSectionExports,
   // Singletons
   tailor_your_tour,
   // documents
@@ -88,4 +93,5 @@ export const schemaTypes = [
   Globals,
   travel_guide,
   travel_wiki,
+  destination_page,
 ]

@@ -18,8 +18,15 @@ export default defineType({
       type: 'meta_data',
     }),
     defineField({
+      name: 'destination',
+      title: 'Destination',
+      description: 'Destination this tour is meant for',
+      type: 'reference',
+      to: [{ type: 'destination_page' }],
+    }),
+    defineField({
       name: 'slug',
-      title: 'Slug (relative to /blog)',
+      title: 'Slug',
       description: 'Slug for the page',
       type: 'slug',
     }),
@@ -122,13 +129,14 @@ export default defineType({
   preview: {
     select: {
       title: 'meta_data.meta_title.en',
+      destination: 'destination.title.en',
       subtitle: 'slug.current',
       media: 'meta_data.meta_image',
       sections: 'sections',
     },
-    prepare: ({ title, subtitle, media, sections }) => {
+    prepare: ({ title, subtitle, media, sections, destination }) => {
       return {
-        title: title || 'No title',
+        title: joinStrings(':', destination || 'No Destination', title || 'No title'),
         subtitle: joinStrings(
           '|',
           subtitle || 'No slug',

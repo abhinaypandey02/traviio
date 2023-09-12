@@ -19,4 +19,5 @@ export const sections = [
   'office_locations_section',
   'testimonial_section',
   'featured_blogs_section',
+  'hero_card_section',
 ] as const

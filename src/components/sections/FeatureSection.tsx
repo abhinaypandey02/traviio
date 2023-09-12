@@ -9,7 +9,7 @@ export type FeatureSectionProps = {
 }
 
 const FeatureSection = ({ data }: FeatureSectionProps) => {
-  console.log(data)
+  
 
   return (
     <section

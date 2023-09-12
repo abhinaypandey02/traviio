@@ -12,11 +12,6 @@ export default defineType({
   ],
   fields: [
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-    }),
-    defineField({
       name: 'step_1',
       title: 'Step 1 | Choose destination',
       type: 'object',

@@ -12,6 +12,7 @@ export default defineType({
     defineField({
       name: 'slug',
       title: 'Slug',
+      description: "The slug for this travel wiki (relative to '/wikis')",
       type: 'slug',
     }),
     defineField({
