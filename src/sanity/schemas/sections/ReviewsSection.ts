@@ -6,7 +6,7 @@ import { Star } from '@phosphor-icons/react'
 export default defineType({
   name: 'reviews_section',
   title: 'Reviews Section',
-  icon: Star,
+  icon: Star as any,
   type: 'object',
   fields: [
     defineField({
@@ -30,7 +30,7 @@ export default defineType({
         defineArrayMember({
           name: 'review',
           title: 'Review',
-          icon: Star,
+          icon: Star as any,
           type: 'object',
           fields: [
             defineField({

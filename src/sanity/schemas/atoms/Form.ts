@@ -5,7 +5,7 @@ import { HandPointing, Textbox } from '@phosphor-icons/react'
 export const form_input_field = defineType({
   name: 'form_input_field',
   title: 'Form Input Field',
-  icon: Textbox,
+  icon: Textbox as any,
   description: 'Form input field',
   type: 'object',
   fields: [
@@ -27,7 +27,7 @@ export const form_input_field = defineType({
 export const form_button = defineType({
   name: 'form_button',
   title: 'Form Button',
-  icon: HandPointing,
+  icon: HandPointing as any,
   description: 'Form button',
   type: 'object',
   fields: [

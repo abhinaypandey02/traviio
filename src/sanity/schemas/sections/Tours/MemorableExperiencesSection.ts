@@ -5,7 +5,7 @@ import { ShootingStar } from '@phosphor-icons/react'
 export default defineType({
   name: 'memorable_experiences_section',
   title: 'Memorable Experiences Section',
-  icon: ShootingStar,
+  icon: ShootingStar as any,
   description: 'A section with memorable experiences',
   type: 'object',
   fields: [
@@ -27,7 +27,7 @@ export default defineType({
         defineArrayMember({
           name: 'experience_card',
           title: 'Experience Card',
-          icon: ShootingStar,
+          icon: ShootingStar as any,
           description: 'A card with an experience',
           type: 'object',
           fields: [

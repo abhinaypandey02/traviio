@@ -5,7 +5,7 @@ import { AirplaneTakeoff } from '@phosphor-icons/react'
 export default defineType({
   name: 'top_tours_section',
   title: 'Top Tours Section',
-  icon: AirplaneTakeoff,
+  icon: AirplaneTakeoff as any,
   type: 'object',
   description: 'Top Tours available in the destination',
   fields: [

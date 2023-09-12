@@ -6,7 +6,7 @@ import { PenNib, Receipt } from '@phosphor-icons/react'
 export default defineType({
   name: 'article',
   title: 'Article',
-  icon: PenNib,
+  icon: PenNib as any,
   description: 'An article',
   type: 'document',
   fields: [
@@ -76,7 +76,7 @@ export default defineType({
         defineArrayMember({
           name: 'subsection',
           title: 'Subsection',
-          icon: Receipt,
+          icon: Receipt as any,
           type: 'object',
           fields: [
             defineField({

@@ -7,7 +7,7 @@ export const feature_section = defineType({
   name: 'feature_section',
   title: 'Feature Section',
   description: 'Features section with a title and a list of features',
-  icon: RocketLaunch,
+  icon: RocketLaunch as any,
   type: 'object',
   fields: [
     defineField({

@@ -6,7 +6,7 @@ import { Article, RoadHorizon } from '@phosphor-icons/react'
 export default defineType({
   name: 'travel_guide',
   title: 'Travel Guides',
-  icon: RoadHorizon,
+  icon: RoadHorizon as any,
   type: 'document',
   fields: [
     defineField({
@@ -55,7 +55,7 @@ export default defineType({
         defineArrayMember({
           name: 'section',
           title: 'Section',
-          icon: Article,
+          icon: Article as any,
           type: 'object',
           options: {
             collapsible: true,

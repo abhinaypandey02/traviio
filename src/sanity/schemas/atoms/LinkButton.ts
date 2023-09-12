@@ -5,7 +5,7 @@ import { LinkSimple } from '@phosphor-icons/react'
 export default defineType({
   name: 'link_button',
   title: 'Link Button',
-  icon: LinkSimple,
+  icon: LinkSimple as any,
   description: 'Link Button Component',
   type: 'object',
   fields: [

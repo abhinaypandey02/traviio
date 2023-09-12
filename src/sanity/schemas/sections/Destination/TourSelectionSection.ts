@@ -6,7 +6,7 @@ import { CursorClick, Funnel } from '@phosphor-icons/react'
 export default defineType({
   name: 'tour_selection_section',
   title: 'Tour Selection Section',
-  icon: CursorClick,
+  icon: CursorClick as any,
   type: 'object',
   fields: [
     defineField({
@@ -30,7 +30,7 @@ export default defineType({
         defineArrayMember({
           name: 'filter',
           title: 'Filter',
-          icon: Funnel,
+          icon: Funnel as any,
           type: 'object',
           fields: [
             defineField({

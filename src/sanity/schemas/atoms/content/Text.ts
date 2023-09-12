@@ -5,7 +5,7 @@ import { TextT } from '@phosphor-icons/react'
 export default defineType({
   name: 'content_text',
   title: 'Text Content',
-  icon: TextT,
+  icon: TextT as any,
   description: 'Text content',
   type: 'object',
   fields: [

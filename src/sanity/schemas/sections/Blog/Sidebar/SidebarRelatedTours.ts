@@ -6,7 +6,7 @@ import { NavigationArrow } from '@phosphor-icons/react'
 export default defineType({
   name: 'sidebar_related_tours',
   title: 'Sidebar Related Tours',
-  icon: NavigationArrow,
+  icon: NavigationArrow as any,
   description: 'Sidebar Related Tours Section for the blog',
   type: 'object',
   fields: [

@@ -8,7 +8,7 @@ import { BlogSections } from '../sections/Blog'
 export default defineType({
   name: 'blog_page',
   title: 'Blog Pages',
-  icon: Files,
+  icon: Files as any,
   description: 'A blog page',
   type: 'document',
   fields: [

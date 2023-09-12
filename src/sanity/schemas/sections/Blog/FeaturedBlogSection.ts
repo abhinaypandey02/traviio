@@ -6,7 +6,7 @@ import { Article } from '@phosphor-icons/react'
 export default defineType({
   name: 'featured_blogs_section',
   title: 'Featured Blogs Section',
-  icon: Article,
+  icon: Article as any,
   description: 'A section with featured blogs',
   type: 'object',
   fields: [
@@ -32,7 +32,7 @@ export default defineType({
           name: 'featured_blog',
           title: 'Featured Blog',
           description: 'A featured blog',
-          icon: Article,
+          icon: Article as any,
           type: 'reference',
           to: [{ type: 'article' }],
         }),

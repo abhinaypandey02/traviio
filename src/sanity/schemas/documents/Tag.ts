@@ -5,7 +5,7 @@ import { Tag } from '@phosphor-icons/react'
 export default defineType({
   name: 'tag',
   title: 'Tags',
-  icon: Tag,
+  icon: Tag as any,
   description: 'A tag',
   type: 'document',
   fields: [

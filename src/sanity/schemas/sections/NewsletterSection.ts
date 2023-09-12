@@ -6,7 +6,7 @@ export default defineType({
   name: 'newsletter_section',
   title: 'Newsletter Section',
   type: 'object',
-  icon: Rss,
+  icon: Rss as any,
   fields: [
     defineField({
       name: 'title',

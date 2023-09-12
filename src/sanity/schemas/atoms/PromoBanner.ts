@@ -5,7 +5,7 @@ import { Megaphone } from '@phosphor-icons/react'
 export default defineType({
   name: 'promo_banner',
   title: 'Promo Banner',
-  icon: Megaphone,
+  icon: Megaphone as any,
   description: 'Promo banner for the hero section',
   type: 'object',
   options: {

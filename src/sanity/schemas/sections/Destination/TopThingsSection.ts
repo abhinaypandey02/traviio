@@ -6,7 +6,7 @@ import { RocketLaunch } from '@phosphor-icons/react'
 export default defineType({
   name: 'top_things_section',
   title: 'Top Things Section',
-  icon: RocketLaunch,
+  icon: RocketLaunch as any,
   type: 'object',
   fields: [
     defineField({

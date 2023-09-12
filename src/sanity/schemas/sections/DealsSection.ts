@@ -6,7 +6,7 @@ export default defineType({
   name: 'deals_section',
   title: 'Deals Section',
   type: 'object',
-  icon: CreditCard,
+  icon: CreditCard as any,
   fields: [
     defineField({
       name: 'tagline',
