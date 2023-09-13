@@ -6,6 +6,8 @@ import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityTravelWiki } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 
+import Layout from '@/components/layout/index'
+
 type WikiPageProps = {
   data: SanityTravelWiki
   globals: SanityGlobals
@@ -14,10 +16,12 @@ type WikiPageProps = {
 export default function WikiPage({ data, locale, globals }: WikiPageProps) {
   return (
     <LocaleProvider locale={locale}>
-      {data.sections?.map((section, idx) => (
-        // Write the component here with the data section
-        <div key={idx}>{JSON.stringify(section)}</div>
-      ))}
+      <Layout>
+        {data.sections?.map((section, idx) => (
+          // Write the component here with the data section
+          <div key={idx}>{JSON.stringify(section)}</div>
+        ))}
+      </Layout>
     </LocaleProvider>
   )
 }
