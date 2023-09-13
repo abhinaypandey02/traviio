@@ -13,7 +13,14 @@ type WikiPageProps = {
 } & LocalePage
 
 export default function WikiPage({ slug, data, locale, globals }: WikiPageProps) {
-  return <LocaleProvider locale={locale}>{JSON.stringify(data)}</LocaleProvider>
+  return (
+    <LocaleProvider locale={locale}>
+      {data.sections?.map((section, idx) => (
+        // Write the component here with the data section
+        <div key={idx}>{JSON.stringify(section)}</div>
+      ))}
+    </LocaleProvider>
+  )
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {

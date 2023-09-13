@@ -13,7 +13,14 @@ type GuidePageProps = {
 } & LocalePage
 
 export default function GuidePage({ slug, data, locale, globals }: GuidePageProps) {
-  return <LocaleProvider locale={locale}>{JSON.stringify(data)}</LocaleProvider>
+  return (
+    <LocaleProvider locale={locale}>
+      {data.sections?.map((section, idx) => (
+        // Write the component here with the data section
+        <div key={idx}>{JSON.stringify(section)}</div>
+      ))}
+    </LocaleProvider>
+  )
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {

@@ -720,6 +720,22 @@ export type SanityTailorYourTour = {
   }
 }
 
+export type SanityTourPageSection =
+  | SanityContentSection
+  | SanityFeatureSection
+  | SanityReviewsSection
+  | SanityPricingSection
+  | SanityFAQSection
+  | SanityAccommodationSection
+  | SanityImageShowcase
+  | SanityItinerarySection
+  | SanityMemorableExperiencesSection
+  | SanityTravelInfoSection
+  | SanityFeaturedToursSection
+  | SanityWhatsIncludedSection
+
+export type SanityTourPageSectionNames = SanityTourPageSection['_type']
+
 export type SanityTourPage = {
   _type: 'tour_page'
   _key: string
@@ -744,20 +760,7 @@ export type SanityTourPage = {
     cta_button?: SanityLinkButton
     cta_helper_text?: SanityLocaleString
   }
-  sections?: (
-    | SanityContentSection
-    | SanityFeatureSection
-    | SanityReviewsSection
-    | SanityPricingSection
-    | SanityFAQSection
-    | SanityAccommodationSection
-    | SanityImageShowcase
-    | SanityItinerarySection
-    | SanityMemorableExperiencesSection
-    | SanityTravelInfoSection
-    | SanityFeaturedToursSection
-    | SanityWhatsIncludedSection
-  )[]
+  sections?: SanityTourPageSection[]
 }
 
 export type SanityTravelGuideSection = {

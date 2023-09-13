@@ -2,6 +2,7 @@ import type { GetStaticProps } from 'next'
 
 import { LocaleProvider } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
+import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityTravelWiki } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 
@@ -11,7 +12,14 @@ type WikiPageProps = {
 } & LocalePage
 
 export default function WikiPage({ data, locale, globals }: WikiPageProps) {
-  return <LocaleProvider locale={locale}>{JSON.stringify(data)}</LocaleProvider>
+  return (
+    <LocaleProvider locale={locale}>
+      {data.sections?.map((section, idx) => (
+        // Write the component here with the data section
+        <div key={idx}>{JSON.stringify(section)}</div>
+      ))}
+    </LocaleProvider>
+  )
 }
 
 export const getStaticProps: GetStaticProps<WikiPageProps> = async ({ locale }) => {

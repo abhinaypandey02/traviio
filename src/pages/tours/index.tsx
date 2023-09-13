@@ -2,8 +2,11 @@ import type { GetStaticProps } from 'next'
 
 import { LocaleProvider } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
+import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityTourPage } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
+
+import { TourSectionsMap } from '@/components/sections'
 
 type GuidePageProps = {
   data: SanityTourPage
@@ -11,7 +14,11 @@ type GuidePageProps = {
 } & LocalePage
 
 export default function GuidePage({ data, locale, globals }: GuidePageProps) {
-  return <LocaleProvider locale={locale}>{JSON.stringify(data)}</LocaleProvider>
+  return (
+    <LocaleProvider locale={locale}>
+      <Slicer components={TourSectionsMap} sections={data.sections} />
+    </LocaleProvider>
+  )
 }
 
 export const getStaticProps: GetStaticProps<GuidePageProps> = async ({ locale }) => {

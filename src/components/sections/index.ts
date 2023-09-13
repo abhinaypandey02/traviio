@@ -5,6 +5,7 @@ import {
   SanityDestinationSectionNames,
   SanitySectionNames,
   SanityTourSectionNames,
+  SanityTravelGuideSection,
 } from '@/sanity/types'
 
 import AtAGlanceSection from './AtAGlanceSection'
