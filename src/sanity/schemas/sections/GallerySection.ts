@@ -7,7 +7,7 @@ export default defineType({
   name: 'gallery_section',
   title: 'Gallery Section',
   type: 'object',
-  icon: Image,
+  icon: Image as any,
   fields: [
     defineField({
       name: 'title',

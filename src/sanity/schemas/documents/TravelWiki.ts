@@ -6,7 +6,7 @@ import { Article, Info } from '@phosphor-icons/react'
 export default defineType({
   name: 'travel_wiki',
   title: 'Travel Wikis',
-  icon: Info,
+  icon: Info as any,
   type: 'document',
   fields: [
     defineField({
@@ -55,7 +55,7 @@ export default defineType({
         defineArrayMember({
           name: 'section',
           title: 'Section',
-          icon: Article,
+          icon: Article as any,
           type: 'object',
           options: {
             collapsible: true,

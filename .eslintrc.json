@@ -7,12 +7,7 @@
     "es6": true
   },
   "ignorePatterns": "/__generated__/**/*",
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "next",
-    "next/core-web-vitals"
-  ],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "next", "next/core-web-vitals"],
   "rules": {
     "prettier/prettier": "warn",
     "react/react-in-jsx-scope": "off",
@@ -22,7 +17,8 @@
     "no-useless-escape": "off",
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
-    "no-redeclare": "off"
+    "no-redeclare": "off",
+    "react/jsx-key": "off"
   },
   "plugins": ["prettier", "simple-import-sort"],
   "overrides": [

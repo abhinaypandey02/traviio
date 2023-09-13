@@ -8,7 +8,7 @@ import { TourSections } from '../sections/Tours'
 export default defineType({
   name: 'tour_page',
   title: 'Tour Pages',
-  icon: SuitcaseRolling,
+  icon: SuitcaseRolling as any,
   type: 'document',
   fields: [
     defineField({

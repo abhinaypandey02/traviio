@@ -93,8 +93,6 @@ const Testimonial = (props: TestimonialSectionProps) => {
     data: { title, subtitle, image, testimonials },
   } = props
 
- 
-
   return (
     <div className="w-full bg-[#F2FAFF]  text-black px-10 py-10 lg:flex items-center gap-x-10 ">
       <div className="lg:w-1/5 w-full">

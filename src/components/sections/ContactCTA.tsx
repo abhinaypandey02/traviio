@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+
 import Button from '../buttons/Button'
 
 const ContactCTA = () => {
@@ -9,7 +10,7 @@ const ContactCTA = () => {
         <h1 className="text-xl md:text-3xl lg:text-5xl font-bold text-black leading-relaxed">
           Let us take care of the hassle and enjoy your vacation that you deserve
         </h1>
-        <Button text="Contact One of Our Tour Agents" className='!px-10'></Button>
+        <Button text="Contact One of Our Tour Agents" className="!px-10"></Button>
       </div>
       <div className="relative rounded-full overflow-hidden aspect-square mt-10">
         <Image src="/temp.jpg" fill alt=""></Image>

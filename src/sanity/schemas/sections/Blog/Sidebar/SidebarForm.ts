@@ -6,7 +6,7 @@ import { CursorText } from '@phosphor-icons/react'
 export default defineType({
   name: 'sidebar_form',
   title: 'Sidebar Form',
-  icon: CursorText,
+  icon: CursorText as any,
   description: 'Sidebar Form Section for the blog',
   type: 'object',
   fields: [

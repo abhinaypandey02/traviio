@@ -8,7 +8,7 @@ import { content_layouts } from '.'
 export default defineType({
   name: 'layout_stack',
   title: 'Stack Layout',
-  icon: Rows,
+  icon: Rows as any,
   description: 'A stack of content',
   type: 'object',
   fields: [

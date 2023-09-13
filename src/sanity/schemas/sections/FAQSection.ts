@@ -7,7 +7,7 @@ export const faq_section = defineType({
   name: 'faq_section',
   title: 'FAQ Section',
   type: 'object',
-  icon: Question,
+  icon: Question as any,
   fields: [
     defineField({
       name: 'title',

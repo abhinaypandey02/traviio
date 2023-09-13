@@ -6,7 +6,7 @@ import { MapPin } from '@phosphor-icons/react'
 export default defineType({
   name: 'office_locations_section',
   title: 'Office Locations Section',
-  icon: MapPin,
+  icon: MapPin as any,
   description: 'Office Locations Section',
   type: 'object',
   fields: [

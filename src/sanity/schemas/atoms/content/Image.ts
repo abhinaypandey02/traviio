@@ -5,7 +5,7 @@ import { Image } from '@phosphor-icons/react'
 export default defineType({
   name: 'content_image',
   title: 'Image Content',
-  icon: Image,
+  icon: Image as any,
   description: 'Image content',
   type: 'object',
   fields: [

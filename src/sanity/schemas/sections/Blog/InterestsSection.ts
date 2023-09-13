@@ -6,7 +6,7 @@ import { Star } from '@phosphor-icons/react'
 export default defineType({
   name: 'interests_section',
   title: 'Interests Section',
-  icon: Star,
+  icon: Star as any,
   description: 'A section with interests',
   type: 'object',
   fields: [

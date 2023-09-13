@@ -5,7 +5,7 @@ import { AirplaneTakeoff } from '@phosphor-icons/react'
 export default defineType({
   name: 'itinerary_section',
   title: 'Itinerary Section',
-  icon: AirplaneTakeoff,
+  icon: AirplaneTakeoff as any,
   description: 'A section with an itinerary',
   type: 'object',
   fields: [

@@ -5,7 +5,7 @@ import { Images } from '@phosphor-icons/react'
 export default defineType({
   name: 'image_showcase_section',
   title: 'Image Showcase Section',
-  icon: Images,
+  icon: Images as any,
   description: 'A section with a showcase of images',
   type: 'object',
   fields: [

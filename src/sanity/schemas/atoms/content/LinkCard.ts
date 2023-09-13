@@ -5,7 +5,7 @@ import { Cards } from '@phosphor-icons/react'
 export default defineType({
   name: 'content_link_card',
   title: 'Link Card',
-  icon: Cards,
+  icon: Cards as any,
   description: 'A link card',
   type: 'object',
   fields: [

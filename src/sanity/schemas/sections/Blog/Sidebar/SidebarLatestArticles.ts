@@ -6,7 +6,7 @@ import { EnvelopeOpen } from '@phosphor-icons/react'
 export default defineType({
   name: 'sidebar_latest_articles',
   title: 'Sidebar Latest Articles',
-  icon: EnvelopeOpen,
+  icon: EnvelopeOpen as any,
   description: 'Sidebar Latest Articles Section for the blog',
   type: 'object',
   fields: [

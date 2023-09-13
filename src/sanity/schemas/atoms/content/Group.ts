@@ -8,7 +8,7 @@ import { content_layouts } from '.'
 export default defineType({
   name: 'layout_group',
   title: 'Group Layout',
-  icon: Columns,
+  icon: Columns as any,
   description: 'A group of content',
   type: 'object',
   fields: [

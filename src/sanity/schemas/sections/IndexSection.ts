@@ -7,7 +7,7 @@ export default defineType({
   name: 'index_section',
   title: 'Index Section',
   type: 'object',
-  icon: BookBookmark,
+  icon: BookBookmark as any,
   fields: [
     defineField({
       name: 'title',

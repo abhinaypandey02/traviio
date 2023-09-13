@@ -15,7 +15,7 @@ export const SidebarSections = [
 const blog_sidebar = defineType({
   name: 'blog_sidebar',
   title: 'Blog Sidebar',
-  icon: Sidebar,
+  icon: Sidebar as any,
   description: 'Sidebar Section for the blog',
   type: 'array',
   of: SidebarSections.map((section) => ({ type: section })),

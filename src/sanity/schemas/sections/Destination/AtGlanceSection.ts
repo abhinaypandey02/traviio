@@ -6,7 +6,7 @@ import { Airplay, Link } from '@phosphor-icons/react'
 export default defineType({
   name: 'at_glance_section',
   title: 'At Glance Section',
-  icon: Airplay,
+  icon: Airplay as any,
   type: 'object',
   fields: [
     defineField({
@@ -30,7 +30,7 @@ export default defineType({
         defineArrayMember({
           name: 'fact',
           title: 'Fact',
-          icon: Airplay,
+          icon: Airplay as any,
           type: 'object',
           fields: [
             defineField({
@@ -83,7 +83,7 @@ export default defineType({
             defineArrayMember({
               name: 'useful_link',
               title: 'Useful Link',
-              icon: Link,
+              icon: Link as any,
               type: 'object',
               fields: [
                 defineField({

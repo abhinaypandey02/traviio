@@ -7,7 +7,7 @@ export default defineType({
   name: 'globals',
   title: 'Globals',
   type: 'document',
-  icon: Globe,
+  icon: Globe as any,
   groups: [
     { name: 'navbar', title: 'Navbar' },
     { name: 'footer', title: 'Footer' },
@@ -37,13 +37,13 @@ export default defineType({
             defineArrayMember({
               name: 'link',
               title: 'Link',
-              icon: Link,
+              icon: Link as any,
               type: 'link',
             }),
             defineArrayMember({
               name: 'dropdown',
               title: 'Dropdown',
-              icon: ListBullets,
+              icon: ListBullets as any,
               type: 'object',
               fields: [
                 defineField({
@@ -130,7 +130,7 @@ export default defineType({
             defineArrayMember({
               name: 'link_group',
               title: 'Link Group',
-              icon: ListBullets,
+              icon: ListBullets as any,
               type: 'object',
               fields: [
                 defineField({
@@ -144,7 +144,7 @@ export default defineType({
                   title: 'Links',
                   description: 'Links for the link group',
                   type: 'array',
-                  of: [defineArrayMember({ icon: Link, type: 'link' })],
+                  of: [defineArrayMember({ icon: Link as any, type: 'link' })],
                 }),
               ],
               preview: {
@@ -183,7 +183,7 @@ export default defineType({
                 defineArrayMember({
                   name: 'location',
                   title: 'Location',
-                  icon: MapPin,
+                  icon: MapPin as any,
                   type: 'object',
                   fields: [
                     defineField({

@@ -5,7 +5,7 @@ import { Article } from '@phosphor-icons/react'
 export default defineType({
   name: 'all_blogs_section',
   title: 'All Blogs Section',
-  icon: Article,
+  icon: Article as any,
   description: 'A section with all blogs',
   type: 'object',
   fields: [

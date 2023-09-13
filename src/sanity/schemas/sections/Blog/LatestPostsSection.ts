@@ -6,7 +6,7 @@ import { EnvelopeOpen } from '@phosphor-icons/react'
 export default defineType({
   name: 'latest_posts_section',
   title: 'Latest Posts Section',
-  icon: EnvelopeOpen,
+  icon: EnvelopeOpen as any,
   description: 'Latest Posts Section for the blog',
   type: 'object',
   fields: [

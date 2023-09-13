@@ -7,7 +7,7 @@ export default defineType({
   title: 'Image Header Section',
   description: 'A section with a header and an image',
   type: 'object',
-  icon: Image,
+  icon: Image as any,
   fields: [
     defineField({
       name: 'header',
@@ -24,7 +24,6 @@ export default defineType({
       title: 'Content',
       type: 'locale_text',
     }),
-
   ],
   preview: {
     select: {

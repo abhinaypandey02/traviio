@@ -7,7 +7,7 @@ export const testimonial_section = defineType({
   name: 'testimonial_section',
   title: 'Testimonial Section',
   type: 'object',
-  icon: Megaphone,
+  icon: Megaphone as any,
   fields: [
     defineField({
       name: 'title',

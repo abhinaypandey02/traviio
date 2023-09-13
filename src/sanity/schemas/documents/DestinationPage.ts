@@ -8,7 +8,7 @@ import { DestinationSections } from '../sections/Destination'
 export default defineType({
   name: 'destination_page',
   title: 'Destination Pages',
-  icon: SuitcaseRolling,
+  icon: SuitcaseRolling as any,
   type: 'document',
   fields: [
     defineField({

@@ -7,7 +7,7 @@ export default defineType({
   name: 'content_section',
   title: 'Content Section',
   description: 'A section with content',
-  icon: Article,
+  icon: Article as any,
   type: 'object',
   fields: [
     defineField({

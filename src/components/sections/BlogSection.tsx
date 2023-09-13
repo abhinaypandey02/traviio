@@ -2,10 +2,10 @@ import React from 'react'
 import { FreeMode, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
+import { SanityFeaturedBlogsSection } from '@/sanity/types'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { SanityFeaturedBlogsSection } from '@/sanity/types'
 
 export type BlogSectionProps = {
   data: SanityFeaturedBlogsSection
