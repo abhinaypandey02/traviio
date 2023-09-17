@@ -16,7 +16,7 @@ type GuidePageProps = {
 export default function GuidePage({ data, locale, globals }: GuidePageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer components={TourSectionsMap} sections={data.sections} />
+      <Slicer components={TourSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )
 }

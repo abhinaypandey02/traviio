@@ -18,7 +18,7 @@ type PageProps = {
 export default function Page({ slug, data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer components={TourSectionsMap} sections={data.sections} />
+      <Slicer components={TourSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )
 }

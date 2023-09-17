@@ -15,7 +15,7 @@ type WikiPageProps = {
 export default function WikiPage({ slug, data, locale, globals }: WikiPageProps) {
   return (
     <LocaleProvider locale={locale}>
-      {data.sections?.map((section, idx) => (
+      {data?.sections?.map((section, idx) => (
         // Write the component here with the data section
         <div key={idx}>{JSON.stringify(section)}</div>
       ))}

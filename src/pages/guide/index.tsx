@@ -101,7 +101,7 @@ const InfoSection = () => {
 }
 
 export default function GuidePage({ data, locale, globals }: GuidePageProps) {
-  console.log(data.sections)
+  console.log(data?.sections)
   return (
     <LocaleProvider locale={locale}>
       <Layout>
