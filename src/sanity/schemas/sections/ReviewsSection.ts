@@ -52,6 +52,12 @@ export default defineType({
               type: 'locale_string',
             }),
             defineField({
+              name: 'avatar',
+              title: 'Avatar',
+              description: 'Avatar of the author',
+              type: 'image',
+            }),
+            defineField({
               name: 'rating',
               title: 'Rating',
               description: 'Rating (out of 5)',
@@ -74,11 +80,13 @@ export default defineType({
             select: {
               name: 'name.en',
               rating: 'rating',
+              avatar: 'avatar',
             },
-            prepare: ({ name, rating }) => {
+            prepare: ({ name, rating, avatar }) => {
               return {
                 title: 'Review',
                 subtitle: joinStrings('|', name, displayNumber(rating, 'Star')),
+                media: avatar,
               }
             },
           },

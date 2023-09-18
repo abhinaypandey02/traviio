@@ -262,6 +262,7 @@ export type SanityReviewsSection = {
   reviews?: {
     name?: SanityLocaleString
     time?: SanityLocaleString
+    avatar?: SanityImage
     country?: SanityLocaleString
     rating?: number
     title?: SanityLocaleString
