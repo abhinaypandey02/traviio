@@ -169,18 +169,20 @@ export type SanityDealsSection = {
   _key: string
   tagline?: SanityLocaleString
   title?: SanityLocaleString
-  deals?: {
-    _type: 'deal'
-    _key: string
-    tour?: {
-      _type: 'reference'
-      _ref: string
-    } & SanityTourPage
-    discount?: SanityLocaleString
-    old_price?: SanityLocaleString
-    new_price?: SanityLocaleString
-    label?: SanityLocaleString
-  }[]
+  deals?: SanityDeal[]
+}
+
+export type SanityDeal = {
+  _type: 'deal'
+  _key: string
+  tour?: {
+    _type: 'reference'
+    _ref: string
+  } & SanityTourPage
+  discount?: SanityLocaleString
+  old_price?: SanityLocaleString
+  new_price?: SanityLocaleString
+  label?: SanityLocaleString
 }
 
 export type SanityFAQ = {
@@ -655,6 +657,8 @@ export type SanityArticle = {
     title?: SanityLocaleString
     content?: SanityContentRichText[]
   }[]
+  _createdAt?: string
+  _updatedAt?: string
 }
 
 export type SanityAllBlogsSection = {

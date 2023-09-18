@@ -32,3 +32,9 @@ export function getSanitySlugFromSlugs(slugs: string | string[] | undefined): st
   const sanitizedSlugs = Array.isArray(slugs) ? slugs : [slugs]
   return '/' + sanitizedSlugs.map(sanitizeSlug).join('/')
 }
+
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"]
+
+export default function DateFormat(date : Date) {
+    return months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
+}
