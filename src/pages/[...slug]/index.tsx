@@ -43,6 +43,13 @@ async function fetchPageData(slug: string): Promise<SanityPage> {
         _type == "featured_blogs_section" => {
           ...,
           featured_blogs[]->
+        },
+        _type == "deals_section" => {
+          ...,
+          deals[] {
+            ...,
+            tour->
+          }
         }
       }
     }`
