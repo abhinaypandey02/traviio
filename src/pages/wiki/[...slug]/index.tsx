@@ -126,10 +126,6 @@ export default function WikiPage({ slug, data, locale, globals }: WikiPageProps)
   return (
     <LocaleProvider locale={locale}>
       <Layout>
-        {/* {data.sections?.map((section, idx) => (
-        // Write the component here with the data section
-        <div key={idx}>{JSON.stringify(section)}</div>
-        ))} */}
         <ImageHeader image={data.image_hero?.image} Title={data.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data.tagline?.en} />
         <InfoSection data={data.sections} />
