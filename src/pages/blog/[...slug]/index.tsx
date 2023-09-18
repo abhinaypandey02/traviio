@@ -18,7 +18,7 @@ type BlogPageProps = {
 export default function BlogPage({ slug, data, locale, globals }: BlogPageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer components={BlogPageSectionsMap} sections={data.sections} />
+      <Slicer components={BlogPageSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )
 }

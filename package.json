@@ -24,6 +24,7 @@
     "rc-progress": "^3.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-portable-text": "^0.6.0",
     "react-stars": "^2.2.5",
     "sanity": "^3.14.5",
     "styled-components": "^6.0.6",
