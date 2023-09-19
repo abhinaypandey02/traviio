@@ -20,7 +20,7 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
           {cards ? (
             <div className="cursor-pointer relative">
               <Image
-                src={cards[0] ? urlFor(cards[0].image) : ''}
+                src={cards[0].image ? urlFor(cards[0].image) : ''}
                 style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
                 width={700}
                 height={73}
@@ -39,7 +39,7 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
           {cards ? (
             <div className="cursor-pointer relative">
               <Image
-                src={cards[1] ? urlFor(cards[1].image) : ''}
+                src={cards[1].image ? urlFor(cards[1].image) : ''}
                 style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
                 width={700}
                 height={73}
@@ -55,7 +55,7 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
           {cards ? (
             <div className="cursor-pointer relative">
               <Image
-                src={cards[2] ? urlFor(cards[2].image) : ''}
+                src={cards[2].image ? urlFor(cards[2].image) : ''}
                 style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
                 width={700}
                 height={73}
@@ -71,7 +71,7 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
           {cards ? (
             <div className="cursor-pointer relative">
               <Image
-                src={cards[3] ? urlFor(cards[3].image) : ''}
+                src={cards[3].image ? urlFor(cards[3].image) : ''}
                 style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
                 width={700}
                 height={73}
@@ -87,7 +87,7 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
           {cards ? (
             <div className="cursor-pointer relative">
               <Image
-                src={cards[4] ? urlFor(cards[4].image) : ''}
+                src={cards[4]?.image ? urlFor(cards[4].image) : ''}
                 style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
                 width={700}
                 height={73}

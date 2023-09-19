@@ -88,7 +88,7 @@ const Testimonial = (props: TestimonialSectionProps) => {
                       <h5 className="text-base font-medium my-2 opacity-60">{item?.text?.en}</h5>
                       <div className="flex gap-x-3 my-4">
                         <div>
-                          <Image width={40} height={40} src={urlFor(item?.avatar)} />
+                          <Image alt={''} width={40} height={40} src={urlFor(item?.avatar)} />
                         </div>
                         <div className="ml-2 ">
                           <h6 className="font-semibold"> {item?.name?.en}</h6>
@@ -124,7 +124,7 @@ const Testimonial = (props: TestimonialSectionProps) => {
                       <h5 className="text-base font-medium my-2 opacity-60">{item?.text?.en}</h5>
                       <div className="flex gap-x-3 my-4">
                         <div>
-                          <Image width={40} height={40} src={urlFor(item?.avatar)} />
+                          <Image alt="" width={40} height={40} src={urlFor(item?.avatar)} />
                         </div>
                         <div className="ml-2 ">
                           <h6 className="font-semibold"> {item?.name?.en}</h6>

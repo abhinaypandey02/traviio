@@ -3,32 +3,27 @@ import Link from 'next/link'
 import { FreeMode, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
+import { urlFor } from '@/sanity/client'
 import { SanityDeal, SanityDealsSection, SanityLocaleString, SanityTourPage } from '@/sanity/types'
 
 import Button from '../buttons/Button'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { urlFor } from '@/sanity/client'
 
 export type DealSectionProps = {
   data: SanityDealsSection
 }
 
-const TravelCard = (props: {
-  props: SanityDeal
-}) => {
-  let data = props?.props
+const TravelCard = (props: { props: SanityDeal }) => {
+  let data = props?.props as any
   return (
-    <Link href={data?.tour?.slug ? "/destinations/" + data.tour.slug.current : ""}>
+    <Link href={data?.tour?.slug ? '/destinations/' + data.tour.slug.current : ''}>
       <div className="bg-white h-fit my-5 shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
         <span className="bg-red absolute my-2 mx-2 right-0 px-2 py-1 text-white font-bold text-sm rounded-full">
           Hot Deal
         </span>
-        <img
-          className="rounded-t-2xl"
-          src={urlFor(data?.tour?.hero_section?.image)}
-        />
+        <img className="rounded-t-2xl" src={urlFor(data?.tour?.hero_section?.image)} />
         <div className="px-4 py-2">
           <h3 className="text-xl font-medium">{data?.tour?.hero_section?.title?.en}</h3>
           <div className="flex px-1 py-2 justify-between">
@@ -37,10 +32,14 @@ const TravelCard = (props: {
             <span className="text-sm">{data?.tour?.overview_card?.countries} Countries</span>
           </div>
           <div className="mt-4 flex justify-between">
-            <span className="line-through opacity-50 font-bold text-lg">&#x24;{data?.old_price?.en}</span>
+            <span className="line-through opacity-50 font-bold text-lg">
+              &#x24;{data?.old_price?.en}
+            </span>
             <span className="text-right">
               <span className="text-lg font-bold">From &#x24;{data?.new_price?.en}</span> <br />
-              <span className="text-sm text-red font-bold">You Save &#x24;{data?.discount?.en}</span>
+              <span className="text-sm text-red font-bold">
+                You Save &#x24;{data?.discount?.en}
+              </span>
             </span>
           </div>
           <Button text="View Trip" varient="primary" />
