@@ -23,7 +23,21 @@ export default function BlogPage({ data, locale, globals }: BlogPageProps) {
 
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ locale }) => {
   const blogPageData = (await client.fetch(
-    `*[_type == "blog_page"  && slug.current == "/"][0]`
+    `*[_type == "blog_page"  && slug.current == "/"][0]{
+      ...,
+      article->{
+        ...,
+        destination->,
+        tags[]->,
+        sidebar {
+          ...,
+          sidebar_related_tours {
+            ...,
+            tags[]->
+          }
+        }
+      }
+    }`
   )) as SanityBlogPage
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {

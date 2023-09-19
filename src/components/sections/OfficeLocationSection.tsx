@@ -8,7 +8,6 @@ export type OfficeLocationSectionProps = {
 }
 
 const OfficeLocationSection = (props: OfficeLocationSectionProps) => {
-  console.log(props)
   const {
     data: { title, locations },
   } = props

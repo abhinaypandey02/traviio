@@ -9,7 +9,7 @@ const ContentSection = (props: ContentSectionProps) => {
   const {
     data: { title, tagline },
   } = props
-
+  console.log(props)
   return (
     <div className="lg:px-20 px-10 py-10  bg-white text-black">
       <h2 className="text-blue text-base font-medium text-center">{tagline?.en}</h2>

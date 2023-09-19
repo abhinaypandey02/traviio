@@ -36,7 +36,23 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
 async function fetchPageData(slug: string): Promise<SanityPage> {
   const page = (await client.fetch(
-    `*[_type == "page"  && slug.current == "${slug}"][0]`
+    `*[_type == "page"  && slug.current == "${slug}"][0]{
+      ...,
+      sections[]{
+        ...,
+        _type == "featured_blogs_section" => {
+          ...,
+          featured_blogs[]->
+        },
+        _type == "deals_section" => {
+          ...,
+          deals[] {
+            ...,
+            tour->
+          }
+        }
+      }
+    }`
   )) as SanityPage
 
   return page

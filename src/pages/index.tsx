@@ -23,8 +23,25 @@ export default function Page({ data, locale, globals }: PageProps) {
 
 export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
   const pageData = (await client.fetch(
-    `*[_type == "page"  && slug.current == "/"][0]`
+    `*[_type == "page"  && slug.current == "/"][0]{
+      ...,
+      sections[]{
+        ...,
+        _type == "featured_blogs_section" => {
+          ...,
+          featured_blogs[]->
+        },
+        _type == "deals_section" => {
+          ...,
+          deals[] {
+            ...,
+            tour->
+          }
+        }
+      }
+    }`
   )) as SanityPage
+  console.log(JSON.stringify(pageData))
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {

@@ -23,7 +23,20 @@ export default function GuidePage({ data, locale, globals }: GuidePageProps) {
 
 export const getStaticProps: GetStaticProps<GuidePageProps> = async ({ locale }) => {
   const guidePageData = (await client.fetch(
-    `*[_type == "tour_page"  && slug.current == "/"][0]`
+    `*[_type == "tour_page"  && slug.current == "/"][0]{
+      ...,
+      destination->,
+      sections[] {
+        ...,
+        _type == "featured_tours_section" => {
+          ...,
+          tour_cards[] {
+            ...,
+            content->
+          }
+        }
+      }
+    }`
   )) as SanityTourPage
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {

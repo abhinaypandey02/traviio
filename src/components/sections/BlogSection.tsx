@@ -2,33 +2,48 @@ import React from 'react'
 import { FreeMode, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { SanityFeaturedBlogsSection } from '@/sanity/types'
+import { SanityArticle, SanityFeaturedBlogsSection } from '@/sanity/types'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { urlFor } from '@/sanity/client'
+import DateFormat from '@/utils/utils'
+import Link from 'next/link'
 
 export type BlogSectionProps = {
   data: SanityFeaturedBlogsSection
 }
 
-const BlogCard = () => {
+export type BlogCardProps = {
+  props: SanityArticle
+}
+
+const BlogCard = (props: BlogCardProps) => {
   return (
-    <div className=" h-fit  w-full">
-      <img
-        className="  w-full rounded-lg"
-        src="https://media.istockphoto.com/id/903877840/photo/the-crowd-and-vehicles-in-front-of-hawa-mahal.jpg?s=612x612&w=0&k=20&c=OB7q3UQsf0vpcno_6-6WLFhp3Ugota3B5IH3WdFYhUY="
-        alt=""
-      />
-      <h3 className="mt-2 font-medium">The most interesting historical monuments in Jaipur</h3>
-      <h4 className="opacity-60 my-1 text-sm ">By deep on 16 August</h4>
-    </div>
+    props?.props && (
+      <Link href={props?.props?.slug ? props?.props?.slug.current : ''}>
+        <div className=" h-fit w-full">
+          {props?.props?.cover_image && (
+            <img className="  w-full rounded-lg" src={urlFor(props?.props?.cover_image)} alt="" />
+          )}
+          <h3 className="mt-2 font-medium">{props?.props?.title?.en}</h3>
+          <h4 className="opacity-60 my-1 text-sm ">{`By ${props?.props?.author} ${
+            props?.props?._updatedAt ? 'on ' + DateFormat(new Date(props?.props?._updatedAt)) : ''
+          }`}</h4>
+        </div>
+      </Link>
+    )
   )
 }
 
 const BlogSection = (props: BlogSectionProps) => {
   const {
-    data: { tagline, title },
+    data: { tagline, title, featured_blogs },
   } = props
+  const slides = featured_blogs?.map((props) => {
+    //@ts-ignore
+    return <BlogCard props={props} />
+  })
   return (
     <div className="lg:px-20 px-10 py-10  bg-white text-black">
       <h2 className="text-blue text-base font-medium text-center">{tagline?.en}</h2>
@@ -46,21 +61,9 @@ const BlogSection = (props: BlogSectionProps) => {
           }}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
+          {slides?.map((slide, index) => {
+            return <SwiperSlide key={index}>{slide}</SwiperSlide>
+          })}
         </Swiper>
       </div>
 
@@ -76,21 +79,9 @@ const BlogSection = (props: BlogSectionProps) => {
           }}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <BlogCard />
-          </SwiperSlide>
+          {slides?.map((slide, index) => {
+            return <SwiperSlide key={index}>{slide}</SwiperSlide>
+          })}
         </Swiper>
       </div>
     </div>
