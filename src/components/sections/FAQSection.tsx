@@ -8,14 +8,17 @@ export type FAQSectionProps = {
 
 const FAQSection = ({ data }: FAQSectionProps) => {
   return (
+
     <div className="bg-white flex flex-col items-center py-10 ">
+
+
       <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
         {data.title?.en}
       </h1>
       <h3 className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
         {data.tagline?.en}
       </h3>
-      <hr className="w-[85px] md:w-[117px] bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
+      <hr className="w-[85px] md:w-[117px] my-2 bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
 
       <div className="w-full mt-8 space-y-4">
         {data.faqs?.map((faq, index) => (

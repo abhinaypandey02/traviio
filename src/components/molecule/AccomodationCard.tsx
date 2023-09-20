@@ -6,6 +6,7 @@ const AccomodationCard = () => {
       <div className="text-center bg-[#233861] py-2 rounded-t-2xl items-center flex flex-col ">
         <h4 className="text-xl text-white font-semibold">Basic</h4>
         <h5 className="text-white text-sm">Comforatable accomadtion</h5>
+        {/*@ts-ignore*/}
         <ReactStars
           count={5}
           onChange={() => {}}

@@ -126,7 +126,6 @@ const InfoSection = ({ data }: any) => {
 export default function GuidePage({ slug, data, locale, globals }: GuidePageProps) {
   return (
     <LocaleProvider locale={locale}>
-
       <Layout>
         <ImageHeader image={data.image_hero?.image} Title={data.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data.tagline?.en} />
