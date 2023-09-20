@@ -17,7 +17,7 @@ const NewsletterSection = ({ data }: NewsletterSectionProps) => {
           backgroundImage: `url(${data.image ? urlFor(data.image) : ''})`,
         }}
       >
-        <div className="flex flex-col justify-center md:justify-start items-center md:items-start p-8 gap-4 md:gap-8 md:w-[700px] h-[300px] md:h-[344px] ">
+        <div className="flex flex-col justify-center md:justify-start items-center md:items-start p-8 px-16 gap-4 md:gap-8 md:w-[800px] h-[300px] md:h-[344px] ">
           <h1 className="text-center md:text-start text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
             {data.title?.en}
           </h1>
