@@ -22,7 +22,7 @@ const FeatureSection = ({ data }: FeatureSectionProps) => {
           {data?.features?.map((feature, index) => <Feature key={index} data={feature} />)}
         </div>
 
-        <div className="relative translate-y-[-285px] flex  items-center">
+        <div className="relative translate-y-[-285px] translate-x-[380px] flex  items-center">
           <svg width="856" height="135" viewBox="0 0 856 135" fill="none">
             <path
               d="M1 94.3466C148.5 114.17 412.268 160.821 474 97.7702C514.063 56.8511 475.5 -16.993 405.5 5.00972C343 24.655 349.5 116.234 428 120.226C428 120.226 586 164.478 855 94.3466"
@@ -39,10 +39,8 @@ const FeatureSection = ({ data }: FeatureSectionProps) => {
     <section
       className={
         data?.type == 'small'
-
           ? 'bg-[#F2FAFF] text-center pb-8'
           : 'text-center h-[257px]  text-[#140D31]'
-
       }
     >
       <h2 className="text-[20px] md:text-[30px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
