@@ -94,7 +94,7 @@ const Testimonial = (props: TestimonialSectionProps) => {
   } = props
 
   return (
-    <div className="w-full bg-[#F2FAFF]  text-black px-10 py-10 lg:flex items-center gap-x-10 ">
+    <div className="w-full bg-[#F2FAFF]  text-black px-10 py-10 lg:flex items-center gap-x-10 relative">
       <div className="lg:w-1/5 w-full">
         {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
         <h3 className="font-semibold text-4xl">{'Hear it from our'}</h3>
@@ -438,6 +438,7 @@ const Testimonial = (props: TestimonialSectionProps) => {
           </SwiperSlide>
         </Swiper>
       </div>
+      <Image src="/plane.svg" height={200} width={200} className='absolute left-0 -bottom-[250px]' alt=""></Image>
     </div>
   )
 }

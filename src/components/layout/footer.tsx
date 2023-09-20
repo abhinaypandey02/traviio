@@ -197,7 +197,7 @@ const Footer = () => {
         </div>
       </div>
       <hr className="opacity-30 border-blue" />
-      <p className="text-center py-3">Copyright © Promo Travel | 2017 All Rights Reserved</p>
+      <p className="text-center py-3 opacity-50">Copyright © Promo Travel | 2017 All Rights Reserved</p>
     </div>
   )
 }

@@ -13,14 +13,13 @@ const FeatureSection = ({ data }: FeatureSectionProps) => {
     <section
       className={
         data?.type == 'small'
-          ? 'bg-[#F2FAFF] text-center '
-          : 'text-center h-[257px]  text-[#140D31]'
+          ? 'bg-[#F2FAFF] text-center py-3' : 'text-center h-[257px]  text-[#140D31] my-10'
       }
     >
-      <h2 className="text-[20px] md:text-[24px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
+      <h2 className="text-[20px] md:text-[30px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
         {data.title?.en}
       </h2>
-      <hr className="w-[85px] md:w-[117px] my-2 m-auto bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
+      <hr className="w-[85px] md:w-[117px] my-2 m-auto bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" />
       {data?.type == 'small' ? (
         <div className="grid grid-cols-1 lg:grid-cols-4">
           {data?.features?.map((feature, index) => <SmallFeature key={index} data={feature} />)}
