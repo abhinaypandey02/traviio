@@ -8,7 +8,10 @@ export type FAQSectionProps = {
 
 const FAQSection = ({ data }: FAQSectionProps) => {
   return (
-    <div className="bg-white flex flex-col my-[48px] items-center p-2 ">
+
+    <div className="bg-white flex flex-col items-center py-10 ">
+
+
       <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
         {data.title?.en}
       </h1>

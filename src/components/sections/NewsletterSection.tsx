@@ -12,9 +12,14 @@ const NewsletterSection = ({ data }: NewsletterSectionProps) => {
   return (
     <div className="flex justify-center items-center py-10 bg-white text-white">
       <div
-        className=" md:w-[1280px]  h-[300px] md:h-[444px]  md:rounded-[24px] md:mx-10 "
+
+        className=" md:w-[1280px] h-[300px] md:h-[444px]  md:rounded-[24px] md:mx-10 max-w-[90%] rounded-md"
+
+
         style={{
           backgroundImage: `url(${data.image ? urlFor(data.image) : ''})`,
+          // backgroundPosition: 'center',
+          // backgroundSize: 'cover',
         }}
       >
         <div className="flex  flex-col justify-center md:justify-start items-center md:items-start p-8 px-16 gap-4 md:gap-8 md:w-[800px] h-[300px] md:h-[344px] ">
