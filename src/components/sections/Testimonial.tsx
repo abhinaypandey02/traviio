@@ -6,6 +6,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { urlFor } from '@/sanity/client'
 import { SanityTestimonialSection } from '@/sanity/types'
 
+import plane from '../../../public/plane.svg'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
 // import ReactStars from 'react-stars'
@@ -34,7 +36,6 @@ const Testimonial = (props: TestimonialSectionProps) => {
           style={{ borderRadius: '10px' }}
         />
       </div>
-
       <div className="w-3/4 hidden lg:block">
         <Swiper
           navigation={true}
