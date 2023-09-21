@@ -18,7 +18,7 @@ export type DealSectionProps = {
 
 const TravelCard = (props: { props: SanityDeal }) => {
 
-  let data = props?.props
+  let data = props?.props as any
   return (
     <Link href={data?.tour?.slug ? '/destinations' + data.tour.slug.current : ''}>
       <div className="bg-white h-fit my-5 shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
