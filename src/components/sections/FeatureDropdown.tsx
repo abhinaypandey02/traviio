@@ -60,6 +60,7 @@ function FeatureItem(props: FeatureItemProps) {
                   />
                   <p className={`${item === props.selectedItem ? 'text-blue' : ''} font-medium transition-all`}>
                     {item.title}
+                    
                   </p>
                 </div>
                 {item === props.selectedItem && (

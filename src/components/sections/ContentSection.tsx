@@ -20,22 +20,22 @@ const ContentSection = (props: ContentSectionProps) => {
       {content?.en?.map((item: any, index: any) => {
         if (item._type == 'block')
           return (
-            <div className="my-2 py-5" key={index}>
+            <div className="py-5" key={index}>
               <PortableText content={item} serializers={{}} />
             </div>
           )
         return (
-          <div className="grid grid-flow-row grid-cols-2 gap-x-20 py-5">
+          <div className="grid grid-flow-row grid-cols-2 gap-x-20">
             {item.items.map((it: any, ind: any) => {
               if (it._type == 'content_image') {
                 return (
                   <div key={ind}>
-                    <Image alt="image" src={urlFor(it.image)} width={600} height={100} />
+                    <Image alt="image" src={urlFor(it.image)} width={600} height={100} className='my-3'/>
                   </div>
                 )
               }
               return (
-                <div className="grid grid-flow-row grid-cols-1 my-5">
+                <div className="flex flex-col gap-5 my-5">
                   {it.items.map((bt: any, by: any) => {
                     return <div key={by}>{bt.text}</div>
                   })}
