@@ -44,11 +44,12 @@ function HeaderLink({ item }: { item: TLink | TDropdown }) {
             {
               <div
                 className={
-                  'p-5 w-screen bg-primary transition-all shadow-md absolute top-[100%] left-0 ' +
-                  (open ? ' ' : 'hidden')
+                  'p-5 w-screen max-h-[70vh] overflow-scroll bg-primary transition-all shadow-md absolute top-[100%] left-0 -z-[10]' +
+                  (open ? '' : ' hidden')
                 }
+                onClick={() => setOpen(false)}
               >
-                <div className="w-[90%] mx-auto grid gap-5 grid-cols-5 min-h-fit">
+                <div className="w-[90%] mx-auto grid gap-5 lg:grid-cols-5 md:grid-cols-3 grid-cols-1 min-h-fit">
                   {
                     item.children.map((child, index) => {
                       return (

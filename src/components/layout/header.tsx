@@ -117,7 +117,7 @@ const Header = () => {
             <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
             <p>+1 0000 000 000</p>
           </div>
-          <div className="py-3 flex justify-between items-center px-10">
+          <div className="py-3 bg-white flex justify-between items-center px-10">
             <Image src="/company_logo.svg" height={40} width={172} alt="Company logo" />
             <div className="flex gap-10 justify-evenly text-darkblue">
               {LINKS.map((item, index) => {
@@ -154,7 +154,7 @@ const Header = () => {
             </div>
           </div>
           <div
-            className={`relative transition-all text-darkblue text-xl ease-in-out duration-700 py-10 backdrop-blur flex flex-col gap-2 w-full justify-center items-center z-[5] ${
+            className={`relative transition-all text-darkblue text-xl ease-in-out duration-700 py-10 bg-white flex flex-col gap-2 w-full justify-center items-center z-[5] ${
               open ? '' : '-translate-y-full'
             }`}
             onClick={() => {
