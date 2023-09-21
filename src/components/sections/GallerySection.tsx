@@ -22,21 +22,10 @@ const GallerySection = (props: GallerySectionProps) => {
     <div className="pt-10 bg-[#F2FAFF] text-black">
       <h3 className="text-3xl font-[500] text-center">{title?.en}</h3>
       <h4 className="text-lg my-2 opacity-60 font-[500] text-center">{subtitle?.en}</h4>
-
-      <div className="mx-3 hidden lg:block">
-        <Swiper
-          navigation={true}
-          slidesPerView={3}
-          spaceBetween={0}
-          modules={[FreeMode, Navigation]}
-          freeMode={true}
-          pagination={{
-            clickable: true,
-          }}
-          className="mySwiper"
-        >
-          <SwiperSlide>
-            <div className="flex gap-x-5">
+        
+      <div className="mx-3 hidden lg:flex gap-x-10 my-10">
+       
+            <div className="flex gap-x-10">
               <Image
                 src={images ? (images[0] ? urlFor(images[0]) : '') : ''}
                 width={320}
@@ -61,10 +50,10 @@ const GallerySection = (props: GallerySectionProps) => {
                 />
               </div>
             </div>
-          </SwiperSlide>
+         
 
-          <SwiperSlide>
-            <div className="flex gap-x-5">
+         
+            <div className="flex gap-x-10">
               <Image
                 src={images ? (images[4] ? urlFor(images[4]) : '') : ''}
                 width={300}
@@ -80,10 +69,10 @@ const GallerySection = (props: GallerySectionProps) => {
                 style={{ borderRadius: '10px' }}
               />
             </div>
-          </SwiperSlide>
+         
 
-          <SwiperSlide>
-            <div className="flex gap-x-5">
+        
+            <div className="flex gap-x-10">
               <div className="flex flex-col justify-between gap-y-2">
                 <Image
                   src={images ? (images[3] ? urlFor(images[3]) : '') : ''}
@@ -110,8 +99,6 @@ const GallerySection = (props: GallerySectionProps) => {
                 />
               </div>
             </div>
-          </SwiperSlide>
-        </Swiper>
       </div>
       <div className="mx-3 lg:hidden block ">
         <Swiper
