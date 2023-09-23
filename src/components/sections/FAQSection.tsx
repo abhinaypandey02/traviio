@@ -18,7 +18,6 @@ const FAQSection = ({ data }: FAQSectionProps) => {
         {data.tagline?.en}
       </h3>
       <hr className="w-[85px] md:w-[117px] my-2 bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
-
       <div className="w-full px-10 mt-8 space-y-4">
         {data.faqs?.map((faq, index) => (
           <div className="flex flex-col gap-3" key={index}>

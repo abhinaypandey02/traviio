@@ -4,7 +4,7 @@ import Button from '../buttons/Button'
 
 const TravelCard = () => {
   return (
-    <div className="bg-white h-fit  shadow-2xl rounded-2xl cursor-pointer">
+    <div className="bg-white h-fit  shadow-2xl rounded-2xl cursor-pointer relative">
       <span className="bg-red absolute my-2 mx-2 right-0 px-2 py-1 text-white font-bold text-sm rounded-full">
         Hot Deal
       </span>

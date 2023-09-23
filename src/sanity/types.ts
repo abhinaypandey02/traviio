@@ -432,6 +432,10 @@ export type SanityAtGlanceSection = {
   }[]
 }
 
+export type SanityBestToursSection = {
+  _type: 'best_tours_section'
+}
+
 export type SanityTopThingsSection = {
   _type: 'top_things_section'
   _key: string
@@ -595,6 +599,7 @@ export type SanityTag = {
 export type SanityDestinationSection =
   | SanityImageHeaderSection
   | SanityAllBlogsSection
+  | SanityBestToursSection
   | SanityReviewsSection
   | SanityFAQSection
   | SanityHeroCardSection
