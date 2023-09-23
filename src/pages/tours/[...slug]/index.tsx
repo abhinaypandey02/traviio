@@ -1,12 +1,13 @@
+import React from 'react'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
 import { LocaleProvider } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
-import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityPage, SanitySlug, SanityTourPage } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
+import Layout from '@/components/layout'
 import { TourSectionsMap } from '@/components/sections'
 
 type PageProps = {
@@ -16,9 +17,22 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
+  console.log('Tour Data->', data)
   return (
     <LocaleProvider locale={locale}>
-      <Slicer components={TourSectionsMap} sections={data?.sections} />
+      <Layout>
+        {data?.sections?.map((section) => {
+          const Component = TourSectionsMap[section._type]
+          return (
+            <React.Fragment key={section._key}>
+              {Component &&
+                React.createElement(Component, {
+                  data: section,
+                })}
+            </React.Fragment>
+          )
+        })}
+      </Layout>
     </LocaleProvider>
   )
 }
