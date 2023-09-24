@@ -27,6 +27,7 @@ import NewsletterSection from './NewsletterSection'
 import OfficeLocationSection from './OfficeLocationSection'
 import ReviewSection from './ReviewSection'
 import Testimonial from './Testimonial'
+import BestToursSection from './BestToursSection'
 
 export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {
   hero_section: HeroSection,
@@ -58,6 +59,7 @@ export const DestinationSectionsMap: {
   all_blogs_section: BlogSection,
   featured_tours_section: DealsSection,
   at_glance_section: AtAGlanceSection,
+  best_tours_section: BestToursSection
 }
 
 export const BlogPageSectionsMap: {

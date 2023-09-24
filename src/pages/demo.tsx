@@ -1,12 +1,14 @@
 import React from 'react'
 
 import Layout from '@/components/layout'
-import BriefSummary from '@/components/sections/Tours/BriefSummary'
+
+import BestTours from '@/components/organisms/BestTours'
+import FilterDropdown from '@/components/organisms/FilterDropdown'
 
 const demo = () => {
   return (
     <Layout>
-      <BriefSummary />
+      <div className="grid grid-cols-4"></div>
     </Layout>
   )
 }

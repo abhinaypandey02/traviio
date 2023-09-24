@@ -13,7 +13,7 @@ const ContactCTA = () => {
         <Button text="Contact One of Our Tour Agents" className="!px-10"></Button>
       </div>
       <div className="relative rounded-full overflow-hidden aspect-square mt-10">
-        <Image src="/temp.jpg" fill alt=""></Image>
+        <Image src="/temp.png" fill alt=""></Image>
       </div>
     </div>
   )
