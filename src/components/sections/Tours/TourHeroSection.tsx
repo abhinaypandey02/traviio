@@ -39,6 +39,7 @@ export default function TourHeroSection({
 
 const OverViewCard = ({ data }: { data: SanityTourPage['overview_card'] }) => {
   const router = useRouter()
+  const price: any = data?.price
   return (
     <div className="relative h-[80px]">
       <div className="absolute flex max-w-[1280px] inset-x-0 divide-x-2 divide-darkblue/10 top-[-34px] w-[90%] mx-auto bg-primary rounded-t-2xl py-7">
@@ -102,7 +103,7 @@ const OverViewCard = ({ data }: { data: SanityTourPage['overview_card'] }) => {
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-base font-medium text-gray whitespace-nowrap">Price From</p>
-            <p className="text-xl font-bold text-darkblue whitespace-nowrap">{data?.price?.en}</p>
+            <p className="text-xl font-bold text-darkblue whitespace-nowrap">{price?.en}</p>
           </div>
         </div>
 
