@@ -9,6 +9,7 @@ import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout'
 import { TourSectionsMap } from '@/components/sections'
+import TourHeroSection from '@/components/sections/Tours/TourHeroSection'
 
 type PageProps = {
   slug: string
@@ -17,10 +18,11 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
-  console.log('Tour Data->', data)
+  console.log('Tour Data->', { data, globals })
   return (
     <LocaleProvider locale={locale}>
       <Layout>
+        <TourHeroSection hero_section={data?.hero_section} overview_card={data.overview_card} />
         {data?.sections?.map((section) => {
           const Component = TourSectionsMap[section._type]
           return (

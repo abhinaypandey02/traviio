@@ -8,8 +8,10 @@ import {
 } from '@/sanity/types'
 
 import AccommdationTypesSection from './Tours/AccommdationTypesSection'
+import ImageShowCaseSection from './Tours/ImageShowCaseSection'
 import ItinerarySection from './Tours/ItinerarySection'
 import MemorableExperiencesSection from './Tours/MemorableExperiencesSection'
+import PricingSection from './Tours/PricingSection'
 import WhatsIncludedSection from './Tours/WhatsIncludedSection'
 import AtAGlanceSection from './AtAGlanceSection'
 import BestToursSection from './BestToursSection'
@@ -78,8 +80,9 @@ export const TourSectionsMap: {
   itinerary_section: ItinerarySection,
   content_section: ContentSection,
   memorable_experiences_section: MemorableExperiencesSection,
-  image_showcase_section: GallerySection,
+  image_showcase_section: ImageShowCaseSection,
   whats_included_section: WhatsIncludedSection,
+  pricing_section: PricingSection,
   accommodation_types_section: AccommdationTypesSection,
   reviews_section: ReviewSection,
   feature_section: FeatureSection,
