@@ -861,7 +861,7 @@ export type SanityTourPage = {
   }
   overview_card?: {
     duration?: SanityLocaleString
-    countries?: SanityLocaleString
+    countries?: number
     cities?: number
     rating?: number
     about?: SanityLocaleString
