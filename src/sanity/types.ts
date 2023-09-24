@@ -863,7 +863,7 @@ export type SanityTourPage = {
     duration?: SanityLocaleString
     countries?: SanityLocaleString
     cities?: number
-    rating?: SanityLocaleString
+    rating?: number
     about?: SanityLocaleString
     price?: SanityPrice
     cta_button?: SanityLinkButton
