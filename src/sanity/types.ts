@@ -434,6 +434,7 @@ export type SanityAtGlanceSection = {
 
 export type SanityBestToursSection = {
   _type: 'best_tours_section'
+  _key: string
 }
 
 export type SanityTopThingsSection = {
