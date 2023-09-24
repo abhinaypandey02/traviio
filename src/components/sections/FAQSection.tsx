@@ -10,7 +10,7 @@ export type FAQSectionProps = {
 const FAQSection = ({ data }: FAQSectionProps) => {
   const [open, setOpen] = React.useState(-1)
   return (
-    <div className="bg-white flex flex-col items-center py-10 ">
+    <div className="bg-white flex flex-col items-center py-10 w-[90%] mx-auto max-w-[1280px] ">
       <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
         {data.title?.en}
       </h1>
@@ -25,8 +25,14 @@ const FAQSection = ({ data }: FAQSectionProps) => {
               className="flex gap-3 cursor-pointer"
               onClick={() => setOpen(open === index ? -1 : index)}
             >
-              <Image src="/down_icon.svg" height={18} width={18} alt="" className={`${open === index ? '' : '-rotate-90'} transition-all`}/>
-              <p className='font-semibold text-lg'>{faq?.question?.en}</p>
+              <Image
+                src="/down_icon.svg"
+                height={18}
+                width={18}
+                alt=""
+                className={`${open === index ? '' : '-rotate-90'} transition-all`}
+              />
+              <p className="font-semibold text-lg">{faq?.question?.en}</p>
             </div>
             <div className={`${open === index ? '' : 'hidden'} ml-5 max-w-[90%]`}>
               <p>{faq?.answer?.en}</p>
