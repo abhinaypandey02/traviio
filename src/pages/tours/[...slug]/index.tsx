@@ -49,18 +49,22 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 async function fetchPageData(slug: string): Promise<SanityTourPage> {
   const page = (await client.fetch(
     `*[_type == "tour_page"  && slug.current == "${slug}"][0]{
+      ...,
+      destination->,
+      sections[] {
         ...,
-        destination->,
-        sections[] {
+        _type == "featured_tours_section" => {
           ...,
-          _type == "featured_tours_section" => {
+          tour_cards[] {
             ...,
-            tour_cards[] {
-              ...,
-              content->
-            }
+            content->
           }
         }
+        _type == "tour_selection_section" => {
+          ...,
+          tags[]->
+        }
+      }
     }`
   )) as SanityTourPage
 
