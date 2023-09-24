@@ -12,7 +12,7 @@ type TLink = {
 type TDropdown = {
   name: string
   type: 'dropdown'
-  children: (ReactNode)[]
+  children: ReactNode[]
 }
 
 function HeaderLink({ item }: { item: TLink | TDropdown }) {
@@ -50,15 +50,9 @@ function HeaderLink({ item }: { item: TLink | TDropdown }) {
                 onClick={() => setOpen(false)}
               >
                 <div className="w-[90%] mx-auto grid gap-5 lg:grid-cols-5 md:grid-cols-3 grid-cols-1 min-h-fit">
-                  {
-                    item.children.map((child, index) => {
-                      return (
-                        <div key={index}>
-                          {child} 
-                        </div>
-                      )
-                    })
-                  }
+                  {item.children.map((child, index) => {
+                    return <div key={index}>{child}</div>
+                  })}
                 </div>
               </div>
             }

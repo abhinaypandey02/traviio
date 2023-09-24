@@ -16,7 +16,6 @@ type BlogPageProps = {
 } & LocalePage
 
 export default function BlogPage({ slug, data, locale, globals }: BlogPageProps) {
-  console.log('Blog Data->', data)
   return (
     <LocaleProvider locale={locale}>
       <Slicer components={BlogPageSectionsMap} sections={data?.sections} />

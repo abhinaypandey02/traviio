@@ -12,10 +12,7 @@ const NewsletterSection = ({ data }: NewsletterSectionProps) => {
   return (
     <div className="flex justify-center items-center py-10 bg-white text-white">
       <div
-
         className=" md:w-[1280px] min-h-[300px] md:min-h-[444px] py-5 bg-blue  md:rounded-[24px] md:mx-10 max-w-[90%] rounded-md"
-
-
         style={{
           backgroundImage: `url(${data.image ? urlFor(data.image) : ''})`,
           backgroundPosition: 'center',

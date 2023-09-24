@@ -13,13 +13,13 @@ interface FilterDropdownProps {
 }
 
 function FilterItem(props: {
-    title: string
-    selectedItem: string
-    selectionToggle: (item: string) => void
-    subitems: string[]
-    index: number
-    openToggle: (open: number) => void
-    open: boolean
+  title: string
+  selectedItem: string
+  selectionToggle: (item: string) => void
+  subitems: string[]
+  index: number
+  openToggle: (open: number) => void
+  open: boolean
 }) {
   return (
     <div className="flex flex-col rounded-md shadow-md bg-white">
@@ -31,7 +31,13 @@ function FilterItem(props: {
         }}
       >
         <p>{props.title}</p>
-        <Image src="/down_icon.svg" height={28} width={28} alt="arrow" className={`${props.open ? "-rotate-180" : ""} transition-all`}/> 
+        <Image
+          src="/down_icon.svg"
+          height={28}
+          width={28}
+          alt="arrow"
+          className={`${props.open ? '-rotate-180' : ''} transition-all`}
+        />
       </div>
       {/* Dropdown */}
       {props.open && (
@@ -46,13 +52,19 @@ function FilterItem(props: {
                   }}
                 >
                   <Image
-                    src={item === props.selectedItem ? '/selected-radio.svg' : '/unselected-radio.svg'}
+                    src={
+                      item === props.selectedItem ? '/selected-radio.svg' : '/unselected-radio.svg'
+                    }
                     height={22}
                     width={22}
                     alt="dropdown-arrow"
-                    className='transition-all'
+                    className="transition-all"
                   />
-                  <p className={`${item === props.selectedItem ? 'text-blue' : 'text-gray'} font-medium transition-all`}>
+                  <p
+                    className={`${
+                      item === props.selectedItem ? 'text-blue' : 'text-gray'
+                    } font-medium transition-all`}
+                  >
                     {item}
                   </p>
                 </div>
@@ -68,7 +80,7 @@ function FilterItem(props: {
 function FilterDropdown(props: FilterDropdownProps) {
   const [open, setOpen] = React.useState<number>(-1)
   return (
-    <div className={"flex flex-col gap-5 " + props.className}>
+    <div className={'flex flex-col gap-5 ' + props.className}>
       {props.items.map((item, index) => {
         return (
           <FilterItem

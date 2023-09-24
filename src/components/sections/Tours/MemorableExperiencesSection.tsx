@@ -20,8 +20,6 @@ export default function MemorableExperiencesSection({
 }: {
   data: SanityMemorableExperiencesSection
 }) {
-  console.log('MemorableExperiencesSection Data->', data)
-
   const [swiper, setSwiper] = React.useState<any>()
   const prevRef = React.useRef<any>()
   const nextRef = React.useRef<any>()

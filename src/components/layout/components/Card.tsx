@@ -5,7 +5,7 @@ import Link from 'next/link'
 function Card(props: { title: string; excerpt: string; image: string; link: string }) {
   const { title, excerpt, image, link } = props
   return (
-    <Link href={link} className='h-fit my-2'>
+    <Link href={link} className="h-fit my-2">
       <div className="rounded-xl overflow-hidden shadow min-h-max cursor-pointer bg-white">
         <div className="relative h-[50%] min-h-[150px]">
           <Image src={image} fill alt="" objectFit="cover" />

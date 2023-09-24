@@ -9,7 +9,6 @@ export type AtAGlanceSectionProps = {
 }
 
 const AtAGlanceSection = (props: AtAGlanceSectionProps) => {
-  console.log(props)
   const {
     data: { tagline, title, useful_links_section, facts },
   } = props

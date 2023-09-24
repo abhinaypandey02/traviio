@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps<GuidePageProps> = async ({ locale })
             ...,
             content->
           }
-        }
+        },
         _type == "tour_selection_section" => {
           ...,
           tags[]->

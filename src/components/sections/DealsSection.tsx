@@ -64,7 +64,6 @@ const DealsSection = (props: DealSectionProps) => {
     data: { tagline, title, deals },
   } = props
   const slides = deals?.map((props) => {
-    console.log(props)
     //@ts-ignore
     return <TravelCard props={props} />
   })

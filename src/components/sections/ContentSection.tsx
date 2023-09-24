@@ -21,7 +21,6 @@ const ContentSection = (props: ContentSectionProps) => {
       )
     },
     layout_group: (props: any) => {
-      console.log('layout_group', props)
       return (
         <div className="flex w-full max-md:flex-col gap-4">
           {props.items.map((item: any) => (
@@ -31,7 +30,6 @@ const ContentSection = (props: ContentSectionProps) => {
       )
     },
     layout_stack: (props: any) => {
-      console.log('layout_stack', props)
       return (
         <div className="flex flex-col">
           <PortableText
@@ -58,7 +56,6 @@ const ContentSection = (props: ContentSectionProps) => {
       )
     },
   }
-  console.log('Content Section', content)
   return (
     <div className="lg:px-20 text-black bg-white flex flex-col py-20 gap-12 max-w-[1280px] w-[90%] mx-auto">
       <div className="mb-10">

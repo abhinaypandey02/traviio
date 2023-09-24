@@ -7,7 +7,6 @@ export default function BriefSummary() {
   const myPortableTextComponents = {
     types: {
       layout_group: (props: any) => {
-        console.log('layout_group->', props)
         return <div>layout_group</div>
       },
     },
