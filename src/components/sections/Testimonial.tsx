@@ -108,7 +108,13 @@ const Testimonial = (props: TestimonialSectionProps) => {
             : null}
         </Swiper>
       </div>
-      <Image src="/plane.svg" height={200} width={200} className='absolute left-0 -bottom-[250px]' alt=""></Image>
+      <Image
+        src="/plane.svg"
+        height={200}
+        width={200}
+        className="absolute left-0 -bottom-[250px]"
+        alt=""
+      ></Image>
     </div>
   )
 }

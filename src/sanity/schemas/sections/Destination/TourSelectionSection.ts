@@ -22,6 +22,13 @@ export default defineType({
       type: 'locale_string',
     }),
     defineField({
+      name: 'tags',
+      title: 'Tags',
+      description: 'The tags for the tour selection section',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+    }),
+    defineField({
       name: 'filters',
       title: 'Filters',
       description: 'The filters for the tour selection section',

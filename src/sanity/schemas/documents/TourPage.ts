@@ -102,7 +102,7 @@ export default defineType({
           name: 'price',
           title: 'Price',
           description: 'Price of the tour',
-          type: 'locale_string',
+          type: 'price',
         }),
         defineField({
           name: 'cta_button',
@@ -124,6 +124,13 @@ export default defineType({
       description: 'Sections for the page',
       type: 'array',
       of: TourSections.map((tour_section) => ({ type: tour_section })),
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tags',
+      description: 'Tags for the page',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
     }),
   ],
   preview: {

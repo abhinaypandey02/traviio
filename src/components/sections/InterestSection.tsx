@@ -8,7 +8,6 @@ export type InterestSectionProps = {
 }
 
 const InterestSection = (props: InterestSectionProps) => {
-  console.log(props)
   const {
     data: { title, tagline, interests },
   } = props

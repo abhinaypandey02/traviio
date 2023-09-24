@@ -70,7 +70,6 @@ export default defineType({
       locations: 'locations',
     },
     prepare({ title, locations }) {
-      console.log({ title, locations })
       return {
         title: 'Office Locations Section',
         subtitle: joinStrings('|', title, displayNumber(locations?.length, 'location')),

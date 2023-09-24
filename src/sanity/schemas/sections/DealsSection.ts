@@ -40,24 +40,6 @@ export default defineType({
               to: [{ type: 'tour_page' }],
             }),
             defineField({
-              name: 'discount',
-              title: 'Discount',
-              description: 'Discount for the deal',
-              type: 'locale_string',
-            }),
-            defineField({
-              name: 'old_price',
-              title: 'Old Price',
-              description: 'Old Price of the tour',
-              type: 'locale_string',
-            }),
-            defineField({
-              name: 'new_price',
-              title: 'New Price',
-              description: 'New Price of the tour',
-              type: 'locale_string',
-            }),
-            defineField({
               name: 'label',
               title: 'Label',
               description: 'Label for the deal',
@@ -67,19 +49,12 @@ export default defineType({
           preview: {
             select: {
               title: 'tour.title.en',
-              discount: 'discount.en',
-              old_price: 'old_price.en',
-              new_price: 'new_price.en',
+              discount: 'tour.overview_card.price',
             },
-            prepare({ title, discount, old_price, new_price }) {
+            prepare({ title, discount }) {
               return {
                 title: title,
-                subtitle: joinStrings(
-                  '|',
-                  discount && `Discount: ${discount}`,
-                  old_price && `Old Price: ${old_price}`,
-                  new_price && `New Price: ${new_price}`
-                ),
+                subtitle: joinStrings('|', discount && `Discount: ${discount}`),
               }
             },
           },

@@ -4,10 +4,10 @@ import Link from 'next/link'
 
 import ButtonTwo from '../buttons/ButtonTwo'
 
+import Card from './components/Card'
 import HeaderLink from './components/HeaderLink'
 import LanguageDropdown from './components/LanguageDropdown'
 import Selector from './components/Selector'
-import Card from './components/Card'
 
 type TLink = {
   name: string

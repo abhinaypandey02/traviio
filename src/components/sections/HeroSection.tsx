@@ -21,16 +21,13 @@ const HeroSection = ({ data }: HeroSectionProps) => {
         <span className="underline cursor-pointer">Book now</span>
       </p>
       <section
-
         className="min-h-[538px] text-white flex items-center bg-cover md:items-start justify-center md:justify-between flex-col md:px-[80px] md:py-[48px] px-5 py-3"
-
         style={{
           backgroundImage: `${linearGradient}, url(${data.image ? urlFor(data.image) : ''})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-
         <div className="w-[335px] md:w-[552px] min-h-[314px] py-5">
           <h1 className="text-[28px] md:text-[56px] font-[900] leading-[38px] md:leading-[78px] text-center md:text-start ">
             {data.title?.en}

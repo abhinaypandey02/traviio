@@ -8,7 +8,6 @@ export type ImageHeaderSectionProps = {
   data: SanityImageHeaderSection
 }
 const ImageHeaderSection = (props: ImageHeaderSectionProps) => {
-  console.log(props)
   const {
     data: { header, image, content },
   } = props

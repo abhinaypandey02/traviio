@@ -12,7 +12,6 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
   const {
     data: { cards },
   } = props
-  console.log(cards)
   return (
     <div className="px-32 py-10">
       <div className="grid grid-flow-row grid-cols-2 gap-x-8 gap-y-4">

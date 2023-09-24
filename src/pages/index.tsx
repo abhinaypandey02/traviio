@@ -41,7 +41,6 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
       }
     }`
   )) as SanityPage
-  console.log(JSON.stringify(pageData))
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {

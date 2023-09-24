@@ -58,7 +58,6 @@ const Heading = ({ tagline, title }: any) => {
 const InfoSection = ({ data }: any) => {
   // const cities = ['Egypt', 'Jordan', 'Saudia Arabia', 'Dubai', 'Isral']
   const [head, sethead] = useState(0)
-  console.log(data)
   return (
     <div className="py-20">
       {/* <div className="flex justify-between px-20 ">

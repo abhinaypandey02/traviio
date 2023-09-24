@@ -8,11 +8,13 @@ import { form_button, form_input_field } from './atoms/Form'
 import icon from './atoms/Icon'
 import link from './atoms/Link'
 import link_button from './atoms/LinkButton'
+import locale_number from './atoms/locale/LocaleNumber'
 import { locale_rich_text } from './atoms/locale/LocaleRichtext'
 import locale_string from './atoms/locale/LocaleString'
 import locale_text from './atoms/locale/LocaleText'
 import meta_data from './atoms/MetaData'
 import photo from './atoms/Photo'
+import price from './atoms/Price'
 import promo_banner from './atoms/PromoBanner'
 import Article from './documents/Article'
 import blog_page from './documents/BlogPage'
@@ -44,6 +46,7 @@ import { TourSectionExports } from './sections/Tours'
 export const schemaTypes = [
   // atoms
   locale_string,
+  locale_number,
   locale_text,
   locale_rich_text,
   form_button,
@@ -54,6 +57,7 @@ export const schemaTypes = [
   photo,
   meta_data,
   promo_banner,
+  price,
   // content
   content_text,
   content_image,

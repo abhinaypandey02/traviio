@@ -37,7 +37,13 @@ function FeatureItem(props: FeatureItemProps) {
         }}
       >
         <p>{props.title}</p>
-        <Image src="down_icon.svg" height={28} width={28} alt="arrow" className={`${props.open ? "-rotate-180" : ""} transition-all`}/> 
+        <Image
+          src="down_icon.svg"
+          height={28}
+          width={28}
+          alt="arrow"
+          className={`${props.open ? '-rotate-180' : ''} transition-all`}
+        />
       </div>
       {/* Dropdown */}
       {props.open && (
@@ -56,11 +62,14 @@ function FeatureItem(props: FeatureItemProps) {
                     height={22}
                     width={22}
                     alt="dropdown-arrow"
-                    className='transition-all'
+                    className="transition-all"
                   />
-                  <p className={`${item === props.selectedItem ? 'text-blue' : ''} font-medium transition-all`}>
+                  <p
+                    className={`${
+                      item === props.selectedItem ? 'text-blue' : ''
+                    } font-medium transition-all`}
+                  >
                     {item.title}
-                    
                   </p>
                 </div>
                 {item === props.selectedItem && (
@@ -102,7 +111,7 @@ function FeatureDropdown(props: FeatureDropdownProps) {
             title={item.title}
             open={open === item.title}
             openToggle={(title) => {
-              setOpen(open === title ? "" : title)
+              setOpen(open === title ? '' : title)
             }}
             selectedItem={selectedItem}
             selectedItemToggle={(item) => {

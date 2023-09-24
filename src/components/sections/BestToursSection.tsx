@@ -1,11 +1,62 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import client from '@/sanity/client'
+import { SanityTourPage, SanityTourSelectionSection } from '@/sanity/types'
 
 import BestTours from '../organisms/BestTours'
 import FilterDropdown from '../organisms/FilterDropdown'
 
-function BestToursSection() {
+function BestToursSection({ filters, tagline, title, tags }: SanityTourSelectionSection) {
+  const [loading, setLoading] = React.useState<boolean>(false)
+  const [pageNumber, setPageNumber] = React.useState<number>(1)
+  const lastIds = React.useRef<(string | null)[]>([''])
+  const [selectedTags, setSelectedTags] = React.useState<string[]>([])
+  const [pageData, setPageData] = React.useState<SanityTourPage['overview_card'][]>([])
+  const pageSize = 9
+
+  const refetchData = (selectedTags: string[], ids: (string | null)[], pageNumber: number) => {
+    setLoading(true)
+    client
+      .fetch(
+        `
+      *[_type == "tour_page" ${
+        selectedTags.length > 0 ? '&& (tags[]->name)[@ in $selectedTags]' : ''
+      } && _id > $lastId] | order(_id) [0...$pageSize] {
+        _id, overview_card
+      }
+    `,
+        {
+          lastId: ids[pageNumber - 1],
+          pageSize,
+          selectedTags,
+        }
+      )
+      .then((data: { _id: string; overview_card: SanityTourPage['overview_card'] }[]) => {
+        if (data.length > 0) {
+          lastIds.current[pageNumber] = data[data.length - 1]._id
+          setPageData(data.map((item) => item.overview_card))
+        } else {
+          setPageData([])
+          lastIds.current.push(null)
+        }
+      })
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    lastIds.current = ['']
+    setPageNumber(1)
+    refetchData(selectedTags, lastIds.current, 1)
+  }, [selectedTags])
+
+  useEffect(() => {
+    if (!lastIds.current?.[pageNumber - 1] || lastIds.current?.[pageNumber - 1] === null) return
+    refetchData(selectedTags, lastIds.current, pageNumber)
+  }, [pageNumber])
+
   return (
     <div className="flex flex-col items-center gap-5">
+      {JSON.stringify({ loading, pageNumber, selectedTags, pageData })}
       <div className="flex flex-col items-center">
         <h2 className="text-blue text-base font-medium">Tours and Trips</h2>
         <h4 className="text-3xl font-medium ">Best Tours of Egypt</h4>

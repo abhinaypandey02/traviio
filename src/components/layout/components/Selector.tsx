@@ -13,7 +13,9 @@ function Selector(props: {
       {items.map((item, index) => {
         return (
           <div
-            className={`${item == selectedItem ? 'text-blue' : ''} cursor-pointer hover:underline transition-all`}
+            className={`${
+              item == selectedItem ? 'text-blue' : ''
+            } cursor-pointer hover:underline transition-all`}
             onClick={() => {
               selectedItemToggle(item)
             }}
