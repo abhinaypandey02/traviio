@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FreeMode, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -17,7 +17,6 @@ export type DealSectionProps = {
 }
 
 const TravelCard = (props: { props: SanityDeal }) => {
-
   let data = props?.props as any
   return (
     <Link href={data?.tour?.slug ? '/destinations' + data.tour.slug.current : ''}>
@@ -43,15 +42,12 @@ const TravelCard = (props: { props: SanityDeal }) => {
             </div>
           </div>
           <div className="mt-4 flex justify-between">
-
             <span className="line-through opacity-50 font-bold text-xl">
               &#x24;{data?.old_price?.en}
             </span>
             <span className="text-right">
               <span className="text-xl font-bold">From &#x24;{data?.new_price?.en}</span> <br />
               <span className="text-md text-red font-bold">
-
-
                 You Save &#x24;{data?.discount?.en}
               </span>
             </span>

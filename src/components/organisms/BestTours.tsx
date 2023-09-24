@@ -1,6 +1,7 @@
-import { SanityDeal } from '@/sanity/types'
 import React from 'react'
 import Pagination from 'rc-pagination'
+
+import { SanityDeal } from '@/sanity/types'
 
 import TravelCard from '../molecule/TravelCard'
 
@@ -9,7 +10,7 @@ interface BestToursProps {
   destination: string
   tags: string[]
   tagsToggle: (tag: string) => void
-  deals: SanityDeal[]
+  deals: any | SanityDeal[]
   className?: string
 }
 
@@ -55,7 +56,7 @@ function BestTours(props: BestToursProps) {
         })}
       </div>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
-        {deals?.map((deal, index) => {
+        {deals?.map((deal: any, index: number) => {
           return <TravelCard key={index} />
         })}
         <Pagination
@@ -64,7 +65,7 @@ function BestTours(props: BestToursProps) {
             width: '100%',
             justifyContent: 'space-between',
             padding: '15px',
-            gridColumn: '1/-1'
+            gridColumn: '1/-1',
           }}
           pageSize={9}
           onChange={(current: any, pageSize: any) => {

@@ -434,6 +434,7 @@ export type SanityAtGlanceSection = {
 
 export type SanityBestToursSection = {
   _type: 'best_tours_section'
+  _key: string
 }
 
 export type SanityTopThingsSection = {
@@ -478,25 +479,23 @@ export type SanityTourSelectionSection = {
 }
 
 export type SanityAccommodationSection = {
-  _type: 'accommodation_section'
+  _type: 'accommodation_types_section'
   _key: string
   subtitle?: SanityLocaleString
   title?: SanityLocaleString
   accommodation_types?: {
-    accommodation_type: {
+    title?: SanityLocaleString
+    subtitle?: SanityLocaleString
+    rating?: number
+    resorts?: {
       title?: SanityLocaleString
-      subtitle?: SanityLocaleString
-      rating?: number
-      resorts?: {
-        title?: SanityLocaleString
-        image?: SanityImage
-      }[]
-    }
+      image?: SanityImage
+    }[]
   }[]
 }
 
 export type SanityImageShowcase = {
-  _type: 'image_showcase'
+  _type: 'image_showcase_section'
   _key: string
   title?: SanityLocaleString
   images_data?: {
@@ -522,6 +521,17 @@ export type SanityFeaturedToursSection = {
   }[]
 }
 
+export type SanityItineraryDetailsListItem = {
+  title?: SanityLocaleString
+  description?: SanityLocaleText
+  image?: SanityImage
+  itinerary_details_lists?: {
+    icon?: SanityIcon
+    title?: SanityLocaleString
+    itinerary_details_list_items?: SanityLocaleString[]
+  }[]
+}
+
 export type SanityItinerarySection = {
   _type: 'itinerary_section'
   _key: string
@@ -532,18 +542,7 @@ export type SanityItinerarySection = {
     title?: SanityLocaleString
     subtitle?: SanityLocaleString
   }[]
-  itinerary_day_cards?: {
-    title?: SanityLocaleString
-    description?: SanityLocaleText
-    image?: SanityImage
-    itinerary_details_lists?: {
-      icon?: SanityIcon
-      title?: SanityLocaleString
-      itinerary_details_list_items?: {
-        title?: SanityLocaleString
-      }[]
-    }[]
-  }[]
+  itinerary_day_cards?: SanityItineraryDetailsListItem[]
 }
 
 export type SanityMemorableExperiencesSection = {

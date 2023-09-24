@@ -8,8 +8,8 @@ export type FeatureSectionProps = {
   data: SanityFeatureSection
 }
 
-const FeatureSection = ({ data }: FeatureSectionProps) => {
-  console.log(data)
+export default function FeatureSection({ data }: FeatureSectionProps) {
+  console.log('FeatureSection->', data)
   if (data?.type != 'small') {
     return (
       <section className={'text-center min-h-[257px] my-20  text-[#140D31] relative'}>
@@ -84,7 +84,3 @@ const SmallFeature = ({ data }: FeatureProps) => {
     </div>
   )
 }
-
-FeatureSection.Feature = Feature
-
-export default FeatureSection

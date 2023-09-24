@@ -5,10 +5,14 @@ import {
   SanityDestinationSectionNames,
   SanitySectionNames,
   SanityTourSectionNames,
-  SanityTravelGuideSection,
 } from '@/sanity/types'
 
+import AccommdationTypesSection from './Tours/AccommdationTypesSection'
+import ItinerarySection from './Tours/ItinerarySection'
+import MemorableExperiencesSection from './Tours/MemorableExperiencesSection'
+import WhatsIncludedSection from './Tours/WhatsIncludedSection'
 import AtAGlanceSection from './AtAGlanceSection'
+import BestToursSection from './BestToursSection'
 import BlogSection from './BlogSection'
 import ContentSection from './ContentSection'
 import DealsSection from './DealsSection'
@@ -24,7 +28,6 @@ import NewsletterSection from './NewsletterSection'
 import OfficeLocationSection from './OfficeLocationSection'
 import ReviewSection from './ReviewSection'
 import Testimonial from './Testimonial'
-import BestToursSection from './BestToursSection'
 
 export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {
   hero_section: HeroSection,
@@ -56,7 +59,7 @@ export const DestinationSectionsMap: {
   all_blogs_section: BlogSection,
   featured_tours_section: DealsSection,
   at_glance_section: AtAGlanceSection,
-  best_tours_section: BestToursSection
+  best_tours_section: BestToursSection,
 }
 
 export const BlogPageSectionsMap: {
@@ -71,4 +74,15 @@ export const BlogPageSectionsMap: {
 
 export const TourSectionsMap: {
   [name in SanityTourSectionNames]?: FunctionComponent<any>
-} = {}
+} = {
+  itinerary_section: ItinerarySection,
+  content_section: ContentSection,
+  memorable_experiences_section: MemorableExperiencesSection,
+  image_showcase_section: GallerySection,
+  whats_included_section: WhatsIncludedSection,
+  accommodation_types_section: AccommdationTypesSection,
+  reviews_section: ReviewSection,
+  feature_section: FeatureSection,
+  featured_tours_section: DealsSection,
+  faq_section: FAQSection,
+}

@@ -5,7 +5,7 @@ const nextConfig = {
     defaultLocale: 'en',
   },
   experimental: {
-    serverComponentsExternalPackages: ['mongoose', 'node-fetch']
+    serverComponentsExternalPackages: ['mongoose', 'node-fetch'],
   },
   images: {
     remotePatterns: [
@@ -17,10 +17,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
-      
     ],
   },
-  reactStrictMode: false
+  reactStrictMode: false,
 }
 
 module.exports = nextConfig

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import FilterDropdown from '../organisms/FilterDropdown'
 import BestTours from '../organisms/BestTours'
+import FilterDropdown from '../organisms/FilterDropdown'
 
 function BestToursSection() {
   return (
@@ -12,7 +12,7 @@ function BestToursSection() {
         <hr className="lg:w-1/2 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
       </div>
       <div className="mx-auto max-w-[90%] grid md:grid-cols-4 grid-cols-1 gap-5">
-        <div className='h-full'>
+        <div className="h-full">
           <FilterDropdown
             className=""
             items={[
