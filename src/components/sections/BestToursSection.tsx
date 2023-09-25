@@ -25,7 +25,7 @@ function BestToursSection(props: BestToursSectionProps) {
       .fetch(
         `
       *[_type == "tour_page" ${
-        selectedTags.length > 0 ? "&& (tags[]->{'name': name.en})[@ in $selectedTags]" : ''
+        selectedTags.length > 0 ? '&& count((tags[]->name.en)[@ in $selectedTags]) > 0' : ''
       } && _id > $lastId] | order(_id) [0...$pageSize] {
         _id, overview_card
       }
@@ -55,9 +55,15 @@ function BestToursSection(props: BestToursSectionProps) {
   }, [selectedTags])
 
   useEffect(() => {
-    if (!lastIds.current?.[pageNumber - 1] || lastIds.current?.[pageNumber - 1] === null) return
+    if (lastIds.current?.[pageNumber - 1] === undefined || lastIds.current[pageNumber - 1] === null)
+      return
     refetchData(selectedTags, lastIds.current, pageNumber)
   }, [pageNumber])
+
+  // Initial data
+  useEffect(() => {
+    refetchData(selectedTags, lastIds.current, 1)
+  }, [])
 
   return (
     <div className="flex flex-col items-center gap-5">
