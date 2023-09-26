@@ -3,7 +3,7 @@ import localFont from 'next/font/local'
 
 import Footer from './footer'
 import Header from './header'
-const myFont = localFont({ src: '../../../public/Satoshi-Variable.ttf' })
+const myFont = localFont({ src: '../../../public/Satoshi-Variable.ttf',  })
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className={myFont.className}>

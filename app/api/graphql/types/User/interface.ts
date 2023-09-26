@@ -4,25 +4,21 @@ export interface IAddUserInput {
   user: {
     name: string
     email: string
-    picture?: string
+    password: string
   }
 }
 
 export interface IUpdateUserInput {
   user: {
-    firstName?: string
-    lastName?: string
-    email: string
-    phone?: string
-    picture?: string
+    name?: string
+    email?: string
   }
 }
 
 export interface IMongoose {
   _id: Types.ObjectId
-  firstName: string
-  lastName: string
+  name: string
   email: string
-  phone?: string
-  picture?: string
+  password: string
+  refreshTokens: string[]
 }

@@ -6,66 +6,59 @@ const GraphqlQuery = `
   user(email:String):User
   userById(id:String):User
   users:[User]
+  getAccessToken(refreshToken:String!, secret:String!):Tokens
+  loginUser(email:String!, password:String!):Tokens
 `
 const GraphqlMutation = `
-  addUser(user:AddUserInput!): User
+  addUser(user:AddUserInput!): Tokens
   updateUser(user:UpdateUserInput!): User
   deleteUser: Boolean
   sendEmail(to:String!, dynamicTemplateData:String!): User
 `
 const GraphqlType = `
   #graphql
+  type Tokens{
+    refresh:String!
+    access:String!
+  }
   input AddUserInput{
-      firstName:String
-      lastName:String
+    name:String!
+    password:String!
     email:String!
-    picture: String
   }
   input UpdateUserInput{
     email:String
-    firstName:String
-    lastName:String
-    phone:String
-    
-    picture:String
-    
+    name:String
   }
   type User {
     _id:ID!
-    
-    firstName:String
-    lastName:String
+    name:String!
     email:String!
-    phone:String
-    picture:String
-    
+    refreshTokens:[String!]
   }
 `
 
 export const MongooseSchema = new Schema<IMongoose>(
   {
-    firstName: {
+    name: {
       type: String,
-      required: false,
-    },
-    lastName: {
-      type: String,
-      required: false,
+      required: true,
     },
     email: {
       type: String,
       unique: true,
       index: true,
     },
-
-    phone: {
+    password: {
       type: String,
-      required: false,
+      required: true,
     },
-    picture: {
-      type: String,
-      required: false,
-    },
+    refreshTokens: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,

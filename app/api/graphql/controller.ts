@@ -1,3 +1,5 @@
+import { NextRequest, NextResponse } from 'next/server'
+
 import types from './types'
 
 let resolvers = {
@@ -15,4 +17,8 @@ types.forEach((type) => {
     Mutation: { ...resolvers.Mutation, ...type.GQLResolvers.mutation },
   }
 })
+export async function middleware(req: NextRequest, res: any) {
+  // new NextResponse('', { status: 500, headers: { 'Set-Cookie': 'coo=coooo' } })
+  return {}
+}
 export default resolvers

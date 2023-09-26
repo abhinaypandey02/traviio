@@ -13,7 +13,7 @@ const QueryResolvers = {
 
 const MutationResolvers = {
   async addBooking(_: any, { booking }: AddBookingInput): Promise<ObjectId | null> {
-    const newBooking = await MongooseModel.create(booking)
+    const newBooking = await MongooseModel.create({ ...booking, status: 'UNPAID' })
     const doc = await newBooking.save()
     return doc._id
   },

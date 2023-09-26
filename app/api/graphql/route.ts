@@ -9,7 +9,7 @@ import {
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
 
 import { assertENV } from './helpers/errorHandlers'
-import resolvers from './controller'
+import resolvers, { middleware } from './controller'
 import typeDefs from './model'
 
 if (assertENV(process.env.MONGODB_URI, true)) {
@@ -22,7 +22,7 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginLandingPageLocalDefault()],
   introspection: true,
 })
-const handler = startServerAndCreateNextHandler(server)
+const handler = startServerAndCreateNextHandler(server, { context: middleware })
 
 export async function GET(request: NextRequest) {
   return handler(request)
