@@ -4,7 +4,7 @@ import { MongooseModel } from './index'
 import { AddBookingInput, IMongoose } from './interface'
 
 const QueryResolvers = {
-  async booking(_: null, args: { id: string; key?: string }): Promise<IMongoose | null> {
+  async booking(_: null, args: { id: string }): Promise<IMongoose | null> {
     return MongooseModel.findOne({
       _id: args.id,
     })

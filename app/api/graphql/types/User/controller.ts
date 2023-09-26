@@ -9,10 +9,7 @@ import { IAddUserInput, IMongoose, IUpdateUserInput } from './interface'
 const MAX_DEVICES = 2
 
 const QueryResolvers = {
-  async user(_: null, args: { email: string }): Promise<IMongoose | null> {
-    return MongooseModel.findOne({ email: args.email })
-  },
-  async userById(_: null, args: { id?: string }): Promise<IMongoose | null> {
+  async user(_: null, args: { id?: string }): Promise<IMongoose | null> {
     if (args.id) {
       return MongooseModel.findOne({ _id: args.id })
     }
@@ -84,7 +81,6 @@ const MutationResolvers = {
       { _id: newUser._id },
       { $push: { refreshTokens: [refreshToken] } }
     )
-    console.log(refreshToken)
     return {
       refresh: refreshToken,
       access: generateAccessToken({ id: newUser._id.toString() }),

@@ -121,7 +121,6 @@ const InfoSection = ({ data }: any) => {
 }
 
 export default function WikiPage({ slug, data, locale, globals }: WikiPageProps) {
-  console.log(data)
   return (
     <LocaleProvider locale={locale}>
       <Layout>

@@ -17,7 +17,6 @@ const GallerySection = (props: GallerySectionProps) => {
   const {
     data: { title, subtitle, images },
   } = props
-  console.log('Images->', images)
 
   return (
     <div className="pt-10 bg-[#F2FAFF] text-black">
