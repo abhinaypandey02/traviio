@@ -28,7 +28,8 @@ export function LocalizedString({
   return <span {...props}>{text[locale]}</span>
 }
 
-export function localizedString(text: SanityLocaleString, locale?: SanityLocale) {
+export function localizedString(text?: SanityLocaleString, locale?: SanityLocale) {
+  if (!text) return ''
   return text[locale ?? 'en']
 }
 

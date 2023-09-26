@@ -13,8 +13,8 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
     data: { cards },
   } = props
   return (
-    <div className="px-32 py-10">
-      <div className="grid grid-flow-row grid-cols-2 gap-x-8 gap-y-4">
+    <div className="md:px-32 px-10 md:py-10 py-5">
+      <div className="grid grid-flow-row md:grid-cols-2 grid-cols-1 gap-x-8 gap-y-4">
         <div>
           {cards ? (
             <div className="cursor-pointer relative">
@@ -25,8 +25,8 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
                 height={73}
                 alt=""
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-white text-3xl font-semibold">
+              <div className="absolute inset-0 flex items-center justify-center text-center">
+                <p className="text-white md:text-3xl text-xl font-semibold">
                   {cards ? cards[0]?.title?.en : null}
                 </p>
               </div>
@@ -34,7 +34,7 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
           ) : null}
         </div>
 
-        <div className="grid grid-flow-row grid-cols-2 gap-x-8 gap-y-4 ">
+        <div className="grid grid-flow-row grid-cols-2 md:gap-x-8 gap-x-4 gap-y-4 ">
           {cards ? (
             <div className="cursor-pointer relative">
               <Image
@@ -44,8 +44,8 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
                 height={73}
                 alt=""
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-white text-xl font-semibold">
+              <div className="absolute inset-0 flex items-center text-center justify-center">
+                <p className="text-white md:text-xl text-md font-semibold">
                   {cards ? cards[0]?.title?.en : null}
                 </p>
               </div>
@@ -60,9 +60,9 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
                 height={73}
                 alt=""
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-white text-xl font-semibold">
-                  {cards ? cards[0]?.title?.en : null}
+              <div className="absolute inset-0 flex items-center text-center justify-center">
+                <p className="text-white md:text-xl text-md font-semibold">
+                  {cards ? cards[2]?.title?.en : null}
                 </p>
               </div>
             </div>
@@ -76,9 +76,9 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
                 height={73}
                 alt=""
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-white text-xl font-semibold">
-                  {cards ? cards[0]?.title?.en : null}
+              <div className="absolute inset-0 flex items-center text-center justify-center">
+                <p className="text-white md:text-xl text-md font-semibold">
+                  {cards ? cards[2]?.title?.en : null}
                 </p>
               </div>
             </div>
@@ -92,9 +92,9 @@ const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
                 height={73}
                 alt=""
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-white text-xl font-semibold">
-                  {cards ? cards[0]?.title?.en : null}
+              <div className="absolute inset-0 flex items-center text-center justify-center">
+                <p className="text-white md:text-xl text-md font-semibold">
+                  {cards ? cards[2]?.title?.en : null}
                 </p>
               </div>
             </div>
