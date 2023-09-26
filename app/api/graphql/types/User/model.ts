@@ -3,33 +3,40 @@ import { Schema } from 'mongoose'
 import { IMongoose } from './interface'
 
 const GraphqlQuery = `
-  user(email:String):User
-  userById(id:String):User
+  "[Authenticated] Get a user by email"
+  user(id:String):User
+  "[Admin] Get all users"
   users:[User]
+  "[Backend] Get access token from refresh token and update the refresh token in the backend"
   getAccessToken(refreshToken:String!, secret:String!):Tokens
+  "[Public] Get access token and refresh token"
   loginUser(email:String!, password:String!):Tokens
 `
 const GraphqlMutation = `
+  "[Public] Get access token and refresh token after adding a new"
   addUser(user:AddUserInput!): Tokens
+  "[Authenticated] Update user details"
   updateUser(user:UpdateUserInput!): User
-  deleteUser: Boolean
-  sendEmail(to:String!, dynamicTemplateData:String!): User
 `
 const GraphqlType = `
   #graphql
+  "Token received on authentication"
   type Tokens{
     refresh:String!
     access:String!
   }
+  "Arguments to add user"
   input AddUserInput{
     name:String!
     password:String!
     email:String!
   }
+  "Arguments to update user"
   input UpdateUserInput{
     email:String
     name:String
   }
+  "User type"
   type User {
     _id:ID!
     name:String!

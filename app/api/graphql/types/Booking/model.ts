@@ -3,42 +3,49 @@ import { Schema } from 'mongoose'
 import { IMongoose } from './interface'
 
 const GraphqlQuery = `
-  booking(id:String!, key:String):Booking
+  "[Auth required] Get booking by id"
+  booking(id:String!):Booking
 `
 const GraphqlMutation = `
+  "[Auth required] Add new booking"
   addBooking(booking:AddBookingInput!): String
 `
 const GraphqlType = `
   #graphql
+  "Payment status"
   enum Status{
       PAID
       UNPAID
   }
+  "Name broken down"
   type Name{
       designation:String!
       firstName:String!
       middleName:String
       lastName:String
   }
-  
+  "Name broken down"
   input NameInput{
       designation:String!
       firstName:String!
       middleName:String
       lastName:String
   }
+  "Address broken down"
   type Address{
       line1:String!
       town:String!
       state:String
       country:String
   }
+  "Address broken down"
   input AddressInput{
       line1:String!
       town:String!
       state:String
       country:String
   }
+  "Adult details in a booking"
   type Adult{
       name:Name!
       dob:String!
@@ -47,6 +54,7 @@ const GraphqlType = `
       phone:String
       address:Address
   }
+  "Adult details in a booking"
   input AdultInput{
       name:NameInput!
       dob:String!
@@ -55,6 +63,7 @@ const GraphqlType = `
       phone:String
       address:AddressInput
   }
+  "Arguments to add booking"
   input AddBookingInput{
       adults:[AdultInput]!
       children:Int!
@@ -67,6 +76,7 @@ const GraphqlType = `
       roomType:String!
       optionalTours:[String!]
   }
+  "Tour Booking"
   type Booking {
     _id:ID!
     tour:ID!

@@ -26,7 +26,6 @@ export default function MemorableExperiencesSection({
 
   React.useEffect(() => {
     if (swiper) {
-      console.log('Swiper instance:', swiper)
       swiper.params && (swiper.params.navigation.prevEl = prevRef.current)
       swiper.params && (swiper.params.navigation.nextEl = nextRef.current)
       swiper.navigation && swiper.navigation.init()

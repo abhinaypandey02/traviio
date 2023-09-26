@@ -30,7 +30,7 @@ const TravelCard = (props: { props: SanityDeal }) => {
           <div className="flex px-1 py-2 justify-between">
             <div className="text-sm flex gap-2">
               <Image height={18} width={18} alt="" src="/calendar.svg"></Image>
-              <p>{data?.tour?.overview_card?.duration}</p>
+              <p>{data?.tour?.overview_card?.duration?.en}</p>
             </div>
             <div className="text-sm flex gap-2">
               <Image height={18} width={18} alt="" src="/map_plain.svg"></Image>
@@ -63,7 +63,6 @@ const DealsSection = (props: DealSectionProps) => {
   const {
     data: { tagline, title, deals },
   } = props
-  console.log('DealsSection->', props)
   const slides = deals?.map((props) => {
     //@ts-ignore
     return <TravelCard props={props} />

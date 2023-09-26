@@ -32,7 +32,6 @@ export const POST = async (req: Request) => {
       variables: { user: { name: user.name, email: user.email, password: user.password } },
     })
     token = res.data?.addUser
-    console.log(token)
     if (!token)
       return new NextResponse('User already exists', {
         status: 403,
