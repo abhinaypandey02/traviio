@@ -59,7 +59,7 @@ const OverViewCard = ({ data }: { data: SanityTourPage['overview_card'] }) => {
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-base font-medium text-gray whitespace-nowrap">
-              {data?.countries?.en} Countries
+              {data?.countries} Countries
             </p>
             <p className="text-xl font-bold text-darkblue">{data?.cities} Cities</p>
           </div>
