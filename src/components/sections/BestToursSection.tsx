@@ -1,18 +1,23 @@
 import React, { useEffect } from 'react'
 
 import client from '@/sanity/client'
-import { SanityTourPage, SanityTourSelectionSection } from '@/sanity/types'
+import { SanityTag, SanityTourPage, SanityTourSelectionSection } from '@/sanity/types'
 
 import BestTours from '../organisms/BestTours'
 import FilterDropdown from '../organisms/FilterDropdown'
 
-function BestToursSection({ filters, tagline, title, tags }: SanityTourSelectionSection) {
+interface BestToursSectionProps {
+  data: SanityTourSelectionSection
+}
+
+function BestToursSection(props: BestToursSectionProps) {
+  const { tags } = props.data
   const [loading, setLoading] = React.useState<boolean>(false)
   const [pageNumber, setPageNumber] = React.useState<number>(1)
   const lastIds = React.useRef<(string | null)[]>([''])
   const [selectedTags, setSelectedTags] = React.useState<string[]>([])
   const [pageData, setPageData] = React.useState<SanityTourPage['overview_card'][]>([])
-  const pageSize = 9
+  const pageSize = 1
 
   const refetchData = (selectedTags: string[], ids: (string | null)[], pageNumber: number) => {
     setLoading(true)
@@ -20,7 +25,7 @@ function BestToursSection({ filters, tagline, title, tags }: SanityTourSelection
       .fetch(
         `
       *[_type == "tour_page" ${
-        selectedTags.length > 0 ? '&& (tags[]->name)[@ in $selectedTags]' : ''
+        selectedTags.length > 0 ? '&& count((tags[]->name.en)[@ in $selectedTags]) > 0' : ''
       } && _id > $lastId] | order(_id) [0...$pageSize] {
         _id, overview_card
       }
@@ -50,9 +55,15 @@ function BestToursSection({ filters, tagline, title, tags }: SanityTourSelection
   }, [selectedTags])
 
   useEffect(() => {
-    if (!lastIds.current?.[pageNumber - 1] || lastIds.current?.[pageNumber - 1] === null) return
+    if (lastIds.current?.[pageNumber - 1] === undefined || lastIds.current[pageNumber - 1] === null)
+      return
     refetchData(selectedTags, lastIds.current, pageNumber)
   }, [pageNumber])
+
+  // Initial data
+  useEffect(() => {
+    refetchData(selectedTags, lastIds.current, 1)
+  }, [])
 
   return (
     <div className="flex flex-col items-center gap-5">
@@ -99,30 +110,13 @@ function BestToursSection({ filters, tagline, title, tags }: SanityTourSelection
           className="col-span-3"
           numberOfTours={50}
           destination="Egypt"
-          tags={[
-            'Classic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-            'Clasasdfsic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-            'Classic Tours',
-            'Christmas Tours',
-          ]}
-          tagsToggle={() => {}}
-          deals={[{}, {}, {}, {}, {}, {}, {}, {}, {}]}
+          tags={tags as SanityTag[]}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+          deals={pageData}
+          pageSize={pageSize}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
         />
       </div>
     </div>

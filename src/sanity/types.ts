@@ -861,9 +861,9 @@ export type SanityTourPage = {
   }
   overview_card?: {
     duration?: SanityLocaleString
-    countries?: SanityLocaleString
+    countries?: number
     cities?: number
-    rating?: SanityLocaleString
+    rating?: number
     about?: SanityLocaleString
     price?: SanityPrice
     cta_button?: SanityLinkButton
