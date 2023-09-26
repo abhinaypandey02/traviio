@@ -131,7 +131,7 @@ const ADDRESSES = [
 
 const Footer = () => {
   return (
-    <div className="mt-auto w-screen bg-primary flex flex-col">
+    <div className="mt-auto w-screen bg-primary flex flex-col text-gray">
       <div className="px-10 mt-12 flex flex-wrap justify-between gap-5 py-5">
         {/* Left side */}
         <div className="flex flex-col gap-5 mb-12 md:w-[30%]">

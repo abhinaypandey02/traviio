@@ -14,7 +14,7 @@ export default function AccommdationTypesSection({ data }: { data: SanityAccommo
           <p className="text-gray text-lg">{data.subtitle?.en}</p>
         </div>
       </div>
-      <div className="grid grid-cols-3">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data?.accommodation_types?.map((item, index) => (
           <AccomodationCard data={item} key={index} />
         ))}

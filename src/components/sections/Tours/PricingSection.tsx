@@ -9,7 +9,7 @@ import Button from '@/components/buttons/Button'
 export default function PricingSection({ data }: { data: SanityPricingSection }) {
   const prices = [{}, {}, {}, {}, {}]
   return (
-    <div className="bg-white flex flex-col my-10 gap-12 max-w-[1280px] w-[90%] mx-auto bg-darkblue/5 p-7">
+    <div className="flex flex-col my-10 gap-12 max-w-[1280px] w-[90%] mx-auto bg-darkblue/5 rounded-2xl p-7">
       <div className="flex gap-2 justify-between">
         <div className="flex flex-col gap-3">
           <p className="text-gray text-base font-medium">
@@ -34,8 +34,11 @@ export default function PricingSection({ data }: { data: SanityPricingSection })
       </div>
       <div className="flex flex-col gap-5">
         <div className="px-7 grid grid-cols-5">
-          <p className="text-lg font-medium text-darkblue">From</p>
-          <p className="text-lg font-medium text-darkblue">To</p>
+          <div className="col-span-2 grid grid-cols-[2fr_1fr_3fr]">
+            <p className="text-lg font-medium text-darkblue">From</p>
+            <p></p>
+            <p className="text-lg font-medium text-darkblue">To</p>
+          </div>
           <p className="text-lg font-medium text-darkblue"></p>
           <p className="text-lg font-medium text-darkblue">Price</p>
           <p className="text-lg font-medium text-darkblue"></p>
@@ -62,11 +65,16 @@ const PriceCard = ({ data }: { data: any }) => {
           setIsOpen(!isOpen)
         }}
       >
-        <div className={`text-base font-bold ${isOpen ? 'text-white' : 'text-black'}`}>
-          02 Jun 2023
-        </div>
-        <div className={`text-base font-bold ${isOpen ? 'text-white' : 'text-black'}`}>
-          11 Jun 2023
+        <div className="col-span-2 grid grid-cols-[2fr_1fr_3fr]">
+          <div className={`text-base font-bold ${isOpen ? 'text-white' : 'text-black'}`}>
+            02 Jun 2023
+          </div>
+          <div className="flex items-center">
+            <ArrowRight width={40} weight="bold" className={`${isOpen ? 'text-yellow' : ''}`} />
+          </div>
+          <div className={`text-base font-bold ${isOpen ? 'text-white' : 'text-black'}`}>
+            11 Jun 2023
+          </div>
         </div>
         <div className={`text-base font-bold ${isOpen ? 'text-white' : 'text-black'}`}>
           Available
