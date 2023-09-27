@@ -50,7 +50,7 @@ const TravelCard = ({
             </div>
             <div className="text-sm flex gap-2">
               <Image height={18} width={18} alt="" src="/globe.svg"></Image>
-              <p>{data?.content?.overview_card?.countries?.en} Countries </p>
+              <p>{data?.content?.overview_card?.countries} Countries </p>
             </div>
           </div>
           <div className="mt-4 flex justify-between">
