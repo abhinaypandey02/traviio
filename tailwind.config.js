@@ -20,6 +20,7 @@ module.exports = {
         yellow: '#FFBB0B',
         red: '#D10002',
         primary: '#F2FAFF',
+        green: '#4CAF50',
       },
     },
   },

@@ -5,6 +5,9 @@ import { SanityFeatureSection } from '@/sanity/types'
 import Layout from '@/components/layout'
 import Footer from '@/components/layout/footer'
 import FeatureSection from '@/components/sections/FeatureSection'
+import Page1 from '@/components/sections/Payment/Page1'
+import Page2 from '@/components/sections/Payment/Page2'
+import Page3 from '@/components/sections/Payment/Page3'
 import Tabs from '@/components/sections/Payment/Tabs'
 
 export default function index() {
@@ -80,9 +83,9 @@ export default function index() {
     <Layout>
       <FeatureSection data={features} />
       <Tabs>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
+        <Page1 />
+        <Page2 />
+        <Page3 />
       </Tabs>
     </Layout>
   )
