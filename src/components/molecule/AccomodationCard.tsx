@@ -10,7 +10,7 @@ const AccomodationCard = ({
   data: Exclude<SanityAccommodationSection['accommodation_types'], undefined>[0]
 }) => {
   return (
-    <div className="rounded-2xl overflow-hidden w-[300px] shadow-lg place-self-center">
+    <div className="rounded-2xl overflow-hidden min-w-[300px] w-full max-w-[400px] shadow-lg place-self-center">
       <div className="text-center bg-[#233861] py-2 rounded-t-2xl items-center flex flex-col ">
         <h4 className="text-xl text-white font-semibold">{data.title?.en}</h4>
         <h5 className="text-white text-sm">{data.subtitle?.en}</h5>

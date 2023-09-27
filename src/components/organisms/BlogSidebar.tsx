@@ -1,6 +1,7 @@
 import React from 'react'
-import LatestArticle from '../molecule/LatestArticle'
+
 import Button from '../buttons/Button'
+import LatestArticle from '../molecule/LatestArticle'
 
 function BlogSidebar() {
   const latestArticles = [
@@ -24,7 +25,7 @@ function BlogSidebar() {
         'https://images.unsplash.com/photo-1682686578023-dc680e7a3aeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8&auto=format&q=60',
     },
   ]
-  const relatedTours = [
+  const relatedTours: any = [
     {
       title:
         'The most interesting historical monuments in Jaipur The most interesting historical monuments in Jaipur',
@@ -93,7 +94,7 @@ function BlogSidebar() {
       <h4 className="font-semibold text-xl">Related Tours</h4>
       <hr className="text-yellow h-1 rounded-full my-1  bg-yellow w-1/4 border-1" />
       <div className="flex flex-col gap-3 py-5">
-        {relatedTours.map((article, index) => {
+        {relatedTours.map((article: any, index: number) => {
           return <LatestArticle {...article} key={index} />
         })}
       </div>

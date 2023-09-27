@@ -1,8 +1,9 @@
 import React from 'react'
 
 const BUTTON_VARIANT = {
-  primary: 'bg-blue',
-  secondary: 'bg-yellow',
+  primary: 'bg-blue text-white',
+  secondary: 'bg-yellow text-white',
+  hollow: 'bg-white border border-gray text-gray',
 }
 const Button = ({
   text,
@@ -20,7 +21,7 @@ const Button = ({
   return (
     <div
       ref={ref}
-      className={`bg-blue text-center  rounded-full py-2 font-bold my-2 text-sm text-white ${BUTTON_VARIANT[varient]} ${className}`}
+      className={`bg-blue text-center  rounded-full py-2 font-bold my-2 text-sm ${BUTTON_VARIANT[varient]} ${className}`}
       onClick={onClick}
     >
       {text}
