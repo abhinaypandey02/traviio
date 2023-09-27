@@ -4,13 +4,21 @@ import { Check, Minus, Plus } from '@phosphor-icons/react'
 
 interface Props {
   name?: string
-  type: 'buttonNumber' | 'select' | 'text' | 'number' | 'password' | 'checkbox'
+  type:
+    | 'buttonNumber'
+    | 'select'
+    | 'text'
+    | 'number'
+    | 'password'
+    | 'checkbox'
+    | 'boxSelection'
+    | 'textarea'
   value: any
   setValue: any
   variant?: 'primary' | 'secondary'
   placeholder?: string
-  label?: string
-  options?: string[] | number[]
+  label?: any
+  options?: string[] | number[] | { name: string; icon: any }[]
 }
 
 const VARIANT = {
@@ -86,7 +94,9 @@ export default function Input({
               {placeholder}
             </option>
           )}
-          {options?.map((option) => <option value={option}>{option}</option>)}
+          {(options as string[] | number[])?.map((option) => (
+            <option value={option}>{option}</option>
+          ))}
         </select>
       </div>
     )
@@ -117,6 +127,46 @@ export default function Input({
         }}
       >
         <Check color="white" width={16} height={16} weight="bold" />
+      </div>
+    )
+  if (type == 'boxSelection')
+    return (
+      <div className="flex  font-medium text-base text-black flex-col gap-2">
+        {label && <label htmlFor={name}>{label}</label>}
+        <div className="flex justify-center gap-3 flex-wrap">
+          {options?.map((option: any) => (
+            <div
+              className={`flex w-fit border border-darkblue/10 rounded ${
+                value.includes(option.name) ? 'text-white bg-blue' : 'text-gray bg-white'
+              } p-3 gap-2 items-center whitespace-nowrap flex-nowrap`}
+              onClick={() => {
+                if (value.includes(option.name)) {
+                  setValue(value.filter((item: any) => item != option.name))
+                } else {
+                  setValue([...value, option.name])
+                }
+              }}
+            >
+              {option.icon} {option.name}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  if (type == 'textarea')
+    return (
+      <div className="flex  font-medium text-base text-black flex-col gap-2">
+        {label && <label htmlFor={name}>{label}</label>}
+
+        <textarea
+          id={name}
+          rows={3}
+          className="border border-darkblue/10 text-gray rounded p-1"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value)
+          }}
+        />
       </div>
     )
 }
