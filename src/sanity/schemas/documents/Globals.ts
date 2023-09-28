@@ -81,6 +81,12 @@ export default defineType({
           description: 'CTA for the navbar',
           type: 'link_button',
         }),
+        defineField({
+          name: 'contact',
+          title: 'Contact Info',
+          description: 'Contact Info',
+          type: 'link_button',
+        }),
       ],
       preview: {
         select: {

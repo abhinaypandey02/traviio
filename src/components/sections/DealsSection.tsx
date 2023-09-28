@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { urlFor } from '@/sanity/client'
 import { SanityDeal, SanityDealsSection, SanityLocaleString, SanityTourPage } from '@/sanity/types'
 
+import Container from '@/components/Container'
+
 import Button from '../buttons/Button'
 
 import 'swiper/css'
@@ -68,7 +70,7 @@ const DealsSection = (props: DealSectionProps) => {
     return <TravelCard props={props} />
   })
   return (
-    <div className="px-10 py-10  text-black bg-white">
+    <Container className="px-10 py-10  text-black bg-white">
       <h2 className="text-blue text-base font-medium">{tagline?.en}</h2>
       <h4 className="text-3xl font-medium ">{title?.en}</h4>
       <hr className="lg:w-1/12 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
@@ -107,7 +109,7 @@ const DealsSection = (props: DealSectionProps) => {
           })}
         </Swiper>
       </div>
-    </div>
+    </Container>
   )
 }
 

@@ -7,6 +7,8 @@ import { urlFor } from '@/sanity/client'
 import { SanityArticle, SanityFeaturedBlogsSection } from '@/sanity/types'
 import DateFormat from '@/utils/utils'
 
+import Container from '@/components/Container'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
 
@@ -47,7 +49,7 @@ const BlogSection = (props: BlogSectionProps) => {
     return <BlogCard props={props} />
   })
   return (
-    <div className="lg:px-20 px-10 py-10  bg-white text-black">
+    <Container className=" py-10  bg-white text-black">
       <div className="my-[48px]">
         <h2 className="text-blue text-base font-medium text-center">{tagline?.en}</h2>
         <h4 className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px]  text-center">
@@ -90,7 +92,7 @@ const BlogSection = (props: BlogSectionProps) => {
           })}
         </Swiper>
       </div>
-    </div>
+    </Container>
   )
 }
 

@@ -3,6 +3,8 @@ import Image from 'next/image'
 
 import { SanityFAQSection } from '@/sanity/types'
 
+import Container from '@/components/Container'
+
 export type FAQSectionProps = {
   data: SanityFAQSection
 }
@@ -10,7 +12,7 @@ export type FAQSectionProps = {
 const FAQSection = ({ data }: FAQSectionProps) => {
   const [open, setOpen] = React.useState(-1)
   return (
-    <div className="bg-white flex flex-col items-center py-10 w-[90%] mx-auto max-w-[1280px] ">
+    <Container className="bg-white flex flex-col items-center py-10 ">
       <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
         {data.tagline?.en}
       </h1>
@@ -18,7 +20,7 @@ const FAQSection = ({ data }: FAQSectionProps) => {
         {data.title?.en}
       </h3>
       <hr className="w-[85px] md:w-[117px] my-2 bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
-      <div className="w-full px-10 mt-8 space-y-4">
+      <div className="w-full  mt-8 space-y-4">
         {data.faqs?.map((faq, index) => (
           <div className="flex flex-col gap-3" key={index}>
             <div
@@ -40,7 +42,7 @@ const FAQSection = ({ data }: FAQSectionProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   )
 }
 
