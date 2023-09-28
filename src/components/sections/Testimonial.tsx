@@ -1,12 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
-import { FreeMode, Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
 
+// import { FreeMode, Navigation } from 'swiper/modules'
+// import { Swiper, SwiperSlide } from 'swiper/react'
 import { urlFor } from '@/sanity/client'
 import { SanityTestimonialSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
+import Swiper from '@/components/Swiper'
 
 import plane from '../../../public/plane.svg'
 
@@ -40,77 +41,97 @@ const Testimonial = (props: TestimonialSectionProps) => {
           />
         </div>
         <div className="w-3/4 hidden lg:block">
-          <Swiper
-            navigation={true}
-            slidesPerView={3}
-            spaceBetween={30}
-            modules={[FreeMode, Navigation]}
-            freeMode={true}
-            pagination={{
-              clickable: true,
-            }}
-            className="mySwiper"
-          >
-            {testimonials
-              ? testimonials.map((item: any, index: any) => {
-                  return (
-                    <SwiperSlide>
-                      <div key={index} className={'w-full'}>
-                        <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>
-                        <h3 className="text-lg font-[700]">{item?.title?.en}</h3>
-                        <h5 className="text-base font-[500] my-2 opacity-60">{item?.text?.en}</h5>
-                        <div className="flex gap-x-3 my-4">
-                          <div>
-                            <Image alt={''} width={40} height={40} src={urlFor(item?.avatar)} />
-                          </div>
-                          <div className="ml-2 ">
-                            <h6 className="font-semibold"> {item?.name?.en}</h6>
-                            <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  )
-                })
-              : null}
+          <Swiper scrollCount={2} className={'gap-12'} length={testimonials?.length}>
+            {testimonials?.map((item: any, index: any) => {
+              return (
+                <div key={index} className={'min-w-[284px]'}>
+                  <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                  <h3 className="text-lg font-[700]">{item?.title?.en}</h3>
+                  <h5 className="text-base font-[500] my-2 opacity-60">{item?.text?.en}</h5>
+                  <div className="flex gap-x-3 my-4">
+                    <div>
+                      <Image alt={''} width={40} height={40} src={urlFor(item?.avatar)} />
+                    </div>
+                    <div className="ml-2 ">
+                      <h6 className="font-semibold"> {item?.name?.en}</h6>
+                      <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
           </Swiper>
+          {/*<Swiper*/}
+          {/*  navigation={true}*/}
+          {/*  slidesPerView={3}*/}
+          {/*  spaceBetween={30}*/}
+          {/*  modules={[FreeMode, Navigation]}*/}
+          {/*  freeMode={true}*/}
+          {/*  pagination={{*/}
+          {/*    clickable: true,*/}
+          {/*  }}*/}
+          {/*  className="mySwiper"*/}
+          {/*>*/}
+          {/*  {testimonials*/}
+          {/*    ? testimonials.map((item: any, index: any) => {*/}
+          {/*        return (*/}
+          {/*          <SwiperSlide>*/}
+          {/*            <div key={index} className={'w-full'}>*/}
+          {/*              <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>*/}
+          {/*              <h3 className="text-lg font-[700]">{item?.title?.en}</h3>*/}
+          {/*              <h5 className="text-base font-[500] my-2 opacity-60">{item?.text?.en}</h5>*/}
+          {/*              <div className="flex gap-x-3 my-4">*/}
+          {/*                <div>*/}
+          {/*                  <Image alt={''} width={40} height={40} src={urlFor(item?.avatar)} />*/}
+          {/*                </div>*/}
+          {/*                <div className="ml-2 ">*/}
+          {/*                  <h6 className="font-semibold"> {item?.name?.en}</h6>*/}
+          {/*                  <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>*/}
+          {/*                </div>*/}
+          {/*              </div>*/}
+          {/*            </div>*/}
+          {/*          </SwiperSlide>*/}
+          {/*        )*/}
+          {/*      })*/}
+          {/*    : null}*/}
+          {/*</Swiper>*/}
         </div>
-        <div className="w-full lg:hidden block">
-          <Swiper
-            navigation={true}
-            slidesPerView={1}
-            spaceBetween={30}
-            modules={[FreeMode, Navigation]}
-            freeMode={true}
-            pagination={{
-              clickable: true,
-            }}
-            className="mySwiper"
-          >
-            {testimonials
-              ? testimonials.map((item: any, index: any) => {
-                  return (
-                    <SwiperSlide>
-                      <div key={index} className={'w-full'}>
-                        <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>
-                        <h3 className="text-lg font-medium">{item?.title?.en}</h3>
-                        <h5 className="text-base font-medium my-2 opacity-60">{item?.text?.en}</h5>
-                        <div className="flex gap-x-3 my-4">
-                          <div>
-                            <Image alt="" width={40} height={40} src={urlFor(item?.avatar)} />
-                          </div>
-                          <div className="ml-2 ">
-                            <h6 className="font-semibold"> {item?.name?.en}</h6>
-                            <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  )
-                })
-              : null}
-          </Swiper>
-        </div>
+        {/*<div className="w-full lg:hidden block">*/}
+        {/*  <Swiper*/}
+        {/*    navigation={true}*/}
+        {/*    slidesPerView={1}*/}
+        {/*    spaceBetween={30}*/}
+        {/*    modules={[FreeMode, Navigation]}*/}
+        {/*    freeMode={true}*/}
+        {/*    pagination={{*/}
+        {/*      clickable: true,*/}
+        {/*    }}*/}
+        {/*    className="mySwiper"*/}
+        {/*  >*/}
+        {/*    {testimonials*/}
+        {/*      ? testimonials.map((item: any, index: any) => {*/}
+        {/*          return (*/}
+        {/*            <SwiperSlide>*/}
+        {/*              <div key={index} className={'w-full'}>*/}
+        {/*                <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>*/}
+        {/*                <h3 className="text-lg font-medium">{item?.title?.en}</h3>*/}
+        {/*                <h5 className="text-base font-medium my-2 opacity-60">{item?.text?.en}</h5>*/}
+        {/*                <div className="flex gap-x-3 my-4">*/}
+        {/*                  <div>*/}
+        {/*                    <Image alt="" width={40} height={40} src={urlFor(item?.avatar)} />*/}
+        {/*                  </div>*/}
+        {/*                  <div className="ml-2 ">*/}
+        {/*                    <h6 className="font-semibold"> {item?.name?.en}</h6>*/}
+        {/*                    <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>*/}
+        {/*                  </div>*/}
+        {/*                </div>*/}
+        {/*              </div>*/}
+        {/*            </SwiperSlide>*/}
+        {/*          )*/}
+        {/*        })*/}
+        {/*      : null}*/}
+        {/*  </Swiper>*/}
+        {/*</div>*/}
         <Image
           src="/plane.svg"
           height={200}

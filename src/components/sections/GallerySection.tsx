@@ -1,11 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
-import { FreeMode, Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { urlFor } from '@/sanity/client'
 
 import Container from '@/components/Container'
+import Swiper from '@/components/Swiper'
 
 import { SanityGallerySection, SanityImage } from '../../sanity/types'
 
@@ -19,175 +18,63 @@ const GallerySection = (props: GallerySectionProps) => {
   const {
     data: { title, subtitle, images },
   } = props
-
+  const imgs: any[][] = []
+  if (images) {
+    let single = true
+    for (let i = 0; i < images.length; i++) {
+      if (single) {
+        imgs.push([images[i]])
+      } else {
+        imgs.push(images.slice(i, i + 2))
+        i++
+      }
+      single = !single
+    }
+  }
   return (
     <div className="pt-10 bg-[#F2FAFF] text-black">
       <Container>
         <h3 className="text-3xl font-[500] text-center">{title?.en}</h3>
         <h4 className="text-lg my-2 opacity-60 font-[500] text-center">{subtitle?.en}</h4>
 
-        <div className="mx-3 hidden lg:flex gap-x-10 my-10">
-          <div className="flex gap-x-10">
-            <Image
-              src={images ? (images[0] ? urlFor(images[0]) : '') : ''}
-              width={320}
-              height={80}
-              alt=""
-              style={{ borderRadius: '10px' }}
-            />
-            <div className="flex flex-col justify-between gap-y-2">
-              <Image
-                src={images ? (images[1] ? urlFor(images[1]) : '') : ''}
-                width={160}
-                height={50}
-                alt=""
-                style={{ borderRadius: '10px' }}
-              />
-              <Image
-                src={images ? (images[2] ? urlFor(images[2]) : '') : ''}
-                width={160}
-                height={60}
-                alt=""
-                style={{ borderRadius: '10px' }}
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-x-10">
-            <Image
-              src={images ? (images[4] ? urlFor(images[4]) : '') : ''}
-              width={300}
-              height={70}
-              alt=""
-              style={{ borderRadius: '10px' }}
-            />
-            <Image
-              src={images ? (images[5] ? urlFor(images[5]) : '') : ''}
-              width={200}
-              height={60}
-              alt=""
-              style={{ borderRadius: '10px' }}
-            />
-          </div>
-
-          <div className="flex gap-x-10">
-            <div className="flex flex-col justify-between gap-y-2">
-              <Image
-                src={images ? (images[3] ? urlFor(images[3]) : '') : ''}
-                width={160}
-                height={40}
-                alt=""
-                style={{ borderRadius: '10px' }}
-              />
-              <Image
-                src={images ? (images[6] ? urlFor(images[6]) : '') : ''}
-                width={160}
-                height={40}
-                alt=""
-                style={{ borderRadius: '10px' }}
-              />
-            </div>
-            <div className="flex flex-col justify-between gap-y-2">
-              <Image
-                src={images ? (images[7] ? urlFor(images[7]) : '') : ''}
-                width={160}
-                height={40}
-                alt=""
-                style={{ borderRadius: '10px' }}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="mx-3 lg:hidden block ">
-          <Swiper
-            navigation={true}
-            slidesPerView={1}
-            spaceBetween={0}
-            modules={[FreeMode, Navigation]}
-            freeMode={true}
-            pagination={{
-              clickable: true,
-            }}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <div className="flex gap-x-5">
+        <Swiper className="gap-x-2.5 my-10">
+          {imgs?.map((image, i) =>
+            i % 2 == 0 ? (
+              <div className={'min-w-[320px] h-[320px] overflow-hidden rounded-lg'}>
                 <Image
-                  src={images ? (images[0] ? urlFor(images[0]) : '') : ''}
+                  src={urlFor(image[0])}
                   width={320}
-                  height={80}
-                  alt=""
-                  style={{ borderRadius: '10px' }}
-                />
-                <div className="flex flex-col justify-between gap-y-2">
-                  <Image
-                    src={images ? (images[1] ? urlFor(images[1]) : '') : ''}
-                    width={160}
-                    height={50}
-                    alt=""
-                    style={{ borderRadius: '10px' }}
-                  />
-                  <Image
-                    src={images ? (images[2] ? urlFor(images[2]) : '') : ''}
-                    width={160}
-                    height={60}
-                    alt=""
-                    style={{ borderRadius: '10px' }}
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className="flex gap-x-5">
-                <Image
-                  src={images ? (images[4] ? urlFor(images[4]) : '') : ''}
-                  width={200}
-                  height={60}
-                  alt=""
-                  style={{ borderRadius: '10px' }}
-                />
-                <Image
-                  src={images ? (images[5] ? urlFor(images[5]) : '') : ''}
-                  width={200}
-                  height={60}
-                  alt=""
-                  style={{ borderRadius: '10px' }}
+                  height={320}
+                  alt={'image'}
+                  className={'w-full h-full flex-shrink-0 object-cover'}
                 />
               </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className="flex gap-x-5">
-                <div className="flex flex-col justify-between gap-y-2">
+            ) : (
+              <div className={'min-w-[160px] h-[320px] flex flex-col gap-2.5'}>
+                <div className={'h-[160px] w-[160px] overflow-hidden rounded-lg'}>
                   <Image
-                    src={images ? (images[3] ? urlFor(images[3]) : '') : ''}
+                    src={urlFor(image[0])}
                     width={160}
-                    height={40}
-                    alt=""
-                    style={{ borderRadius: '10px' }}
-                  />
-                  <Image
-                    src={images ? (images[6] ? urlFor(images[6]) : '') : ''}
-                    width={160}
-                    height={40}
-                    alt=""
-                    style={{ borderRadius: '10px' }}
+                    height={160}
+                    alt={'image'}
+                    className={'object-cover'}
                   />
                 </div>
-                <div className="flex flex-col justify-between gap-y-2">
-                  <Image
-                    src={images ? (images[7] ? urlFor(images[7]) : '') : ''}
-                    width={160}
-                    height={40}
-                    alt=""
-                    style={{ borderRadius: '10px' }}
-                  />
-                </div>
+                {image[1] && (
+                  <div className={'h-[160px] w-[160px] overflow-hidden rounded-lg'}>
+                    <Image
+                      src={urlFor(image[1])}
+                      width={160}
+                      height={160}
+                      alt={'image'}
+                      className={'object-cover'}
+                    />
+                  </div>
+                )}
               </div>
-            </SwiperSlide>
-          </Swiper>
-        </div>
+            )
+          )}
+        </Swiper>
       </Container>
     </div>
   )

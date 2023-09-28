@@ -1,13 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FreeMode, Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { urlFor } from '@/sanity/client'
 import { SanityDeal, SanityDealsSection, SanityLocaleString, SanityTourPage } from '@/sanity/types'
 
 import Container from '@/components/Container'
+import Swiper from '@/components/Swiper'
 
 import Button from '../buttons/Button'
 
@@ -18,16 +17,25 @@ export type DealSectionProps = {
   data: SanityDealsSection
 }
 
-const TravelCard = (props: { props: SanityDeal }) => {
-  let data = props?.props as any
+const TravelCard = ({ deal }: { deal: SanityDeal }) => {
+  let data = deal as any
   console.log('TravelCard->', data)
   return (
-    <Link href={data?.tour?.slug ? '/destinations' + data.tour.slug.current : ''}>
-      <div className="bg-white h-fit my-5 shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
+    <Link
+      className={'flex-shrink-0 max-w-[302px]'}
+      href={data?.tour?.slug ? '/destinations' + data.tour.slug.current : ''}
+    >
+      <div className="bg-white relative h-min my-5 shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
         <span className="bg-red absolute my-2 mx-2 right-0 px-2 py-1 text-white font-bold text-sm rounded-full">
           Hot Deal
         </span>
-        <img className="rounded-t-2xl" src={urlFor(data?.tour?.hero_section?.image)} />
+        <Image
+          width={302}
+          height={220}
+          alt={data?.tour?.hero_section?.image.alt}
+          className="rounded-t-2xl h-[220px]"
+          src={urlFor(data?.tour?.hero_section?.image)}
+        />
         <div className="px-4 py-2">
           <h3 className="text-xl font-medium">{data?.tour?.hero_section?.title?.en}</h3>
           <div className="flex px-1 py-2 justify-between">
@@ -62,54 +70,48 @@ const TravelCard = (props: { props: SanityDeal }) => {
   )
 }
 
-const DealsSection = (props: DealSectionProps) => {
-  const {
-    data: { tagline, title, deals },
-  } = props
-  const slides = deals?.map((props) => {
-    //@ts-ignore
-    return <TravelCard props={props} />
-  })
+const DealsSection = ({ data: { tagline, title, deals } }: DealSectionProps) => {
   return (
     <Container className="px-10 py-10  text-black bg-white">
       <h2 className="text-blue text-base font-medium">{tagline?.en}</h2>
       <h4 className="text-3xl font-medium ">{title?.en}</h4>
       <hr className="lg:w-1/12 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
-      <div className="py-4 lg:block hidden ">
-        <Swiper
-          navigation={true}
-          slidesPerView={4}
-          spaceBetween={30}
-          modules={[FreeMode, Navigation]}
-          freeMode={true}
-          pagination={{
-            clickable: true,
-          }}
-          className="mySwiper"
-        >
-          {slides?.map((slide, index) => {
-            return <SwiperSlide key={index}>{slide}</SwiperSlide>
-          })}
-        </Swiper>
-      </div>
+      <Swiper className={'gap-4'} length={deals?.length} scrollCount={2}>
+        {deals?.map((deal) => <TravelCard deal={deal} />)}
+        {/*  <Swiper*/}
+        {/*    navigation={true}*/}
+        {/*    slidesPerView={4}*/}
+        {/*    spaceBetween={30}*/}
+        {/*    modules={[FreeMode, Navigation]}*/}
+        {/*    freeMode={true}*/}
+        {/*    pagination={{*/}
+        {/*      clickable: true,*/}
+        {/*    }}*/}
+        {/*    className="mySwiper"*/}
+        {/*  >*/}
+        {/*    {slides?.map((slide, index) => {*/}
+        {/*      return <SwiperSlide key={index}>{slide}</SwiperSlide>*/}
+        {/*    })}*/}
+        {/*  </Swiper>*/}
+      </Swiper>
 
-      <div className="py-4 lg:hidden block ">
-        <Swiper
-          navigation={true}
-          slidesPerView={1}
-          spaceBetween={30}
-          modules={[FreeMode, Navigation]}
-          freeMode={true}
-          pagination={{
-            clickable: true,
-          }}
-          className="mySwiper"
-        >
-          {slides?.map((slide, index) => {
-            return <SwiperSlide key={index}>{slide}</SwiperSlide>
-          })}
-        </Swiper>
-      </div>
+      {/*<div className="py-4 lg:hidden block ">*/}
+      {/*  <Swiper*/}
+      {/*    navigation={true}*/}
+      {/*    slidesPerView={1}*/}
+      {/*    spaceBetween={30}*/}
+      {/*    modules={[FreeMode, Navigation]}*/}
+      {/*    freeMode={true}*/}
+      {/*    pagination={{*/}
+      {/*      clickable: true,*/}
+      {/*    }}*/}
+      {/*    className="mySwiper"*/}
+      {/*  >*/}
+      {/*    {slides?.map((slide, index) => {*/}
+      {/*      return <SwiperSlide key={index}>{slide}</SwiperSlide>*/}
+      {/*    })}*/}
+      {/*  </Swiper>*/}
+      {/*</div>*/}
     </Container>
   )
 }

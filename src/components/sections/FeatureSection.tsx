@@ -46,14 +46,15 @@ export default function FeatureSection({ data }: FeatureSectionProps) {
           : 'text-center h-[257px] text-[#140D31] py-10'
       }
     >
-      {data.title?.en && (
-        <>
-          <Container>
-        <h2 className="text-[20px] md:text-[30px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
-          {data.title?.en}
-        </h2>
-        <hr className="w-[85px] md:w-[117px] my-2 m-auto bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" /></>
-      )}
+      <Container>
+        {data.title?.en && (
+          <>
+            <h2 className="text-[20px] md:text-[30px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
+              {data.title?.en}
+            </h2>
+            <hr className="w-[85px] md:w-[117px] my-2 m-auto bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" />
+          </>
+        )}
         {data?.type == 'small' ? (
           <div className="grid md:grid-cols-2 gap-7 lg:grid-cols-4 w-fit mx-auto">
             {data?.features?.map((feature, index) => <SmallFeature key={index} data={feature} />)}
