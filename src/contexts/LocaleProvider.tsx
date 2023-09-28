@@ -6,6 +6,8 @@ export type LocaleContextType = {
   locale: SanityLocale
 }
 
+export type PropsWithLocale<T> = T & { locale: SanityLocale }
+
 const LocaleContext = createContext<LocaleContextType>({
   locale: 'en',
 })

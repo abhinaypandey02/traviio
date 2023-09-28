@@ -3,7 +3,7 @@ import Image from 'next/image'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import PortableText from 'react-portable-text'
 
-import { LocaleProvider } from '@/contexts/LocaleProvider'
+import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import client from '@/sanity/client'
 import { SanityGlobals, SanityLocale, SanitySlug, SanityTravelWiki } from '@/sanity/types'
@@ -11,6 +11,7 @@ import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout/index'
+import SEO from '@/components/Seo'
 
 type WikiPageProps = {
   slug: string
@@ -123,6 +124,11 @@ const InfoSection = ({ data }: any) => {
 export default function WikiPage({ slug, data, locale, globals }: WikiPageProps) {
   return (
     <LocaleProvider locale={locale}>
+      <SEO
+        title={data?.title && localizedString(data.title, locale)}
+        description={data.tagline && localizedString(data.tagline, locale)}
+        image={data.image_hero?.image && urlFor(data.image_hero.image)}
+      />
       <Layout>
         <ImageHeader image={data.image_hero?.image} Title={data.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data.tagline?.en} />
