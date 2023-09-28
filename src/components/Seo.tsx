@@ -1,9 +1,9 @@
 import Head from 'next/head'
 
 const siteMetadata = {
-  title: 'Promo Travels',
-  description: 'Promo Travels',
-  keywords: 'promo, travels',
+  title: 'Traviio Tours',
+  description: 'Traviio Tours',
+  keywords: 'traviio, tours',
   url: 'https://rapid-boost.com',
   image: 'https://rapid-boost.com/logo.png',
 }

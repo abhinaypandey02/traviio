@@ -20,8 +20,11 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
       <SEO
-        title={localizedString(data.meta_data?.meta_title, locale)}
-        description={localizedString(data.meta_data?.meta_description, locale)}
+        title={data.meta_data?.meta_title && localizedString(data.meta_data?.meta_title, locale)}
+        description={
+          data.meta_data?.meta_description &&
+          localizedString(data.meta_data?.meta_description, locale)
+        }
         image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
       />
       <Slicer globals={globals} components={SectionMap} sections={data?.sections} />
