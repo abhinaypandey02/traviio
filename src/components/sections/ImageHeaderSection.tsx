@@ -17,7 +17,7 @@ const ImageHeaderSection = (props: ImageHeaderSectionProps) => {
         <div>
           <Image
             src={image ? urlFor(image) : ''}
-            style={{ width: '100%', height: '400px' }}
+            style={{ width: '100%', height: '400px', objectFit: 'cover' }}
             width={700}
             height={73}
             alt=""

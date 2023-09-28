@@ -29,6 +29,7 @@ export function LocalizedString({
 }
 
 export function localizedString(text?: SanityLocaleString, locale?: SanityLocale) {
+  if (!text) return ''
   return text?.[locale ?? 'en'] || ''
 }
 

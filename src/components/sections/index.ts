@@ -7,7 +7,10 @@ import {
   SanityTourSectionNames,
 } from '@/sanity/types'
 
+import TravelInformation from '../TravelInformation'
+
 import AccommdationTypesSection from './Tours/AccommdationTypesSection'
+import FeaturedToursSection from './Tours/FeaturedToursSection'
 import ImageShowCaseSection from './Tours/ImageShowCaseSection'
 import ItinerarySection from './Tours/ItinerarySection'
 import MemorableExperiencesSection from './Tours/MemorableExperiencesSection'
@@ -86,6 +89,7 @@ export const TourSectionsMap: {
   accommodation_types_section: AccommdationTypesSection,
   reviews_section: ReviewSection,
   feature_section: FeatureSection,
-  featured_tours_section: DealsSection,
+  featured_tours_section: FeaturedToursSection,
   faq_section: FAQSection,
+  travel_info_section: TravelInformation,
 }

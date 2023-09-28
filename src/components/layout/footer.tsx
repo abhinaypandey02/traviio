@@ -133,7 +133,7 @@ const ADDRESSES = [
 
 const Footer = () => {
   return (
-    <div className="mt-auto w-screen bg-primary flex flex-col">
+    <div className="mt-auto w-screen bg-primary flex flex-col text-gray">
       <Container>
         <div className="mt-12 flex flex-wrap justify-between gap-5 py-5">
           {/* Left side */}
