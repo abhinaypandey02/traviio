@@ -1,7 +1,9 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useContext } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import LocaleContext, { LocalizedString, localizedString } from '@/contexts/LocaleProvider'
+import { urlFor } from '@/sanity/client'
 import { SanityGlobals } from '@/sanity/types'
 
 import ButtonTwo from '../buttons/ButtonTwo'
@@ -31,6 +33,8 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
       document.body.classList.remove('overflow-hidden')
     }
   }, [open])
+  const { locale } = useContext(LocaleContext)
+
   return (
     <>
       {/* For larger screens */}
@@ -48,10 +52,17 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
               })}
             </div>
             <div className="flex gap-2 items-center">
-              <Link href="/my-bookings">
+              <Link href={navbar?.cta?.url || '/'}>
                 <ButtonTwo className="flex gap-2 px-4 items-center">
-                  <Image height={24} width={24} src="/bookings_icon.svg" alt="" />
-                  <p>My Bookings</p>
+                  {navbar?.cta?.icon && (
+                    <Image
+                      height={24}
+                      width={24}
+                      src={urlFor(navbar?.cta?.icon)}
+                      alt={localizedString(navbar.cta.icon.alt, locale)}
+                    />
+                  )}
+                  <LocalizedString text={navbar?.cta?.label} />
                 </ButtonTwo>
               </Link>
               <LanguageDropdown />
