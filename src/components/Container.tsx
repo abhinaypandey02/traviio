@@ -7,7 +7,7 @@ interface PropsType {
 
 function Container(props: PropsWithChildren<PropsType>) {
   return (
-    <div id={props.id} className={'mx-auto max-w-[1440px] px-4 ' + props.className}>
+    <div id={props.id} className={'mx-auto max-w-[1456px] px-4 ' + props.className}>
       {props.children}
     </div>
   )
