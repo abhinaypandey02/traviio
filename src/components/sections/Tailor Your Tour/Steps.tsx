@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import Button from '@/components/buttons/Button'
-import Container from '@/components/molecule/Container'
 
 export default function Steps({ children }: { children?: any[] }) {
   const [step, setStep] = useState(1)

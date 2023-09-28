@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 
 import Button from '@/components/buttons/Button'
-import Container from '@/components/molecule/Container'
+import Container from '@/components/Container'
 
 import Input from '@/components/atoms/Input'
 
 export default function Tabs({ children }: { children?: any[] }) {
   const [page, setPage] = useState(1)
   return (
-    <Container className="max-w-[1280px] w-[90%] flex flex-col gap-16 py-16">
+    <Container className="flex flex-col gap-16 py-16">
       <div className="flex items-center gap-1 px-6 max-w-[800px] mx-auto w-full h-[68px] ">
         <div
           className="relative cursor-pointer"
