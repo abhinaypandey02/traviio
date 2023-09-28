@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react'
 
+import { LocaleContextType, localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
 import { SanityTag, SanityTourPage, SanityTourSelectionSection } from '@/sanity/types'
+
+import Container from '@/components/Container'
 
 import BestTours from '../organisms/BestTours'
 import FilterDropdown from '../organisms/FilterDropdown'
@@ -10,14 +13,16 @@ interface BestToursSectionProps {
   data: SanityTourSelectionSection
 }
 
-function BestToursSection(props: BestToursSectionProps) {
-  const { tags } = props.data
+function BestToursSection({
+  data: { tags, title, tagline, filters },
+  locale,
+}: PropsWithLocale<BestToursSectionProps>) {
   const [loading, setLoading] = React.useState<boolean>(false)
-  const [pageNumber, setPageNumber] = React.useState<number>(1)
+  const [pageNumber, setPageNumber] = React.useState<number>(0)
   const lastIds = React.useRef<(string | null)[]>([''])
   const [selectedTags, setSelectedTags] = React.useState<string[]>([])
   const [pageData, setPageData] = React.useState<SanityTourPage['overview_card'][]>([])
-  const pageSize = 1
+  const pageSize = 9
 
   const refetchData = (selectedTags: string[], ids: (string | null)[], pageNumber: number) => {
     setLoading(true)
@@ -31,7 +36,7 @@ function BestToursSection(props: BestToursSectionProps) {
       }
     `,
         {
-          lastId: ids[pageNumber - 1],
+          lastId: ids[pageNumber],
           pageSize,
           selectedTags,
         }
@@ -50,8 +55,8 @@ function BestToursSection(props: BestToursSectionProps) {
 
   useEffect(() => {
     lastIds.current = ['']
-    setPageNumber(1)
-    refetchData(selectedTags, lastIds.current, 1)
+    setPageNumber(0)
+    refetchData(selectedTags, lastIds.current, 0)
   }, [selectedTags])
 
   useEffect(() => {
@@ -62,18 +67,16 @@ function BestToursSection(props: BestToursSectionProps) {
 
   // Initial data
   useEffect(() => {
-    refetchData(selectedTags, lastIds.current, 1)
+    refetchData(selectedTags, lastIds.current, 0)
   }, [])
-
   return (
-    <div className="flex flex-col items-center gap-5">
-      {JSON.stringify({ loading, pageNumber, selectedTags, pageData })}
+    <Container className="flex flex-col items-center gap-5">
       <div className="flex flex-col items-center">
-        <h2 className="text-blue text-base font-medium">Tours and Trips</h2>
-        <h4 className="text-3xl font-medium ">Best Tours of Egypt</h4>
+        <h2 className="text-blue text-base font-medium">{localizedString(tagline, locale)}</h2>
+        <h4 className="text-3xl font-medium ">{localizedString(title, locale)}</h4>
         <hr className="lg:w-1/2 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
       </div>
-      <div className="mx-auto max-w-[90%] grid md:grid-cols-4 grid-cols-1 gap-5">
+      <div className=" grid md:grid-cols-4 grid-cols-1 gap-5">
         <div className="h-full">
           <FilterDropdown
             className=""
@@ -108,7 +111,7 @@ function BestToursSection(props: BestToursSectionProps) {
         </div>
         <BestTours
           className="col-span-3"
-          numberOfTours={50}
+          numberOfTours={pageData.length}
           destination="Egypt"
           tags={tags as SanityTag[]}
           selectedTags={selectedTags}
@@ -119,7 +122,7 @@ function BestToursSection(props: BestToursSectionProps) {
           setPageNumber={setPageNumber}
         />
       </div>
-    </div>
+    </Container>
   )
 }
 

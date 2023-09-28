@@ -2,13 +2,14 @@ import { useState } from 'react'
 import type { GetStaticProps } from 'next'
 
 // import { urlFor } from '@/sanity/client'
-import { LocaleProvider } from '@/contexts/LocaleProvider'
-import client from '@/sanity/client'
+import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
+import client, { urlFor } from '@/sanity/client'
 import { SanityGlobals, SanityLocale, SanityTravelGuide } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 
 import Layout from '@/components/layout/index'
 import ImageHeaderSection from '@/components/sections/ImageHeaderSection'
+import SEO from '@/components/Seo'
 
 type GuidePageProps = {
   data: SanityTravelGuide
@@ -103,6 +104,11 @@ const InfoSection = () => {
 export default function GuidePage({ data, locale, globals }: GuidePageProps) {
   return (
     <LocaleProvider locale={locale}>
+      <SEO
+        title={data?.title && localizedString(data.title, locale)}
+        description={data.tagline && localizedString(data.tagline, locale)}
+        image={data.image_hero?.image && urlFor(data.image_hero.image)}
+      />
       <Layout>
         {/* {data.sections?.map((section, idx) => (
         <div key={idx}>
@@ -130,7 +136,4 @@ export const getStaticProps: GetStaticProps<GuidePageProps> = async ({ locale })
       globals,
     },
   }
-}
-function urlFor(image: any) {
-  throw new Error('Function not implemented.')
 }

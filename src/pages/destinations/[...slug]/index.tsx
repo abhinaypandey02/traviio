@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
-import { LocaleProvider } from '@/contexts/LocaleProvider'
-import client from '@/sanity/client'
+import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
+import client, { urlFor } from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import {
   SanityDestinationPage,
@@ -14,6 +14,7 @@ import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import { DestinationSectionsMap } from '@/components/sections'
+import SEO from '@/components/Seo'
 
 type PageProps = {
   slug: string
@@ -24,6 +25,14 @@ type PageProps = {
 export default function Page({ slug, data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
+      <SEO
+        title={data.meta_data?.meta_title && localizedString(data.meta_data?.meta_title, locale)}
+        description={
+          data.meta_data?.meta_description &&
+          localizedString(data.meta_data?.meta_description, locale)
+        }
+        image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
+      />
       <Slicer components={DestinationSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )

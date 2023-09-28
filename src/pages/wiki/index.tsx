@@ -1,12 +1,13 @@
 import type { GetStaticProps } from 'next'
 
-import { LocaleProvider } from '@/contexts/LocaleProvider'
-import client from '@/sanity/client'
+import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
+import client, { urlFor } from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityTravelWiki } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 
 import Layout from '@/components/layout/index'
+import SEO from '@/components/Seo'
 
 type WikiPageProps = {
   data: SanityTravelWiki
@@ -16,6 +17,11 @@ type WikiPageProps = {
 export default function WikiPage({ data, locale, globals }: WikiPageProps) {
   return (
     <LocaleProvider locale={locale}>
+      <SEO
+        title={data?.title && localizedString(data.title, locale)}
+        description={data.tagline && localizedString(data.tagline, locale)}
+        image={data.image_hero?.image && urlFor(data.image_hero.image)}
+      />
       <Layout>
         {data?.sections?.map((section, idx) => (
           // Write the component here with the data section

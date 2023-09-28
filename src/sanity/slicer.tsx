@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 
+import LocaleContext from '@/contexts/LocaleProvider'
 import { SanityGlobals } from '@/sanity/types'
 
 import Layout from '@/components/layout'
@@ -13,6 +14,7 @@ export default function Slicer({
   components: { [name in string]: FunctionComponent<any> }
   globals?: SanityGlobals
 }) {
+  const { locale } = useContext(LocaleContext)
   return (
     <Layout globals={globals}>
       {sections?.map((section) => (
@@ -20,6 +22,7 @@ export default function Slicer({
           {components[section._type] &&
             React.createElement(components[section._type], {
               data: section,
+              locale,
             })}
         </React.Fragment>
       ))}

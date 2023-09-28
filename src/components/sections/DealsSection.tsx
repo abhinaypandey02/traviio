@@ -3,7 +3,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { urlFor } from '@/sanity/client'
-import { SanityDeal, SanityDealsSection, SanityLocaleString, SanityTourPage } from '@/sanity/types'
+import {
+  SanityDeal,
+  SanityDealsSection,
+  SanityFeaturedToursSection,
+  SanityLocaleString,
+  SanityTourPage,
+} from '@/sanity/types'
 
 import Container from '@/components/Container'
 import Swiper from '@/components/Swiper'
@@ -70,48 +76,20 @@ const TravelCard = ({ deal }: { deal: SanityDeal }) => {
   )
 }
 
-const DealsSection = ({ data: { tagline, title, deals } }: DealSectionProps) => {
+const DealsSection = ({ data: { tagline, title, deals, _type } }: DealSectionProps) => {
   return (
     <Container className="px-10 py-10  text-black bg-white">
-      <h2 className="text-blue text-base font-medium">{tagline?.en}</h2>
-      <h4 className="text-3xl font-medium ">{title?.en}</h4>
-      <hr className="lg:w-1/12 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
+      <div
+        className={_type === ('featured_tours_section' as any) ? 'flex flex-col items-center' : ''}
+      >
+        <h2 className="text-blue text-base font-medium">{tagline?.en}</h2>
+        <h4 className="text-3xl font-medium ">{title?.en}</h4>
+        <hr className="lg:w-1/12 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
+      </div>
+
       <Swiper className={'gap-4'} length={deals?.length} scrollCount={2}>
         {deals?.map((deal) => <TravelCard deal={deal} />)}
-        {/*  <Swiper*/}
-        {/*    navigation={true}*/}
-        {/*    slidesPerView={4}*/}
-        {/*    spaceBetween={30}*/}
-        {/*    modules={[FreeMode, Navigation]}*/}
-        {/*    freeMode={true}*/}
-        {/*    pagination={{*/}
-        {/*      clickable: true,*/}
-        {/*    }}*/}
-        {/*    className="mySwiper"*/}
-        {/*  >*/}
-        {/*    {slides?.map((slide, index) => {*/}
-        {/*      return <SwiperSlide key={index}>{slide}</SwiperSlide>*/}
-        {/*    })}*/}
-        {/*  </Swiper>*/}
       </Swiper>
-
-      {/*<div className="py-4 lg:hidden block ">*/}
-      {/*  <Swiper*/}
-      {/*    navigation={true}*/}
-      {/*    slidesPerView={1}*/}
-      {/*    spaceBetween={30}*/}
-      {/*    modules={[FreeMode, Navigation]}*/}
-      {/*    freeMode={true}*/}
-      {/*    pagination={{*/}
-      {/*      clickable: true,*/}
-      {/*    }}*/}
-      {/*    className="mySwiper"*/}
-      {/*  >*/}
-      {/*    {slides?.map((slide, index) => {*/}
-      {/*      return <SwiperSlide key={index}>{slide}</SwiperSlide>*/}
-      {/*    })}*/}
-      {/*  </Swiper>*/}
-      {/*</div>*/}
     </Container>
   )
 }

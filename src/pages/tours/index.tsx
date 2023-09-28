@@ -1,12 +1,13 @@
 import type { GetStaticProps } from 'next'
 
-import { LocaleProvider } from '@/contexts/LocaleProvider'
-import client from '@/sanity/client'
+import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
+import client, { urlFor } from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityTourPage } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 
 import { TourSectionsMap } from '@/components/sections'
+import SEO from '@/components/Seo'
 
 type GuidePageProps = {
   data: SanityTourPage
@@ -16,6 +17,14 @@ type GuidePageProps = {
 export default function GuidePage({ data, locale, globals }: GuidePageProps) {
   return (
     <LocaleProvider locale={locale}>
+      <SEO
+        title={data.meta_data?.meta_title && localizedString(data.meta_data?.meta_title, locale)}
+        description={
+          data.meta_data?.meta_description &&
+          localizedString(data.meta_data?.meta_description, locale)
+        }
+        image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
+      />
       <Slicer components={TourSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )

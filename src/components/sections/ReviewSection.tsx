@@ -8,7 +8,7 @@ import Container from '@/components/Container'
 export type ReviewSectionProps = {
   data: SanityReviewsSection
 }
-function Pagination({
+export function Pagination({
   onChange,
   total,
   pageSize,
