@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 import { displayNumber, joinStrings } from '@/utils/utils'
 import { SuitcaseRolling } from '@phosphor-icons/react'
@@ -119,18 +119,187 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'sections',
-      title: 'Sections',
-      description: 'Sections for the page',
-      type: 'array',
-      of: TourSections.map((tour_section) => ({ type: tour_section })),
-    }),
-    defineField({
       name: 'tags',
       title: 'Tags',
       description: 'Tags for the page',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+    }),
+    defineField({
+      name: 'payment',
+      title: 'Payment',
+      description: 'Options for payment for the page',
+      type: 'object',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        defineField({
+          name: 'room_options',
+          title: 'Room Options',
+          description: 'Room options for the page',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'room_option',
+              title: 'Room Option',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'image',
+                  title: 'Image',
+                  type: 'image',
+                }),
+                defineField({
+                  name: 'rating',
+                  title: 'Rating',
+                  description: 'Rating of the room (1- 5)',
+                  type: 'number',
+                }),
+                defineField({
+                  name: 'price',
+                  title: 'Price',
+                  description: 'Extra price for the room',
+                  type: 'price',
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'title.en',
+                  rating: 'rating',
+                  media: 'image',
+                },
+                prepare: ({ title, rating, media }) => {
+                  return {
+                    title: joinStrings(':', title || 'No title', displayNumber(rating, 'star')),
+                    media,
+                  }
+                },
+              },
+            }),
+          ],
+        }),
+        defineField({
+          name: 'room_sharing_options',
+          title: 'Room Sharing Options',
+          description: 'Room sharing options for the page',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'room_sharing_option',
+              title: 'Room Sharing Option',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'image',
+                  title: 'Image',
+                  type: 'image',
+                }),
+                defineField({
+                  name: 'price',
+                  title: 'Price',
+                  description: 'Extra price for the room sharing option',
+                  type: 'price',
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'title.en',
+                  media: 'image',
+                },
+                prepare: ({ title, media }) => {
+                  return {
+                    title: joinStrings(':', title || 'No title'),
+                    media,
+                  }
+                },
+              },
+            }),
+          ],
+        }),
+        defineField({
+          name: 'extras',
+          title: 'Extras',
+          description: 'Extras for the tour',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'extra',
+              title: 'Extra',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'city_name',
+                  title: 'City Name',
+                  description: 'Name of the city',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'image',
+                  title: 'Image',
+                  type: 'image',
+                }),
+                defineField({
+                  name: 'price',
+                  title: 'Price',
+                  description: 'Price of the extra',
+                  type: 'price',
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'title.en',
+                  media: 'image',
+                },
+                prepare: ({ title, media }) => {
+                  return {
+                    title: joinStrings(':', title || 'No title'),
+                    media,
+                  }
+                },
+              },
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'sections',
+      title: 'Sections',
+      description: 'Sections for the page',
+      type: 'array',
+      of: TourSections.map((tour_section) => ({ type: tour_section })),
     }),
   ],
   preview: {

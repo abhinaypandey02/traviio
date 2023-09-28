@@ -859,6 +859,28 @@ export type SanityTourPage = {
     title?: SanityLocaleString
     image?: SanityImage
   }
+  payment?: {
+    room_options?: {
+      title?: SanityLocaleString
+      description?: SanityLocaleString
+      image?: SanityImage
+      rating?: number
+      price?: SanityPrice
+    }[]
+    room_sharing_options?: {
+      title?: SanityLocaleString
+      description?: SanityLocaleString
+      image?: SanityImage
+      price?: SanityPrice
+    }[]
+    extras?: {
+      city_name?: SanityLocaleString
+      title?: SanityLocaleString
+      description?: SanityLocaleString
+      image?: SanityImage
+      price?: SanityPrice
+    }[]
+  }
   overview_card?: {
     duration?: SanityLocaleString
     countries?: number
