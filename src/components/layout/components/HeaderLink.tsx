@@ -3,36 +3,33 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-type TLink = {
-  name: string
-  type: 'link'
-  route: string
-}
+import { LocalizedString, localizedString } from '@/contexts/LocaleProvider'
+import { SanityGlobals, SanityLink } from '@/sanity/types'
 
-type TDropdown = {
-  name: string
-  type: 'dropdown'
-  children: ReactNode[]
-}
-
-function HeaderLink({ item }: { item: TLink | TDropdown }) {
+function HeaderLink({
+  item,
+}: {
+  item: NonNullable<NonNullable<SanityGlobals['navbar']>['links']>[number]
+}) {
   const [open, setOpen] = React.useState(false)
   const router = useRouter()
   return (
     <>
-      {item.type === 'link' && (
+      {item._type === 'link' && (
         <Link
-          href={item.route}
-          className={item.route === router.route ? 'text-blue' : 'text-darkblue'}
+          href={item.url || '/'}
+          className={item.url === router.route ? 'text-blue' : 'text-darkblue'}
         >
-          {item.name}
+          <LocalizedString text={item.text} />
         </Link>
       )}
-      {item.type === 'dropdown' && (
+      {item._type === 'dropdown' && (
         <>
           <div className={'flex items-center'}>
             <span className="flex items-center cursor-pointer" onClick={() => setOpen(!open)}>
-              <p>{item.name}</p>
+              <p>
+                <LocalizedString text={item.title} />
+              </p>
               <Image
                 src="/down_icon.svg"
                 height="16"
@@ -50,8 +47,12 @@ function HeaderLink({ item }: { item: TLink | TDropdown }) {
                 onClick={() => setOpen(false)}
               >
                 <div className="w-[90%] mx-auto grid gap-5 lg:grid-cols-5 md:grid-cols-3 grid-cols-1 min-h-fit">
-                  {item.children.map((child, index) => {
-                    return <div key={index}>{child}</div>
+                  {item.links?.map((child, index) => {
+                    return (
+                      <Link href={child.url || '/'} key={index}>
+                        <LocalizedString text={child.text} />
+                      </Link>
+                    )
                   })}
                 </div>
               </div>

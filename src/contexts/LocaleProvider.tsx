@@ -23,13 +23,13 @@ export function LocaleProvider({
 export function LocalizedString({
   text,
   ...props
-}: { text: SanityLocaleString } & HTMLAttributes<HTMLSpanElement>) {
+}: { text?: SanityLocaleString } & HTMLAttributes<HTMLSpanElement>) {
   const { locale } = useContext(LocaleContext)
-  return <span {...props}>{text[locale]}</span>
+  return <span {...props}>{text?.[locale]}</span>
 }
 
-export function localizedString(text: SanityLocaleString, locale?: SanityLocale) {
-  return text[locale ?? 'en']
+export function localizedString(text?: SanityLocaleString, locale?: SanityLocale) {
+  return text?.[locale ?? 'en'] || ''
 }
 
 export default LocaleContext
