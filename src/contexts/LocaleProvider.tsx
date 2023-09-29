@@ -1,6 +1,6 @@
 import { createContext, HTMLAttributes, ReactNode, use, useContext } from 'react'
 
-import { SanityLocale, SanityLocaleString } from '@/sanity/types'
+import { SanityLocale, SanityLocaleString, SanityLocaleText } from '@/sanity/types'
 
 export type LocaleContextType = {
   locale: SanityLocale
@@ -30,7 +30,7 @@ export function LocalizedString({
   return <span {...props}>{text?.[locale]}</span>
 }
 
-export function localizedString(text?: SanityLocaleString, locale?: SanityLocale) {
+export function localizedString(text?: SanityLocaleString | SanityLocaleText, locale?: SanityLocale) {
   if (!text) return ''
   return text?.[locale ?? 'en'] || ''
 }

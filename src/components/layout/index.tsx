@@ -12,7 +12,7 @@ const Layout = ({ children, globals }: { children: ReactNode; globals?: SanityGl
       <div className="overflow-x-hidden bg-white text-black min-h-screen">
         <Header navbar={globals?.navbar} />
         <main>{children}</main>
-        <Footer />
+        <Footer footer={globals?.footer} />
       </div>
     </div>
   )

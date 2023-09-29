@@ -6,6 +6,9 @@ import Container from '@/components/Container'
 
 import Address from './components/Address'
 import Footer__links from './components/Footer__links'
+import { SanityGlobals } from '@/sanity/types'
+import { urlFor } from '@/sanity/client'
+import { localizedString } from '@/contexts/LocaleProvider'
 
 const SOCIAL_LINKS = [
   {
@@ -44,94 +47,9 @@ const CARDS = [
   '/visa_card.png',
 ]
 
-const LINKS = [
-  {
-    heading: 'Company',
-    items: [
-      {
-        href: '/review',
-        title: 'Review',
-      },
-      {
-        href: '/group-tours',
-        title: 'Group Tours',
-      },
-      {
-        href: '/destinations',
-        title: 'Destinations',
-      },
-      {
-        href: '/about-us',
-        title: 'About Us',
-      },
-    ],
-  },
-  {
-    heading: 'Company',
-    items: [
-      {
-        href: '/review',
-        title: 'Review',
-      },
-      {
-        href: '/group-tours',
-        title: 'Group Tours',
-      },
-      {
-        href: '/destinations',
-        title: 'Destinations',
-      },
-      {
-        href: '/about-us',
-        title: 'About Us',
-      },
-    ],
-  },
-  {
-    heading: 'Company',
-    items: [
-      {
-        href: '/review',
-        title: 'Review',
-      },
-      {
-        href: '/group-tours',
-        title: 'Group Tours',
-      },
-      {
-        href: '/destinations',
-        title: 'Destinations',
-      },
-      {
-        href: '/about-us',
-        title: 'About Us',
-      },
-    ],
-  },
-]
-
-const ADDRESSES = [
-  {
-    heading: 'Egypt Address',
-    address: '48 Thawra st., Mohandessen, Giza, 12611, Egypt.',
-    number: '+2012 2211 5485',
-    email: 'medhat@promotravel-eg.com',
-  },
-  {
-    heading: 'Egypt Address',
-    address: '48 Thawra st., Mohandessen, Giza, 12611, Egypt.',
-    number: '+2012 2211 5485',
-    email: 'medhat@promotravel-eg.com',
-  },
-  {
-    heading: 'Egypt Address',
-    address: '48 Thawra st., Mohandessen, Giza, 12611, Egypt.',
-    number: '+2012 2211 5485',
-    email: 'medhat@promotravel-eg.com',
-  },
-]
-
-const Footer = () => {
+const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
+  const ADDRESSES = footer?.locations || []
+  const LINKS = footer?.link_groups || []
   return (
     <div className="mt-auto w-screen bg-primary flex flex-col text-gray">
       <Container>
@@ -139,17 +57,20 @@ const Footer = () => {
           {/* Left side */}
           <div className="flex flex-col gap-5 mb-12 md:w-[30%]">
             <div className="flex flex-col">
-              <Image src="/company_logo.svg" width={260} height={80} alt="Company logo"></Image>
+              <Image
+                src={(footer?.logo && urlFor(footer?.logo)) || ''}
+                width={260}
+                height={80}
+                alt="Company logo"
+              ></Image>
               <p>
-                A company by{' '}
                 <Link href="/" className="font-semibold text-blue">
-                  Promo Travels
+                  {localizedString(footer?.title)}
                 </Link>
               </p>
             </div>
             <p className="leading-relaxed lg:max-w-[60%] mt-3">
-              With 30 years of dedicated experience, our travel agency is here to curate your dream
-              trip, ensuring exceptional service at every step.
+              {localizedString(footer?.description)}
             </p>
             <div className="flex flex-wrap gap-6 mt-5">
               {SOCIAL_LINKS.map((item, index) => {
@@ -179,7 +100,13 @@ const Footer = () => {
           <div className="grow flex flex-col gap-3 text-darkblue md:w-[66%]">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 justify-between">
               {LINKS.map((item, index) => {
-                return <Footer__links heading={item.heading} items={item.items} key={index} />
+                return (
+                  <Footer__links
+                    heading={localizedString(item.title)}
+                    items={item.links || []}
+                    key={index}
+                  />
+                )
               })}
             </div>
             <hr className="border-gray opacity-20" />
@@ -188,10 +115,10 @@ const Footer = () => {
               {ADDRESSES.map((item, index) => {
                 return (
                   <Address
-                    address={item.address}
-                    email={item.email}
-                    heading={item.heading}
-                    number={item.number}
+                    address={localizedString(item.address)}
+                    email={item.email || ''}
+                    heading={localizedString(item.title)}
+                    number={localizedString(item.phone_number)}
                     key={index}
                   />
                 )
@@ -200,9 +127,7 @@ const Footer = () => {
           </div>
         </div>
         <hr className="opacity-30 border-blue" />
-        <p className="text-center py-3 opacity-50">
-          Copyright © Promo Travel | 2017 All Rights Reserved
-        </p>
+        <p className="text-center py-3 opacity-50">{localizedString(footer?.copyright_text)}</p>
       </Container>
     </div>
   )
