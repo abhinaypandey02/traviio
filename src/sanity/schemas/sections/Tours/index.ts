@@ -27,7 +27,7 @@ export const TourSections = [
   'faq_section',
   // tour sections
   'accommodation_types_section',
-  'image_showcase_section',
+  'gallery_section',
   'itinerary_section',
   'memorable_experiences_section',
   'travel_info_section',

@@ -3,9 +3,11 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/client'
 import { SanityWhatsIncludedSection } from '@/sanity/types'
 
+import Container from '@/components/Container'
+
 export default function WhatsIncludedSection({ data }: { data: SanityWhatsIncludedSection }) {
   return (
-    <div className="flex flex-col py-7 max-w-[1280px] w-[90%] mx-auto relative">
+    <Container className="flex flex-col py-7  relative">
       <div>
         <h2 className="text-black font-bold text-2xl text-c">{data?.title?.en}</h2>
         <hr className=" w-28 my-2 text-yellow bg-yellow  rounded-full border-2" />
@@ -41,6 +43,6 @@ export default function WhatsIncludedSection({ data }: { data: SanityWhatsInclud
           )
         })}
       </div>
-    </div>
+    </Container>
   )
 }

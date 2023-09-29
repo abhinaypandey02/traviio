@@ -7,13 +7,13 @@ import { urlFor } from '@/sanity/client'
 import { SanityMemorableExperiencesSection } from '@/sanity/types'
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 
+import Container from '@/components/Container'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-
-const image = 'https://source.unsplash.com/featured/300x201'
 
 export default function MemorableExperiencesSection({
   data,
@@ -43,7 +43,7 @@ export default function MemorableExperiencesSection({
         </div>
       </div>
       <div className="w-full bg-primary">
-        <div className="flex flex-col py-7 max-w-[1280px] w-[90%] mx-auto relative">
+        <Container className="flex flex-col py-7 relative">
           <div className="App">
             <div className="carousel-container">
               <Swiper
@@ -84,9 +84,9 @@ export default function MemorableExperiencesSection({
               </Swiper>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
-      <div className="gap-12 max-w-[1280px] w-[90%] mx-auto relative flex justify-center">
+      <Container className="gap-12  relative flex justify-center">
         <div
           className="w-[50px] h-[50px] rounded-full bg-blue flex items-center justify-center"
           ref={prevRef}
@@ -99,7 +99,7 @@ export default function MemorableExperiencesSection({
         >
           <ArrowRight color="white" />
         </div>
-      </div>
+      </Container>
     </div>
   )
 }

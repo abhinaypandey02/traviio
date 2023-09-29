@@ -21,7 +21,9 @@ function BestToursSection({
   const [pageNumber, setPageNumber] = React.useState<number>(0)
   const lastIds = React.useRef<(string | null)[]>([''])
   const [selectedTags, setSelectedTags] = React.useState<string[]>([])
-  const [pageData, setPageData] = React.useState<SanityTourPage['overview_card'][]>([])
+  const [pageData, setPageData] = React.useState<
+    (SanityTourPage['overview_card'] & SanityTourPage['hero_section'])[]
+  >([])
   const pageSize = 9
 
   const refetchData = (selectedTags: string[], ids: (string | null)[], pageNumber: number) => {
@@ -32,7 +34,7 @@ function BestToursSection({
       *[_type == "tour_page" ${
         selectedTags.length > 0 ? '&& count((tags[]->name.en)[@ in $selectedTags]) > 0' : ''
       } && _id > $lastId] | order(_id) [0...$pageSize] {
-        _id, overview_card
+        _id, overview_card, hero_section, slug
       }
     `,
         {
@@ -43,8 +45,15 @@ function BestToursSection({
       )
       .then((data: { _id: string; overview_card: SanityTourPage['overview_card'] }[]) => {
         if (data.length > 0) {
+          console.log(data)
           lastIds.current[pageNumber] = data[data.length - 1]._id
-          setPageData(data.map((item) => item.overview_card))
+          setPageData(
+            data.map((item: any) => ({
+              ...item.overview_card,
+              ...item.hero_section,
+              href: '/tours/' + item.slug.current,
+            }))
+          )
         } else {
           setPageData([])
           lastIds.current.push(null)
@@ -120,6 +129,7 @@ function BestToursSection({
           pageSize={pageSize}
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}
+          locale={locale}
         />
       </div>
     </Container>

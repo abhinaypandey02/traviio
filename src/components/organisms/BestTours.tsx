@@ -1,10 +1,11 @@
 import React from 'react'
 
+import { LocaleContextType, localizedNumber, localizedString } from '@/contexts/LocaleProvider'
+import { urlFor } from '@/sanity/client'
 import { SanityTag, SanityTourPage } from '@/sanity/types'
 
+import { TourCard } from '@/components/sections/DealsSection'
 import { Pagination } from '@/components/sections/ReviewSection'
-
-import TravelCard from '../molecule/TravelCard'
 
 interface BestToursProps {
   numberOfTours: number
@@ -12,11 +13,12 @@ interface BestToursProps {
   tags: SanityTag[]
   selectedTags: string[]
   setSelectedTags: (tag: string[]) => void
-  deals: SanityTourPage['overview_card'][]
+  deals: (SanityTourPage['overview_card'] & SanityTourPage['hero_section'])[]
   className?: string
   pageSize: number
   pageNumber: number
   setPageNumber: (pageNumber: number) => void
+  locale?: LocaleContextType['locale']
 }
 
 function BestTours({
@@ -30,6 +32,7 @@ function BestTours({
   pageSize,
   pageNumber,
   setPageNumber,
+  locale,
 }: BestToursProps) {
   return (
     <div className={`flex flex-col m-3 gap-3 ${className}`}>
@@ -67,8 +70,23 @@ function BestTours({
         })}
       </div>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
-        {deals?.map((deal: SanityTourPage['overview_card'], index: number) => {
-          return <TravelCard {...deal} key={index} />
+        {deals?.map((deal: any, index: number) => {
+          return (
+            <TourCard
+              title={localizedString(deal?.about, locale)}
+              image={{
+                src: (deal?.image && urlFor(deal.image)) || '',
+                alt: '',
+              }}
+              href={deal.href}
+              duration={localizedString(deal?.duration, locale)}
+              currency={localizedString(deal?.price?.currency_symbol, locale)}
+              cities={deal?.cities}
+              old_price={localizedNumber(deal?.price?.initial_price, locale)}
+              new_price={localizedNumber(deal?.price?.discounted_price, locale)}
+              key={index}
+            />
+          )
         })}
       </div>
       <Pagination

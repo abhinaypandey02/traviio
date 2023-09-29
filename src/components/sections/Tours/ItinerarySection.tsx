@@ -11,15 +11,16 @@ import {
 import { CaretDown, Dot, Minus, Plus } from '@phosphor-icons/react'
 
 import Button from '@/components/buttons/Button'
+import Container from '@/components/Container'
 
 export default function ItinerarySection({ data }: { data?: SanityItinerarySection }) {
   // console.log('ItinerarySection-> ', data)
   return (
-    <div className="bg-white flex flex-col py-20 gap-12 max-w-[1280px] w-[90%] mx-auto">
+    <Container className=" flex flex-col py-20 gap-12">
       <div className="flex gap-3 flex-col justify-center w-fit mx-auto items-center">
-        <h1 className="text-blue text-base font-medium">{data?.tagline?.en}</h1>
+        <h2 className="text-blue text-base font-medium">{data?.tagline?.en}</h2>
         <div>
-          <h2 className="text-black font-bold text-4xl">{data?.title?.en}</h2>
+          <h3 className="text-black font-bold text-4xl">{data?.title?.en}</h3>
           <hr className="lg:w-1/3 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
         </div>
       </div>
@@ -29,7 +30,7 @@ export default function ItinerarySection({ data }: { data?: SanityItinerarySecti
         {/* Enquire Tab */}
         <EnquireTab />
       </div>
-    </div>
+    </Container>
   )
 }
 
