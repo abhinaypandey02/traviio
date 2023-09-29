@@ -54,7 +54,7 @@ export default function Input({
             <div
               className={`w-[22px] h-[22px] ${VARIANT.buttonNumber.button[variant]} flex items-center justify-center`}
               onClick={() => {
-                setValue(Math.max(parseInt(value) - 1, 1).toString(), 'members')
+                setValue(Math.max(parseInt(value || '0') - 1, 1).toString(), 'members')
               }}
             >
               {<Minus color="white" />}
@@ -67,7 +67,7 @@ export default function Input({
             <div
               className={`w-[22px] h-[22px] ${VARIANT.buttonNumber.button[variant]} flex items-center justify-center`}
               onClick={() => {
-                setValue(Math.min(parseInt(value) + 1, 30).toString(), 'members')
+                setValue(Math.min(parseInt(value || '0') + 1, 30).toString(), 'members')
               }}
             >
               {<Plus color="white" />}
@@ -111,7 +111,7 @@ export default function Input({
           className="border border-darkblue/10 text-gray rounded p-1 min-w-0"
           value={value}
           onChange={(e) => {
-            setValue(e.target.value)
+            setValue(type === 'number' ? parseInt(e.target.value) : e.target.value)
           }}
         />
       </div>

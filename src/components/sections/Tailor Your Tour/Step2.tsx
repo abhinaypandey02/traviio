@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Boat, Car, Compass, Cross, FinnTheHuman, Leaf, WaveTriangle } from '@phosphor-icons/react'
 
 import Input from '@/components/atoms/Input'
 
-export default function Step2() {
-  const [formData, setFormData] = React.useState({
+export type TailorTripFormData = {
+  name: string
+  email: string
+  nationality: string
+  phone: string
+  numberOfAdults: string
+  numberOfChildrens: string
+  budget: string
+  categories: string[]
+  moreInfo: string
+}
+export default function Step2({ onChange }: { onChange: (data: TailorTripFormData) => void }) {
+  const [formData, setFormData] = React.useState<TailorTripFormData>({
     name: '',
     email: '',
     nationality: '',
@@ -29,6 +40,9 @@ export default function Step2() {
     mobileCode: '+1',
     mobileNumber: '',
   })
+  useEffect(() => {
+    onChange(formData)
+  }, [formData])
   const makeSetValue = (key: keyof typeof formData) => {
     return (value: any) => {
       setFormData((prev) => ({

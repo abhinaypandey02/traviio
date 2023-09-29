@@ -19,13 +19,13 @@ const Button = ({
   onClick?: any
 }) => {
   return (
-    <div
+    <button
       ref={ref}
       className={`bg-blue text-center  rounded-full py-2 font-bold my-2 text-sm ${BUTTON_VARIANT[varient]} ${className}`}
       onClick={onClick}
     >
       {text}
-    </div>
+    </button>
   )
 }
 

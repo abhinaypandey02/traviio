@@ -8,6 +8,50 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+
+.react-calendar{
+  box-shadow: 0px 2.89157px 14.45783px 0px rgba(0, 0, 0, 0.06);
+  border:none!important;
+  max-width: 320px!important;
+  padding: 18px;
+}
+.react-calendar__month-view__days__day--weekend{
+  color:#140D31!important;
+}
+.react-calendar__tile--range,.react-calendar__tile--hover{
+  color: rgba(255,187,11,0.5)!important;
+  background: none!important;
+
+}
+.react-calendar__month-view__weekdays__weekday abbr{
+  text-decoration: none!important;
+  color: #726E83;
+  text-align: center;
+  font-size: 10.12px;
+  font-weight: 500;
+}
+.react-calendar__navigation__label__labelText{
+  color:#140D31;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 14.458px;
+  font-style: normal;
+  font-weight: 400;
+}
+.react-calendar__tile--rangeStart,.react-calendar__tile--rangeEnd,.react-calendar__tile--hoverEnd,.react-calendar__tile--hoverStart{
+  background: rgba(255,187,11,0.5)!important;
+  color:#140D31!important;
+}
+.react-calendar__tile{
+  aspect-ratio: 1;
+  text-align: center;
+  border-radius: 50%;
+
+}
+.react-calendar__tile--now{
+  color:#D10002;
+  background: none!important;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

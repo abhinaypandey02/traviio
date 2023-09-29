@@ -35,7 +35,9 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
           </Container>
         </div>
         <Container className="py-3 bg-white flex justify-between items-center px-10">
-          <Image src="/company_logo.svg" height={40} width={172} alt="Company logo" />
+          <Link href={'/'}>
+            <Image src="/company_logo.svg" height={40} width={172} alt="Company logo" />
+          </Link>
           <div className="flex gap-10 justify-evenly text-darkblue">
             {navbar?.links?.map((item, index) => {
               return <HeaderLink item={item} key={index} />

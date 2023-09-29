@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Layout from '@/components/layout'
 import FAQSection from '@/components/sections/FAQSection'
 import Step1 from '@/components/sections/Tailor Your Tour/Step1'
-import Step2 from '@/components/sections/Tailor Your Tour/Step2'
+import Step2, { TailorTripFormData } from '@/components/sections/Tailor Your Tour/Step2'
 import Steps from '@/components/sections/Tailor Your Tour/Steps'
 
-export default function index() {
+export default function TailorYourTour() {
   const FAQData: any = {
     faqs: [
       {
@@ -81,11 +81,24 @@ export default function index() {
       en: 'FAQ',
     },
   }
+  const [duration, setDuration] = useState<string>()
+  const [formData, setFormData] = useState<TailorTripFormData>()
   return (
     <Layout>
-      <Steps>
-        <Step1 />
-        <Step2 />
+      <Steps
+        onSubmit={() => {
+          alert(
+            `Submitting ${duration} ${
+              formData &&
+              Object.keys(formData).map(
+                (key) => `${key}: ${formData[key as keyof typeof formData]}`
+              )
+            }`
+          )
+        }}
+      >
+        <Step1 onChange={setDuration} />
+        <Step2 onChange={setFormData} />
       </Steps>
       <FAQSection data={FAQData} />
     </Layout>

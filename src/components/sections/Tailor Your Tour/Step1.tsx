@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Calendar from 'react-calendar'
 
 import OptionSelectButton from '@/components/atoms/OptionSelectButton'
 
-export default function Step1() {
+import 'react-calendar/dist/Calendar.css'
+export default function Step1({ onChange }: { onChange: (date: string) => void }) {
   const [mode, setMode] = React.useState('exactDates')
   const [duration, setDuration] = React.useState('')
   const [month, setMonth] = React.useState('')
+  const [date, setDate] = React.useState<Date[]>()
+  useEffect(() => {
+    if (date) onChange(`From - ${date[0]?.toDateString()} To - ${date[1]?.toDateString()}`)
+    else onChange(`Month - ${month}, Duration - ${duration}`)
+  }, [duration, month, onChange, date])
   const Durations = [
     { name: 'Less than 1 Week', gridSpan: 'col-span-2' },
     { name: '1 Week', gridSpan: 'col-span-1' },
@@ -48,7 +55,11 @@ export default function Step1() {
           <OptionSelectButton value={mode == 'approxDates'} /> I have approximate dates.
         </div>
       </div>
-      {mode == 'exactDates' && <div>Exact Dates</div>}
+      {mode == 'exactDates' && (
+        <div className={'flex justify-center'}>
+          <Calendar onChange={(value: any) => setDate(value)} selectRange={true} />
+        </div>
+      )}
       {mode == 'approxDates' && (
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="flex flex-col gap-2 text-base text-gray ">
