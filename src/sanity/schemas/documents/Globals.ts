@@ -23,6 +23,26 @@ export default defineType({
       },
       fields: [
         defineField({
+          name: 'info_banner',
+          title: 'Info Banner',
+          description: 'Info Banner for the navbar',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'text',
+              title: 'Text',
+              description: 'Text for the info banner',
+              type: 'locale_string',
+            }),
+            defineField({
+              name: 'cta',
+              title: 'CTA',
+              description: 'CTA for the info banner',
+              type: 'link_button',
+            }),
+          ],
+        }),
+        defineField({
           name: 'logo',
           title: 'Logo',
           description: 'The logo for the navbar',
