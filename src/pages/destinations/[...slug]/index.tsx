@@ -35,7 +35,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         }
         image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
       />
-      <Slicer components={DestinationSectionsMap} sections={data?.sections} />
+      <Slicer globals={globals} components={DestinationSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )
 }

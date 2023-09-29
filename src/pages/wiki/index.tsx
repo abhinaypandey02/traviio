@@ -22,7 +22,7 @@ export default function WikiPage({ data, locale, globals }: WikiPageProps) {
         description={data.tagline && localizedString(data.tagline, locale)}
         image={data.image_hero?.image && urlFor(data.image_hero.image)}
       />
-      <Layout>
+      <Layout globals={globals}>
         {data?.sections?.map((section, idx) => (
           // Write the component here with the data section
           <div key={idx}>{JSON.stringify(section)}</div>

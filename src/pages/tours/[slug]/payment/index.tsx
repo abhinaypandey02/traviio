@@ -88,7 +88,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
   }
 
   return (
-    <Layout>
+    <Layout globals={globals}>
       <FeatureSection data={features} />
       <Tabs tour={data}>
         <Page1 extras={data.payment} />

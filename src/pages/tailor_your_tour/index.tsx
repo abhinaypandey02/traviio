@@ -34,7 +34,7 @@ export default function TailorYourTour({
   const [formData, setFormData] = useState<TailorTripFormData>()
   const [selectedDestination, setSelectedDestination] = useState<string>()
   return (
-    <Layout>
+    <Layout globals={globals}>
       <Container>
         {!selectedDestination && (
           <div>

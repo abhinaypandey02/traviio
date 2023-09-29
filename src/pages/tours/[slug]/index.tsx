@@ -29,7 +29,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         }
         image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
       />
-      <Layout>
+      <Layout globals={globals}>
         <TourHeroSection
           slug={slug}
           hero_section={data?.hero_section}
