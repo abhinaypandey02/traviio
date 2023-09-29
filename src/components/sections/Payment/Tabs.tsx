@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Image from 'next/image'
+
+import LocaleContext, { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
+import { urlFor } from '@/sanity/client'
+import { SanityTourPage } from '@/sanity/types'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
 
 import Input from '@/components/atoms/Input'
 
-export default function Tabs({ children }: { children?: any[] }) {
+export default function Tabs({ children, tour }: { children?: any[]; tour: SanityTourPage }) {
   const [page, setPage] = useState(1)
   return (
     <Container className="flex flex-col gap-16 py-16">
@@ -85,7 +89,7 @@ export default function Tabs({ children }: { children?: any[] }) {
           </div>
         )}
         <div className="flex flex-col gap-7">
-          <SelectedTour />
+          <SelectedTour tour={tour} />
           <TripDuration />
           <Costing />
         </div>
@@ -94,7 +98,8 @@ export default function Tabs({ children }: { children?: any[] }) {
   )
 }
 
-const SelectedTour = () => {
+const SelectedTour = ({ tour }: { tour: SanityTourPage }) => {
+  const { locale } = useContext(LocaleContext)
   return (
     <div className="pb-10 px-10 pt-4 bg-primary border border-darkblue/10 rounded-2xl flex flex-col gap-4">
       <div>
@@ -103,22 +108,29 @@ const SelectedTour = () => {
       </div>
       <div className="rounded-2xl overflow-hidden">
         <div className="h-[220px] w-full relative">
-          <Image alt="" src="/demo/wallpaper.jpg" layout="fill" objectFit="cover" />
+          <Image
+            alt=""
+            src={(tour.hero_section?.image && urlFor(tour.hero_section?.image)) || ''}
+            layout="fill"
+            objectFit="cover"
+          />
         </div>
         <div className="bg-white flex flex-col gap-3 p-4">
-          <p className="text-darkblue font-bold text-xl">Valley of the King : Near Luxor</p>
+          <p className="text-darkblue font-bold text-xl">
+            {localizedString(tour.overview_card?.about, locale)}
+          </p>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-[6px]">
               <Image alt="" src={'/calendar.svg'} height={18} width={18} />
-              <p>11 Days</p>
+              <p>{localizedString(tour.overview_card?.duration, locale)} Days</p>
             </div>
             <div className="flex items-center gap-[6px]">
               <Image alt="" src={'/calendar.svg'} height={18} width={18} />
-              <p>1 Countries</p>
+              <p>{tour.overview_card?.countries} Countries</p>
             </div>
             <div className="flex items-center gap-[6px]">
               <Image alt="" src={'/map_plain.svg'} height={18} width={18} />
-              <p>11 Cities</p>
+              <p>{tour.overview_card?.cities} Cities</p>
             </div>
           </div>
         </div>

@@ -30,7 +30,11 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
       />
       <Layout>
-        <TourHeroSection hero_section={data?.hero_section} overview_card={data.overview_card} />
+        <TourHeroSection
+          slug={slug}
+          hero_section={data?.hero_section}
+          overview_card={data.overview_card}
+        />
         {data?.sections?.map((section) => {
           const Component = TourSectionsMap[section._type]
           return (
@@ -51,7 +55,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const slugs = (await client.fetch(`*[_type == "tour_page"]{slug}.slug`)) as SanitySlug[]
 
   return {
-    paths: getPaths(slugs, locales),
+    paths: slugs.map((slug) => ({ params: { slug: slug.current.slice(1) } })),
     fallback: false,
   }
 }

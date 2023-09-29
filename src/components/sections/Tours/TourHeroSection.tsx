@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import ReactStars from 'react-stars'
 
@@ -11,7 +12,9 @@ import Button from '@/components/buttons/Button'
 export default function TourHeroSection({
   hero_section,
   overview_card,
+  slug,
 }: {
+  slug: string
   hero_section: SanityTourPage['hero_section']
   overview_card: SanityTourPage['overview_card']
 }) {
@@ -32,12 +35,12 @@ export default function TourHeroSection({
           <span className="text-white">Explore Ancient Wonders </span>
         </h2>
       </div>
-      <OverViewCard data={overview_card} />
+      <OverViewCard slug={slug} data={overview_card} />
     </div>
   )
 }
 
-const OverViewCard = ({ data }: { data: SanityTourPage['overview_card'] }) => {
+const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; slug: string }) => {
   const router = useRouter()
   const price: any = data?.price
   return (
@@ -108,14 +111,13 @@ const OverViewCard = ({ data }: { data: SanityTourPage['overview_card'] }) => {
         </div>
 
         <div className="flex flex-col w-full justify-between items-center flex-1 px-7">
-          <Button
-            text={data?.cta_button?.label?.en}
-            varient={data?.cta_button?.type}
-            className="p-3"
-            onClick={() => {
-              data?.cta_button?.url && router.push(data?.cta_button?.url)
-            }}
-          />
+          <Link href={`/tours/${slug}/payment`}>
+            <Button
+              text={data?.cta_button?.label?.en}
+              varient={data?.cta_button?.type}
+              className="p-3"
+            />
+          </Link>
           <p className="text-xs font-medium text-red">{data?.cta_helper_text?.en}</p>
         </div>
       </div>
