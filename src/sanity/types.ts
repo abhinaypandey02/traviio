@@ -704,6 +704,7 @@ export type SanityPage = {
   _id: string
   slug?: SanitySlug
   meta_data?: SanityMetaData
+  promo_banner?: SanityPromoBanner
   sections?: (
     | SanityDealsSection
     | SanityFAQSection
@@ -972,6 +973,19 @@ export type SanityGlobals = {
       address?: SanityLocaleString
       phone_number?: SanityLocaleString
       email?: string
+    }[]
+    social_media?: {
+      _type: 'social'
+      _id: string
+      _key: string
+      icon: SanityIcon
+      link?: string
+    }[]
+    payment_methods?: {
+      _type: 'payment_method'
+      _id: string
+      _key: string
+      icon: SanityIcon
     }[]
     copyright_text?: SanityLocaleText
   }

@@ -255,6 +255,58 @@ export default defineType({
           ],
         }),
         defineField({
+          name: 'socials',
+          title: 'Socials',
+          description: 'Socials for the footer',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'social',
+              title: 'Social',
+              icon: Link as any,
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'image',
+                }),
+                defineField({
+                  name: 'link',
+                  title: 'Link',
+                  type: 'string',
+                }),
+              ],
+            }),
+          ],
+        }),
+        defineField({
+          name: 'payment_methods',
+          title: 'Payment Methods',
+          description: 'Payment Methods for the footer',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'payment_method',
+              title: 'Payment Method',
+              icon: Link as any,
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'image',
+                }),
+                defineField({
+                  name: 'link',
+                  title: 'Link',
+                  type: 'string',
+                }),
+              ],
+            }),
+          ],
+        }),
+        defineField({
           name: 'copyright_text',
           title: 'Copyright',
           description: 'Copyright text for the footer',
