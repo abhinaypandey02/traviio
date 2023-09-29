@@ -10,7 +10,6 @@ import {
 import TravelInformation from '../TravelInformation'
 
 import AccommdationTypesSection from './Tours/AccommdationTypesSection'
-import FeaturedToursSection from './Tours/FeaturedToursSection'
 import ImageShowCaseSection from './Tours/ImageShowCaseSection'
 import ItinerarySection from './Tours/ItinerarySection'
 import MemorableExperiencesSection from './Tours/MemorableExperiencesSection'
@@ -83,13 +82,13 @@ export const TourSectionsMap: {
   itinerary_section: ItinerarySection,
   content_section: ContentSection,
   memorable_experiences_section: MemorableExperiencesSection,
-  image_showcase_section: ImageShowCaseSection,
+  gallery_section: GallerySection,
   whats_included_section: WhatsIncludedSection,
   pricing_section: PricingSection,
   accommodation_types_section: AccommdationTypesSection,
   reviews_section: ReviewSection,
   feature_section: FeatureSection,
-  featured_tours_section: FeaturedToursSection,
+  featured_tours_section: DealsSection,
   faq_section: FAQSection,
   travel_info_section: TravelInformation,
 }

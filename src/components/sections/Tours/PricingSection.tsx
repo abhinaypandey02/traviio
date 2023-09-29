@@ -5,51 +5,54 @@ import { SanityPricingSection } from '@/sanity/types'
 import { ArrowDown, ArrowLeft, ArrowRight, CaretDown, Info } from '@phosphor-icons/react'
 
 import Button from '@/components/buttons/Button'
+import Container from '@/components/Container'
 
 export default function PricingSection({ data }: { data: SanityPricingSection }) {
   const prices = [{}, {}, {}, {}, {}]
   return (
-    <div className="flex flex-col my-10 gap-12 max-w-[1280px] w-[90%] mx-auto bg-darkblue/5 rounded-2xl p-7">
-      <div className="flex gap-2 justify-between">
-        <div className="flex flex-col gap-3">
-          <p className="text-gray text-base font-medium">
-            These dates don't work for you? Tailor your trip here
-          </p>
-          <p className="text-blue font-bold text-base flex gap-2">
-            {<Image src="/lock.svg" alt="" height={24} width={24} />}Secure payments
-          </p>
-        </div>
-        <div>
-          <div className="h-12 w-[280px] grid grid-cols-[1fr_36px] bg-white divide-x-2 divide-darkblue p-3 border border-darkblue rounded-md">
-            <div className="flex gap-3 items-center">
-              <Image src="/calendar.svg" alt="" height={24} width={24} />
-              <p className="text-darkblue font-normal text-base">June 2023</p>
-            </div>
-            <div className="flex justify-end items-start">
-              <CaretDown height={24} width={24} />
-            </div>
+    <Container>
+      <div className="flex flex-col my-10 gap-12 bg-darkblue/5 rounded-2xl p-7">
+        <div className="flex gap-2 justify-between">
+          <div className="flex flex-col gap-3">
+            <p className="text-gray text-base font-medium">
+              These dates don't work for you? Tailor your trip here
+            </p>
+            <p className="text-blue font-bold text-base flex gap-2">
+              {<Image src="/lock.svg" alt="" height={24} width={24} />}Secure payments
+            </p>
           </div>
-          {/* <input type="date" /> */}
-        </div>
-      </div>
-      <div className="flex flex-col gap-5">
-        <div className="px-7 grid grid-cols-5">
-          <div className="col-span-2 grid grid-cols-[2fr_1fr_3fr]">
-            <p className="text-lg font-medium text-darkblue">From</p>
-            <p></p>
-            <p className="text-lg font-medium text-darkblue">To</p>
+          <div>
+            <div className="h-12 w-[280px] grid grid-cols-[1fr_36px] bg-white divide-x-2 divide-darkblue p-3 border border-darkblue rounded-md">
+              <div className="flex gap-3 items-center">
+                <Image src="/calendar.svg" alt="" height={24} width={24} />
+                <p className="text-darkblue font-normal text-base">June 2023</p>
+              </div>
+              <div className="flex justify-end items-start">
+                <CaretDown height={24} width={24} />
+              </div>
+            </div>
+            {/* <input type="date" /> */}
           </div>
-          <p className="text-lg font-medium text-darkblue"></p>
-          <p className="text-lg font-medium text-darkblue">Price</p>
-          <p className="text-lg font-medium text-darkblue"></p>
         </div>
         <div className="flex flex-col gap-5">
-          {prices.map((price, index) => (
-            <PriceCard key={index} data={price} />
-          ))}
+          <div className="px-7 grid grid-cols-5">
+            <div className="col-span-2 grid grid-cols-[2fr_1fr_3fr]">
+              <p className="text-lg font-medium text-darkblue">From</p>
+              <p></p>
+              <p className="text-lg font-medium text-darkblue">To</p>
+            </div>
+            <p className="text-lg font-medium text-darkblue"></p>
+            <p className="text-lg font-medium text-darkblue">Price</p>
+            <p className="text-lg font-medium text-darkblue"></p>
+          </div>
+          <div className="flex flex-col gap-5">
+            {prices.map((price, index) => (
+              <PriceCard key={index} data={price} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   )
 }
 

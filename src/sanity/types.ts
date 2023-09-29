@@ -937,6 +937,10 @@ export type SanityGlobals = {
   _id: string
   navbar?: {
     logo?: SanityImage
+    info_banner?: {
+      text?: SanityLocaleString
+      cta?: SanityLinkButton
+    }
     links?: (
       | SanityLink
       | {

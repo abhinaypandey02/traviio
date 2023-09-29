@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Button from '@/components/buttons/Button'
 
-export default function Steps({ children }: { children?: any[] }) {
+export default function Steps({ children, onSubmit }: { children?: any[]; onSubmit: () => void }) {
   const [step, setStep] = useState(1)
   return (
     <div className="flex flex-col gap-10 items-center sm:w-[90%] mx-auto">
@@ -40,13 +40,7 @@ export default function Steps({ children }: { children?: any[] }) {
                   }}
                 />
               ) : (
-                <Button
-                  varient="primary"
-                  text={'Submit'}
-                  onClick={() => {
-                    console.log('Submiting')
-                  }}
-                />
+                <Button varient="primary" text={'Submit'} onClick={onSubmit} />
               )}
             </div>
           </>

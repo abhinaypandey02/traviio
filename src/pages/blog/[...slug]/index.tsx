@@ -8,7 +8,6 @@ import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import { BlogPageSectionsMap } from '@/components/sections'
-
 type BlogPageProps = {
   slug: string
   data: SanityBlogPage

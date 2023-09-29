@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import ReactStars from 'react-stars'
 
+import { SanityTourPage } from '@/sanity/types'
 import { CaretDown, Check } from '@phosphor-icons/react'
 
 import Input from '@/components/atoms/Input'
 
-export default function Page1() {
+export default function Page1({ extras }: { extras: SanityTourPage['payment'] }) {
   const [formData, setFormData] = useState({
     adultMembers: 0,
     childrenMembers: 0,
