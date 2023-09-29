@@ -57,8 +57,8 @@ export default function TailorYourTour({
           <Steps
             onSubmit={() => {
               alert(
-                `Destination - ${destinations.find((d) => d._id === selectedDestination)
-                  ?.hero_section?.title?.en} ${duration} ${
+                `Destination - ${destinations.find((d) => d._id === selectedDestination)?.meta_data
+                  ?.meta_title?.en} ${duration} ${
                   formData &&
                   Object.keys(formData).map(
                     (key) => `${key}: ${formData[key as keyof typeof formData]}`

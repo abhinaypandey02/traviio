@@ -692,10 +692,10 @@ export type SanityDestinationPage = {
   slug?: SanitySlug
   meta_data?: SanityMetaData
   promo_banner?: SanityPromoBanner
-  hero_section?: {
-    title?: SanityLocaleString
-    image?: SanityImage
-  }
+  // hero_section?: {
+  //   title?: SanityLocaleString
+  //   image?: SanityImage
+  // }
   sections?: SanityDestinationSection[]
 }
 
@@ -835,7 +835,7 @@ export type SanityTourPageSection =
   | SanityPricingSection
   | SanityFAQSection
   | SanityAccommodationSection
-  | SanityImageShowcase
+  | SanityGallerySection
   | SanityItinerarySection
   | SanityMemorableExperiencesSection
   | SanityTravelInfoSection
