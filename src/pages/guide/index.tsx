@@ -106,8 +106,8 @@ export default function GuidePage({ data, locale, globals }: GuidePageProps) {
     <LocaleProvider locale={locale}>
       <SEO
         title={data?.title && localizedString(data.title, locale)}
-        description={data.tagline && localizedString(data.tagline, locale)}
-        image={data.image_hero?.image && urlFor(data.image_hero.image)}
+        description={data?.tagline && localizedString(data?.tagline, locale)}
+        image={data?.image_hero?.image && urlFor(data?.image_hero.image)}
       />
       <Layout globals={globals}>
         {/* {data.sections?.map((section, idx) => (

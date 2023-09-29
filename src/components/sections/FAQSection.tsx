@@ -14,7 +14,7 @@ const FAQSection = ({ data }: FAQSectionProps) => {
   return (
     <Container className="bg-white flex flex-col items-center py-10 ">
       <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
-        {data.tagline?.en}
+        {data?.tagline?.en}
       </h1>
       <h3 className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
         {data.title?.en}
