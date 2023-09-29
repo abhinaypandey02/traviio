@@ -56,15 +56,28 @@ export default function TailorYourTour({
         {selectedDestination && (
           <Steps
             onSubmit={() => {
-              alert(
-                `Destination - ${destinations.find((d) => d._id === selectedDestination)?.meta_data
-                  ?.meta_title?.en} ${duration} ${
-                  formData &&
-                  Object.keys(formData).map(
-                    (key) => `${key}: ${formData[key as keyof typeof formData]}`
-                  )
-                }`
-              )
+              fetch('/api/email', {
+                method: 'POST',
+                body: JSON.stringify({
+                  subject: 'New Tailor Tour Request',
+                  text: `You received a new "Tailor your tour" request by ${formData?.name}! Following are the details:
+                  
+                    Destination: ${destinations.find((d) => d._id === selectedDestination)
+                      ?.meta_data?.meta_title?.en}
+                    Duration: ${duration}
+                    Email: ${formData?.email}  
+                    Budget: ${formData?.budget}  
+                    Nationality: ${formData?.nationality}  
+                    Adults: ${formData?.numberOfAdults}  
+                    Children: ${formData?.numberOfChildrens}  
+                    Phone: ${formData?.phone}  
+                    Categories: ${formData?.categories}  
+                    More Info: ${formData?.moreInfo}  
+                  `,
+                }),
+              }).then(() => {
+                alert(`Request successfully submitted. You shall hear from us soon!`)
+              })
             }}
           >
             <Step1 onChange={setDuration} />

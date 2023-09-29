@@ -182,7 +182,7 @@ const EnquireTab = () => {
             <label htmlFor="from">From</label>
             <input
               id="from"
-              type="text"
+              type="date"
               className="border border-darkblue/10 text-gray rounded p-1"
               value={formData['from']}
               onChange={(e) => {
@@ -194,7 +194,7 @@ const EnquireTab = () => {
             <label htmlFor="to">To</label>
             <input
               id="to"
-              type="text"
+              type="date"
               className="border border-darkblue/10 text-gray rounded p-1"
               value={formData['to']}
               onChange={(e) => {
@@ -242,7 +242,29 @@ const EnquireTab = () => {
             }}
           />
         </div>
-        <Button text={'Submit'} varient="secondary" />
+        <Button
+          onClick={() => {
+            fetch('/api/email', {
+              method: 'POST',
+              body: JSON.stringify({
+                subject: 'New Enquiry Request',
+                text: `You received a new "Enquiry" request by ${formData?.name}! Following are the details:
+                 
+                    Duration: From - ${formData.from}, To - ${formData.to}
+                    Email: ${formData?.email}  
+                    Nationality: ${formData?.nationality}  
+                    Adults: ${formData?.members}  
+                    Phone: ${formData?.phone}  
+                    More info : ${formData?.details}
+                  `,
+              }),
+            }).then(() => {
+              alert(`Request successfully submitted. You shall hear from us soon!`)
+            })
+          }}
+          text={'Submit'}
+          varient="secondary"
+        />
       </div>
     </div>
   )
