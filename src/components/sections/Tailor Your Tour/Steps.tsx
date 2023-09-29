@@ -5,7 +5,7 @@ import Button from '@/components/buttons/Button'
 export default function Steps({ children, onSubmit }: { children?: any[]; onSubmit: () => void }) {
   const [step, setStep] = useState(1)
   return (
-    <div className="flex flex-col gap-10 items-center sm:w-[90%] mx-auto">
+    <div className="flex my-8 flex-col gap-10 items-center sm:w-[90%] mx-auto">
       <div className="flex gap-3 flex-col justify-center w-fit mx-auto items-center">
         <h1 className="text-blue text-base font-medium">{'Tailor your tour'}</h1>
         <div>

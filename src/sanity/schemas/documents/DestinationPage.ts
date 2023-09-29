@@ -35,28 +35,28 @@ export default defineType({
       description: 'Promo banner for the hero section',
       type: 'promo_banner',
     }),
-    defineField({
-      name: 'hero_section',
-      title: 'Hero Section',
-      description: 'Hero section for the page',
-      type: 'object',
-      options: {
-        collapsible: true,
-        collapsed: true,
-      },
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Title',
-          type: 'locale_string',
-        }),
-        defineField({
-          name: 'image',
-          title: 'Image',
-          type: 'image',
-        }),
-      ],
-    }),
+    // defineField({
+    //   name: 'hero_section',
+    //   title: 'Hero Section',
+    //   description: 'Hero section for the page',
+    //   type: 'object',
+    //   options: {
+    //     collapsible: true,
+    //     collapsed: true,
+    //   },
+    //   fields: [
+    //     defineField({
+    //       name: 'title',
+    //       title: 'Title',
+    //       type: 'locale_string',
+    //     }),
+    //     defineField({
+    //       name: 'image',
+    //       title: 'Image',
+    //       type: 'image',
+    //     }),
+    //   ],
+    // }),
     defineField({
       name: 'sections',
       title: 'Sections',

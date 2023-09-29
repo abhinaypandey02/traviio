@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
+import { LocalizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityImageHeaderSection } from '@/sanity/types'
 
@@ -29,8 +30,7 @@ const ImageHeaderSection = (props: ImageHeaderSectionProps) => {
         </h2>
       </div>
       <Container className="px-10 text-sm opacity-80 ">
-        {/* {content?content} */}
-        {content?.en}
+        {/* {content?content} */} <LocalizedString text={content} />
       </Container>
     </div>
   )

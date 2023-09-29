@@ -1,6 +1,11 @@
 import { createContext, HTMLAttributes, ReactNode, use, useContext } from 'react'
 
-import { SanityLocale, SanityLocaleNumber, SanityLocaleString, SanityLocaleText } from '@/sanity/types'
+import {
+  SanityLocale,
+  SanityLocaleNumber,
+  SanityLocaleString,
+  SanityLocaleText,
+} from '@/sanity/types'
 
 export type LocaleContextType = {
   locale: SanityLocale
@@ -25,7 +30,7 @@ export function LocaleProvider({
 export function LocalizedString({
   text,
   ...props
-}: { text?: SanityLocaleString } & HTMLAttributes<HTMLSpanElement>) {
+}: { text?: SanityLocaleString | SanityLocaleText } & HTMLAttributes<HTMLSpanElement>) {
   const { locale } = useContext(LocaleContext)
   return <span {...props}>{text?.[locale]}</span>
 }

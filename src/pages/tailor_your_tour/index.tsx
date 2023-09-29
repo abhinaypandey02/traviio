@@ -1,106 +1,99 @@
 import React, { useState } from 'react'
+import { GetStaticProps } from 'next'
+import Image from 'next/image'
 
+import { localizedString } from '@/contexts/LocaleProvider'
+import client, { urlFor } from '@/sanity/client'
+import {
+  SanityDestinationPage,
+  SanityGlobals,
+  SanityLocale,
+  SanityTailorYourTour,
+} from '@/sanity/types'
+import { LocalePage } from '@/utils/locales'
+
+import Container from '@/components/Container'
 import Layout from '@/components/layout'
 import FAQSection from '@/components/sections/FAQSection'
 import Step1 from '@/components/sections/Tailor Your Tour/Step1'
 import Step2, { TailorTripFormData } from '@/components/sections/Tailor Your Tour/Step2'
 import Steps from '@/components/sections/Tailor Your Tour/Steps'
 
-export default function TailorYourTour() {
-  const FAQData: any = {
-    faqs: [
-      {
-        question: {
-          _type: 'locale_string',
-          en: 'Can I change or cancel my Tour?',
-        },
-        _type: 'faq',
-        _key: 'f2a8c0373d13',
-        answer: {
-          _type: 'locale_string',
-          en: 'All orders are final once they have been processed through the checkout. Unfortunately, no further changes can be made to your order once processed including and not limited to; removing and/or adding items to your order, combining orders or cancelling your order.Please ensure all details on your order are correct before confirming your checkout. In particular, we recommend double-checking your email address, delivery address and the acceptance, and accuracy, of promotional codes.',
-        },
-      },
-      {
-        _key: 'e01df0a30c7d',
-        answer: {
-          _type: 'locale_string',
-          en: 'Nothing',
-        },
-        question: {
-          _type: 'locale_string',
-          en: 'What if I received my tour and is faulty or incorrect?',
-        },
-        _type: 'faq',
-      },
-      {
-        _type: 'faq',
-        _key: '65facaa04f63',
-        answer: {
-          _type: 'locale_string',
-          en: 'Hello',
-        },
-        question: {
-          _type: 'locale_string',
-          en: 'Do you offer exchanges?',
-        },
-      },
-      {
-        question: {
-          _type: 'locale_string',
-          en: 'Do you offer international tour?',
-        },
-        _type: 'faq',
-        _key: '9c1b457bb047',
-        answer: {
-          _type: 'locale_string',
-          en: 'Hello twice',
-        },
-      },
-      {
-        answer: {
-          _type: 'locale_string',
-          en: 'Jack',
-        },
-        question: {
-          _type: 'locale_string',
-          en: "What should I do if I don't my tour on time?",
-        },
-        _type: 'faq',
-        _key: 'f852a1ce4ed6',
-      },
-    ],
-    _type: 'faq_section',
-    tagline: {
-      _type: 'locale_string',
-      en: 'Frequently asked questions',
-    },
-    _key: 'fdeae1882551',
-    title: {
-      _type: 'locale_string',
-      en: 'FAQ',
-    },
-  }
+type TailorYourTourPageProps = {
+  data: SanityTailorYourTour
+  globals: SanityGlobals
+  destinations: SanityDestinationPage[]
+} & LocalePage
+export default function TailorYourTour({
+  data,
+  locale,
+  destinations,
+  globals,
+}: TailorYourTourPageProps) {
   const [duration, setDuration] = useState<string>()
   const [formData, setFormData] = useState<TailorTripFormData>()
+  const [selectedDestination, setSelectedDestination] = useState<string>()
   return (
     <Layout>
-      <Steps
-        onSubmit={() => {
-          alert(
-            `Submitting ${duration} ${
-              formData &&
-              Object.keys(formData).map(
-                (key) => `${key}: ${formData[key as keyof typeof formData]}`
+      <Container>
+        {!selectedDestination && (
+          <div>
+            {destinations.map((d) => (
+              <div onClick={() => setSelectedDestination(d._id)}>
+                {d.meta_data?.meta_image && (
+                  <Image
+                    src={urlFor(d.meta_data?.meta_image)}
+                    alt={localizedString(d.meta_data.meta_title, locale)}
+                    width={500}
+                    height={500}
+                  />
+                )}
+                {localizedString(d.meta_data?.meta_title, locale)}
+              </div>
+            ))}
+          </div>
+        )}
+        {selectedDestination && (
+          <Steps
+            onSubmit={() => {
+              alert(
+                `Destination - ${destinations.find((d) => d._id === selectedDestination)
+                  ?.hero_section?.title?.en} ${duration} ${
+                  formData &&
+                  Object.keys(formData).map(
+                    (key) => `${key}: ${formData[key as keyof typeof formData]}`
+                  )
+                }`
               )
-            }`
-          )
-        }}
-      >
-        <Step1 onChange={setDuration} />
-        <Step2 onChange={setFormData} />
-      </Steps>
-      <FAQSection data={FAQData} />
+            }}
+          >
+            <Step1 onChange={setDuration} />
+            <Step2 onChange={setFormData} />
+          </Steps>
+        )}
+
+        {data.step_1?.faq_section && <FAQSection data={data.step_1?.faq_section} />}
+      </Container>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps<TailorYourTourPageProps> = async ({ locale }) => {
+  const tailorYourTourPageData = (await client.fetch(
+    `*[_type == "tailor_your_tour"||_type=="destination_page"]`
+  )) as (SanityTailorYourTour | SanityDestinationPage)[]
+  const destinations = tailorYourTourPageData.filter(
+    (x) => x._type === 'destination_page'
+  ) as SanityDestinationPage[]
+  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
+  return {
+    props: {
+      data: tailorYourTourPageData.find(
+        (x) => x._type === 'tailor_your_tour'
+      ) as SanityTailorYourTour,
+      destinations,
+      locale: (locale ?? 'en') as SanityLocale,
+      globals,
+    },
+  }
 }

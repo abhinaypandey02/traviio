@@ -1,3 +1,4 @@
+import React from 'react'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
 import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
@@ -13,6 +14,7 @@ import {
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
+import Layout from '@/components/layout'
 import { DestinationSectionsMap } from '@/components/sections'
 import SEO from '@/components/Seo'
 
