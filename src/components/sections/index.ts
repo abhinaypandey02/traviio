@@ -7,6 +7,7 @@ import {
   SanityTourSectionNames,
 } from '@/sanity/types'
 
+import DestinationsSection from '../organisms/DestinationsSection'
 import TravelInformation from '../TravelInformation'
 
 import AccommdationTypesSection from './Tours/AccommdationTypesSection'
@@ -37,6 +38,7 @@ export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any>
   hero_section: HeroSection,
   feature_section: FeatureSection,
   newsletter_section: NewsletterSection,
+  destinations_section: DestinationsSection,
   faq_section: FAQSection,
   deals_section: DealsSection,
   testimonial_section: Testimonial,

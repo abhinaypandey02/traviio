@@ -9,6 +9,7 @@ export const sections = [
   'content_section',
   'deals_section',
   'faq_section',
+  'destinations_section',
   'feature_section',
   'gallery_section',
   'hero_section',
