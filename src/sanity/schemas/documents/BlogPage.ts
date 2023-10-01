@@ -31,9 +31,15 @@ export default defineType({
       type: 'promo_banner',
     }),
     defineField({
+      name: 'is_article',
+      title: 'Is article',
+      description: 'Whether the page is an article',
+      type: 'boolean',
+    }),
+    defineField({
       name: 'article',
       title: 'Article',
-      description: 'Article for the page',
+      description: 'Article for the page (select if is_article is true))',
       type: 'reference',
       to: [{ type: 'article' }],
     }),

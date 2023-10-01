@@ -3,12 +3,14 @@ import all_blogs_section from './AllBlogSection'
 import featured_blogs_section from './FeaturedBlogSection'
 import featured_place_blogs_section from './FeaturedPlaceBlogsSection'
 import interests_section from './InterestsSection'
+import latest_posts_section from './LatestPostsSection'
 
 export const BlogSectionExports = [
   featured_blogs_section,
   interests_section,
   featured_place_blogs_section,
   all_blogs_section,
+  latest_posts_section,
   // sidebar
   ...SidebarSectionExports,
 ]
@@ -20,5 +22,6 @@ export const BlogSections = [
   'newsletter_section',
   'interests_section',
   'featured_place_blogs_section',
+  'latest_posts_section',
   'all_blogs_section',
 ] as const
