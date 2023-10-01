@@ -44,25 +44,17 @@ export default defineType({
       type: 'array',
       of: [
         defineArrayMember({
-          name: 'sorting_strategies',
-          title: 'Sorting method',
-          description: 'A sorting method',
-          type: 'array',
-          of: [
-            defineArrayMember({
-              name: 'sorting_strategy',
-              title: 'Sorting strategy',
-              description: 'A sorting strategy',
-              type: 'string',
-              options: {
-                list: [
-                  { value: 'recent', title: 'Most recent' },
-                  { value: 'popular', title: 'Most popular' },
-                  { value: 'featured', title: 'Featured' },
-                ],
-              },
-            }),
-          ],
+          name: 'sorting_strategy',
+          title: 'Sorting strategy',
+          description: 'A sorting strategy',
+          type: 'string',
+          options: {
+            list: [
+              { value: 'recent', title: 'Most recent' },
+              { value: 'popular', title: 'Most popular' },
+              { value: 'featured', title: 'Featured' },
+            ],
+          },
         }),
       ],
     }),
@@ -71,6 +63,18 @@ export default defineType({
       title: 'Has multiple rows?',
       description: 'Whether the section has multiple rows',
       type: 'boolean',
+    }),
+    defineField({
+      name: 'variant',
+      title: 'Variant',
+      description: 'The variant for the section',
+      type: 'string',
+      options: {
+        list: [
+          { value: 'default', title: 'Default' },
+          { value: 'with_tags', title: 'With tags and filters' },
+        ],
+      },
     }),
   ],
   preview: {
