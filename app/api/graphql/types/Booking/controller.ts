@@ -17,6 +17,14 @@ const MutationResolvers = {
     const doc = await newBooking.save()
     return doc._id
   },
+  async completeBooking(
+    _: any,
+    { booking, token }: { booking: string; token: string }
+  ): Promise<true | null> {
+    if (token !== process.env.BACKEND_SECRET) return null
+    await MongooseModel.updateOne({ _id: booking }, { status: 'PAID' })
+    return true
+  },
 }
 
 const TypeResolvers = {}

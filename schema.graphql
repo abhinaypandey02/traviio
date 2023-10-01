@@ -1,0 +1,145 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+"Address broken down"
+type Address {
+    country: String
+    line1: String!
+    state: String
+    town: String!
+}
+
+"Adult details in a booking"
+type Adult {
+    address: Address
+    dob: String!
+    email: String!
+    name: Name!
+    nationality: String
+    phone: String
+}
+
+"Tour Booking"
+type Booking {
+    _id: ID!
+    adults: [Adult]!
+    children: Int!
+    from: String!
+    guests: Int!
+    hotelType: String!
+    optionalTours: [String!]
+    price: Float!
+    roomType: String!
+    status: Status!
+    to: String!
+    tour: ID!
+}
+
+type Mutation {
+    "[Auth required] Add new booking"
+    addBooking(booking: AddBookingInput!): String
+    "[Public] Get access token and refresh token after adding a new"
+    addUser(user: AddUserInput!): Tokens
+    "[Webhook only] Complete booking"
+    completeBooking(booking: String!, token: String!): Boolean
+    "[Authenticated] Update user details"
+    updateUser(user: UpdateUserInput!): User
+}
+
+"Name broken down"
+type Name {
+    designation: String!
+    firstName: String!
+    lastName: String
+    middleName: String
+}
+
+type Query {
+    "[Auth required] Get booking by id"
+    booking(id: String!): Booking
+    "[Backend] Get access token from refresh token and update the refresh token in the backend"
+    getAccessToken(refreshToken: String!, secret: String!): Tokens
+    "[Public] Get access token and refresh token"
+    loginUser(email: String!, password: String!): Tokens
+    "[Authenticated] Get a user by email"
+    user(id: String): User
+    "[Admin] Get all users"
+    users: [User]
+}
+
+"Token received on authentication"
+type Tokens {
+    access: String!
+    refresh: String!
+}
+
+"User type"
+type User {
+    _id: ID!
+    email: String!
+    name: String!
+    refreshTokens: [String!]
+}
+
+"Payment status"
+enum Status {
+    PAID
+    UNPAID
+}
+
+"Arguments to add booking"
+input AddBookingInput {
+    adults: [AdultInput]!
+    children: Int!
+    from: String!
+    guests: Int!
+    hotelType: String!
+    optionalTours: [String!]
+    price: Float!
+    roomType: String!
+    to: String!
+    tour: ID!
+}
+
+"Arguments to add user"
+input AddUserInput {
+    email: String!
+    name: String!
+    password: String!
+}
+
+"Address broken down"
+input AddressInput {
+    country: String
+    line1: String!
+    state: String
+    town: String!
+}
+
+"Adult details in a booking"
+input AdultInput {
+    address: AddressInput
+    dob: String!
+    email: String!
+    name: NameInput!
+    nationality: String
+    phone: String
+}
+
+"Name broken down"
+input NameInput {
+    designation: String!
+    firstName: String!
+    lastName: String
+    middleName: String
+}
+
+"Arguments to update user"
+input UpdateUserInput {
+    email: String
+    name: String
+}

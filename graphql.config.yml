@@ -1,0 +1,9 @@
+schema: schema.graphql
+extensions:
+  endpoints:
+    Gatsby GraphQL Endpoint:
+      url: http://localhost:3000/api/graphql
+      headers:
+        user-agent: JS GraphQL
+        Content-Type: application/json
+      introspect: true
