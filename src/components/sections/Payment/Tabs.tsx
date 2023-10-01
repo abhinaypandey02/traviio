@@ -52,7 +52,7 @@ export default function Tabs({ children, tour }: { children?: any[]; tour: Sanit
         </div>
       </div>
 
-      <div className="grid grid-cols-[5fr_3fr] gap-12">
+      <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 xl:grid-cols-[5fr_3fr] gap-12">
         {children && (
           <div className="flex flex-col gap-10">
             {children.length >= page ? children[page - 1] : <div>Under Construction</div>}

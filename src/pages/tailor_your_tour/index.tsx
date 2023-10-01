@@ -12,9 +12,11 @@ import {
 } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 
+import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
 import Layout from '@/components/layout'
 import FAQSection from '@/components/sections/FAQSection'
+import SelectDestinationStep from '@/components/sections/Tailor Your Tour/SelectDestinationStep'
 import Step1 from '@/components/sections/Tailor Your Tour/Step1'
 import Step2, { TailorTripFormData } from '@/components/sections/Tailor Your Tour/Step2'
 import Steps from '@/components/sections/Tailor Your Tour/Steps'
@@ -32,35 +34,51 @@ export default function TailorYourTour({
 }: TailorYourTourPageProps) {
   const [duration, setDuration] = useState<string>()
   const [formData, setFormData] = useState<TailorTripFormData>()
-  const [selectedDestination, setSelectedDestination] = useState<string>()
+  const [selectedDestination, setSelectedDestination] = useState<string>('')
   return (
     <Layout globals={globals}>
       <Container>
-        {!selectedDestination && (
-          <div>
-            {destinations.map((d) => (
-              <div onClick={() => setSelectedDestination(d._id)}>
+        {/* {!selectedDestination && (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
+            {destinations.map((d, ind) => (
+              <div
+                key={ind}
+                onClick={() => setSelectedDestination(d._id)}
+                className="relative w-full h-[224px] rounded-xl overflow-hidden"
+              >
                 {d.meta_data?.meta_image && (
                   <Image
                     src={urlFor(d.meta_data?.meta_image)}
                     alt={localizedString(d.meta_data.meta_title, locale)}
-                    width={500}
-                    height={500}
+                    fill
+                    className="object-cover object-center"
                   />
                 )}
-                {localizedString(d.meta_data?.meta_title, locale)}
+                <Button
+                  text={localizedString(d.meta_data?.meta_title, locale)}
+                  className={`w-fit px-4 text-base absolute z-10 bottom-3 left-3 cursor-pointer ${
+                    selectedDestination == d._id && 'bg-white/40 backdrop-blur'
+                  }`}
+                  style={{
+                    width: 'fit-content',
+                  }}
+                  onClick={() => {
+                    setSelectedDestination(d._id)
+                  }}
+                />
               </div>
             ))}
           </div>
         )}
-        {selectedDestination && (
-          <Steps
-            onSubmit={() => {
-              fetch('/api/email', {
-                method: 'POST',
-                body: JSON.stringify({
-                  subject: 'New Tailor Tour Request',
-                  text: `You received a new "Tailor your tour" request by ${formData?.name}! Following are the details:
+        {selectedDestination && ( */}
+        <Steps
+          disableNext={selectedDestination == ''}
+          onSubmit={() => {
+            fetch('/api/email', {
+              method: 'POST',
+              body: JSON.stringify({
+                subject: 'New Tailor Tour Request',
+                text: `You received a new "Tailor your tour" request by ${formData?.name}! Following are the details:
                   
                     Destination: ${destinations.find((d) => d._id === selectedDestination)
                       ?.meta_data?.meta_title?.en}
@@ -74,16 +92,22 @@ export default function TailorYourTour({
                     Categories: ${formData?.categories}  
                     More Info: ${formData?.moreInfo}  
                   `,
-                }),
-              }).then(() => {
-                alert(`Request successfully submitted. You shall hear from us soon!`)
-              })
-            }}
-          >
-            <Step1 onChange={setDuration} />
-            <Step2 onChange={setFormData} />
-          </Steps>
-        )}
+              }),
+            }).then(() => {
+              alert(`Request successfully submitted. You shall hear from us soon!`)
+            })
+          }}
+        >
+          <SelectDestinationStep
+            destinations={destinations}
+            locale={locale}
+            selectedDestination={selectedDestination}
+            setSelectedDestination={setSelectedDestination}
+          />
+          <Step1 onChange={setDuration} />
+          <Step2 onChange={setFormData} />
+        </Steps>
+        {/* )} */}
 
         {data.step_1?.faq_section && <FAQSection data={data.step_1?.faq_section} />}
       </Container>

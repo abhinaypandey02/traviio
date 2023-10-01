@@ -41,7 +41,7 @@ export default function Page3() {
     '/visa_card.png',
   ]
   return (
-    <div className="p-10 rounded-2xl overflow-hidden border border-darkblue/10 flex flex-col gap-12">
+    <div className="md:p-10 md:rounded-2xl overflow-hidden md:border border-darkblue/10 flex flex-col gap-12">
       <div className="text-base text-gray font-medium">
         Have you reviewed the details in the booking summary? If something isn't correct, you can
         adjust your details in the previous steps.
@@ -117,7 +117,7 @@ export default function Page3() {
         <div className="flex flex-col gap-4">
           <div>
             <div
-              className={`flex items-center gap-2 px-3 py-[14px] text-lg font-medium border border-darkblue/10 ${
+              className={`flex items-center gap-2 rounded px-3 py-[14px] text-lg font-medium border border-darkblue/10 ${
                 formData.paymentOption == 'creditCard' ? 'text-blue' : 'text-darkblue'
               }`}
               onClick={() => {
@@ -127,7 +127,7 @@ export default function Page3() {
               <OptionSelectButton value={formData.paymentOption == 'creditCard'} /> Credit & Debit
               Cards
             </div>
-            <div className="px-10 py-7">
+            <div className="px-4 md:px-10 py-7">
               <div className="flex flex-col gap-[18px] max-w-[390px]">
                 <div className="flex flex-col gap-2">
                   <p className="text-base font-medium text-darkblue">Card Holder Number</p>
@@ -174,7 +174,7 @@ export default function Page3() {
           </div>
           <div>
             <div
-              className={`flex items-center gap-2 px-3 py-[14px] text-lg font-medium border border-darkblue/10 ${
+              className={`flex items-center gap-2 rounded px-3 py-[14px] text-lg font-medium border border-darkblue/10 ${
                 formData.paymentOption == 'paypal' ? 'text-blue' : 'text-darkblue'
               }`}
               onClick={() => {
@@ -187,7 +187,7 @@ export default function Page3() {
           </div>
           <div>
             <div
-              className={`flex items-center gap-2 px-3 py-[14px] text-lg font-medium border border-darkblue/10 ${
+              className={`flex items-center gap-2 rounded px-3 py-[14px] text-lg font-medium border border-darkblue/10 ${
                 formData.paymentOption == 'bankTransfer' ? 'text-blue' : 'text-darkblue'
               }`}
               onClick={() => {

@@ -29,7 +29,7 @@ export default function Page2() {
     }
   }
   return (
-    <div className="p-10 rounded-2xl overflow-hidden border border-darkblue/10 flex flex-col gap-10">
+    <div className="md:p-10 md:rounded-2xl overflow-hidden md:border md:border-darkblue/10 flex flex-col gap-10">
       <div className="flex flex-col gap-6">
         <p className="text-2xl text-darkblue font-bold">1. Primary Passenger Details</p>
         <p className="text-base text-gray font-medium">
