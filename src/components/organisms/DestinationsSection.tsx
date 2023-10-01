@@ -14,7 +14,6 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
   const [tourCounts, setTourCounts] = useState(
     Array.from({ length: data.destinations?.length || 0 }, () => 0)
   )
-
   const validDestinations =
     data.destinations?.filter((destination) => destination.destination) || []
 

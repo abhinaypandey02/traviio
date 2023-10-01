@@ -10,7 +10,7 @@ type DestinationCardProps = {
 }
 
 const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
-  console.log({ tourCount })
+  console.log({ tourCount, data })
 
   return (
     <div className="w-fit h-fit">
@@ -20,6 +20,7 @@ const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
         alt=""
       />
       <h3 className="mt-2 font-medium">
+        {/* @ts-ignore */}
         <LocalizedString text={data.destination?.name} />
       </h3>
       {tourCount && <h4 className="opacity-60 my-1 text-sm">{displayNumber(tourCount, 'tour')}</h4>}
