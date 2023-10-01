@@ -73,7 +73,7 @@ const Filter = ({
 }) => {
   return (
     <div className="rounded-xl shadow-xl w-full ">
-      <div className=" py-3 font-medium rounded-t-2xl px-4 bg-[#ecf4ff] ">Filter by Rating</div>
+      <div className=" py-[12px] font-medium rounded-t-2xl px-[18px] bg-[#ecf4ff] ">Filter by Rating</div>
       <div className="flex flex-col px-4 py-6 gap-y-7">
         {ratings.reverse().map((rating) => (
           <div className=" flex gap-x-2 justify-center items-center">
@@ -107,7 +107,7 @@ const Filter = ({
 
 const RatingCard = ({ title, review, country, name, date, star, varient }: any) => {
   return (
-    <div className={'w-full rounded-2xl  border-gray  px-5 py-2 shadow-xl'}>
+    <div className={'w-full rounded-2xl  border-gray  px-[20px] py-[24px] shadow-xl'}>
       <div className="flex gap-x-2 text-xl my-3">
         {Array.from(Array(star).keys()).map((x) => '⭐ ')}
       </div>

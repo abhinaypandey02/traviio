@@ -9,6 +9,8 @@ const GraphqlQuery = `
 const GraphqlMutation = `
   "[Auth required] Add new booking"
   addBooking(booking:AddBookingInput!): String
+  "[Webhook only] Complete booking"
+  completeBooking(booking:String!, token:String!): Boolean
 `
 const GraphqlType = `
   #graphql

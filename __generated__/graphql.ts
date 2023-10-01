@@ -16,6 +16,7 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+/** Arguments to add booking */
 export type AddBookingInput = {
   adults: Array<InputMaybe<AdultInput>>;
   children: Scalars['Int']['input'];
@@ -29,12 +30,14 @@ export type AddBookingInput = {
   tour: Scalars['ID']['input'];
 };
 
+/** Arguments to add user */
 export type AddUserInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
 
+/** Address broken down */
 export type Address = {
   __typename?: 'Address';
   country?: Maybe<Scalars['String']['output']>;
@@ -43,6 +46,7 @@ export type Address = {
   town: Scalars['String']['output'];
 };
 
+/** Address broken down */
 export type AddressInput = {
   country?: InputMaybe<Scalars['String']['input']>;
   line1: Scalars['String']['input'];
@@ -50,6 +54,7 @@ export type AddressInput = {
   town: Scalars['String']['input'];
 };
 
+/** Adult details in a booking */
 export type Adult = {
   __typename?: 'Adult';
   address?: Maybe<Address>;
@@ -60,6 +65,7 @@ export type Adult = {
   phone?: Maybe<Scalars['String']['output']>;
 };
 
+/** Adult details in a booking */
 export type AdultInput = {
   address?: InputMaybe<AddressInput>;
   dob: Scalars['String']['input'];
@@ -69,6 +75,7 @@ export type AdultInput = {
   phone?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Tour Booking */
 export type Booking = {
   __typename?: 'Booking';
   _id: Scalars['ID']['output'];
@@ -87,10 +94,13 @@ export type Booking = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** [Auth required] Add new booking */
   addBooking?: Maybe<Scalars['String']['output']>;
+  /** [Public] Get access token and refresh token after adding a new */
   addUser?: Maybe<Tokens>;
-  deleteUser?: Maybe<Scalars['Boolean']['output']>;
-  sendEmail?: Maybe<User>;
+  /** [Webhook only] Complete booking */
+  completeBooking?: Maybe<Scalars['Boolean']['output']>;
+  /** [Authenticated] Update user details */
   updateUser?: Maybe<User>;
 };
 
@@ -105,9 +115,9 @@ export type MutationAddUserArgs = {
 };
 
 
-export type MutationSendEmailArgs = {
-  dynamicTemplateData: Scalars['String']['input'];
-  to: Scalars['String']['input'];
+export type MutationCompleteBookingArgs = {
+  booking: Scalars['String']['input'];
+  token: Scalars['String']['input'];
 };
 
 
@@ -115,6 +125,7 @@ export type MutationUpdateUserArgs = {
   user: UpdateUserInput;
 };
 
+/** Name broken down */
 export type Name = {
   __typename?: 'Name';
   designation: Scalars['String']['output'];
@@ -123,6 +134,7 @@ export type Name = {
   middleName?: Maybe<Scalars['String']['output']>;
 };
 
+/** Name broken down */
 export type NameInput = {
   designation: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
@@ -132,18 +144,21 @@ export type NameInput = {
 
 export type Query = {
   __typename?: 'Query';
+  /** [Auth required] Get booking by id */
   booking?: Maybe<Booking>;
+  /** [Backend] Get access token from refresh token and update the refresh token in the backend */
   getAccessToken?: Maybe<Tokens>;
+  /** [Public] Get access token and refresh token */
   loginUser?: Maybe<Tokens>;
+  /** [Authenticated] Get a user by email */
   user?: Maybe<User>;
-  userById?: Maybe<User>;
+  /** [Admin] Get all users */
   users?: Maybe<Array<Maybe<User>>>;
 };
 
 
 export type QueryBookingArgs = {
   id: Scalars['String']['input'];
-  key?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -160,30 +175,29 @@ export type QueryLoginUserArgs = {
 
 
 export type QueryUserArgs = {
-  email?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryUserByIdArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Payment status */
 export enum Status {
   Paid = 'PAID',
   Unpaid = 'UNPAID'
 }
 
+/** Token received on authentication */
 export type Tokens = {
   __typename?: 'Tokens';
   access: Scalars['String']['output'];
   refresh: Scalars['String']['output'];
 };
 
+/** Arguments to update user */
 export type UpdateUserInput = {
   email?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** User type */
 export type User = {
   __typename?: 'User';
   _id: Scalars['ID']['output'];
@@ -215,7 +229,24 @@ export type GetAccessTokenQueryVariables = Exact<{
 
 export type GetAccessTokenQuery = { __typename?: 'Query', getAccessToken?: { __typename?: 'Tokens', refresh: string, access: string } | null };
 
+export type UpdateBookingPaymentMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  key: Scalars['String']['input'];
+}>;
+
+
+export type UpdateBookingPaymentMutation = { __typename?: 'Mutation', completeBooking?: boolean | null };
+
+export type AddBookingMutationVariables = Exact<{
+  booking: AddBookingInput;
+}>;
+
+
+export type AddBookingMutation = { __typename?: 'Mutation', addBooking?: string | null };
+
 
 export const AddUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"user"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"user"},"value":{"kind":"Variable","name":{"kind":"Name","value":"user"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"access"}},{"kind":"Field","name":{"kind":"Name","value":"refresh"}}]}}]}}]} as unknown as DocumentNode<AddUserMutation, AddUserMutationVariables>;
 export const LoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LoginUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"access"}},{"kind":"Field","name":{"kind":"Name","value":"refresh"}}]}}]}}]} as unknown as DocumentNode<LoginUserQuery, LoginUserQueryVariables>;
 export const GetAccessTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAccessToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"refreshToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"secret"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAccessToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"refreshToken"},"value":{"kind":"Variable","name":{"kind":"Name","value":"refreshToken"}}},{"kind":"Argument","name":{"kind":"Name","value":"secret"},"value":{"kind":"Variable","name":{"kind":"Name","value":"secret"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"refresh"}},{"kind":"Field","name":{"kind":"Name","value":"access"}}]}}]}}]} as unknown as DocumentNode<GetAccessTokenQuery, GetAccessTokenQueryVariables>;
+export const UpdateBookingPaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateBookingPayment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"completeBooking"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"booking"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}]}]}}]} as unknown as DocumentNode<UpdateBookingPaymentMutation, UpdateBookingPaymentMutationVariables>;
+export const AddBookingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddBooking"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"booking"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddBookingInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addBooking"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"booking"},"value":{"kind":"Variable","name":{"kind":"Name","value":"booking"}}}]}]}}]} as unknown as DocumentNode<AddBookingMutation, AddBookingMutationVariables>;

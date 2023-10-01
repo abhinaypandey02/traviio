@@ -27,7 +27,7 @@ const Testimonial = (props: TestimonialSectionProps) => {
   return (
     <div className="w-full bg-[#F2FAFF]  text-black px-10 py-10  relative">
       <Container className={'lg:flex items-center gap-x-10'}>
-        <div className="lg:w-1/5 w-full">
+        <div className="lg:w-1/4  w-full">
           {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
           <h3 className=" text-[36px] font-[700]">{title?.en?.substring(0, 17)}</h3>
           <h3 className=" text-[36px]  font-[700] text-blue">{title?.en?.substring(17)}</h3>
