@@ -26,7 +26,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
   return (
     blog && (
       <Link className={'flex-shrink-0'} href={blog?.slug ? blog?.slug.current : ''}>
-        <div className=" h-fit w-full">
+        <div className=" h-fit w-full max-w-[410px] max-h-[460px]">
           {blog?.cover_image && (
             <Image
               width={410}

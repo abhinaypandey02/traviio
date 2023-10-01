@@ -19,7 +19,7 @@ const OfficeLocationSection = (props: OfficeLocationSectionProps) => {
         <h3>{title?.en}</h3>
         <hr className="lg:w-1/12 w-1/3 my-2 text-yellow bg-yellow  rounded-full border-2" />
       </Container>
-      <div className="my-10 px-5 py-3 bg-[#F2FAFF] ">
+      <div className="my-10 px-[80px] py-[28px] bg-[#F2FAFF] ">
         <Container className={'grid grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-4'}>
           {locations?.map((item: any, index: any) => {
             return (
