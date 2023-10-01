@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import Container from '../Container'
 import { LocalizedString } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
 import { SanityDestinationsSection } from '@/sanity/types'
@@ -35,7 +35,8 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
   }, [])
 
   return (
-    <div className="py-10 px-10">
+    <Container>
+    <div >
       <h2 className="text-blue text-base font-medium">
         <LocalizedString text={data.tagline} />
       </h2>
@@ -53,6 +54,7 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
         ))}
       </div>
     </div>
+    </Container>
   )
 }
 
