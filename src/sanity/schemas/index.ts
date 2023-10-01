@@ -30,6 +30,7 @@ import { BlogSectionExports } from './sections/Blog'
 import content_section from './sections/ContentSection'
 import deals_section from './sections/DealsSection'
 import { DestinationSectionExports } from './sections/Destination'
+import destinations_section from './sections/DestinationsSection'
 import { faq, faq_section } from './sections/FAQSection'
 import { feature, feature_section } from './sections/FeatureSection'
 import gallery_section from './sections/GallerySection'
@@ -68,6 +69,7 @@ export const schemaTypes = [
   // sections
   content_section,
   deals_section,
+  destinations_section,
   faq_section,
   faq,
   feature_section,

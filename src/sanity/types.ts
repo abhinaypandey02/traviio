@@ -217,6 +217,21 @@ export type SanityDeal = {
   label?: SanityLocaleString
 }
 
+export type SanityDestinationsSection = {
+  _type: 'destinations_section'
+  _id: string
+  _key: string
+  tagline?: SanityLocaleString
+  title?: SanityLocaleString
+  destinations?: {
+    _type: 'destination'
+    _id: string
+    _key: string
+    destination: ({ _ref: string } & SanityDestinationPage) | undefined // reference
+    image?: SanityImage
+  }[]
+}
+
 export type SanityFAQ = {
   _type: 'faq'
   _id: string
