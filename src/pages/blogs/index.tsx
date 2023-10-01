@@ -36,6 +36,28 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ locale }) 
             tags[]->
           }
         }
+      },
+      sections[] {
+        ...,
+        _type == "featured_blogs_section" => {
+          ...,
+          featured_blogs[]->{
+            ...,
+            destination->,
+            tags[]->,
+            sidebar {
+              ...,
+              sidebar_related_tours {
+                ...,
+                tags[]->
+              }
+            }
+          }
+        },
+        _type == "latest_posts_section" => {
+          ...,
+          filter_tags[]->,
+        }
       }
     }`
   )) as SanityBlogPage

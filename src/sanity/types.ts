@@ -479,6 +479,8 @@ export type SanityLatestPostsSection = {
     _ref: string
   } & SanityTag)[]
   sorting_methods?: ('recent' | 'popular' | 'featured')[]
+  multiple_rows?: boolean
+  variant?: 'default' | 'with_tags'
 }
 
 export type SanityAtGlanceSection = {
@@ -704,6 +706,7 @@ export type SanityDestinationSectionNames = SanityDestinationSection['_type']
 export type SanityDestinationPage = {
   _type: 'destination_page'
   _id: string
+  name?: SanityLocaleString
   slug?: SanitySlug
   meta_data?: SanityMetaData
   promo_banner?: SanityPromoBanner
@@ -723,6 +726,7 @@ export type SanityPage = {
   sections?: (
     | SanityDealsSection
     | SanityFAQSection
+    | SanityDestinationsSection
     | SanityFeatureSection
     | SanityGallerySection
     | SanityHeroSection
@@ -778,6 +782,7 @@ export type SanityBlogPageSection =
   | SanityImageHeaderSection
   | SanityContentSection
   | SanityNewsletterSection
+  | SanityLatestPostsSection
 
 export type SanityBlogPageSectionNames = SanityBlogPageSection['_type']
 
@@ -787,11 +792,8 @@ export type SanityBlogPage = {
   slug?: SanitySlug
   meta_data?: SanityMetaData
   promo_banner?: SanityPromoBanner
-  article?: {
-    _type: 'reference'
-    _id: string
-    _ref: string
-  } & SanityArticle
+  is_article?: boolean
+  article?: SanityArticle // reference
   sections?: SanityBlogPageSection[]
   sidebar?: SanityBlogSidebar
 }
