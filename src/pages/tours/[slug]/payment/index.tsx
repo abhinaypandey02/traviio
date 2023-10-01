@@ -86,12 +86,12 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
     _type: 'feature_section',
     _key: '2d330e2f5c6c',
   }
-
+  console.log({ slug, data, locale, globals })
   return (
     <Layout globals={globals}>
       <FeatureSection data={features} />
       <Tabs tour={data}>
-        <Page1 extras={data.payment} />
+        <Page1 payment={data.payment} />
         <Page2 />
         <Page3 />
       </Tabs>

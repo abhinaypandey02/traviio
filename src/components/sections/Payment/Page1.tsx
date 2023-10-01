@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import ReactStars from 'react-stars'
 
+import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
+import { urlFor } from '@/sanity/client'
 import { SanityTourPage } from '@/sanity/types'
 import { CaretDown, Check } from '@phosphor-icons/react'
 
 import Input from '@/components/atoms/Input'
 
-export default function Page1({ extras }: { extras: SanityTourPage['payment'] }) {
+export default function Page1({ payment }: { payment: SanityTourPage['payment'] }) {
   const [formData, setFormData] = useState({
     adultMembers: 0,
     childrenMembers: 0,
@@ -45,20 +47,37 @@ export default function Page1({ extras }: { extras: SanityTourPage['payment'] })
           />
         </div>
       </div>
-      <HotelChoosing value={formData.hotelChoice} setValue={makeSetValue('hotelChoice')} />
+      <HotelChoosing
+        room_options={payment?.room_options}
+        value={formData.hotelChoice}
+        setValue={makeSetValue('hotelChoice')}
+      />
       <RomeType
+        room_sharing_options={payment?.room_sharing_options}
         value={formData.roomType}
         setValue={makeSetValue('roomType')}
         value1={formData.sharingRoomWith}
         setValue1={makeSetValue('sharingRoomWith')}
       />
-      <OptionalVisits value={formData.optionalVisits} setValue={makeSetValue('optionalVisits')} />
+      <OptionalVisits
+        data={payment?.extras}
+        value={formData.optionalVisits}
+        setValue={makeSetValue('optionalVisits')}
+      />
       <HelpWithExtras />
     </div>
   )
 }
 
-const HotelChoosing = ({ value, setValue }: { value: any; setValue: any }) => {
+const HotelChoosing = ({
+  room_options,
+  value,
+  setValue,
+}: {
+  room_options?: Exclude<SanityTourPage['payment'], undefined>['room_options']
+  value: any
+  setValue: any
+}) => {
   const plans = [
     {
       name: 'Basic',
@@ -84,24 +103,29 @@ const HotelChoosing = ({ value, setValue }: { value: any; setValue: any }) => {
         <p className="text-center text-white font-bold text-xl">Hotel choosing</p>
       </div>
       <div className="py-7 px-10 flex flex-col divide-y divide-yellow">
-        {plans.map((plan, index) => (
+        {room_options?.map((room, index) => (
           <div key={index} className="flex justify-between gap-2 py-[18px]">
             <div className="flex flex-col gap-1">
-              <p className="font-bold text-darkblue text-xl">{plan.name}</p>
+              <p className="font-bold text-darkblue text-xl">{localizedString(room.title)}</p>
               {/* @ts-ignore */}
-              <ReactStars count={plan.rating} value={plan.rating} edit={false} size={16} />
-              <p className="text-sm font-medium text-gray">{plan.details}</p>
+              <ReactStars count={room.rating} value={room.rating} edit={false} size={16} />
+              <p className="text-sm font-medium text-gray">{localizedString(room.description)}</p>
             </div>
             <div className="w-[76px] flex flex-col justify-around items-center">
               <Input
-                value={value == plan.name}
+                value={value == localizedString(room.title)}
                 type="checkbox"
                 setValue={() => {
-                  if (value == plan.name) setValue('')
-                  else setValue(plan.name)
+                  if (value == localizedString(room.title)) setValue('')
+                  else setValue(localizedString(room.title))
                 }}
               />
-              {plan.extra && <p className="text-blue font-medium">{plan.extra}</p>}
+              {room.price?.initial_price && (
+                <p className="text-blue font-medium">
+                  {localizedString(room.price?.currency_symbol)}
+                  {localizedNumber(room.price?.initial_price)}
+                </p>
+              )}
             </div>
           </div>
         ))}
@@ -111,11 +135,13 @@ const HotelChoosing = ({ value, setValue }: { value: any; setValue: any }) => {
 }
 
 const RomeType = ({
+  room_sharing_options,
   value,
   setValue,
   value1,
   setValue1,
 }: {
+  room_sharing_options?: Exclude<SanityTourPage['payment'], undefined>['room_sharing_options']
   value: any
   setValue: any
   value1: any
@@ -146,29 +172,34 @@ const RomeType = ({
         <p className="text-center text-white font-bold text-xl">Hotel choosing</p>
       </div>
       <div className="py-7 px-10 flex flex-col divide-y divide-yellow">
-        {plans.map((plan, index) => (
+        {room_sharing_options?.map((option, index) => (
           <div key={index} className="flex justify-between gap-2 py-[18px]">
             <div className="flex gap-5">
-              <div className="w-[120px] h-[84px] flex gap-2 border rounded border-blue items-center justify-center">
-                {new Array(plan.capacity).fill(0).map((_, index) => (
-                  <Image key={index} alt="" src={'/bed.svg'} height={24} width={24} />
-                ))}
+              <div className="w-[120px] h-[84px] flex gap-2 border rounded border-blue items-center justify-center relative">
+                <Image key={index} alt="" src={option.image ? urlFor(option.image) : ''} fill />
               </div>
               <div className="flex flex-col gap-1">
-                <p className="font-bold text-darkblue text-xl">{plan.name}</p>
-                <p className="text-sm font-medium text-gray">{plan.details}</p>
+                <p className="font-bold text-darkblue text-xl">{localizedString(option.title)}</p>
+                <p className="text-sm font-medium text-gray">
+                  {localizedString(option.description)}
+                </p>
               </div>
             </div>
             <div className="w-[76px] flex flex-col justify-around items-center">
               <Input
-                value={value == plan.name}
+                value={value == localizedString(option.title)}
                 type="checkbox"
                 setValue={() => {
-                  if (value == plan.name) setValue('')
-                  else setValue(plan.name)
+                  if (value == localizedString(option.title)) setValue('')
+                  else setValue(localizedString(option.title))
                 }}
               />
-              {plan.extra && <p className="text-blue font-medium">{plan.extra}</p>}
+              {option.price?.initial_price && (
+                <p className="text-blue font-medium">
+                  {localizedString(option.price.currency_symbol)}{' '}
+                  {localizedNumber(option.price.initial_price)}
+                </p>
+              )}
             </div>
           </div>
         ))}
@@ -181,83 +212,97 @@ const RomeType = ({
   )
 }
 
-const OptionalVisits = ({ value, setValue }: { value: any; setValue: any }) => {
-  const Places = [
-    {
-      name: 'Cario Tours',
-      tours: [
-        {
-          id: 1,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-        {
-          id: 2,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-        {
-          id: 3,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-        {
-          id: 4,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-      ],
-    },
-    {
-      name: 'Luxor Tours',
-      tours: [
-        {
-          id: 5,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-        {
-          id: 6,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-        {
-          id: 7,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-        {
-          id: 8,
-          name: 'The Egyptian Museum in Cairo',
-          description:
-            'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-          image: '/demo/tourimage.png',
-          extra: '$200 Extra',
-        },
-      ],
-    },
-  ]
+const OptionalVisits = ({
+  data,
+  value,
+  setValue,
+}: {
+  data: Exclude<SanityTourPage['payment'], undefined>['extras']
+  value: any
+  setValue: any
+}) => {
+  // const Places = [
+  //   {
+  //     name: 'Cario Tours',
+  //     tours: [
+  //       {
+  //         id: 1,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //       {
+  //         id: 2,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //       {
+  //         id: 3,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //       {
+  //         id: 4,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: 'Luxor Tours',
+  //     tours: [
+  //       {
+  //         id: 5,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //       {
+  //         id: 6,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //       {
+  //         id: 7,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //       {
+  //         id: 8,
+  //         name: 'The Egyptian Museum in Cairo',
+  //         description:
+  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
+  //         image: '/demo/tourimage.png',
+  //         extra: '$200 Extra',
+  //       },
+  //     ],
+  //   },
+  // ]
+  const cities = Array.from(new Set(data?.map((item) => localizedString(item.city_name))))
+  const Places = cities.map((city) => {
+    const cityTours = data?.filter((item) => localizedString(item.city_name) == city)
+    return { name: city, tours: cityTours }
+  })
+
   return (
     <div className="bg-darkblue/[0.02] border border-darkblue/10 rounded-2xl overflow-hidden">
       <div className="py-2 bg-blue">
@@ -270,7 +315,7 @@ const OptionalVisits = ({ value, setValue }: { value: any; setValue: any }) => {
             <p className="text-base font-bold text-red">(1/3)</p>
           </div>
           <div className="px-10 flex flex-col divide-y divide-yellow">
-            {place.tours.map((plan, index) => (
+            {place.tours?.map((plan, index) => (
               <div key={index} className="flex justify-between gap-2 py-[18px]">
                 <div className="flex gap-5">
                   <div className="w-[120px] h-[84px] flex gap-2 border rounded border-blue items-center justify-center">
@@ -284,21 +329,28 @@ const OptionalVisits = ({ value, setValue }: { value: any; setValue: any }) => {
                     />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <p className="font-bold text-darkblue text-xl">{plan.name}</p>
-                    <p className="text-sm font-medium text-gray">{plan.description}</p>
+                    <p className="font-bold text-darkblue text-xl">{localizedString(plan.title)}</p>
+                    <p className="text-sm font-medium text-gray">
+                      {localizedString(plan.description)}
+                    </p>
                   </div>
                 </div>
                 <div className="w-[76px] flex flex-col justify-around items-center">
                   <Input
-                    value={value.includes(plan.id)}
+                    value={value.includes(localizedString(plan.title))}
                     type="checkbox"
                     setValue={() => {
-                      if (value.includes(plan.id))
-                        setValue(value.filter((id: any) => id != plan.id))
-                      else setValue([...value, plan.id])
+                      if (value.includes(localizedString(plan.title)))
+                        setValue(value.filter((id: any) => id != localizedString(plan.title)))
+                      else setValue([...value, localizedString(plan.title)])
                     }}
                   />
-                  {plan.extra && <p className="text-blue font-medium">{plan.extra}</p>}
+                  {plan.price?.initial_price && (
+                    <p className="text-blue font-medium whitespace-nowrap">
+                      {localizedString(plan.price.currency_symbol)}{' '}
+                      {localizedNumber(plan.price?.initial_price)}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}

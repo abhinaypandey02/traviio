@@ -127,50 +127,52 @@ export default function Page3() {
               <OptionSelectButton value={formData.paymentOption == 'creditCard'} /> Credit & Debit
               Cards
             </div>
-            <div className="px-4 md:px-10 py-7">
-              <div className="flex flex-col gap-[18px] max-w-[390px]">
-                <div className="flex flex-col gap-2">
-                  <p className="text-base font-medium text-darkblue">Card Holder Number</p>
-                  <Input
-                    setValue={makeSetValue('cardHolderName')}
-                    value={formData.cardHolderName}
-                    type="text"
-                    placeholder=""
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <p className="text-base font-medium text-darkblue">Card Number</p>
-                  <Input
-                    setValue={makeSetValue('cardNumber')}
-                    value={formData.cardNumber}
-                    type="text"
-                    placeholder="1234 5678 3245 9101"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
+            {formData.paymentOption == 'creditCard' && (
+              <div className="px-4 md:px-10 py-7">
+                <div className="flex flex-col gap-[18px] max-w-[390px]">
                   <div className="flex flex-col gap-2">
-                    <p className="text-base font-medium text-darkblue">Expiry Date</p>
-
+                    <p className="text-base font-medium text-darkblue">Card Holder Number</p>
                     <Input
-                      setValue={makeSetValue('expiryDate')}
-                      value={formData.expiryDate}
-                      placeholder="MM / YY"
+                      setValue={makeSetValue('cardHolderName')}
+                      value={formData.cardHolderName}
                       type="text"
+                      placeholder=""
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <p className="text-base font-medium text-darkblue">Security Code</p>
-
+                    <p className="text-base font-medium text-darkblue">Card Number</p>
                     <Input
-                      setValue={makeSetValue('securityCode')}
-                      value={formData.securityCode}
-                      placeholder="123"
+                      setValue={makeSetValue('cardNumber')}
+                      value={formData.cardNumber}
                       type="text"
+                      placeholder="1234 5678 3245 9101"
                     />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-2">
+                      <p className="text-base font-medium text-darkblue">Expiry Date</p>
+
+                      <Input
+                        setValue={makeSetValue('expiryDate')}
+                        value={formData.expiryDate}
+                        placeholder="MM / YY"
+                        type="text"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-base font-medium text-darkblue">Security Code</p>
+
+                      <Input
+                        setValue={makeSetValue('securityCode')}
+                        value={formData.securityCode}
+                        placeholder="123"
+                        type="text"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
           <div>
             <div
@@ -183,7 +185,52 @@ export default function Page3() {
             >
               <OptionSelectButton value={formData.paymentOption == 'paypal'} /> PayPal
             </div>
-            <div></div>
+            {formData.paymentOption == 'paypal' && (
+              <div className="px-4 md:px-10 py-7">
+                <div className="flex flex-col gap-[18px] max-w-[390px]">
+                  <div className="flex flex-col gap-2">
+                    <p className="text-base font-medium text-darkblue">Card Holder Number</p>
+                    <Input
+                      setValue={makeSetValue('cardHolderName')}
+                      value={formData.cardHolderName}
+                      type="text"
+                      placeholder=""
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-base font-medium text-darkblue">Card Number</p>
+                    <Input
+                      setValue={makeSetValue('cardNumber')}
+                      value={formData.cardNumber}
+                      type="text"
+                      placeholder="1234 5678 3245 9101"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-2">
+                      <p className="text-base font-medium text-darkblue">Expiry Date</p>
+
+                      <Input
+                        setValue={makeSetValue('expiryDate')}
+                        value={formData.expiryDate}
+                        placeholder="MM / YY"
+                        type="text"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-base font-medium text-darkblue">Security Code</p>
+
+                      <Input
+                        setValue={makeSetValue('securityCode')}
+                        value={formData.securityCode}
+                        placeholder="123"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div>
             <div
@@ -196,7 +243,52 @@ export default function Page3() {
             >
               <OptionSelectButton value={formData.paymentOption == 'bankTransfer'} /> Bank Transfer
             </div>
-            <div></div>
+            {formData.paymentOption == 'bankTransfer' && (
+              <div className="px-4 md:px-10 py-7">
+                <div className="flex flex-col gap-[18px] max-w-[390px]">
+                  <div className="flex flex-col gap-2">
+                    <p className="text-base font-medium text-darkblue">Card Holder Number</p>
+                    <Input
+                      setValue={makeSetValue('cardHolderName')}
+                      value={formData.cardHolderName}
+                      type="text"
+                      placeholder=""
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-base font-medium text-darkblue">Card Number</p>
+                    <Input
+                      setValue={makeSetValue('cardNumber')}
+                      value={formData.cardNumber}
+                      type="text"
+                      placeholder="1234 5678 3245 9101"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-2">
+                      <p className="text-base font-medium text-darkblue">Expiry Date</p>
+
+                      <Input
+                        setValue={makeSetValue('expiryDate')}
+                        value={formData.expiryDate}
+                        placeholder="MM / YY"
+                        type="text"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-base font-medium text-darkblue">Security Code</p>
+
+                      <Input
+                        setValue={makeSetValue('securityCode')}
+                        value={formData.securityCode}
+                        placeholder="123"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -236,7 +328,7 @@ export default function Page3() {
         </div>
         <div className="flex gap-2 items-center">
           <Input
-            setValue={() => setValue(!formData.receiveUpdates, '.receiveUpdates')}
+            setValue={() => setValue(!formData.receiveUpdates, 'receiveUpdates')}
             type="checkbox"
             value={formData.receiveUpdates}
           />
