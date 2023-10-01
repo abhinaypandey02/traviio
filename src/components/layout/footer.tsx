@@ -2,13 +2,14 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { localizedString } from '@/contexts/LocaleProvider'
+import { urlFor } from '@/sanity/client'
+import { SanityGlobals } from '@/sanity/types'
+
 import Container from '@/components/Container'
 
 import Address from './components/Address'
 import Footer__links from './components/Footer__links'
-import { SanityGlobals } from '@/sanity/types'
-import { urlFor } from '@/sanity/client'
-import { localizedString } from '@/contexts/LocaleProvider'
 
 const SOCIAL_LINKS = [
   {
@@ -48,6 +49,7 @@ const CARDS = [
 ]
 
 const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
+  console.log('footer->', footer)
   const ADDRESSES = footer?.locations || []
   const LINKS = footer?.link_groups || []
   return (
