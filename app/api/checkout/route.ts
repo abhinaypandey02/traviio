@@ -1,20 +1,13 @@
-'use server'
 import sanityClient, { urlFor } from '@/sanity/client'
 import { SanityTourPage } from '@/sanity/types'
-// import { getSession } from '@/lib/session'
 import { getClient } from '@/utils/client'
 import getStripe from '@/utils/stripe'
-import type { ApolloClient } from '@apollo/client'
 
-import { gql } from '../../__generated__'
-import { AddBookingInput, AddBookingMutationVariables } from '../../__generated__/graphql'
+import { gql } from '../../../__generated__'
+import { AddBookingMutationVariables } from '../../../__generated__/graphql'
 
-export async function getPaymentIntentInfo(payment_intent: string) {
-  const stripe = getStripe()
-  return await stripe.paymentIntents.retrieve(payment_intent)
-}
-
-export async function checkout(booking: AddBookingMutationVariables['booking']) {
+export const POST = async (req: Request) => {
+  const booking: AddBookingMutationVariables['booking'] = await req.json()
   const stripe = getStripe()
   const client = await getClient()
   const tour: SanityTourPage = await sanityClient.fetch(
@@ -29,22 +22,23 @@ export async function checkout(booking: AddBookingMutationVariables['booking']) 
   }
   const newBooking = await client.mutate({
     mutation: gql(`
-        #graphql
-        mutation AddBooking($booking:AddBookingInput!){
-            addBooking(booking:$booking)
-        } 
-      `),
+            #graphql
+            mutation AddBooking($booking:AddBookingInput!){
+                addBooking(booking:$booking)
+            }
+        `),
     variables: {
       booking,
     },
   })
   if (newBooking.data?.addBooking) {
+    console.log(newBooking.data)
     const checkout = await stripe.checkout.sessions.create({
       customer_email: booking.adults[0]?.email,
       line_items: [
         {
           price_data: {
-            unit_amount: tour.overview_card?.price?.discounted_price?.en,
+            unit_amount: booking.price,
             product_data: {
               name:
                 tour.hero_section?.title?.en || tour.meta_data?.meta_title?.en || 'Tour booking',
@@ -68,6 +62,6 @@ export async function checkout(booking: AddBookingMutationVariables['booking']) 
       mode: 'payment',
       success_url: process.env.NEXT_PUBLIC_BASE_URL!,
     })
-    return checkout.url
+    return new Response(checkout.url)
   }
 }

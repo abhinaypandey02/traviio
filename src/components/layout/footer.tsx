@@ -49,7 +49,6 @@ const CARDS = [
 ]
 
 const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
-  console.log('footer->', footer)
   const ADDRESSES = footer?.locations || []
   const LINKS = footer?.link_groups || []
   return (

@@ -10,7 +10,15 @@ import Container from '@/components/Container'
 
 import Input from '@/components/atoms/Input'
 
-export default function Tabs({ children, tour }: { children?: any[]; tour: SanityTourPage }) {
+export default function Tabs({
+  children,
+  tour,
+  onSubmit,
+}: {
+  children?: any[]
+  tour: SanityTourPage
+  onSubmit: () => void
+}) {
   const [page, setPage] = useState(1)
   return (
     <Container className="flex flex-col gap-16 py-16">
@@ -77,13 +85,7 @@ export default function Tabs({ children, tour }: { children?: any[]; tour: Sanit
                   }}
                 />
               ) : (
-                <Button
-                  varient="primary"
-                  text={'Pay'}
-                  onClick={() => {
-                    console.log('Paying')
-                  }}
-                />
+                <Button varient="primary" text={'Pay'} onClick={onSubmit} />
               )}
             </div>
           </div>

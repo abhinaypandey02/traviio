@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import Image from 'next/image'
 import ReactStars from 'react-stars'
 
@@ -9,18 +9,26 @@ import { CaretDown, Check } from '@phosphor-icons/react'
 
 import Input from '@/components/atoms/Input'
 
-export default function Page1({ payment }: { payment: SanityTourPage['payment'] }) {
-  const [formData, setFormData] = useState({
-    adultMembers: 0,
-    childrenMembers: 0,
-    hotelChoice: '',
-    roomType: '',
-    sharingRoomWith: '',
-    optionalVisits: [],
-  })
+export interface IPaymentTourExtras {
+  adultMembers: number
+  childrenMembers: number
+  hotelChoice: string
+  roomType: string
+  sharingRoomWith: string
+  optionalVisits: any[]
+}
+export default function Page1({
+  payment,
+  setTourData,
+  tourData,
+}: {
+  payment: SanityTourPage['payment']
+  tourData: IPaymentTourExtras
+  setTourData: Dispatch<SetStateAction<IPaymentTourExtras>>
+}) {
   const makeSetValue = (key: string) => {
     return (value: any) => {
-      setFormData((prev) => ({
+      setTourData((prev: any) => ({
         ...prev,
         [key]: value,
       }))
@@ -33,14 +41,14 @@ export default function Page1({ payment }: { payment: SanityTourPage['payment'] 
         <div className="grid grid-cols-2 gap-6">
           <Input
             placeholder="Adults (+ 12 year)"
-            value={formData.adultMembers}
+            value={tourData.adultMembers}
             setValue={makeSetValue('adultMembers')}
             type="buttonNumber"
             variant="secondary"
           />
           <Input
             placeholder="Children (3 - 11 year)"
-            value={formData.childrenMembers}
+            value={tourData.childrenMembers}
             setValue={makeSetValue('childrenMembers')}
             type="buttonNumber"
             variant="secondary"
@@ -49,19 +57,19 @@ export default function Page1({ payment }: { payment: SanityTourPage['payment'] 
       </div>
       <HotelChoosing
         room_options={payment?.room_options}
-        value={formData.hotelChoice}
+        value={tourData.hotelChoice}
         setValue={makeSetValue('hotelChoice')}
       />
       <RomeType
         room_sharing_options={payment?.room_sharing_options}
-        value={formData.roomType}
+        value={tourData.roomType}
         setValue={makeSetValue('roomType')}
-        value1={formData.sharingRoomWith}
+        value1={tourData.sharingRoomWith}
         setValue1={makeSetValue('sharingRoomWith')}
       />
       <OptionalVisits
         data={payment?.extras}
-        value={formData.optionalVisits}
+        value={tourData.optionalVisits}
         setValue={makeSetValue('optionalVisits')}
       />
       <HelpWithExtras />

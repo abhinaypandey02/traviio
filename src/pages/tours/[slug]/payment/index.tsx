@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from 'next/types'
 
 import client from '@/sanity/client'
@@ -8,8 +9,8 @@ import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout'
 import FeatureSection from '@/components/sections/FeatureSection'
-import Page1 from '@/components/sections/Payment/Page1'
-import Page2 from '@/components/sections/Payment/Page2'
+import Page1, { IPaymentTourExtras } from '@/components/sections/Payment/Page1'
+import Page2, { IContactInfo } from '@/components/sections/Payment/Page2'
 import Page3 from '@/components/sections/Payment/Page3'
 import Tabs from '@/components/sections/Payment/Tabs'
 type PageProps = {
@@ -86,13 +87,57 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
     _type: 'feature_section',
     _key: '2d330e2f5c6c',
   }
-  console.log({ slug, data, locale, globals })
+  const [tourData, setTourData] = useState<IPaymentTourExtras>({
+    adultMembers: 0,
+    childrenMembers: 0,
+    hotelChoice: '',
+    roomType: '',
+    sharingRoomWith: '',
+    optionalVisits: [],
+  })
+  const [contactDetails, setContactDetails] = useState<IContactInfo>({
+    titlePrefix: 'Mr',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    dobDate: '',
+    dobMonth: '',
+    dobYear: '',
+    nationality: '',
+    email: '',
+    mobileCode: '',
+    mobileNumber: '',
+    address: '',
+    town: '',
+    state: '',
+    country: '',
+  })
+  const router = useRouter()
+  const onSubmit = async () => {
+    fetch('/api/checkout', {
+      method: 'POST',
+      body: JSON.stringify({
+        adults: [],
+        from: new Date().toDateString(),
+        children: tourData.childrenMembers,
+        guests: tourData.childrenMembers + tourData.adultMembers,
+        tour: slug,
+        hotelType: tourData.hotelChoice,
+        roomType: tourData.roomType,
+        to: new Date().toDateString(),
+        price: 200,
+      }),
+    }).then(async (res) => {
+      const url = await res.text()
+      router.replace(url || '/')
+    })
+  }
   return (
     <Layout globals={globals}>
       <FeatureSection data={features} />
-      <Tabs tour={data}>
-        <Page1 payment={data.payment} />
-        <Page2 />
+      <Tabs onSubmit={onSubmit} tour={data}>
+        <Page1 tourData={tourData} setTourData={setTourData} payment={data.payment} />
+        <Page2 contactDetails={contactDetails} setContactDetails={setContactDetails} />
         <Page3 />
       </Tabs>
     </Layout>

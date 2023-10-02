@@ -45,7 +45,6 @@ function BestToursSection({
       )
       .then((data: { _id: string; overview_card: SanityTourPage['overview_card'] }[]) => {
         if (data.length > 0) {
-          console.log(data)
           lastIds.current[pageNumber] = data[data.length - 1]._id
           setPageData(
             data.map((item: any) => ({

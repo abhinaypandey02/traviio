@@ -13,6 +13,7 @@ export async function POST(req: Request) {
 
   try {
     const stripe = getStripe()
+    // console.log(payload, sig, endpointSecret, req.headers.get('stripe-signature'))
     event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
   } catch (error) {
     console.error(error)

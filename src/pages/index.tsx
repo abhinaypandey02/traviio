@@ -14,7 +14,6 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ data, locale, globals }: PageProps) {
-  console.log(globals)
   return (
     <LocaleProvider locale={locale}>
       <Slicer globals={globals} components={SectionMap} sections={data?.sections} />

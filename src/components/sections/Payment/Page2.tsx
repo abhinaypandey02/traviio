@@ -1,28 +1,34 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 
 import Input from '@/components/atoms/Input'
 
-export default function Page2() {
-  const [formData, setFormData] = useState({
-    titlePrefix: 'Mr',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    dobDate: '',
-    dobMonth: '',
-    dobYear: '',
-    nationality: '',
-    email: '',
-    mobileCode: '',
-    mobileNumber: '',
-    address: '',
-    town: '',
-    state: '',
-    country: '',
-  })
+export interface IContactInfo {
+  titlePrefix: string
+  firstName: string
+  middleName: string
+  lastName: string
+  dobDate: string
+  dobMonth: string
+  dobYear: string
+  nationality: string
+  email: string
+  mobileCode: string
+  mobileNumber: string
+  address: string
+  town: string
+  state: string
+  country: string
+}
+export default function Page2({
+  setContactDetails,
+  contactDetails: formData,
+}: {
+  setContactDetails: Dispatch<SetStateAction<IContactInfo>>
+  contactDetails: IContactInfo
+}) {
   const makeSetValue = (key: string) => {
     return (value: any) => {
-      setFormData((prev) => ({
+      setContactDetails((prev: any) => ({
         ...prev,
         [key]: value,
       }))

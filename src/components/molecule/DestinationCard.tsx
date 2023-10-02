@@ -10,8 +10,6 @@ type DestinationCardProps = {
 }
 
 const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
-  console.log({ tourCount, data })
-
   return (
     <div className="w-fit h-fit">
       <img
