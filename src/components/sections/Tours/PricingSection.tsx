@@ -11,7 +11,7 @@ export default function PricingSection({ data }: { data: SanityPricingSection })
   const prices = [{}, {}, {}, {}, {}]
   return (
     <Container>
-      <div className="flex flex-col my-10 gap-12 bg-darkblue/5 rounded-2xl p-7">
+      <div className="flex flex-col my-10 gap-12 lg:w-3/4 w-full bg-darkblue/5 rounded-2xl p-7">
         <div className="flex gap-2 justify-between">
           <div className="flex flex-col gap-3">
             <p className="text-gray text-base font-medium">

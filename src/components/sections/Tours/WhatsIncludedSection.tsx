@@ -12,7 +12,7 @@ export default function WhatsIncludedSection({ data }: { data: SanityWhatsInclud
         <h2 className="text-black font-bold text-2xl text-c">{data?.title?.en}</h2>
         <hr className=" w-28 my-2 text-yellow bg-yellow  rounded-full border-2" />
       </div>
-      <div className="divide-y-2 divide-darkblue/10">
+      <div className="divide-y-2 divide-darkblue/10 lg:w-3/4  w-full">
         {data?.inclusion_list?.map((item, index) => {
           return (
             <div
