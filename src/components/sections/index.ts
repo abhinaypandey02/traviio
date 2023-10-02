@@ -93,4 +93,5 @@ export const TourSectionsMap: {
   featured_tours_section: DealsSection,
   faq_section: FAQSection,
   travel_info_section: TravelInformation,
+
 }

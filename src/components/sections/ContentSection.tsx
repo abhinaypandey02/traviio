@@ -59,7 +59,8 @@ const ContentSection = (props: ContentSectionProps) => {
             src={urlFor(props.image)}
             width={500}
             height={500}
-            className="object-cover w-full"
+            className="object-cover w-full max-w-[400px]"
+            
           />
           <div className={'text-center'}>
             <LocalizedString text={props.image.alt?.en} />

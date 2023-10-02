@@ -34,7 +34,7 @@ export default function MemorableExperiencesSection({
   }, [swiper])
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-12 mb-16">
       <div className="flex gap-3 flex-col justify-center w-fit mx-auto items-center">
         <h1 className="text-blue text-base font-medium">{data?.tagline?.en}</h1>
         <div>
