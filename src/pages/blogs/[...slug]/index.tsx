@@ -5,7 +5,7 @@ import client from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityBlogPage, SanityGlobals, SanityLocale, SanitySlug } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
-import { getSanitySlugFromSlugs } from '@/utils/utils'
+import { getSanitySlugFromSlugs, getSlugsFromPath, sanitizeSlug } from '@/utils/utils'
 
 import { BlogPageSectionsMap } from '@/components/sections'
 type BlogPageProps = {
@@ -24,56 +24,40 @@ export default function BlogPage({ slug, data, locale, globals }: BlogPageProps)
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const slugs = (await client.fetch(
-    `*[_type == "blog_page" && slug.current != "/"]{slug}.slug`
-  )) as SanitySlug[]
+    `*[_type == "blog_page" && defined(article)]{
+      "destination": article->{
+        "destination": destination->{
+          "name": name.en
+        }.name
+      }.destination
+    }.destination`
+  )) as string[]
 
   return {
-    paths: getPaths(slugs, locales),
+    paths: slugs
+      .map((slug) =>
+        (locales ?? []).map((locale) => ({
+          params: {
+            slug: getSlugsFromPath(slug),
+          },
+          locale,
+        }))
+      )
+      .flat(),
     fallback: false,
   }
 }
 
 async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
   const page = (await client.fetch(
-    `*[_type == "blog_page"  && slug.current == "${slug}"][0]{
+    `*[_type == "blog_page" && article->destination->name.en == "${sanitizeSlug(slug)}"][0]{
       ...,
       article->{
         ...,
-        destination->,
-        tags[]->,
-        sidebar {
-          ...,
-          sidebar_related_tours {
-            ...,
-            tags[]->
-          }
+        destination->
         }
-      },
-      sections[] {
-        ...,
-        _type == "featured_blogs_section" => {
-          ...,
-          featured_blogs[]->{
-            ...,
-            destination->,
-            tags[]->,
-            sidebar {
-              ...,
-              sidebar_related_tours {
-                ...,
-                tags[]->
-              }
-            }
-          }
-        },
-        _type == "latest_posts_section" => {
-          ...,
-          filter_tags[]->,
-        }
-      }
-    }`
+      }`
   )) as SanityBlogPage
-  // console.log(page.article)
   return page
 }
 

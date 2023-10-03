@@ -9,58 +9,24 @@ import { LocalePage } from '@/utils/locales'
 import { BlogPageSectionsMap } from '@/components/sections'
 
 type BlogPageProps = {
-  data: SanityBlogPage
+  data: SanityBlogPage[]
   globals: SanityGlobals
 } & LocalePage
 
 export default function BlogPage({ data, locale, globals }: BlogPageProps) {
-  return (
-    <LocaleProvider locale={locale}>
-      <Slicer globals={globals} components={BlogPageSectionsMap} sections={data?.sections} />
-    </LocaleProvider>
-  )
+  return <LocaleProvider locale={locale}>{JSON.stringify({ data })}</LocaleProvider>
 }
 
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ locale }) => {
   const blogPageData = (await client.fetch(
-    `*[_type == "blog_page"  && slug.current == "/"][0]{
+    `*[_type == "blog_page"]{
       ...,
       article->{
         ...,
-        destination->,
-        tags[]->,
-        sidebar {
-          ...,
-          sidebar_related_tours {
-            ...,
-            tags[]->
-          }
+        destination->
         }
-      },
-      sections[] {
-        ...,
-        _type == "featured_blogs_section" => {
-          ...,
-          featured_blogs[]->{
-            ...,
-            destination->,
-            tags[]->,
-            sidebar {
-              ...,
-              sidebar_related_tours {
-                ...,
-                tags[]->
-              }
-            }
-          }
-        },
-        _type == "latest_posts_section" => {
-          ...,
-          filter_tags[]->,
-        }
-      }
-    }`
-  )) as SanityBlogPage
+      }`
+  )) as SanityBlogPage[]
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {

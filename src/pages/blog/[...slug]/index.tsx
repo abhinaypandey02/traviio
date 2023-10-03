@@ -5,7 +5,7 @@ import client from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityBlogPage, SanityGlobals, SanityLocale, SanitySlug } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
-import { getSanitySlugFromSlugs } from '@/utils/utils'
+import { getSanitySlugFromSlugs, getSlugsFromPath, sanitizeSlug } from '@/utils/utils'
 
 import { BlogPageSectionsMap } from '@/components/sections'
 type BlogPageProps = {
@@ -24,34 +24,36 @@ export default function BlogPage({ slug, data, locale, globals }: BlogPageProps)
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const slugs = (await client.fetch(
-    `*[_type == "blog_page" && slug.current != "/"]{slug}.slug`
+    `*[_type == "blog_page" && defined(slug.current) && defined(article)]{
+      slug,
+    }.slug`
   )) as SanitySlug[]
 
   return {
-    paths: getPaths(slugs, locales),
+    paths: slugs
+      .map((slug) =>
+        (locales ?? []).map((locale) => ({
+          params: {
+            slug: getSlugsFromPath(slug.current),
+          },
+          locale,
+        }))
+      )
+      .flat(),
     fallback: false,
   }
 }
 
 async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
   const page = (await client.fetch(
-    `*[_type == "blog_page"  && slug.current == "${slug}"][0]{
+    `*[_type == "blog_page" && slug.current == "${slug}"][0]{
       ...,
       article->{
         ...,
-        destination->,
-        tags[]->,
-        sidebar {
-          ...,
-          sidebar_related_tours {
-            ...,
-            tags[]->
-          }
+        destination->
         }
-      }
-    }`
+      }`
   )) as SanityBlogPage
-  // console.log(page.article)
   return page
 }
 
