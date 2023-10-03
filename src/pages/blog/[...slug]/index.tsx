@@ -50,6 +50,7 @@ async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
       ...,
       article->{
         ...,
+        tags[]->,
         destination->
         }
       }`

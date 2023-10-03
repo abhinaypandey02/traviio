@@ -23,6 +23,7 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ locale }) 
       ...,
       article->{
         ...,
+        tags[]->,
         destination->
         }
       }`

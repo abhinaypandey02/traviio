@@ -23,7 +23,7 @@ export default function BlogPage({ slug, data, locale, globals }: BlogPageProps)
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const slugs = (await client.fetch(
+  const destinations = (await client.fetch(
     `*[_type == "blog_page" && defined(article)]{
       "destination": article->{
         "destination": destination->{
@@ -33,8 +33,18 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     }.destination`
   )) as string[]
 
+  const tags = (await client.fetch(
+    `*[_type == "blog_page" && defined(article)]{
+      "tags": article->{
+        "tags": tags[]->{
+          "name": name.en
+        }.name
+      }.tags[]
+    }.tags[]`
+  )) as string[]
+
   return {
-    paths: slugs
+    paths: [...destinations, ...tags]
       .map((slug) =>
         (locales ?? []).map((locale) => ({
           params: {
@@ -50,10 +60,13 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
 async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
   const page = (await client.fetch(
-    `*[_type == "blog_page" && article->destination->name.en == "${sanitizeSlug(slug)}"][0]{
+    `*[_type == "blog_page" && (article->destination->name.en == "${slug}" || "${sanitizeSlug(
+      slug
+    )}" in article->tags[]->.name.en)]{
       ...,
       article->{
         ...,
+        tags[]->,
         destination->
         }
       }`
