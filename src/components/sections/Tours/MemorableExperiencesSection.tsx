@@ -110,7 +110,7 @@ const Card = ({
   data: Exclude<SanityMemorableExperiencesSection['experience_cards'], undefined>[0]
 }) => {
   return (
-    <div className="w-full rounded-2xl overflow-hidden bg-white shadow-md m-1">
+    <div className="w-full min-h-[400px] min-w-[300px] rounded-2xl overflow-hidden bg-white shadow-md m-1">
       <div className="h-[220px] relative">
         <Image alt="" src={data.image ? urlFor(data.image) : ''} fill className="object-cover" />
       </div>
