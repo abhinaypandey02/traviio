@@ -755,7 +755,7 @@ export type SanityArticle = {
     _ref: string[]
     _weak?: boolean
   } & SanityTag[]
-  introduction?: SanityContentRichText
+  introduction?: SanityLocaleString
   author?: SanityLocaleString
   time?: SanityLocaleString
   subsections?: {

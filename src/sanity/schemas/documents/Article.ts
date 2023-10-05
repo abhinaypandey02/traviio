@@ -53,7 +53,7 @@ export default defineType({
       name: 'introduction',
       title: 'Introduction',
       description: 'Introduction for the blog',
-      type: 'locale_rich_text',
+      type: 'locale_string',
     }),
     defineField({
       name: 'author',

@@ -8,12 +8,16 @@ import { LocalePage } from '@/utils/locales'
 
 import { BlogPageSectionsMap } from '@/components/sections'
 
+import { fetchDestinationNames, fetchTags } from './[...slug]'
+
 type BlogPageProps = {
   data: SanityBlogPage[]
+  destinations: string[]
+  tags: string[]
   globals: SanityGlobals
 } & LocalePage
 
-export default function BlogPage({ data, locale, globals }: BlogPageProps) {
+export default function BlogPage({ data, locale, globals, destinations, tags }: BlogPageProps) {
   return <LocaleProvider locale={locale}>{JSON.stringify({ data })}</LocaleProvider>
 }
 
@@ -28,10 +32,14 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ locale }) 
         }
       }`
   )) as SanityBlogPage[]
+  const destinations = await fetchDestinationNames()
+  const tags = await fetchTags()
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {
       data: blogPageData,
+      destinations,
+      tags,
       locale: (locale ?? 'en') as SanityLocale,
       globals,
     },
