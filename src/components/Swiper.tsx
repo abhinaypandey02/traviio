@@ -39,7 +39,10 @@ export default function Swiper({
   }
   return (
     <div className={'relative'}>
-      <div className={'flex relative overflow-x-auto items-center ' + className} ref={swiperRef}>
+      <div
+        className={'flex relative overflow-x-auto pb-3 items-center ' + className}
+        ref={swiperRef}
+      >
         {children}
       </div>
       {showNext && (

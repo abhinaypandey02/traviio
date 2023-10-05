@@ -34,10 +34,20 @@ const GallerySection = (props: GallerySectionProps) => {
   return (
     <div className="pt-10 bg-[#F2FAFF] text-black">
       <Container>
-        <h3 className="text-3xl font-[500] text-center">{title?.en}</h3>
-        <h4 className="text-lg my-2 opacity-60 font-[500] text-center">{subtitle?.en}</h4>
-
-        <Swiper className="gap-x-2.5 my-10">
+        <h3 className="text-[40px] leading-tight -tracking-[1.2px] font-bold text-center">
+          {title?.en}
+        </h3>
+        <div className="text-lg mt-1.5 opacity-60 text-center leading-[28px]">{subtitle?.en}</div>
+        <div className={'mt-2 mb-[30px]'}>
+          <Image
+            width={80}
+            height={40}
+            src={'/small-logo.svg'}
+            alt={'small logo'}
+            className={'mx-auto'}
+          />
+        </div>
+        <Swiper className="gap-x-2.5 !pb-0">
           {imgs?.map((image, i) =>
             i % 2 == 0 ? (
               <div className={'min-w-[320px] h-[320px] overflow-hidden rounded-lg'}>

@@ -47,8 +47,8 @@ export const TourCard = ({
 }) => {
   return (
     <Link className={'flex-shrink-0 max-w-[302px]'} href={href}>
-      <div className="bg-white relative h-min my-5 shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
-        <span className="bg-red absolute my-2 mx-2 right-0 px-2 py-1 text-white font-bold text-sm rounded-full">
+      <div className="bg-white relative h-min shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
+        <span className="bg-red absolute m-3 right-0 px-3 py-1 leading-[20px] text-white font-bold text-xs rounded-full">
           Hot Deal
         </span>
         <Image
@@ -58,40 +58,43 @@ export const TourCard = ({
           className="rounded-t-2xl h-[220px]"
           src={image.src}
         />
-        <div className="px-4 py-2">
-          <h3 className="text-xl font-medium">{title}</h3>
-          <div className="flex px-1 py-2 justify-between">
-            <div className="text-sm flex gap-2">
+        <div className="p-4">
+          <h3 className="text-xl font-bold leading-[28px]">{title}</h3>
+          <div className="flex mt-3 justify-between">
+            <div className="text-sm leading-[22px] flex gap-1.5">
               <Image height={18} width={18} alt="" src="/calendar.svg"></Image>
               <p>{duration}</p>
             </div>
-            <div className="text-sm flex gap-2">
+            <div className="text-sm leading-[22px] flex gap-1.5">
               <Image height={18} width={18} alt="" src="/map_plain.svg"></Image>
               <p>{cities} Cities</p>
             </div>
-            <div className="text-sm flex gap-2">
+            <div className="text-sm leading-[22px] flex gap-1.5">
               <Image height={18} width={18} alt="" src="/globe.svg"></Image>
               <p>{countries} Countries </p>
             </div>
           </div>
-          <div className="mt-4 flex justify-between">
-            <span className="line-through opacity-50 font-bold text-xl">
+          <div className="mt-6  flex justify-between items-start">
+            <div className="line-through opacity-50 font-bold text-xl leading-[28px]">
               {currency}
               {old_price}
-            </span>
-            <span className="text-right">
-              <span className="text-xl font-bold">
+            </div>
+            <div className="text-right">
+              <div className="text-lg font-black leading-[28px]">
                 From {currency}
                 {new_price}
-              </span>{' '}
-              <br />
-              <span className="text-md text-red font-bold">
+              </div>{' '}
+              <div className="text-xs text-red font-bold">
                 You Save {currency}
                 {old_price - new_price}
-              </span>
-            </span>
+              </div>
+            </div>
           </div>
-          <Button text="View Tour" varient="primary" />
+          <Button
+            className={'!mt-3 !mb-0 !py-2.5 !px-7 !leading-[22px]'}
+            text="View Tour"
+            varient="primary"
+          />
         </div>
       </div>
     </Link>
@@ -103,16 +106,18 @@ const DealsSection = ({
   locale,
 }: PropsWithLocale<DealSectionProps>) => {
   return (
-    <Container className="px-10 py-10  text-black bg-white">
+    <Container className="pt-[68px] pb-[72px]  text-black bg-white">
       <div
         className={_type === ('featured_tours_section' as any) ? 'flex flex-col items-center' : ''}
       >
-        <h2 className="text-blue text-base font-medium">{tagline?.en}</h2>
-        <h4 className="text-3xl font-bold">{title?.en}</h4>
-        <hr className="lg:w-1/12 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
+        <h2 className="text-blue font-medium">{tagline?.en}</h2>
+        <h4 className="text-[40px] leading-tight -tracking-[1.2px] mt-3 w-fit  font-bold">
+          {title?.en}
+          <hr className="w-1/2 text-yellow  bg-yellow  rounded-full mt-2.5 border-t-2 border-b" />
+        </h4>
       </div>
 
-      <Swiper className={'gap-4'} length={deals?.length} scrollCount={2}>
+      <Swiper className={'gap-6 mt-12'} length={deals?.length} scrollCount={2}>
         {deals?.map((({ tour }: { tour: SanityTourPage }) => (
           <TourCard
             title={localizedString(tour?.hero_section?.title, locale)}

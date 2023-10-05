@@ -17,47 +17,65 @@ const HeroSection = ({ data }: HeroSectionProps) => {
   const linearGradient =
     'linear-gradient(75.52deg, #000000 1.5%, rgba(0, 0, 0, 0.8) 9.18%, rgba(0, 0, 0, 0.7) 15.93%, rgba(0, 0, 0, 0.6) 37.5%, rgba(0, 0, 0, 0) 63.68%)'
   return (
-    <>
-      <div className="w-full h-[40px] text-white bg-darkblue text-[14px] font-[400] leading-[24px] flex items-center justify-center ">
+    <div className={'relative z-10'}>
+      <div
+        className={'w-full h-full absolute top-0 left-0 -z-10'}
+        style={{ background: linearGradient }}
+      ></div>
+      {data.image && (
+        <Image
+          className={'absolute -z-20 left-0 top-0 w-full h-full object-cover'}
+          style={{ boxShadow: linearGradient }}
+          height={538}
+          width={1440}
+          src={urlFor(data.image)}
+          alt={'hero'}
+        />
+      )}
+      <section className="w-full z-10 py-2 text-white bg-darkblue text-sm font-medium leading-6">
         <Container>
-          More summer for less. Save up to 20% off selected trips*.{' '}
-          <span className="underline cursor-pointer">Book now</span>
+          <div className={'w-full text-center'}>
+            More summer for less. Save up to 20% off selected trips*.{' '}
+            <span className="underline cursor-pointer underline-offset-[3px]">Book now</span>
+          </div>
         </Container>
-      </div>
-      <section
-        className="min-h-[538px] text-white  bg-cover md:px-[80px] md:py-[48px] px-5 py-3"
-        style={{
-          backgroundImage: `${linearGradient}, url(${data.image ? urlFor(data.image) : ''})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
+      </section>
+      <section className="text-white md:py-5 py-3 z-10">
         <Container className="flex items-center md:items-start justify-center md:justify-between flex-col">
-          <div className="w-[335px] md:w-[552px] min-h-[314px] py-5">
-            <h1 className="text-[28px] md:text-[56px] font-[900] leading-[38px] md:leading-[78px] text-center md:text-start ">
+          <div className="w-[335px] md:w-[572px]">
+            <h1 className="text-[28px] md:text-[56px] font-black -tracking-[1.68px] leading-[38px] md:leading-[76px] text-center md:text-start ">
               {data.title?.en}
             </h1>
-            <h3 className="text-[14px] md:text-[20px] font-[400] leading-[20px] md:leading-[32px] text-center md:text-start ">
+            <h3 className="mt-2.5 text-sm md:text-[20px] leading-[20px] md:leading-[30px] text-center md:text-start ">
               {data?.subtitle?.en}
             </h3>
-            <div className="flex gap-3 md:gap-[10px] pt-[48px] items-center justify-center md:justify-start">
+            <div className="flex gap-3 md:gap-4 mt-12 items-center justify-center md:justify-start">
               <PrimaryButton title={'Inquire Now'} />
               <SecondaryButton title={'Customize Your Own Trip'} />
             </div>
+            <div className={'text-xs font-bold pl-[115px] mt-2 opacity-60'}>
+              In less than 1 minute
+            </div>
           </div>
-          <div className="flex items-center my-5 relative bottom-0">
+          <div className="mt-[72px] flex items-center relative bottom-0">
             {data.scores?.map((score, index) => (
               <React.Fragment key={index}>
                 {index !== 0 && (
-                  <div className="border-r rounded-[1px] border-yellow mx-4 h-[73px]"></div>
+                  <div className="border-[0.69px] rounded-full border-yellow mx-4 h-[73px]"></div>
                 )}
-                <Image src={urlFor(score)} width={136} height={73} alt="" />
+                <Image
+                  src={urlFor(score)}
+                  width={136}
+                  height={73}
+                  alt=""
+                  className={'h-[73px] w-auto'}
+                />
               </React.Fragment>
             ))}
           </div>
         </Container>
       </section>
-    </>
+    </div>
   )
 }
 
