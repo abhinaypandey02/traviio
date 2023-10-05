@@ -28,24 +28,30 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
   return (
     <div>
       <div className="w-full z-50 hidden lg:block">
-        <div className="bg-primary  py-1 px-10 ">
-          <Container className="flex justify-end gap-2">
+        <div className="bg-primary  py-1 ">
+          <Container className="flex justify-end gap-1">
             <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
-            <p>+1 0000 000 000</p>
+            <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
           </Container>
         </div>
-        <Container className="py-3 bg-white flex justify-between items-center px-10">
+        <Container className="py-[15px] bg-white flex gap-[138px] items-center">
           <Link href={'/'}>
-            <Image src="/company_logo.svg" height={40} width={172} alt="Company logo" />
+            <Image
+              className={'h-10 w-[172px]'}
+              src="/company_logo.svg"
+              height={40}
+              width={172}
+              alt="Company logo"
+            />
           </Link>
-          <div className="flex gap-10 justify-evenly text-darkblue">
+          <div className="flex gap-[38px] justify-evenly text-darkblue">
             {navbar?.links?.map((item, index) => {
               return <HeaderLink item={item} key={index} />
             })}
           </div>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-3 items-stretch ml-auto">
             <Link href={navbar?.cta?.url || '/'}>
-              <ButtonTwo className="flex gap-2 px-4 items-center">
+              <ButtonTwo className="flex gap-2.5 items-center">
                 {navbar?.cta?.icon && (
                   <Image
                     height={24}
@@ -54,7 +60,7 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
                     alt={localizedString(navbar.cta.icon.alt, locale)}
                   />
                 )}
-                <LocalizedString text={navbar?.cta?.label} />
+                My Bookings
               </ButtonTwo>
             </Link>
             <LanguageDropdown />

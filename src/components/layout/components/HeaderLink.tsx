@@ -18,7 +18,7 @@ function HeaderLink({
       {item._type === 'link' && (
         <Link
           href={item.url || '/'}
-          className={item.url === router.route ? 'text-blue' : 'text-darkblue'}
+          className={'font-medium ' + (item.url === router.route ? 'text-blue' : 'text-darkblue')}
         >
           <LocalizedString text={item.text} />
         </Link>
@@ -27,7 +27,7 @@ function HeaderLink({
         <>
           <div className={'flex items-center'}>
             <span className="flex items-center cursor-pointer" onClick={() => setOpen(!open)}>
-              <p>
+              <p className={'font-medium'}>
                 <LocalizedString text={item.title} />
               </p>
               <Image
@@ -35,28 +35,27 @@ function HeaderLink({
                 height="16"
                 width="16"
                 alt=""
-                className={`mx-2 ${open && '-rotate-180'} transition-all`}
+                className={`ml-1 ${open && '-rotate-180'} transition-all`}
               ></Image>
             </span>
-            {
-              <div
-                className={
-                  'p-5 w-screen max-h-[70vh] overflow-scroll bg-primary transition-all shadow-md absolute top-[100%] left-0 -z-[10]' +
-                  (open ? '' : ' hidden')
-                }
-                onClick={() => setOpen(false)}
-              >
-                <div className="w-[90%] mx-auto grid gap-5 lg:grid-cols-5 md:grid-cols-3 grid-cols-1 min-h-fit">
-                  {item.links?.map((child, index) => {
-                    return (
-                      <Link href={child.url || '/'} key={index}>
-                        <LocalizedString text={child.text} />
-                      </Link>
-                    )
-                  })}
-                </div>
+
+            <div
+              className={
+                'p-5 w-screen max-h-[70vh] overflow-scroll bg-primary transition-all shadow-md absolute top-[100%] left-0 -z-[10]' +
+                (open ? '' : ' hidden')
+              }
+              onClick={() => setOpen(false)}
+            >
+              <div className="w-[90%] mx-auto grid gap-5 lg:grid-cols-5 md:grid-cols-3 grid-cols-1 min-h-fit">
+                {item.links?.map((child, index) => {
+                  return (
+                    <Link href={child.url || '/'} key={index}>
+                      <LocalizedString text={child.text} />
+                    </Link>
+                  )
+                })}
               </div>
-            }
+            </div>
           </div>
         </>
       )}

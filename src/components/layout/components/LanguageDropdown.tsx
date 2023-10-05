@@ -23,7 +23,7 @@ const LanguageDropdown = () => {
   return (
     <div className="relative">
       <div
-        className="rounded-full bg-opacity-20 w-fit bg-blue border-blue border border-opacity-30 p-2 h-min flex items-center cursor-pointer gap-2"
+        className="rounded-full bg-opacity-10 w-fit bg-[#325EFB] border-[#325EFB] border border-opacity-5 py-[7px] px-[9px] flex items-center cursor-pointer gap-2.5"
         onClick={() => setOpen(!open)}
       >
         <Image height={24} width={24} alt={curr} src={currimg} />

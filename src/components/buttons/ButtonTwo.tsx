@@ -11,7 +11,7 @@ const ImageButton = ({
 }) => {
   return (
     <button
-      className={`bg-blue text-center rounded-full py-2 font-bold my-2 text-sm text-white ${className}`}
+      className={`bg-blue text-center rounded-full py-2 px-6 font-bold text-white ${className}`}
       onClick={onClick}
     >
       {children}
