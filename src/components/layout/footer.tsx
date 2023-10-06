@@ -49,15 +49,16 @@ const CARDS = [
 ]
 
 const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
-  const ADDRESSES = footer?.locations || []
+  const ADDRESSES = footer?.locations?.locations || []
   const LINKS = footer?.link_groups || []
+  console.log(ADDRESSES);
   return (
-    <div className="mt-auto w-screen bg-primary flex flex-col text-gray">
+    <div className='w-screen bg-primary'>
       <Container>
-        <div className="mt-12 flex flex-wrap justify-between gap-5 py-5">
+        <div className="mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
           {/* Left side */}
-          <div className="flex flex-col gap-5 mb-12 md:w-[30%]">
-            <div className="flex flex-col">
+          <div className="flex flex-col gap-2 mb-12 md:mt-5 max-w-[364px]">
+            <div className="flex flex-col gap-2">
               <Image
                 src={(footer?.logo && urlFor(footer?.logo)) || ''}
                 width={260}
@@ -70,7 +71,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                 </Link>
               </p>
             </div>
-            <p className="leading-relaxed lg:max-w-[60%] mt-3">
+            <p className="leading-relaxed mt-3">
               {localizedString(footer?.description)}
             </p>
             <div className="flex flex-wrap gap-6 mt-5">
@@ -98,13 +99,13 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
             </div>
           </div>
           {/* Right side */}
-          <div className="grow flex flex-col gap-3 text-darkblue md:w-[66%]">
+          <div className="grow flex flex-col gap-4 text-darkblue">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 justify-between">
               {LINKS.map((item, index) => {
                 return (
                   <Footer__links
                     heading={localizedString(item.title)}
-                    items={item.links || []}
+                    items={(item.links || [])}
                     key={index}
                   />
                 )
@@ -112,7 +113,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
             </div>
             <hr className="border-gray opacity-20" />
             <p className="font-semibold text-xl">Contact Us</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {ADDRESSES.map((item, index) => {
                 return (
                   <Address

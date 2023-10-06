@@ -57,8 +57,6 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
   )
 }
 
-
-
 const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
   const {
     data: { tagline, title, featured_blogs },
@@ -77,7 +75,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
           {featured_blogs?.map((blog: any) => (
             <>
               {/* {JSON.stringify({blog})} */}
-              <BlogDetailCard
+              {/* <BlogDetailCard
                 country={localizedString(blog.destination?.name)}
                 title={localizedString(blog.title)}
                 date={localizedString(blog.time)}
@@ -85,7 +83,8 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
                 excerpt={localizedString(blog.introduction)}
                 link={blog.slug ? blog.slug.current : ''}
                 author={localizedString(blog.author)}
-              />
+              /> */}
+              <BlogCard blog={blog} locale={props?.locale} />
             </>
           ))}
         </Swiper>
