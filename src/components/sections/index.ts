@@ -69,7 +69,7 @@ export const DestinationSectionsMap: {
   tour_selection_section: BestToursSection,
 }
 
-export const BlogPageSectionsMap: {
+export const  BlogPageSectionsMap: {
   [name in SanityBlogPageSectionNames]?: FunctionComponent<any>
 } = {
   image_header_section: ImageHeaderSection,

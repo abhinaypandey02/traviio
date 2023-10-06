@@ -11,30 +11,48 @@ import { BlogPageSectionsMap } from '@/components/sections'
 import { fetchDestinationNames, fetchTags } from './[...slug]'
 
 type BlogPageProps = {
-  data: SanityBlogPage[]
-  destinations: string[]
-  tags: string[]
+  data: SanityBlogPage
   globals: SanityGlobals
 } & LocalePage
 
-export default function BlogPage({ data, locale, globals, destinations, tags }: BlogPageProps) {
-  return <LocaleProvider locale={locale}>{JSON.stringify({ data })}</LocaleProvider>
+export default function BlogPage({ data, locale, globals }: BlogPageProps) {
+  return (
+    <LocaleProvider locale={locale}>
+      <Slicer globals={globals} components={BlogPageSectionsMap} sections={data?.sections} />
+    </LocaleProvider>
+  )
 }
 
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ locale }) => {
   const blogPageData = (await client.fetch(
-    `*[_type == "blog_page"]{
+    `*[_type == "blog_page" && slug.current == "/"][0]{
       ...,
-      article->{
+      sections[] {
         ...,
-        tags[]->,
-        destination->
+        _type == "featured_blogs_section" => {
+          ...,
+          featured_blogs[]->{
+            ...,
+            tags[]->,
+            destination-> {
+              name,
+            }
+          }
+        },
+        _type == "blogs_section" => {
+          ...,
+          blogs[]->{
+            ...,
+            tags[]->
+          }
         }
-      }`
-  )) as SanityBlogPage[]
+      }
+      }
+      `
+  )) as SanityBlogPage
+  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   const destinations = await fetchDestinationNames()
   const tags = await fetchTags()
-  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {
       data: blogPageData,

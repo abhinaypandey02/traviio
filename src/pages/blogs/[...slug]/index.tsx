@@ -26,7 +26,6 @@ export default function BlogPage({
 }: BlogPageProps) {
   return (
     <LocaleProvider locale={locale}>
-      {JSON.stringify({ destinations, tags })}
       <Slicer globals={globals} components={BlogPageSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )
@@ -80,7 +79,7 @@ async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
   const page = (await client.fetch(
     `*[_type == "blog_page" && (article->destination->name.en == "${slug}" || "${sanitizeSlug(
       slug
-    )}" in article->tags[]->.name.en)]{
+    )}" in article->tags[]->.name.en)][0]{
       ...,
       article->{
         ...,

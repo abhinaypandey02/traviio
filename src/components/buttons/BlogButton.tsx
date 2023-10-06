@@ -16,9 +16,13 @@ function BlogButton(props: BlogButtonProps) {
       }`}
     >
       {images.map((image, index) => {
-        return <Image src={image} height={18} width={18} alt={title} />
+        return <Image src={image} height={18} width={18} alt={title} key={index} />
       })}
-      <p className={`text-sm font-medium whitespace-nowrap ${selected ? 'text-white' : 'text-gray'}`}>{title}</p>
+      <p
+        className={`text-sm font-medium whitespace-nowrap ${selected ? 'text-white' : 'text-gray'}`}
+      >
+        {title}
+      </p>
     </div>
   )
 }

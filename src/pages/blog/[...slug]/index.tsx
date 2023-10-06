@@ -6,7 +6,7 @@ import client from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityBlogPage, SanityGlobals, SanityLocale, SanitySlug } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
-import { getSanitySlugFromSlugs, getSlugsFromPath, sanitizeSlug } from '@/utils/utils'
+import { getSanitySlugFromSlugs, getSlugsFromPath } from '@/utils/utils'
 
 import { BlogPageSectionsMap } from '@/components/sections'
 type BlogPageProps = {

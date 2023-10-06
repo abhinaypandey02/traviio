@@ -14,6 +14,8 @@ import Swiper from '@/components/Swiper'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { localizedString } from '@/contexts/LocaleProvider'
+import BlogDetailCard from '../molecule/BlogDetailCard'
 
 export type BlogSectionProps = {
   data: SanityFeaturedBlogsSection
@@ -56,7 +58,13 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
   )
 }
 
+<<<<<<< Updated upstream
 const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
+=======
+
+
+const BlogSection = (props: BlogSectionProps) => {
+>>>>>>> Stashed changes
   const {
     data: { tagline, title, featured_blogs },
   } = props
@@ -71,7 +79,24 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
       </h4>
       <div className=" lg:block hidden ">
         <Swiper className={'gap-6'} length={featured_blogs?.length} scrollCount={2}>
+<<<<<<< Updated upstream
           {featured_blogs?.map((blog) => <BlogCard locale={props.locale} blog={blog} />)}
+=======
+          {featured_blogs?.map((blog: any) => (
+            <>
+              {/* {JSON.stringify({blog})} */}
+              <BlogDetailCard
+                country={localizedString(blog.destination?.name)}
+                title={localizedString(blog.title)}
+                date={localizedString(blog.time)}
+                image={urlFor(blog.cover_image)}
+                excerpt={localizedString(blog.introduction)}
+                link={blog.slug ? blog.slug.current : ''}
+                author={localizedString(blog.author)}
+              />
+            </>
+          ))}
+>>>>>>> Stashed changes
         </Swiper>
       </div>
     </Container>
