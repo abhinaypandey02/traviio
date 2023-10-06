@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Container from '../Container'
+
 import { LocalizedString } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
 import { SanityDestinationsSection } from '@/sanity/types'
 
+import Container from '../Container'
 import DestinationCard from '../molecule/DestinationCard'
 
 type DestinationsSectionProps = {
@@ -16,6 +17,15 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
   )
   const validDestinations =
     data.destinations?.filter((destination) => destination.destination) || []
+  if (
+    process.env.NEXT_PUBLIC_DEVELOPMENT &&
+    data.destinations?.length &&
+    data.destinations.length < 4
+  ) {
+    data.destinations?.push(data.destinations[0])
+    data.destinations?.push(data.destinations[0])
+    data.destinations?.push(data.destinations[0])
+  }
 
   useEffect(() => {
     const fetchTourCounts = async () => {
@@ -35,25 +45,25 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
   }, [])
 
   return (
-    <Container>
-    <div >
-      <h2 className="text-blue text-base font-medium">
-        <LocalizedString text={data.tagline} />
-      </h2>
-      <h4 className="text-3xl font-medium ">
-        <LocalizedString text={data.title} />
-      </h4>
-      <hr className="lg:w-1/12 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
-      <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-x-10 py-8 gap-y-5">
-        {validDestinations.map((destination, idx) => (
-          <DestinationCard
-            key={destination._key}
-            data={destination}
-            tourCount={tourCounts?.[idx]}
-          />
-        ))}
+    <Container className={'mb-[84px]'}>
+      <div>
+        <h4 className="text-blue text-base font-medium">
+          <LocalizedString text={data.tagline} />
+        </h4>
+        <h2 className="text-[40px] w-fit leading-tight my-3 font-bold -tracking-[1.2px]">
+          <LocalizedString text={data.title} />
+          <hr className="w-1/3 text-yellow  bg-yellow mt-[9px] rounded-full border-t border-b-2" />
+        </h2>
+        <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-7 mt-12">
+          {validDestinations.map((destination, idx) => (
+            <DestinationCard
+              key={destination._key}
+              data={destination}
+              tourCount={tourCounts?.[idx]}
+            />
+          ))}
+        </div>
       </div>
-    </div>
     </Container>
   )
 }

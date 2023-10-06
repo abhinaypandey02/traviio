@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityNewsletterSection } from '@/sanity/types'
 
@@ -10,50 +11,40 @@ export type NewsletterSectionProps = {
   data: SanityNewsletterSection
 }
 
-const NewsletterSection = ({ data }: NewsletterSectionProps) => {
+const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionProps>) => {
   return (
-    <Container className="flex justify-center items-center py-10 bg-white text-white">
+    <Container className="flex justify-center items-center bg-white text-white">
       <div
-        className="w-full  min-h-[300px] md:min-h-[444px] py-5 bg-blue  md:rounded-[24px] rounded-md"
+        className="w-full pt-[55px] pb-[45px] px-[60px] bg-blue md:rounded-3xl rounded-md"
         style={{
           backgroundImage: `url(${data.image ? urlFor(data.image) : ''})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}
       >
-        <div className="flex  flex-col justify-center md:justify-start items-center md:items-start p-8 px-16 gap-4 md:gap-8 md:w-[800px] min-h-[300px] md:min-h-[344px] ">
-          <h1 className="text-center md:text-start text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
-            {data.title?.en}
+        <div className="flex  flex-col justify-center md:justify-start items-center md:items-start ">
+          <h1 className="text-center -tracking-[1.2px] max-w-3xl md:text-start text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
+            {localizedString(data.title, locale)}
           </h1>
-          <h3 className="text-center md:text-start text-[14px] md:text-[20px] font-[500] md:font-[400] leading-[20px] md:leading-[32px]">
-            {data.subtitle?.en}
+          <h3 className="text-center max-w-2xl -tracking-[0.6px] mt-2.5 mb-[30px] md:text-start text-[14px] md:text-[20px] font-[500] md:font-normal leading-[20px] md:leading-[32px]">
+            {localizedString(data.subtitle, locale)}
           </h3>
-          <div className="relative flex items-center">
+          <div className="relative shadow-sm flex items-center">
             <input
-              className="w-[250px] md:w-[420px] h-[40px] md:h-[48px] rounded-[60px] px-3 md:px-5 text-[12px] md:text-[16px] font-[400] leading-[22px] md:leading-[24px] "
+              className="w-[250px] md:w-[420px] h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-gray text-xs md:text-base leading-[22px] md:leading-normal "
               type="text"
               placeholder={'Enter your email'}
             />
-            <button className="flex items-center justify-center absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-2 rounded-[30px] bg-blue-500 text-white bg-yellow w-[78px] md:w-[95px] h-[30px] md:h-[38px] text-[12px] md:text-[16px] font-[500] md:font-[700] leading-[17px] md:leading-[24px] ">
-              {'button'}
+            <button className="absolute right-[5px] top-1/2 -translate-y-1/2 py-[7px] px-[18px] bg-yellow font-bold rounded-full">
+              {'Sign Up'}
             </button>
           </div>
 
-          <div className="flex md:flex-col items-center md:items-start gap-2">
-            <p className="text-[12px] md:text-[20px] font-[700] leading-[20px] md:leading-[32px] ">
-              {/* {data.query_section_title.en} */}
+          <div className="flex md:flex-col items-center md:items-start gap-1.5 mt-[30px]">
+            <p className="text-[12px] md:text-[20px] font-bold leading-[20px] md:leading-[32px] ">
+              Have any questions?
             </p>
             <div className="flex items-center gap-1">
-              {/* <Image src={urlFor(data.query_section_subtitle_icon)} width={24} height={24} alt="" /> */}
-              <p className="text-[10px] md:text-[16px] font-[700] md:font-[500] leading-[14px] md:leading-[24px] ">
-                {/* {data.query_section_subtitle.en} */}
-              </p>
-            </div>
-          </div>
-
-          <div className="">
-            <p className="font-[700] text-[20px]">Have any questions?</p>
-            <p className="font-[400] flex  gap-x-1 text-[18px] my-1">
               <svg width="24px" height="24px" viewBox="0 0 32 32" fill="none">
                 <path
                   fill-rule="evenodd"
@@ -89,8 +80,11 @@ const NewsletterSection = ({ data }: NewsletterSectionProps) => {
                   </linearGradient>
                 </defs>
               </svg>
-              +10000000
-            </p>
+
+              <p className="text-[10px] md:text-base font-bold md:font-medium leading-[14px] md:leading-normal ">
+                +1 0000 000 000
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -59,32 +59,34 @@ export const TourCard = ({
           src={image.src}
         />
         <div className="p-4">
-          <h3 className="text-[20px] font-[700] leading-[28px]">{title}</h3>
+          <h3 className="text-xl font-bold leading-[28px]">
+            {process.env.NEXT_PUBLIC_DEVELOPMENT ? "Safari Falls: Cape's Exotic Adventure" : title}
+          </h3>
           <div className="flex mt-3 justify-between">
-            <div className="text-sm leading-[22px] flex gap-2">
+            <div className="text-sm leading-[22px] flex gap-1.5">
               <Image height={18} width={18} alt="" src="/calendar.svg"></Image>
-              <p className='font-[500] text-[14px] '>{duration}</p>
+              <p>{duration}</p>
             </div>
-            <div className="text-sm leading-[22px] flex gap-2">
+            <div className="text-sm leading-[22px] flex gap-1.5">
               <Image height={18} width={18} alt="" src="/map_plain.svg"></Image>
-              <p className='font-[500] text-[14px] ' >{cities} Cities</p>
+              <p>{cities} Cities</p>
             </div>
-            <div className="text-sm leading-[22px] flex gap-2">
+            <div className="text-sm leading-[22px] flex gap-1.5">
               <Image height={18} width={18} alt="" src="/globe.svg"></Image>
-              <p className='font-[500] text-[14px] '>{countries} Countries </p>
+              <p>{countries} Countries </p>
             </div>
           </div>
           <div className="mt-6  flex justify-between items-start">
-            <div className="line-through opacity-50 font-[700] text-[18px] leading-[28px]">
+            <div className="line-through opacity-50 font-bold text-xl leading-[28px]">
               {currency}
               {old_price}
             </div>
             <div className="text-right">
-              <div className="text-[18px] font-[900] leading-[28px]">
+              <div className="text-lg font-black leading-[28px]">
                 From {currency}
                 {new_price}
               </div>{' '}
-              <div className="text-[12px] text-red font-[700]">
+              <div className="text-xs text-red font-bold">
                 You Save {currency}
                 {old_price - new_price}
               </div>
@@ -117,7 +119,7 @@ const DealsSection = ({
         </h4>
       </div>
 
-      <Swiper className={'gap-6 mt-12'} length={deals?.length} scrollCount={2}>
+      <Swiper className={'gap-6 pb-3 mt-12'} length={deals?.length} scrollCount={2}>
         {deals?.map((({ tour }: { tour: SanityTourPage }) => (
           <TourCard
             title={localizedString(tour?.hero_section?.title, locale)}

@@ -1,6 +1,8 @@
 import React from 'react'
+import Image from 'next/image'
 
 import { LocalizedString } from '@/contexts/LocaleProvider'
+import { urlFor } from '@/sanity/client'
 import { SanityDestinationsSection } from '@/sanity/types'
 import { displayNumber } from '@/utils/utils'
 
@@ -10,18 +12,29 @@ type DestinationCardProps = {
 }
 
 const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
+  const image = data.image || data.destination?.meta_data?.meta_image
   return (
-    <div className="w-fit h-fit">
-      <img
-        className=" w-full rounded-2xl"
-        src="https://www.jaipurstuff.com/wp-content/uploads/2022/08/First-Time-Visitors-Guide-to-Jaipur.jpg"
-        alt=""
-      />
-      <h3 className="mt-2 font-medium">
+    <div className="w-full h-fit">
+      <div className={'min-h-[310px]  relative'}>
+        {image && (
+          <Image
+            height={310}
+            width={408}
+            className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
+            src={urlFor(image)}
+            alt=""
+          />
+        )}
+      </div>
+      <h3 className="mt-4 text-lg font-bold">
         {/* @ts-ignore */}
         <LocalizedString text={data.destination?.name} />
       </h3>
-      {tourCount && <h4 className="opacity-60 my-1 text-sm">{displayNumber(tourCount, 'tour')}</h4>}
+      {tourCount && (
+        <h4 className="text-gray font-medium mt-0.5 text-sm">
+          {displayNumber(tourCount, 'Tour Package')}
+        </h4>
+      )}
     </div>
   )
 }

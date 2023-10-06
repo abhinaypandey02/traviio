@@ -9,7 +9,7 @@ const myFont = localFont({ src: '../../../public/Satoshi-Variable.woff2' })
 const Layout = ({ children, globals }: { children: ReactNode; globals?: SanityGlobals }) => {
   return (
     <div className={myFont.className}>
-      <div className="overflow-x-hidden bg-white text-black min-h-screen flex flex-col">
+      <div className="overflow-x-hidden bg-white text-black min-h-screen flex flex-col max-w-[1440px]">
         <Header navbar={globals?.navbar} />
         <main className={'grow'}>{children}</main>
         <Footer footer={globals?.footer} />

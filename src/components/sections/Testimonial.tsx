@@ -1,12 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
 
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 // import { FreeMode, Navigation } from 'swiper/modules'
 // import { Swiper, SwiperSlide } from 'swiper/react'
 import { urlFor } from '@/sanity/client'
 import { SanityTestimonialSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
+import Star from '@/components/Star'
 import Swiper from '@/components/Swiper'
 
 import plane from '../../../public/plane.svg'
@@ -19,119 +21,63 @@ export type TestimonialSectionProps = {
   data: SanityTestimonialSection
 }
 
-const Testimonial = (props: TestimonialSectionProps) => {
+const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
   const {
     data: { title, subtitle, image, testimonials },
   } = props
 
   return (
-    <div className="w-full bg-[#F2FAFF]  text-black px-10 py-10  relative">
+    <div className="w-full bg-[#F2FAFF]  text-black py-[30px]  relative">
       <Container className={'lg:flex items-center gap-x-10'}>
-        <div className="lg:w-1/4  w-full">
+        <div className="lg:max-w-xs shrink-0 w-full">
           {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
-          <h3 className=" text-[36px] font-[700]">{title?.en?.substring(0, 17)}</h3>
-          <h3 className=" text-[36px]  font-[700] text-blue">{title?.en?.substring(17)}</h3>
-          <h5 className="text-lg my-5 opacity-60">{subtitle?.en}</h5>
+          <h3 className=" text-[40px] leading-tight -tracking-[1.2px] font-bold">
+            {localizedString(title, props.locale)}
+          </h3>
+          <h5 className="text-lg mt-3 opacity-60">{localizedString(subtitle, props.locale)}</h5>
           <Image
             src={image ? urlFor(image) : ''}
             width={260}
             height={73}
             alt=""
             style={{ borderRadius: '10px' }}
+            className={'mt-[38px]'}
           />
         </div>
-        <div className="w-3/4 hidden lg:block">
+        <div className=" hidden lg:block">
           <Swiper scrollCount={2} className={'gap-12'} length={testimonials?.length}>
-            {testimonials?.map((item: any, index: any) => {
+            {testimonials?.map((item, index: any) => {
               return (
-                <div key={index} className={'min-w-[284px]'}>
-                  <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>
-                  <h3 className="text-lg font-[700]">{item?.title?.en}</h3>
-                  <h5 className="text-base font-[500] my-2 opacity-60">{item?.text?.en}</h5>
-                  <div className="flex gap-x-3 my-4">
+                <div key={index} className={'w-[284px]'}>
+                  <div className="flex gap-x-0.5 mb-1.5">
+                    <Star />
+                    <Star />
+                    <Star />
+                    <Star />
+                    <Star />
+                  </div>
+                  <h3 className=" mb-1 font-bold">{localizedString(item.title, props.locale)}</h3>
+                  <h5 className="text-sm font-medium opacity-60 leading-[22px] max-w-[273px]">
+                    {localizedString(item.text, props.locale)}
+                  </h5>
+                  <div className="flex gap-x-3 mt-4">
                     <div>
-                      <Image alt={''} width={40} height={40} src={urlFor(item?.avatar)} />
+                      <Image alt={''} width={38} height={38} src={urlFor((item as any)?.avatar)} />
                     </div>
-                    <div className="ml-2 ">
-                      <h6 className="font-semibold"> {item?.name?.en}</h6>
-                      <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>
+                    <div className="">
+                      <h6 className="font-bold text-sm leading-[22px]">
+                        {localizedString(item.name, props.locale)}
+                      </h6>
+                      <h6 className="text-xs leading-[20px] text-gray">
+                        {localizedString(item.time, props.locale)}
+                      </h6>
                     </div>
                   </div>
                 </div>
               )
             })}
           </Swiper>
-          {/*<Swiper*/}
-          {/*  navigation={true}*/}
-          {/*  slidesPerView={3}*/}
-          {/*  spaceBetween={30}*/}
-          {/*  modules={[FreeMode, Navigation]}*/}
-          {/*  freeMode={true}*/}
-          {/*  pagination={{*/}
-          {/*    clickable: true,*/}
-          {/*  }}*/}
-          {/*  className="mySwiper"*/}
-          {/*>*/}
-          {/*  {testimonials*/}
-          {/*    ? testimonials.map((item: any, index: any) => {*/}
-          {/*        return (*/}
-          {/*          <SwiperSlide>*/}
-          {/*            <div key={index} className={'w-full'}>*/}
-          {/*              <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>*/}
-          {/*              <h3 className="text-lg font-[700]">{item?.title?.en}</h3>*/}
-          {/*              <h5 className="text-base font-[500] my-2 opacity-60">{item?.text?.en}</h5>*/}
-          {/*              <div className="flex gap-x-3 my-4">*/}
-          {/*                <div>*/}
-          {/*                  <Image alt={''} width={40} height={40} src={urlFor(item?.avatar)} />*/}
-          {/*                </div>*/}
-          {/*                <div className="ml-2 ">*/}
-          {/*                  <h6 className="font-semibold"> {item?.name?.en}</h6>*/}
-          {/*                  <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>*/}
-          {/*                </div>*/}
-          {/*              </div>*/}
-          {/*            </div>*/}
-          {/*          </SwiperSlide>*/}
-          {/*        )*/}
-          {/*      })*/}
-          {/*    : null}*/}
-          {/*</Swiper>*/}
         </div>
-        {/*<div className="w-full lg:hidden block">*/}
-        {/*  <Swiper*/}
-        {/*    navigation={true}*/}
-        {/*    slidesPerView={1}*/}
-        {/*    spaceBetween={30}*/}
-        {/*    modules={[FreeMode, Navigation]}*/}
-        {/*    freeMode={true}*/}
-        {/*    pagination={{*/}
-        {/*      clickable: true,*/}
-        {/*    }}*/}
-        {/*    className="mySwiper"*/}
-        {/*  >*/}
-        {/*    {testimonials*/}
-        {/*      ? testimonials.map((item: any, index: any) => {*/}
-        {/*          return (*/}
-        {/*            <SwiperSlide>*/}
-        {/*              <div key={index} className={'w-full'}>*/}
-        {/*                <div className="flex gap-x-2 text-xl my-3">⭐ ⭐ ⭐ ⭐ ⭐</div>*/}
-        {/*                <h3 className="text-lg font-medium">{item?.title?.en}</h3>*/}
-        {/*                <h5 className="text-base font-medium my-2 opacity-60">{item?.text?.en}</h5>*/}
-        {/*                <div className="flex gap-x-3 my-4">*/}
-        {/*                  <div>*/}
-        {/*                    <Image alt="" width={40} height={40} src={urlFor(item?.avatar)} />*/}
-        {/*                  </div>*/}
-        {/*                  <div className="ml-2 ">*/}
-        {/*                    <h6 className="font-semibold"> {item?.name?.en}</h6>*/}
-        {/*                    <h6 className="text-sm opacity-60"> {item?.time?.en}</h6>*/}
-        {/*                  </div>*/}
-        {/*                </div>*/}
-        {/*              </div>*/}
-        {/*            </SwiperSlide>*/}
-        {/*          )*/}
-        {/*        })*/}
-        {/*      : null}*/}
-        {/*  </Swiper>*/}
-        {/*</div>*/}
         <Image
           src="/plane.svg"
           height={200}
