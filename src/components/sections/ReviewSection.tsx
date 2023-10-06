@@ -150,8 +150,8 @@ const ReviewSection = (props: ReviewSectionProps) => {
   const pageSize = 3
   return (
     <Container className=" py-10  bg-white text-black">
-      <h2 className="text-blue text-base font-medium text-center">{tagline?.en}</h2>
-      <h4 className="text-3xl font-medium text-center">{title?.en}</h4>
+      <h2 className="text-[#3FA9F5] text-[16px] font-[500] text-center">{tagline?.en}</h2>
+      <h4 className="text-[40px] mt-2 font-[700] text-center">{title?.en}</h4>
       <hr className="lg:w-1/12 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
 
       <div className="grid grid-cols-5 gap-x-10">

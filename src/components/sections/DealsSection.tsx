@@ -59,32 +59,32 @@ export const TourCard = ({
           src={image.src}
         />
         <div className="p-4">
-          <h3 className="text-xl font-bold leading-[28px]">{title}</h3>
+          <h3 className="text-[20px] font-[700] leading-[28px]">{title}</h3>
           <div className="flex mt-3 justify-between">
-            <div className="text-sm leading-[22px] flex gap-1.5">
+            <div className="text-sm leading-[22px] flex gap-2">
               <Image height={18} width={18} alt="" src="/calendar.svg"></Image>
-              <p>{duration}</p>
+              <p className='font-[500] text-[14px] '>{duration}</p>
             </div>
-            <div className="text-sm leading-[22px] flex gap-1.5">
+            <div className="text-sm leading-[22px] flex gap-2">
               <Image height={18} width={18} alt="" src="/map_plain.svg"></Image>
-              <p>{cities} Cities</p>
+              <p className='font-[500] text-[14px] ' >{cities} Cities</p>
             </div>
-            <div className="text-sm leading-[22px] flex gap-1.5">
+            <div className="text-sm leading-[22px] flex gap-2">
               <Image height={18} width={18} alt="" src="/globe.svg"></Image>
-              <p>{countries} Countries </p>
+              <p className='font-[500] text-[14px] '>{countries} Countries </p>
             </div>
           </div>
           <div className="mt-6  flex justify-between items-start">
-            <div className="line-through opacity-50 font-bold text-xl leading-[28px]">
+            <div className="line-through opacity-50 font-[700] text-[18px] leading-[28px]">
               {currency}
               {old_price}
             </div>
             <div className="text-right">
-              <div className="text-lg font-black leading-[28px]">
+              <div className="text-[18px] font-[900] leading-[28px]">
                 From {currency}
                 {new_price}
               </div>{' '}
-              <div className="text-xs text-red font-bold">
+              <div className="text-[12px] text-red font-[700]">
                 You Save {currency}
                 {old_price - new_price}
               </div>

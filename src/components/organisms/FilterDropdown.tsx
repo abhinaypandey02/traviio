@@ -30,7 +30,7 @@ function FilterItem(props: {
           props.openToggle?.(props.index)
         }}
       >
-        <p>{props.title}</p>
+        <p className='font-[500] text-[18px]'> {props.title}</p>
         <Image
           src="/down_icon.svg"
           height={28}
@@ -41,12 +41,12 @@ function FilterItem(props: {
       </div>
       {/* Dropdown */}
       {props.open && (
-        <div className="rounded-b-md grid grid-cols-2 gap-3 m-3">
+        <div className="rounded-b-md grid grid-cols-2  gap-3 gap-y-6 m-3">
           {props.subitems?.map((item, index) => {
             return (
               <div className="" key={index}>
                 <div
-                  className="flex gap-2 cursor-pointer"
+                  className="flex gap-x-2 cursor-pointer"
                   onClick={() => {
                     props.selectionToggle?.(item)
                   }}
@@ -62,7 +62,7 @@ function FilterItem(props: {
                   />
                   <p
                     className={`${
-                      item === props.selectedItem ? 'text-blue' : 'text-gray'
+                      item === props.selectedItem ? 'text-blue font-[500] text-[14px]' : 'text-gray font-[500] text-[14px]'
                     } font-medium transition-all`}
                   >
                     {item}

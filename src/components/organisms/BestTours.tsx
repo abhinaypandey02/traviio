@@ -36,7 +36,7 @@ function BestTours({
 }: BestToursProps) {
   return (
     <div className={`flex flex-col m-3 gap-3 ${className}`}>
-      <p className="text-xl text-gray font-medium">
+      <p className="text-[20px] font-[500] text-[#726E83] font-medium">
         Found {numberOfTours} Tours - {destination}{' '}
       </p>
       <div className="flex flex-nowrap overflow-x-auto gap-2">
@@ -57,7 +57,7 @@ function BestTours({
           if (tag?.name?.en && !selectedTags?.includes(tag?.name?.en)) {
             return (
               <div
-                className="border cursor-pointer border-gray whitespace-nowrap text-gray border-opacity-50 rounded-full p-2"
+                className="border cursor-pointer border-gray text-[14px] font-[500] whitespace-nowrap text-gray border-opacity-50 rounded-full p-2 px-3"
                 onClick={() => {
                   setSelectedTags([...selectedTags, tag?.name?.en || ''])
                 }}

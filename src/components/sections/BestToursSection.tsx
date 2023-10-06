@@ -80,8 +80,8 @@ function BestToursSection({
   return (
     <Container className="flex flex-col items-center gap-5">
       <div className="flex flex-col items-center">
-        <h2 className="text-blue text-base font-medium">{localizedString(tagline, locale)}</h2>
-        <h4 className="text-3xl font-medium ">{localizedString(title, locale)}</h4>
+        <h2 className="text-blue text-[16px] font-[500]">{localizedString(tagline, locale)}</h2>
+        <h4 className="text-[40px] font-[700] ">{localizedString(title, locale)}</h4>
         <hr className="lg:w-1/2 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
       </div>
       <div className=" grid md:grid-cols-4 grid-cols-1 gap-5">
