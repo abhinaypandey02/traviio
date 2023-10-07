@@ -19,12 +19,12 @@ const OfficeLocationSection = (props: OfficeLocationSectionProps) => {
         <h3>{title?.en}</h3>
         <hr className="lg:w-1/12 w-1/3 my-2 text-yellow bg-yellow  rounded-full border-2" />
       </Container>
-      <div className="my-10 px-[80px] py-[28px] bg-[#F2FAFF] ">
-        <Container className={'grid grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-4'}>
+      <div className="my-10 py-[24px] bg-[#F2FAFF] ">
+        <Container className={'grid grid-cols-1 lg:grid-cols-3 gap-x-20 gap-y-4 py-2'}>
           {locations?.map((item: any, index: any) => {
             return (
-              <div key={index} className="flex justify-start gap-x-3">
-                <div className="relative h-full max-w-[40%] aspect-square">
+              <div key={index} className="flex justify-start gap-x-5 lg:w-[364px]">
+                <div className="relative h-full max-w-[40%] md:h-[140px] aspect-square">
                   <Image
                     style={{ borderRadius: '10px', objectFit: 'cover' }}
                     src={urlFor(item.image)}
@@ -33,14 +33,14 @@ const OfficeLocationSection = (props: OfficeLocationSectionProps) => {
                   />
                 </div>
 
-                <div>
-                  <h2 className="text-md font-medium opacity-50">{item?.title?.en}</h2>
-                  <h6 className="my-2 flex items-center gap-x-1 opacity-50">
+                <div className='flex flex-col gap-0'>
+                  <h2 className="text-lg font-medium opacity-50">{item?.title?.en}</h2>
+                  <h6 className="flex mt-3 items-start gap-x-2 opacity-50">
                     <svg
                       version="1.0"
                       id="Layer_1"
-                      width="12px"
-                      height="12px"
+                      width="20px"
+                      height="20px"
                       viewBox="0 0 64 64"
                       enableBackground="new 0 0 64 64"
                       className=" min-h-[12px] min-w-[12px]"
@@ -54,11 +54,11 @@ const OfficeLocationSection = (props: OfficeLocationSectionProps) => {
                     </svg>
                     <span className="text-sm ">{item?.address?.en}</span>
                   </h6>
-                  <h6 className="my-2 flex items-center  justify-start gap-x-1 opacity-50">
+                  <h6 className="mt-2 flex items-center  justify-start gap-x-2 opacity-50">
                     <svg
                       fill="#000000"
-                      width="12px"
-                      height="12px"
+                      width="20px"
+                      height="2-px"
                       viewBox="0 0 32 32"
                       className=" min-h-[12px] min-w-[12px]"
                     >
@@ -67,11 +67,11 @@ const OfficeLocationSection = (props: OfficeLocationSectionProps) => {
                     </svg>
                     <span className="text-sm ">{item?.phone?.en}</span>
                   </h6>
-                  <h6 className="my-2 flex items-center  justify-start gap-x-1 opacity-50">
+                  <h6 className="mt-2 flex items-center  justify-start gap-x-2 opacity-50">
                     <svg
                       fill="#000000"
-                      width="12px"
-                      height="12px"
+                      width="20px"
+                      height="2-px"
                       viewBox="0 0 1920 1920"
                       className=" min-h-[12px] min-w-[12px]"
                     >
