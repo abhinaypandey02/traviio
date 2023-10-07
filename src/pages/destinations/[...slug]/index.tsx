@@ -17,6 +17,7 @@ import { getSanitySlugFromSlugs } from '@/utils/utils'
 import Layout from '@/components/layout'
 import { DestinationSectionsMap } from '@/components/sections'
 import SEO from '@/components/Seo'
+import Breadcrumbs from '@/components/atoms/Breadcrumbs'
 
 type PageProps = {
   slug: string
@@ -25,6 +26,7 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
+  console.log(slug)
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -35,6 +37,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         }
         image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
       />
+      
       <Slicer globals={globals} components={DestinationSectionsMap} sections={data?.sections} />
     </LocaleProvider>
   )
