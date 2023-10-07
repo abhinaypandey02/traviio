@@ -7,8 +7,8 @@ interface paths {
 }
 
 
-const Breadcrumbs = (props: paths[]) => {
-  console.log(props)
+const Breadcrumbs = () => {
+  
   return (
     <div className=' px-20 tracking-tight flex items-center gap-x-[8px] mb-5 font-[500] text-[16px]' >
       <span className=''>

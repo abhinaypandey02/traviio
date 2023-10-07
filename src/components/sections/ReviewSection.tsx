@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import Pagination from 'rc-pagination'
 import { Circle, Line } from 'rc-progress'
-
+import Star from '../Star'
 import { SanityReviewsSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
@@ -72,9 +72,9 @@ const Filter = ({
   ratings: { count: number; stars: number }[]
 }) => {
   return (
-    <div className="rounded-xl shadow-xl w-full ">
-      <div className=" py-[12px] font-medium rounded-t-2xl px-[18px] bg-[#ecf4ff] ">Filter by Rating</div>
-      <div className="flex flex-col px-4 py-6 gap-y-7">
+    <div className="rounded-xl shadow-xl w-[300px] my-2 ">
+      <div className=" py-[16px] tracking-wide font-medium rounded-t-2xl px-[18px] bg-[#ecf4ff] ">Filter by Rating</div>
+      <div className="flex flex-col px-6 py-4 gap-y-8">
         {ratings.reverse().map((rating) => (
           <div className=" flex gap-x-2 justify-center items-center">
             <input
@@ -105,21 +105,21 @@ const Filter = ({
   )
 }
 
-const RatingCard = ({ title, review, country, name, date, star, varient }: any) => {
+const   RatingCard = ({ title, review, country, name, date, star, varient }: any) => {
   return (
-    <div className={'w-full rounded-2xl  border-gray  px-[20px] py-[24px] shadow-xl'}>
-      <div className="flex gap-x-2 text-xl my-3">
-        {Array.from(Array(star).keys()).map((x) => '⭐ ')}
+    <div className={'w-full rounded-2xl  border-gray   px-[20px] py-[30px] pb-7  shadow-xl'}>
+      <div className="flex  text-xl my-2">
+        {Array.from(Array(star).keys()).map((x) => <Star/>)}
       </div>
-      <h3 className="text-lg font-medium">{title.substring(0, 33)}...</h3>
-      <h5 className="text-base font-medium my-2 opacity-60">{review.substring(0, 190)}...</h5>
-      <div className="flex gap-x-3 my-4">
+      <h3 className="text-lg  font-medium">{title.substring(0, 33)}...</h3>
+      <h5 className="text-sm font-medium my-1 opacity-60">{review}...</h5>
+      <div className="flex gap-x-2 mt-5">
         <div>
-          <img src={country} className="rounded-full h-12 w-12" alt="" />
+          <img src={country} className="rounded-full h-9 w-9" alt="" />
         </div>
         <div className="ml-2 ">
-          <h6 className="font-semibold">{name}</h6>
-          <h6 className="text-sm opacity-60">{date}</h6>
+          <h6 className="font-semibold text-[14px]">{name}</h6>
+          <h6 className="text-xs opacity-60 ">{date}</h6>
         </div>
       </div>
     </div>
@@ -150,12 +150,12 @@ const ReviewSection = (props: ReviewSectionProps) => {
   const pageSize = 3
   return (
     <Container className=" py-10  bg-white text-black">
-      <h2 className="text-[#3FA9F5] text-[16px] font-[500] text-center">{tagline?.en}</h2>
-      <h4 className="text-[40px] mt-2 font-[700] text-center">{title?.en}</h4>
+      <h2 className="text-[#3FA9F5] text-[16px]   font-[500] text-center">{tagline?.en}</h2>
+      <h4 className="text-[40px] mt-2 font-[700] tracking-[0.5px] text-center">{title?.en}</h4>
       <hr className="lg:w-1/12 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
 
-      <div className="grid grid-cols-5 gap-x-10">
-        <div className="w-full ">
+      <div className="flex gap-x-5 mt-8">
+        <div className="w-[430px] ">
           <Filter
             addSelectedRating={(rating) => setSelectedRating((old) => [...old, rating])}
             removeSelectedRating={(rating) =>
@@ -165,7 +165,7 @@ const ReviewSection = (props: ReviewSectionProps) => {
             ratings={ratings}
           />
         </div>
-        <div className="gap-y-3 col-span-4">
+        <div className="gap-y-2 pl-2 col-span-4">
           {reviews
             ?.slice(pageNumber * pageSize, pageNumber * pageSize + pageSize)
             .map((item, index: any) => (
