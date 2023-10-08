@@ -1,6 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityFeaturedPlaceBlogsSection } from '@/sanity/types'
 
@@ -8,98 +10,39 @@ export type SanityFeaturedBlogs = {
   data: SanityFeaturedPlaceBlogsSection
 }
 
-const FeatureTopBlogSection = (props: SanityFeaturedBlogs) => {
+const FeatureTopBlogSection = (props: PropsWithLocale<SanityFeaturedBlogs>) => {
   const {
     data: { cards },
   } = props
   return (
     <div className="md:px-32 px-10 md:py-10 py-5">
-      <div className="grid grid-flow-row md:grid-cols-2 grid-cols-1 gap-x-8 gap-y-4">
-        <div>
-          {cards ? (
-            <div className="cursor-pointer relative">
-              <Image
-                src={cards[0].image ? urlFor(cards[0].image) : ''}
-                style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
-                width={700}
-                height={73}
-                alt=""
-              />
-              <div className="absolute inset-0 flex items-center justify-center text-center">
-                <p className="text-white md:text-3xl text-xl font-semibold">
-                  {cards ? cards[0]?.title?.en : null}
-                </p>
-              </div>
+      <div className="grid grid-cols-4 gap-7">
+        {cards?.map((card, i) => (
+          <Link
+            href={'/blogs' + card.slug?.current}
+            className={
+              'bg-red h-[224px] relative rounded-2xl overflow-hidden ' +
+              ((i + 1) % 3 === Math.floor(i / 3) ? 'col-span-2' : '')
+            }
+          >
+            <div
+              className={
+                'absolute bottom-2.5 font-bold text-white left-3 bg-blue rounded-2xl px-4 py-1.5'
+              }
+            >
+              {localizedString(card.name, props.locale)}
             </div>
-          ) : null}
-        </div>
-
-        <div className="grid grid-flow-row grid-cols-2 md:gap-x-8 gap-x-4 gap-y-4 ">
-          {cards ? (
-            <div className="cursor-pointer relative">
+            {card.meta_data?.meta_image && (
               <Image
-                src={cards[1].image ? urlFor(cards[1].image) : ''}
-                style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
-                width={700}
-                height={73}
-                alt=""
+                src={urlFor(card.meta_data?.meta_image)}
+                className={'w-full h-full object-cover'}
+                height={224}
+                width={300}
+                alt={localizedString(card.meta_data?.meta_title, props.locale)}
               />
-              <div className="absolute inset-0 flex items-center text-center justify-center">
-                <p className="text-white md:text-xl text-md font-semibold">
-                  {cards ? cards[0]?.title?.en : null}
-                </p>
-              </div>
-            </div>
-          ) : null}
-          {cards ? (
-            <div className="cursor-pointer relative">
-              <Image
-                src={cards[2].image ? urlFor(cards[2].image) : ''}
-                style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
-                width={700}
-                height={73}
-                alt=""
-              />
-              <div className="absolute inset-0 flex items-center text-center justify-center">
-                <p className="text-white md:text-xl text-md font-semibold">
-                  {cards ? cards[2]?.title?.en : null}
-                </p>
-              </div>
-            </div>
-          ) : null}
-          {cards ? (
-            <div className="cursor-pointer relative">
-              <Image
-                src={cards[3].image ? urlFor(cards[3].image) : ''}
-                style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
-                width={700}
-                height={73}
-                alt=""
-              />
-              <div className="absolute inset-0 flex items-center text-center justify-center">
-                <p className="text-white md:text-xl text-md font-semibold">
-                  {cards ? cards[2]?.title?.en : null}
-                </p>
-              </div>
-            </div>
-          ) : null}
-          {cards ? (
-            <div className="cursor-pointer relative">
-              <Image
-                src={cards[4]?.image ? urlFor(cards[4].image) : ''}
-                style={{ width: '100%', height: 'auto', borderRadius: '15px' }}
-                width={700}
-                height={73}
-                alt=""
-              />
-              <div className="absolute inset-0 flex items-center text-center justify-center">
-                <p className="text-white md:text-xl text-md font-semibold">
-                  {cards ? cards[2]?.title?.en : null}
-                </p>
-              </div>
-            </div>
-          ) : null}
-        </div>
+            )}
+          </Link>
+        ))}
       </div>
     </div>
   )

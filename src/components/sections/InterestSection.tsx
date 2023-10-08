@@ -1,13 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityInterestsSection } from '@/sanity/types'
 export type InterestSectionProps = {
   data: SanityInterestsSection
 }
 
-const InterestSection = (props: InterestSectionProps) => {
+const InterestSection = (props: PropsWithLocale<InterestSectionProps>) => {
   const {
     data: { title, tagline, interests },
   } = props
@@ -21,16 +23,22 @@ const InterestSection = (props: InterestSectionProps) => {
         {interests
           ? interests.map((item: any, index: any) => {
               return (
-                <div key={index} className="justify-center items-center  flex-col">
+                <Link
+                  href={'/blogs/' + item.slug?.current}
+                  key={index}
+                  className="justify-center items-center  flex-col"
+                >
                   <Image
                     style={{ margin: 'auto' }}
-                    src={urlFor(item?.image)}
+                    src={urlFor(item?.icon)}
                     width={80}
                     height={80}
                     alt=""
                   />
-                  <h3 className="text-center my-1 font-semibold text-blue">{item?.title?.en}</h3>
-                </div>
+                  <h3 className="text-center my-1 font-semibold text-blue">
+                    {localizedString(item?.name, props.locale)}
+                  </h3>
+                </Link>
               )
             })
           : null}

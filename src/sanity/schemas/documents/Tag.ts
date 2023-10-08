@@ -14,6 +14,24 @@ export default defineType({
       title: 'Name',
       type: 'locale_string',
     }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name.en',
+      },
+    }),
+    defineField({
+      name: 'icon',
+      title: 'Icon',
+      type: 'photo',
+    }),
+    defineField({
+      name: 'hero_image',
+      title: 'Hero Image',
+      type: 'photo',
+    }),
   ],
   preview: {
     select: {

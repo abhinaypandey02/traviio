@@ -7,6 +7,8 @@ import {
   SanityTourSectionNames,
 } from '@/sanity/types'
 
+import AllBlogsSection from '@/components/organisms/AllBlogsSection'
+
 import DestinationsSection from '../organisms/DestinationsSection'
 import TravelInformation from '../TravelInformation'
 
@@ -69,7 +71,7 @@ export const DestinationSectionsMap: {
   tour_selection_section: BestToursSection,
 }
 
-export const  BlogPageSectionsMap: {
+export const BlogPageSectionsMap: {
   [name in SanityBlogPageSectionNames]?: FunctionComponent<any>
 } = {
   image_header_section: ImageHeaderSection,
@@ -77,6 +79,7 @@ export const  BlogPageSectionsMap: {
   interests_section: InterestSection,
   featured_place_blogs_section: FeatureTopBlogSection,
   featured_blogs_section: BlogSection,
+  all_blogs_section: AllBlogsSection,
 }
 
 export const TourSectionsMap: {
@@ -94,5 +97,4 @@ export const TourSectionsMap: {
   featured_tours_section: DealsSection,
   faq_section: FAQSection,
   travel_info_section: TravelInformation,
-
 }

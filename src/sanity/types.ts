@@ -445,14 +445,7 @@ export type SanityFeaturedPlaceBlogsSection = {
   _type: 'featured_place_blogs_section'
   _id: string
   _key: string
-  cards?: {
-    _type: 'card'
-    _id: string
-    _key: string
-    title?: SanityLocaleString
-    link?: SanityLink
-    image?: SanityImage
-  }[]
+  cards?: SanityDestinationPage[]
 }
 
 export type SanityInterestsSection = {
@@ -776,10 +769,12 @@ export type SanityAllBlogsSection = {
   _key: string
   tagline?: SanityLocaleString
   title?: SanityLocaleString
+  blogs?: SanityArticle[]
 }
 
 export type SanityBlogPageSection =
   | SanityFeaturedBlogsSection
+  | SanityAllBlogsSection
   | SanityFeaturedPlaceBlogsSection
   | SanityInterestsSection
   | SanityImageHeaderSection

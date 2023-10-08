@@ -29,28 +29,8 @@ export default defineType({
       type: 'array',
       of: [
         defineArrayMember({
-          name: 'interest',
-          title: 'Interest',
-          description: 'An interest',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              title: 'Title',
-              type: 'locale_string',
-            }),
-            defineField({
-              name: 'image',
-              title: 'Image',
-              type: 'image',
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'title',
-              media: 'image',
-            },
-          },
+          type: 'reference',
+          to: [{ type: 'tag' }],
         }),
       ],
     }),
