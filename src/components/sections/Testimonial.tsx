@@ -44,11 +44,11 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
             className={'mt-[38px]'}
           />
         </div>
-        <div className=" hidden lg:block">
+        <div className="overflow-hidden hidden lg:block">
           <Swiper scrollCount={2} className={'gap-12'} length={testimonials?.length}>
             {testimonials?.map((item, index: any) => {
               return (
-                <div key={index} className={'w-[284px]'}>
+                <div key={index} className={'w-[284px] shrink-0'}>
                   <div className="flex gap-x-0.5 mb-1.5">
                     <Star />
                     <Star />

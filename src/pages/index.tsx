@@ -1,12 +1,13 @@
 import type { GetStaticProps } from 'next'
 
-import { LocaleProvider } from '@/contexts/LocaleProvider'
-import client from '@/sanity/client'
+import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
+import client, { urlFor } from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityPage } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 
 import { SectionMap } from '@/components/sections'
+import SEO from '@/components/Seo'
 
 type PageProps = {
   data: SanityPage
@@ -16,6 +17,15 @@ type PageProps = {
 export default function Page({ data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
+      <SEO
+        title={data?.meta_data?.meta_title && localizedString(data.meta_data?.meta_title, locale)}
+        description={
+          data?.meta_data?.meta_description &&
+          localizedString(data?.meta_data?.meta_description, locale)
+        }
+        image={data?.meta_data?.meta_image && urlFor(data?.meta_data?.meta_image)}
+      />
+
       <Slicer
         breadcrumbs={[]}
         promo_banner={data.promo_banner}
