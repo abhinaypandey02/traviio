@@ -92,11 +92,13 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         <hr className="lg:w-1/12 w-1/3 mt-[9px] text-yellow m-auto  bg-yellow   border-t-2 border-b" />
       </div>
 
-      <PortableText
-        content={content[props.locale]}
-        className="flex flex-col gap-6 leading-[1.75] tracking-[0.64px]"
-        serializers={PortableTextSerializer}
-      />
+      {content[props.locale] && (
+        <PortableText
+          content={content[props.locale]}
+          className="flex flex-col gap-6 leading-[1.75] tracking-[0.64px]"
+          serializers={PortableTextSerializer}
+        />
+      )}
     </Container>
   )
 }

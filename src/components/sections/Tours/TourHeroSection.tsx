@@ -4,24 +4,27 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import ReactStars from 'react-stars'
 
+import { localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
-import { SanityTourPage } from '@/sanity/types'
+import { SanityLocale, SanityTourPage } from '@/sanity/types'
 
 import Button from '@/components/buttons/Button'
+
 import Breadcrumbs from '@/components/atoms/Breadcrumbs'
 
 export default function TourHeroSection({
   hero_section,
   overview_card,
   slug,
+  locale,
 }: {
   slug: string
   hero_section: SanityTourPage['hero_section']
+  locale: SanityLocale
   overview_card: SanityTourPage['overview_card']
 }) {
   return (
     <div className="">
-      <Breadcrumbs/>
       <div className=" relative">
         <Image
           src={hero_section?.image ? urlFor(hero_section?.image) : ''}
@@ -30,11 +33,8 @@ export default function TourHeroSection({
           height={73}
           alt=""
         />
-        {/* <img className='w-full  max-h-[500px]' src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000" alt="" /> */}
         <h2 className="text-3xl lg:text-[52px]  text-yellow absolute bottom-[70px]  font-black text-center inset-x-0 ">
-          {/* {hero_section?.title?.en} */}
-          <span className="text-yellow">Egypt Tour:</span>{' '}
-          <span className="text-white">Explore Ancient Wonders </span>
+          <span className="text-white">{localizedString(hero_section?.title, locale)}</span>
         </h2>
       </div>
       <OverViewCard slug={slug} data={overview_card} />

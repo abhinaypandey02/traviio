@@ -19,6 +19,7 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
+  console.log(data.hero_section?.title)
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -29,9 +30,28 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         }
         image={data.meta_data?.meta_image && urlFor(data.meta_data?.meta_image)}
       />
-      <Layout locale={locale} breadcrumbs={[]} promo_banner={data.promo_banner} globals={globals}>
+      <Layout
+        locale={locale}
+        breadcrumbs={[
+          {
+            label: 'Destinations',
+            value: '/',
+          },
+          {
+            label: localizedString((data.destination as any)?.name, locale),
+            value: '/destinations/' + (data.destination as any)?.slug?.current,
+          },
+          {
+            label: localizedString(data.hero_section?.title, locale),
+            value: '/tours/' + data.slug?.current,
+          },
+        ]}
+        promo_banner={data.promo_banner}
+        globals={globals}
+      >
         <TourHeroSection
           slug={slug}
+          locale={locale}
           hero_section={data?.hero_section}
           overview_card={data.overview_card}
         />
@@ -42,6 +62,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
               {Component &&
                 React.createElement(Component, {
                   data: section,
+                  locale,
                 })}
             </React.Fragment>
           )
