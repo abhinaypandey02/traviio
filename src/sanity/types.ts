@@ -160,6 +160,9 @@ export type SanityContentText = {
   _id: string
   _key: string
   text?: SanityString
+  styles?: {
+    color?: SanityString
+  }
 }
 
 export type SanityContentImage = {
