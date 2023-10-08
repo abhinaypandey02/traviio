@@ -304,10 +304,10 @@ export type SanityHeroSection = {
 
 export type SanityImageHeaderSection = {
   _type: 'image_header_section'
-  _id: string
-  _key: string
+  _id?: string
+  _key?: string
   header?: SanityLocaleString
-  image?: SanityImage
+  image?: SanityImage | SanityPhoto
   content?: SanityLocaleText
 }
 
@@ -684,6 +684,8 @@ export type SanityTag = {
   _id: string
   _key: string
   name?: SanityLocaleString
+  icon?: SanityPhoto
+  hero_image?: SanityPhoto
 }
 
 export type SanityDestinationSection =

@@ -1,65 +1,85 @@
+import Image from 'next/image'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
-import { LocaleProvider } from '@/contexts/LocaleProvider'
-import client from '@/sanity/client'
+import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
+import client, { urlFor } from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
-import { SanityBlogPage, SanityGlobals, SanityLocale, SanitySlug } from '@/sanity/types'
+import {
+  SanityArticle,
+  SanityBlogPage,
+  SanityDestinationPage,
+  SanityGlobals,
+  SanityImageHeaderSection,
+  SanityLocale,
+  SanitySlug,
+  SanityTag,
+} from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs, getSlugsFromPath, sanitizeSlug } from '@/utils/utils'
 
+import Container from '@/components/Container'
+import Layout from '@/components/layout'
 import { BlogPageSectionsMap } from '@/components/sections'
+import ImageHeaderSection from '@/components/sections/ImageHeaderSection'
+import SEO from '@/components/Seo'
 type BlogPageProps = {
   slug: string
-  data: SanityBlogPage
-  tags: string[]
-  destinations: string[]
+  articles: SanityArticle[]
+  content: SanityTag | SanityDestinationPage
   globals: SanityGlobals
 } & LocalePage
 
-export default function BlogPage({
-  slug,
-  data,
-  locale,
-  globals,
-  destinations,
-  tags,
-}: BlogPageProps) {
+export default function BlogPage({ slug, articles, locale, globals, content }: BlogPageProps) {
+  const imageHeaderData =
+    content._type === 'tag'
+      ? {
+          header: content.name,
+          image: content.hero_image,
+          _type: 'image_header_section' as const,
+        }
+      : (content.sections?.find(
+          (s) => s._type === 'image_header_section'
+        ) as SanityImageHeaderSection)
+  // console.log(articles)
   return (
     <LocaleProvider locale={locale}>
-      <Slicer
-        breadcrumbs={[]}
-        globals={globals}
-        components={BlogPageSectionsMap}
-        sections={data?.sections}
-      />
+      <SEO title={`${localizedString(content.name, locale)} - Blogs`} />
+      <Layout globals={globals} breadcrumbs={[]} locale={locale}>
+        {imageHeaderData && <ImageHeaderSection data={imageHeaderData} />}
+        <Container className={'grid grid-cols-3'}>
+          {articles?.map((article) => (
+            <div>
+              {article.cover_image && (
+                <Image
+                  width={200}
+                  height={200}
+                  src={urlFor(article.cover_image)}
+                  alt={localizedString(article.title, locale)}
+                />
+              )}
+              {localizedString(article.title, locale)}
+            </div>
+          ))}
+        </Container>
+      </Layout>
     </LocaleProvider>
   )
 }
 
 export async function fetchTags() {
-  const tags = (await client.fetch(
-    `*[_type == "blog_page" && defined(article)]{
-      "tags": article->{
-        "tags": tags[]->{
-          "name": name.en
-        }.name
-      }.tags[]
-    }.tags[]`
+  return (await client.fetch(
+    `*[_type == "tag"]{
+      "slug": slug.current
+    }.slug`
   )) as string[]
-  return tags
 }
 
 export async function fetchDestinationNames() {
-  const destinations = (await client.fetch(
-    `*[_type == "blog_page" && defined(article)]{
-      "destination": article->{
-        "destination": destination->{
-          "name": name.en
-        }.name
-      }.destination
-    }.destination`
+  return (await client.fetch(
+    `*[_type == "destination_page"]{
+      "slug": slug.current
+    }.slug`
   )) as string[]
-  return destinations
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
@@ -80,34 +100,28 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   }
 }
 
-async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
-  const page = (await client.fetch(
-    `*[_type == "blog_page" && (article->destination->name.en == "${slug}" || "${sanitizeSlug(
-      slug
-    )}" in article->tags[]->.name.en)][0]{
+async function fetchBlogPageData(slug: string): Promise<SanityArticle[]> {
+  return (await client.fetch(
+    `*[_type == "article" && (destination->slug.current == "${slug}" || "${slug}" in tags[]->.slug.current)]{
       ...,
-      article->{
-        ...,
-        tags[]->,
-        destination->
-        }
+      destination->,
+      tags[]->
       }`
-  )) as SanityBlogPage
-  return page
+  )) as SanityArticle[]
 }
 
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, locale }) => {
   const slug = getSanitySlugFromSlugs(params?.slug)
   const blogPageData = await fetchBlogPageData(slug)
-  const destinations = await fetchDestinationNames()
-  const tags = await fetchTags()
+  const content = await client.fetch(
+    `*[(_type=="tag"||_type=="destination_page") && slug.current=="${slug}"][0]`
+  )
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {
       slug: slug,
-      data: blogPageData,
-      destinations,
-      tags,
+      articles: blogPageData,
+      content,
       locale: (locale ?? 'en') as SanityLocale,
       globals,
     },
