@@ -8,6 +8,7 @@ import { urlFor } from '@/sanity/client'
 import { SanityTourPage } from '@/sanity/types'
 
 import Button from '@/components/buttons/Button'
+import Breadcrumbs from '@/components/atoms/Breadcrumbs'
 
 export default function TourHeroSection({
   hero_section,
@@ -20,16 +21,17 @@ export default function TourHeroSection({
 }) {
   return (
     <div className="">
+      <Breadcrumbs/>
       <div className=" relative">
         <Image
           src={hero_section?.image ? urlFor(hero_section?.image) : ''}
-          style={{ width: '100%', height: '400px' }}
+          style={{ width: '100%', height: '480px' }}
           width={700}
           height={73}
           alt=""
         />
         {/* <img className='w-full  max-h-[500px]' src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000" alt="" /> */}
-        <h2 className="text-3xl lg:text-6xl  text-yellow absolute bottom-20  font-black text-center inset-x-0 ">
+        <h2 className="text-3xl lg:text-[52px]  text-yellow absolute bottom-[70px]  font-black text-center inset-x-0 ">
           {/* {hero_section?.title?.en} */}
           <span className="text-yellow">Egypt Tour:</span>{' '}
           <span className="text-white">Explore Ancient Wonders </span>
@@ -46,7 +48,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
   return (
     <div className="relative h-[80px]">
       <div className="absolute flex max-w-[1280px] inset-x-0 divide-x-2 divide-darkblue/10 top-[-34px] w-[90%] mx-auto bg-primary rounded-t-2xl py-7">
-        <div className="flex gap-2 justify-center px-7 flex-1 w-full">
+        <div className="flex gap-2 justify-center px-7  w-fit">
           <div className="relative h-12 w-12">
             <Image alt="" src={'/ColoredCalender.svg'} fill className="object-contain" />
           </div>
@@ -56,7 +58,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
           </div>
         </div>
 
-        <div className="flex gap-2 justify-center px-7 flex-1 w-full">
+        <div className="flex gap-2 justify-center px-7  w-full">
           <div className="relative h-12 w-12">
             <Image alt="" src={'/ColoredLocation.svg'} fill className="object-contain" />
           </div>
@@ -68,7 +70,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
           </div>
         </div>
 
-        <div className="flex gap-2 justify-center px-7 flex-1 w-full">
+        <div className="flex gap-2 justify-center px-7  w-full">
           {/* <div className="relative h-12 w-12">
             <Image alt="" src={'/calendar.svg'} fill className="object-contain" />
           </div> */}
@@ -90,7 +92,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
           </div>
         </div>
 
-        <div className="flex gap-2 justify-center px-7 flex-1 w-full">
+        <div className="flex gap-2 justify-center px-7  w-full">
           <div className="relative h-12 w-12">
             <Image alt="" src={'/add-user 1.svg'} fill className="object-contain" />
           </div>
@@ -100,7 +102,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
           </div>
         </div>
 
-        <div className="flex gap-2 justify-center px-7 flex-1 w-full">
+        <div className="flex gap-2 justify-center px-7  w-full">
           <div className="relative h-12 w-12">
             <Image alt="" src={'/credit-card (2) 1.svg'} fill className="object-contain" />
           </div>
@@ -110,12 +112,12 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
           </div>
         </div>
 
-        <div className="flex flex-col w-full justify-between items-center flex-1 px-7">
+        <div className="flex flex-col w-full justify-between items-center  px-7">
           <Link href={`/tours/${slug}/payment`}>
             <Button
               text={data?.cta_button?.label?.en}
               varient={data?.cta_button?.type}
-              className="p-3"
+              className="text-center text-lg font-semibold w-[170px] py-3 translate-y-[-10px]"
             />
           </Link>
           <p className="text-xs font-medium text-red">{data?.cta_helper_text?.en}</p>

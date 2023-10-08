@@ -8,25 +8,25 @@ export type FeatureSectionProps = {
     data: SanityFeatureSection
 }
 const TourFeature = ({ data }: FeatureSectionProps) => {
-    console.log(data)
+    
     return (
 
-        <Container className='my-20'>
+        <Container className='my-20 mb-[69px]'>
             {data.title?.en && (
                 <div className='mb-10'>
-                    <h2 className="text-[20px] md:text-[30px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
+                    <h2 className="text-[20px] md:text-[24px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
                         {data.title?.en}
                     </h2>
-                    <hr className="w-[85px] md:w-[117px] my-2  bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" />
+                    <hr className="w-[85px] md:w-[160px] my-2  bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" />
                 </div>
             )}
-            <section className={ data?.type == 'small' ?'bg-[#F2FAFF] text-center lg:w-3/4 w-full py-8':'bg-[#f4f4f4] text-center lg:w-3/4 w-full py-8'} >
+            <section className={ data?.type == 'small' ?'bg-[#fbf7f7] text-center lg:w-3/4 w-full py-8':'bg-[#fbf7f7] text-center lg:w-3/4 w-full py-8'} >
                 {data?.type == 'small' ? (
                     <div className="grid md:grid-cols-2 gap-7 lg:grid-cols-4 w-fit mx-auto">
                         {data?.features?.map((feature, index) => <Feature key={index} data={feature} />)}
                     </div>
                 ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-3  md:gap-6 w-full px-[80px] py-[10px] relative">
+                    <div className="grid grid-cols-2 md:grid-cols-3  md:gap-10 md:gap-x-16 gap-x-4 w-full px-[60px] py-[4px] relative">
                         {data?.features?.map((feature, index) => <LargeFeature key={index} data={feature} />)}
                     </div>
                 )}
@@ -57,7 +57,7 @@ const LargeFeature = ({ data }: FeatureProps) => {
             {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={28} height={28} alt="" />}
 
            <div>
-            <p className="font-[500] text-[15px]  mb-2">{data.title?.en}</p>
+            <p className="font-[500] text-[20px]  mb-2">{data.title?.en}</p>
             <p className="mx-20 opacity-60"> {data.description?.en}</p>
            </div>
         </div>
