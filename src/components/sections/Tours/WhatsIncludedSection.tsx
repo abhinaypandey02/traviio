@@ -12,14 +12,14 @@ export default function WhatsIncludedSection({ data }: { data: SanityWhatsInclud
         <h2 className="text-black font-bold text-2xl text-c">{data?.title?.en}</h2>
         <hr className=" w-28 my-2 text-yellow bg-yellow  rounded-full border-2" />
       </div>
-      <div className="divide-y-2 divide-darkblue/10 lg:w-3/4  w-full">
+      <div className="divide-y-2 divide-darkblue/10 my-3 lg:w-3/4  w-full">
         {data?.inclusion_list?.map((item, index) => {
           return (
             <div
               key={index}
-              className="grid grid-cols-2 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_3fr] xl:grid-cols-[1fr_4fr] py-7 gap-1"
+              className="grid grid-cols-2 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_3fr] xl:grid-cols-[1fr_4fr] py-8 pb-7 gap-7"
             >
-              <div className="flex items-center gap-2 self-start">
+              <div className="flex items-center gap-2  self-start">
                 <div className="w-7 h-7 relative">
                   <Image
                     src={item.icon ? urlFor(item.icon) : ''}
