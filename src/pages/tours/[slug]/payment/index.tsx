@@ -133,7 +133,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
     })
   }
   return (
-    <Layout globals={globals}>
+    <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       <FeatureSection data={features} />
       <Tabs onSubmit={onSubmit} tour={data}>
         <Page1 tourData={tourData} setTourData={setTourData} payment={data.payment} />

@@ -6,6 +6,7 @@ import { urlFor } from '@/sanity/client'
 import { SanityImageHeaderSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
+
 import Breadcrumbs from '../atoms/Breadcrumbs'
 
 export type ImageHeaderSectionProps = {
@@ -17,7 +18,6 @@ const ImageHeaderSection = (props: ImageHeaderSectionProps) => {
   } = props
   return (
     <div>
-      <Breadcrumbs  />
       <div>
         <Image
           src={image ? urlFor(image) : ''}

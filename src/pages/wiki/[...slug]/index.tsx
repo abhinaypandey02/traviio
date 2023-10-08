@@ -129,7 +129,7 @@ export default function WikiPage({ slug, data, locale, globals }: WikiPageProps)
         description={data?.tagline && localizedString(data?.tagline, locale)}
         image={data?.image_hero?.image && urlFor(data?.image_hero.image)}
       />
-      <Layout globals={globals}>
+      <Layout locale={locale} breadcrumbs={[]} globals={globals}>
         <ImageHeader image={data?.image_hero?.image} Title={data?.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data?.tagline?.en} />
         <InfoSection data={data.sections} />

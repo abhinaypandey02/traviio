@@ -32,14 +32,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           alt={'hero'}
         />
       )}
-      <section className="w-full z-10 py-2 text-white bg-darkblue text-sm font-medium leading-6">
-        <Container>
-          <div className={'w-full text-center'}>
-            More summer for less. Save up to 20% off selected trips*.{' '}
-            <span className="underline cursor-pointer underline-offset-[3px]">Book now</span>
-          </div>
-        </Container>
-      </section>
+
       <section className="text-white md:py-5 py-3 z-10">
         <Container className="flex items-center md:items-start justify-center md:justify-between flex-col">
           <div className="w-[335px] md:w-[572px]">

@@ -16,7 +16,13 @@ type PageProps = {
 export default function Page({ data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer globals={globals} components={SectionMap} sections={data?.sections} />
+      <Slicer
+        breadcrumbs={[]}
+        promo_banner={data.promo_banner}
+        globals={globals}
+        components={SectionMap}
+        sections={data?.sections}
+      />
     </LocaleProvider>
   )
 }

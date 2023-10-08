@@ -26,7 +26,12 @@ export default function BlogPage({
 }: BlogPageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer globals={globals} components={BlogPageSectionsMap} sections={data?.sections} />
+      <Slicer
+        breadcrumbs={[]}
+        globals={globals}
+        components={BlogPageSectionsMap}
+        sections={data?.sections}
+      />
     </LocaleProvider>
   )
 }

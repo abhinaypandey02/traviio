@@ -32,7 +32,6 @@ export const POST = async (req: Request) => {
     },
   })
   if (newBooking.data?.addBooking) {
-    console.log(newBooking.data)
     const checkout = await stripe.checkout.sessions.create({
       customer_email: booking.adults[0]?.email,
       line_items: [

@@ -27,7 +27,23 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         }
         image={data?.meta_data?.meta_image && urlFor(data?.meta_data?.meta_image)}
       />
-      <Slicer globals={globals} components={SectionMap} sections={data?.sections} />
+
+      <Slicer
+        promo_banner={data.promo_banner}
+        breadcrumbs={
+          data.slug?.current && data.slug.current !== '/'
+            ? [
+                {
+                  label: localizedString(data.meta_data?.meta_title, locale),
+                  value: data.slug?.current,
+                },
+              ]
+            : []
+        }
+        globals={globals}
+        components={SectionMap}
+        sections={data?.sections}
+      />
     </LocaleProvider>
   )
 }

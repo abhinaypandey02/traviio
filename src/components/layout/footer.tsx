@@ -51,7 +51,6 @@ const CARDS = [
 const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
   const ADDRESSES = (footer?.locations as SanityGlobals['footer'])?.locations || []
   const LINKS = footer?.link_groups || []
-  console.log(ADDRESSES)
   return (
     <div className="w-screen bg-primary">
       <Container>

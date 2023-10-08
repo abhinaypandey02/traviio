@@ -57,7 +57,7 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
         <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-7 mt-12">
           {validDestinations.map((destination, idx) => (
             <DestinationCard
-              key={destination._key}
+              key={destination._key + idx}
               data={destination}
               tourCount={tourCounts?.[idx]}
             />

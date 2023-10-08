@@ -109,7 +109,7 @@ export default function GuidePage({ data, locale, globals }: GuidePageProps) {
         description={data?.tagline && localizedString(data?.tagline, locale)}
         image={data?.image_hero?.image && urlFor(data?.image_hero.image)}
       />
-      <Layout globals={globals}>
+      <Layout locale={locale} breadcrumbs={[]} globals={globals}>
         {/* {data.sections?.map((section, idx) => (
         <div key={idx}>
                

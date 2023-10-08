@@ -2,12 +2,11 @@ import React from 'react'
 
 import Container from '@/components/Container'
 import Layout from '@/components/layout'
-
 import BlogChoose from '@/components/molecule/BlogChoose'
 
 const demo = () => {
   return (
-    <Layout>
+    <Layout locale={'en'} breadcrumbs={[]}>
       <Container className="">
         <BlogChoose
           items={[

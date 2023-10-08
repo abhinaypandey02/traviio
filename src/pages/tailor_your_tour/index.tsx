@@ -36,7 +36,7 @@ export default function TailorYourTour({
   const [formData, setFormData] = useState<TailorTripFormData>()
   const [selectedDestination, setSelectedDestination] = useState<string>('')
   return (
-    <Layout globals={globals}>
+    <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       <Container>
         {/* {!selectedDestination && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
