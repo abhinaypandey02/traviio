@@ -49,11 +49,11 @@ const CARDS = [
 ]
 
 const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
-  const ADDRESSES = footer?.locations?.locations || []
+  const ADDRESSES = (footer?.locations as SanityGlobals['footer'])?.locations || []
   const LINKS = footer?.link_groups || []
-  console.log(ADDRESSES);
+  console.log(ADDRESSES)
   return (
-    <div className='w-screen bg-primary'>
+    <div className="w-screen bg-primary">
       <Container>
         <div className="mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
           {/* Left side */}
@@ -71,9 +71,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                 </Link>
               </p>
             </div>
-            <p className="leading-relaxed mt-3">
-              {localizedString(footer?.description)}
-            </p>
+            <p className="leading-relaxed mt-3">{localizedString(footer?.description)}</p>
             <div className="flex flex-wrap gap-6 mt-5">
               {SOCIAL_LINKS.map((item, index) => {
                 return (
@@ -105,7 +103,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                 return (
                   <Footer__links
                     heading={localizedString(item.title)}
-                    items={(item.links || [])}
+                    items={item.links || []}
                     key={index}
                   />
                 )

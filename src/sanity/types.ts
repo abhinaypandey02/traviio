@@ -510,7 +510,7 @@ export type SanityAtGlanceSection = {
       url?: string
       icon?: SanityImage
     }[]
-  }[]
+  }
 }
 
 export type SanityTopThingsSection = {
