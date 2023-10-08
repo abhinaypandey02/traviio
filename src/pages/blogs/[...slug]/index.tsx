@@ -22,6 +22,7 @@ import Layout from '@/components/layout'
 import { BlogPageSectionsMap } from '@/components/sections'
 import ImageHeaderSection from '@/components/sections/ImageHeaderSection'
 import SEO from '@/components/Seo'
+import BlogDetailCard from '@/components/molecule/BlogDetailCard'
 type BlogPageProps = {
   slug: string
   articles: SanityArticle[]
@@ -46,20 +47,21 @@ export default function BlogPage({ slug, articles, locale, globals, content }: B
       <SEO title={`${localizedString(content.name, locale)} - Blogs`} />
       <Layout globals={globals} breadcrumbs={[]} locale={locale}>
         {imageHeaderData && <ImageHeaderSection data={imageHeaderData} />}
-        <Container className={'grid grid-cols-3'}>
-          {articles?.map((article) => (
-            <div>
-              {article.cover_image && (
-                <Image
-                  width={200}
-                  height={200}
-                  src={urlFor(article.cover_image)}
-                  alt={localizedString(article.title, locale)}
-                />
-              )}
-              {localizedString(article.title, locale)}
-            </div>
-          ))}
+        <Container className={'grid grid-cols-3 my-5'}>
+        {articles?.map((article, index) => {
+          return (
+            <BlogDetailCard
+              country={localizedString(article.destination?.name)}
+              excerpt={localizedString(article.introduction)}
+              image={article.cover_image ? urlFor(article.cover_image) : ''}
+              link={`/blogs/${article.slug?.current}`}
+              title={localizedString(article.title)}
+              date={localizedString(article.time)}
+              author={localizedString(article.author)}
+              key={index}
+            />
+          )
+        })}
         </Container>
       </Layout>
     </LocaleProvider>

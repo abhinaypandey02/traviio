@@ -52,7 +52,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
   const ADDRESSES = (footer?.locations as SanityGlobals['footer'])?.locations || []
   const LINKS = footer?.link_groups || []
   return (
-    <div className="w-screen bg-primary">
+    <div className="w-full bg-primary">
       <Container>
         <div className="mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
           {/* Left side */}

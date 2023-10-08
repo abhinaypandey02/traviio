@@ -32,9 +32,8 @@ function BlogDetailCard(props: {
         <div className="p-5 flex flex-col gap-2 h-fit">
           <p className="uppercase text-blue text-lg font-semibold">{country}</p>
           <h3 className="font-semibold text-xl capitalize">{title}</h3>
-          <div className="text-md text-gray font-medium gap-1">
-            {excerpt.substring(0, 100)}
-            {excerpt.length > 100 && '... '}
+          <div className='flex flex-col'>
+            <span className="text-md text-gray font-medium gap-1 line-clamp-2">{excerpt}</span>
             <span className="underline text-blue">Read More</span>
           </div>
           <p className="text-gray">
