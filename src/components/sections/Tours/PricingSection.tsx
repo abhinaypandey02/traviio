@@ -73,7 +73,7 @@ const PriceCard = ({ data }: { data: any }) => {
             02 Jun 2023
           </div>
           <div className="flex items-center">
-            <ArrowRight width={40} weight="bold" className={`${isOpen ? 'text-yellow' : ''}`} />
+            <ArrowRight width={40} weight="bold" className={`${isOpen ? 'text-yellow' : 'text-blue'}`} />
           </div>
           <div className={`text-base font-bold ${isOpen ? 'text-white' : 'text-black'}`}>
             11 Jun 2023

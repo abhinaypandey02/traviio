@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import Button from '../buttons/ButtonTwo'
+import { ArrowRight, CaretDown } from '@phosphor-icons/react'
 
 interface SinglePrice {
   from: string
@@ -54,21 +55,32 @@ function PriceList({ props }: { props: PriceListProps }) {
   }, [])
 
   return (
-    <div className={`rounded-md bg-darkblue bg-opacity-5 w-[90%] mx-auto p-5`}>
+    <div className={`rounded-md transition-all bg-darkblue bg-opacity-5 w-[970px] py-3 px-7`}>
       <div className="flex justify-between">
-        <div className="gap-2 flex flex-col my-2">
-          <h1>
+        <div className="gap-3 flex flex-col my-2">
+          <h1 className="tracking-wide">
             These dates don't work for you? Tailor your trip{' '}
             <Link href={props.tailorLink} className="text-blue">
               here
             </Link>
           </h1>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Image src="/lock_icon.svg" height={24} width={24} alt="lock" />
             <p className="text-md font-semibold text-blue">Secure Payments</p>
           </div>
         </div>
-        <div>{/* Need to add the selector here */}</div>
+        <div className="my-3">
+          <div className="h-12 w-[280px] grid grid-cols-[1fr_36px] bg-white divide-x-2 divide-darkblue p-3 border border-darkblue rounded-md">
+            <div className="flex gap-3 items-center">
+              <Image src="/calendar.svg" alt="" height={24} width={24} />
+              <p className="text-darkblue font-normal text-base">June 2023</p>
+            </div>
+            <div className="flex justify-end items-start">
+              <CaretDown height={24} width={24} />
+            </div>
+          </div>
+          {/* <input type="date" /> */}
+        </div>
       </div>
       <div className="flex flex-col gap-3">
         <div
@@ -88,8 +100,8 @@ function PriceList({ props }: { props: PriceListProps }) {
         </div>
         {props.prices.map((price, index) => (
           <div
-            className={`rounded-lg shadow ${
-              selected !== index ? 'bg-darkblue bg-opacity-5' : 'bg-blue text-white'
+            className={`rounded-lg shadow transition-all ${
+              selected !== index ? 'bg-white py-1' : 'bg-blue text-white'
             }`}
             key={index}
           >
@@ -101,49 +113,53 @@ function PriceList({ props }: { props: PriceListProps }) {
                 selected === index ? setSelected(-1) : setSelected(index)
               }}
             >
-              <h1 className={`col-span-2 ${collapsed ? 'text-sm ml-2' : 'ml-5'}`}>{price.from}</h1>
+              <h1 className={`col-span-2 text-base ${collapsed ? 'text-sm ml-2' : 'ml-5'}`}>
+                {price.from}
+              </h1>
               <Image
-                src="/arrow_icon.svg"
+                src={selected === index ? 'arrow_icon.svg' : 'arrow_blue.svg'}
                 height={9}
                 width={40}
                 alt=""
                 className="my-auto mx-auto"
               />
-              <h1 className={`col-span-2 ${collapsed && 'text-sm'}`}>{price.to}</h1>
+              <h1 className={`col-span-2 text-base ${collapsed && 'text-sm'}`}>{price.to}</h1>
               {!collapsed && (
                 <>
                   <p
-                    className={`col-span-3 ${MAPPINGS[price.availability].availablecolor} ${
-                      selected === index ? 'opacity-0' : ''
-                    }`}
+                    className={`col-span-3 text-center text-base ${
+                      MAPPINGS[price.availability].availablecolor
+                    } ${selected === index ? 'text-white' : ''}`}
                   >
                     {MAPPINGS[price.availability].availability}
                   </p>
-                  <h1
-                    className={`col-span-3 text-center ${MAPPINGS[price.availability].color} ${
-                      selected === index ? 'opacity-0' : ''
-                    }`}
+                  <div></div>
+                  <div
+                    className={`col-span-2 text-base text-center flex items-center gap-2 ${
+                      MAPPINGS[price.availability].color
+                    } ${selected === index ? 'opacity-0' : ''}`}
                   >
-                    $ {price.currentPrice}
-                  </h1>
+                    <p>$ {price.currentPrice}</p>
+                    <p className="line-through text-xs">$ {price.actualPrice}</p>
+                  </div>
                 </>
               )}
-              <Image
-                src="/down_icon.svg"
+              <CaretDown
                 height={20}
                 width={20}
-                alt=""
-                className={`ml-auto mr-5 transition-all ${selected === index && '-rotate-180'}`}
+                className={`ml-auto mr-5 my-auto transition-all ${
+                  selected === index && '-rotate-180'
+                }`}
               />
             </div>
             {selected === index && (
-              <div className="bg-white text-darkblue p-10 rounded-b-lg col-span-full flex justify-between">
+              <div className="bg-white text-darkblue p-8 rounded-b-lg col-span-full flex justify-between">
                 <div className="flex gap-2 flex-col">
                   <div className="flex gap-3 items-center">
                     <h1
                       className={`${
                         MAPPINGS[price.availability].color
-                      } font-semibold whitespace-nowrap ${collapsed ? 'text-xl' : 'text-4xl'}`}
+                      } font-bold whitespace-nowrap ${collapsed ? 'text-xl' : 'text-4xl'}`}
                     >
                       $ {price.currentPrice}
                     </h1>
@@ -162,12 +178,12 @@ function PriceList({ props }: { props: PriceListProps }) {
                       </Link>
                     )}
                   </div>
-                  <p className="text-gray">Per person in a {price.roomType}</p>
-                  <p>
+                  <p className="text-gray mt-3 text-sm">Per person in a {price.roomType}</p>
+                  <p className="text-sm">
                     Looking for a Different Room Type?
                     <span className="text-blue"> Find the pricing in the next steps.</span>
                   </p>
-                  <p>
+                  <p className="text-sm">
                     <span className="text-blue">Customize your trip</span> with optional tours
                     during booking!
                   </p>

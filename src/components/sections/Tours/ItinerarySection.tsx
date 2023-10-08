@@ -16,11 +16,11 @@ import Container from '@/components/Container'
 export default function ItinerarySection({ data }: { data?: SanityItinerarySection }) {
   // console.log('ItinerarySection-> ', data)
   return (
-    <Container className=" flex flex-col py-20 gap-12">
-      <div className="flex gap-3 flex-col justify-center w-fit mx-auto items-center">
-        <h2 className="text-blue text-base font-medium">{data?.tagline?.en}</h2>
+    <Container className=" flex flex-col py-20 gap-10">
+      <div className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
+        <h2 className="text-blue text-base font-medium capitalize">{data?.tagline?.en}</h2>
         <div>
-          <h3 className="text-black font-bold text-4xl">{data?.title?.en}</h3>
+          <h3 className="text-black font-bold text-[40px] tracking-tight">{data?.title?.en}</h3>
           <hr className="lg:w-1/3 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
         </div>
       </div>
@@ -49,7 +49,7 @@ const TravelSchedule = ({
     <div className="w-full flex flex-1 flex-col gap-5">
       <div className="flex justify-end w-full">
         <button
-          className="text-blue text-xs flex gap-2 font-bold"
+          className="text-blue text-lg flex gap-2 font-bold mr-8"
           onClick={() => {
             setOpenStatus(Object.assign({}, Array(data?.length ?? 0).fill(true)))
           }}
@@ -93,7 +93,7 @@ const EnquireTab = () => {
     setFormData({ ...formData, [key]: value })
   }
   return (
-    <div className="w-[282px] max-lg:hidden h-fit rounded-2xl border text-white overflow-hidden bg-primary">
+    <div className="w-[282px] max-lg:hidden h-fit rounded-2xl border text-white overflow-hidden bg-primary mt-12">
       <div className="py-2 px-5 bg-secondaryDarkBlue">
         <div className="flex justify-between">
           <div className="">
@@ -106,10 +106,10 @@ const EnquireTab = () => {
         </div>
         <div className="flex gap-1">
           <Image src="/whatsapp_logo.svg" height={12} width={12} alt="Whatsapp logo" />
-          <p className="font-bold text-xs">+1 0000 000 000</p>
+          <p className="font-bold text-[10px]">+1 0000 000 000</p>
         </div>
       </div>
-      <div className="p-5 flex flex-col gap-5">
+      <div className="p-4 flex flex-col gap-5">
         <div className="flex  font-medium text-base text-black flex-col gap-2">
           <label htmlFor="name">Name*</label>
           <input
@@ -134,11 +134,11 @@ const EnquireTab = () => {
             }}
           />
         </div>
-        <div className="flex  font-medium text-base text-black flex-col gap-2">
+        <div className="flex font-medium text-base text-black flex-col gap-2">
           <label htmlFor="nationality">Nationality*</label>
           <select
             id="nationality"
-            className="border bg-white border-darkblue/10 text-gray rounded p-1"
+            className="border bg-white border-darkblue/10 text-gray rounded p-1 py-2"
             value={formData['nationality']}
             placeholder="Select"
             onChange={(e) => {
@@ -154,7 +154,7 @@ const EnquireTab = () => {
         </div>
         <div className="flex  font-medium text-base text-black flex-col gap-2">
           <label htmlFor="mobileNumber">Mobile</label>
-          <div className="border bg-white text-base border-darkblue/10 text-gray rounded p-1 h-8 grid grid-cols-[1fr_7fr] gap-1 divide-x-2 divide-darkblue/10">
+          <div className="border bg-white text-base border-darkblue/10 text-gray rounded p-1 grid grid-cols-[1fr_7fr] gap-1 divide-x-2 divide-darkblue/10 py-2">
             <input
               className="min-w-0 w-full flex items-center justify-center h-full overflow-hidden focus:outline-none"
               id="mobileCode"
@@ -308,7 +308,7 @@ const Expandable = ({
           </div>
           <p className="flex-1">{data.description?.en}</p>
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-6">
           {data.itinerary_details_lists?.map((list, index) => (
             <ExpandableList
               key={index}
@@ -332,17 +332,17 @@ const ExpandableList = ({
   itinerary_details_list_items: (SanityLocaleString | undefined)[] | undefined
 }) => {
   return (
-    <div className="p-1">
+    <div className="">
       <div className="flex gap-2">
         <div className="relative w-7 h-7">
           <Image alt="" src={icon} fill className="object-center" />
         </div>
         <div className="flex flex-col">
-          <p className="flex-1 text-xl font-medium">{title}</p>
+          <p className="flex-1 text-xl font-medium tracking-tight">{title}</p>
           <hr className="w-20 my-2 text-yellow  bg-yellow  rounded-full border-2" />
         </div>
       </div>
-      <div className="flex flex-col pl-7">
+      <div className="flex flex-col pl-7 gap-2">
         {itinerary_details_list_items?.map((item, index: number) => {
           return (
             <div key={index} className="flex flex-nowrap items-center text-base font-normal">
