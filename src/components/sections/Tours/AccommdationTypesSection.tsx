@@ -12,10 +12,10 @@ export default function AccommdationTypesSection({ data }: { data: SanityAccommo
           <hr className=" w-28 my-2 text-yellow bg-yellow  rounded-full border-2" />
         </div>
         <div>
-          <p className="text-gray text-lg">{data.subtitle?.en}</p>
+          <p className="text-gray  mt-3 text-lg">{data.subtitle?.en}</p>
         </div>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 lg:w-3/4 w-full gap-6">
+      <div className="flex mt-2 lg:w-3/4 w-full gap-6">
         {data?.accommodation_types?.map((item, index) => (
           <AccomodationCard data={item} key={index} />
         ))}
