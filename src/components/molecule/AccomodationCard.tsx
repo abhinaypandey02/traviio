@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import ReactStars from 'react-stars'
-
+import Star from '../Star'
 import { urlFor } from '@/sanity/client'
 import { SanityAccommodationSection } from '@/sanity/types'
 const AccomodationCard = ({
@@ -10,19 +10,18 @@ const AccomodationCard = ({
   data: Exclude<SanityAccommodationSection['accommodation_types'], undefined>[0]
 }) => {
   return (
-    <div className="rounded-2xl overflow-hidden min-w-[300px] w-full max-w-[400px] shadow-lg place-self-center">
-      <div className="text-center bg-[#233861] py-2 rounded-t-2xl items-center flex flex-col ">
+    <div className="rounded-2xl overflow-hidden min-w-[310px] w-full max-w-[400px] shadow-lg place-self-center">
+      <div className="text-center bg-[#1A4767] py-3 rounded-t-2xl items-center flex flex-col ">
         <h4 className="text-xl text-white font-semibold">{data.title?.en}</h4>
         <h5 className="text-white text-sm">{data.subtitle?.en}</h5>
         {/*@ts-ignore*/}
-        <ReactStars
-          count={data.rating}
-          onChange={() => {}}
-          edit={false}
-          value={data.rating}
-          size={14}
-          color2={'#ffd700'}
-        />
+        <div className='flex'>
+
+        <Star/>
+        <Star/>
+        <Star/>
+        <Star/>
+        </div>
       </div>
       <div className="bg-[#ecf4ff] py-4 px-4 flex flex-col gap-4">
         {data.resorts?.map((item, index) => (
