@@ -65,12 +65,13 @@ export default function Step2({ onChange }: { onChange: (data: TailorTripFormDat
         options={['Indian', 'American']}
         type="select"
         placeholder="Select your Nationality"
+        className="h-[38px]"
       />
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         <label htmlFor="mobileNumber">Mobile</label>
-        <div className="border bg-white text-base border-darkblue/10 text-gray rounded p-1 h-8 grid grid-cols-[1fr_7fr] gap-1 divide-x-2 divide-darkblue/10">
+        <div className="border bg-white text-base border-darkblue/10 text-gray rounded p-1 h-[38px] grid grid-cols-[1fr_7fr] gap-1 divide-x-2 divide-darkblue/10">
           <input
-            className="min-w-0 w-full flex items-center justify-center h-full overflow-hidden focus:outline-none"
+            className="min-w-0 w-full flex items-center justify-center py-2 h-full overflow-hidden focus:outline-none"
             id="mobileCode"
             value={mobileNumber['mobileCode']}
             onChange={(e) => {
@@ -119,6 +120,7 @@ export default function Step2({ onChange }: { onChange: (data: TailorTripFormDat
         type="select"
         options={['less than $1000', '$1000-$2000', '$2000-$3000', 'more than $3000']}
         value={formData.budget}
+        className="h-[38px]"
       />
       <div className="col-span-full">
         <Input

@@ -19,6 +19,7 @@ interface Props {
   placeholder?: string
   label?: any
   options?: string[] | number[] | { name: string; icon: any }[]
+  className?: string
 }
 
 const VARIANT = {
@@ -28,7 +29,7 @@ const VARIANT = {
       secondary: 'bg-blue',
     },
     display: {
-      primary: 'bg-darkblue/10',
+      primary: 'bg-white',
       secondary: 'bg-white',
     },
   },
@@ -43,10 +44,11 @@ export default function Input({
   placeholder,
   label,
   options,
+  className
 }: Props) {
   if (type == 'buttonNumber')
     return (
-      <div className="flex font-medium text-base text-black flex-col gap-2">
+      <div className={`flex font-medium text-base text-black flex-col gap-2 ${className}`}>
         {label && <p>{label}</p>}
         <div className="border border-darkblue/10 flex gap-2 bg-white p-2 justify-between rounded">
           <div className="font-normal text-sm">{placeholder}</div>
@@ -82,7 +84,7 @@ export default function Input({
         {label && <label htmlFor={name}>{label}</label>}
         <select
           id={name}
-          className="border bg-white border-darkblue/10 text-gray rounded p-1"
+          className={`border bg-white border-darkblue/10 text-gray rounded p-1 ${className}`}
           value={value}
           placeholder="Select"
           onChange={(e) => {
@@ -131,14 +133,14 @@ export default function Input({
     )
   if (type == 'boxSelection')
     return (
-      <div className="flex  font-medium text-base text-black flex-col gap-2">
+      <div className="flex w-full font-medium text-base text-black flex-col gap-2">
         {label && <label htmlFor={name}>{label}</label>}
         <div className="flex justify-center gap-3 flex-wrap">
           {options?.map((option: any) => (
             <div
-              className={`flex w-fit border border-darkblue/10 rounded ${
+              className={`flex border w-fit border-darkblue/10 rounded ${
                 value.includes(option.name) ? 'text-white bg-blue' : 'text-gray bg-white'
-              } p-3 gap-2 items-center whitespace-nowrap flex-nowrap`}
+              } px-3 py-[10px] text-sm gap-2 items-center whitespace-nowrap flex-nowrap`}
               onClick={() => {
                 if (value.includes(option.name)) {
                   setValue(value.filter((item: any) => item != option.name))

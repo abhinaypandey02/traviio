@@ -36,8 +36,8 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
     'December',
   ]
   return (
-    <div className="flex flex-col gap-14 px-9 sm:px-24 ">
-      <div className="flex max-lg:flex-col gap-4 lg:gap-12">
+    <div className={`flex flex-col gap-14 px-9 sm:px-14`}>
+      <div className="flex max-lg:flex-col gap-4 px-10 lg:gap-12">
         <div
           className="text-lg font-medium text-darkblue flex gap-[6px] items-center flex-nowrap whitespace-nowrap w-fit"
           onClick={() => {
@@ -62,16 +62,16 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
       )}
       {mode == 'approxDates' && (
         <div className="grid lg:grid-cols-2 gap-12">
-          <div className="flex flex-col gap-2 text-base text-gray ">
+          <div className="flex flex-col w-[300px] gap-3 text-base text-gray ">
             <p>(1) Select Month</p>
-            <div className="p-3 grid grid-cols-3 gap-x-1 gap-y-[18px] bg-white rounded shadow-md h-full">
+            <div className="p-4 grid grid-cols-3 gap-x-1 bg-white rounded shadow-md">
               {Months.map((item: any, index) => (
                 <>
                   {index != 0 && index % 3 == 0 && (
                     <>
-                      <hr className="w-[48px] mx-auto text-darkblue/10" />
-                      <hr className="w-[48px] mx-auto text-darkblue/10" />
-                      <hr className="w-[48px] mx-auto text-darkblue/10" />
+                      <hr className="w-[48px] my-[18px] mx-auto text-darkblue/10" />
+                      <hr className="w-[48px] my-[18px] mx-auto text-darkblue/10" />
+                      <hr className="w-[48px] my-[18px] mx-auto text-darkblue/10" />
                     </>
                   )}
                   <div
@@ -79,7 +79,7 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
                     onClick={() => {
                       setMonth(item)
                     }}
-                    className={`text-center cursor-pointer py-2 rounded text-sm ${
+                    className={`text-center cursor-pointer py-[7px] rounded text-sm ${
                       month == item ? 'font-bold bg-blue text-white' : 'font-normal'
                     }`}
                   >
@@ -89,7 +89,7 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-2 text-base text-gray ">
+          <div className="flex flex-col w-[300px] gap-2 text-base text-gray ">
             <p>(2) Trip duration (approx)</p>
             <div className="p-5 grid grid-cols-2 bg-white gap-4 rounded shadow-md h-full">
               {Durations.map((item: any) => (
@@ -98,7 +98,7 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
                   onClick={() => {
                     setDuration(item.name)
                   }}
-                  className={`rounded border border-darkblue/10 py-4 text-center text-sm cursor-pointer ${
+                  className={`rounded border border-darkblue/10 py-[14px] text-center text-sm cursor-pointer ${
                     duration == item.name && 'bg-blue text-white'
                   } ${item.gridSpan}`}
                 >

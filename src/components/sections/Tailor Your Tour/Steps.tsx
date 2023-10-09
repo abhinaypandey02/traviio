@@ -26,7 +26,7 @@ export default function Steps({
       <div
         className={`${
           step == 1 ? 'max-w-[1280] w-[90%] bg-white' : 'max-w-[760px] w-full bg-primary'
-        }  mx-auto sm:rounded-[20px] py-10 flex flex-col gap-16`}
+        }  mx-auto sm:rounded-[20px] py-10 flex flex-col gap-4`}
       >
         {children && (
           <>
@@ -39,6 +39,7 @@ export default function Steps({
                   onClick={() => {
                     setStep(step - 1)
                   }}
+                  className='px-[30px] py-3 w-[246px] ml-auto'
                 />
               ) : (
                 <div></div>
@@ -46,14 +47,15 @@ export default function Steps({
               {step < children.length ? (
                 <Button
                   varient="primary"
-                  text={'Next'}
+                  text={'Next Step'}
                   onClick={() => {
                     setStep(step + 1)
                   }}
                   disabled={disableNext}
+                  className='px-[30px] py-3 w-[246px] !text-base'
                 />
               ) : (
-                <Button varient="primary" text={'Submit'} onClick={onSubmit} />
+                <Button varient="primary" text={'Submit'} onClick={onSubmit} className='px-[30px] py-3 w-[246px]'/>
               )}
             </div>
           </>

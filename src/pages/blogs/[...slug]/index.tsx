@@ -1,3 +1,4 @@
+import React from 'react'
 import Image from 'next/image'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
@@ -11,6 +12,8 @@ import {
   SanityGlobals,
   SanityImageHeaderSection,
   SanityLocale,
+  SanityLocaleString,
+  SanityPhoto,
   SanitySlug,
   SanityTag,
 } from '@/sanity/types'
@@ -23,14 +26,28 @@ import { BlogPageSectionsMap } from '@/components/sections'
 import ImageHeaderSection from '@/components/sections/ImageHeaderSection'
 import SEO from '@/components/Seo'
 import BlogDetailCard from '@/components/molecule/BlogDetailCard'
+import BlogChoose from '@/components/molecule/BlogChoose'
+import { Pagination } from '@/components/sections/ReviewSection'
+
+
 type BlogPageProps = {
   slug: string
   articles: SanityArticle[]
   content: SanityTag | SanityDestinationPage
   globals: SanityGlobals
+  destinations: { name: SanityLocaleString; slug: string; icon: SanityPhoto }[]
+  tags: { name: SanityLocaleString; slug: string; icon: SanityPhoto }[]
 } & LocalePage
 
-export default function BlogPage({ slug, articles, locale, globals, content }: BlogPageProps) {
+export default function BlogPage({
+  slug,
+  articles,
+  locale,
+  globals,
+  content,
+  destinations,
+  tags,
+}: BlogPageProps) {
   const imageHeaderData =
     content._type === 'tag'
       ? {
@@ -42,26 +59,52 @@ export default function BlogPage({ slug, articles, locale, globals, content }: B
           (s) => s._type === 'image_header_section'
         ) as SanityImageHeaderSection)
   // console.log(articles)
+  const [value, setValue] = React.useState(0)
   return (
     <LocaleProvider locale={locale}>
       <SEO title={`${localizedString(content.name, locale)} - Blogs`} />
       <Layout globals={globals} breadcrumbs={[]} locale={locale}>
         {imageHeaderData && <ImageHeaderSection data={imageHeaderData} />}
-        <Container className={'grid grid-cols-3 my-5'}>
-        {articles?.map((article, index) => {
-          return (
-            <BlogDetailCard
-              country={localizedString(article.destination?.name)}
-              excerpt={localizedString(article.introduction)}
-              image={article.cover_image ? urlFor(article.cover_image) : ''}
-              link={`/blogs/${article.slug?.current}`}
-              title={localizedString(article.title)}
-              date={localizedString(article.time)}
-              author={localizedString(article.author)}
-              key={index}
-            />
-          )
-        })}
+        <Container className={'my-5'}>
+          {/* {JSON.stringify(content)} */}
+
+          {articles && (
+            <>
+              <h4 className="font-[700] text-[24px]">Latest Articles</h4>
+              <hr className="text-yellow bg-yellow w-1/12 rounded-full border-2 my-2" />
+              <BlogChoose
+                items={[...destinations, ...tags].map((item) => {
+                  return {
+                    title: localizedString(item.name),
+                    link: `/blogs${item.slug}`,
+                    images: [urlFor(item.icon)],
+                  }
+                })}
+              />
+              <div className="grid grid-cols-3 my-10">
+                {articles?.map((article, index) => {
+                  return (
+                    <BlogDetailCard
+                      country={localizedString(article.destination?.name)}
+                      excerpt={localizedString(article.introduction)}
+                      image={article.cover_image ? urlFor(article.cover_image) : ''}
+                      link={`/blogs${article.slug?.current}`}
+                      title={localizedString(article.title)}
+                      date={localizedString(article.time)}
+                      author={localizedString(article.author)}
+                      key={index}
+                    />
+                  )
+                })}
+              </div>
+              <Pagination
+                total={articles?.length || 0}
+                pageSize={9}
+                currentPage={value}
+                onChange={setValue}
+              />
+            </>
+          )}
         </Container>
       </Layout>
     </LocaleProvider>
@@ -71,17 +114,21 @@ export default function BlogPage({ slug, articles, locale, globals, content }: B
 export async function fetchTags() {
   return (await client.fetch(
     `*[_type == "tag"]{
+      name,
+      icon,
       "slug": slug.current
-    }.slug`
-  )) as string[]
+    }`
+  )) as { name: SanityLocaleString; slug: string; icon: SanityPhoto }[]
 }
 
 export async function fetchDestinationNames() {
   return (await client.fetch(
     `*[_type == "destination_page"]{
+      name,
+      icon,
       "slug": slug.current
-    }.slug`
-  )) as string[]
+    }`
+  )) as { name: SanityLocaleString; slug: string; icon: SanityPhoto }[]
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
@@ -92,7 +139,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
       .map((slug) =>
         (locales ?? []).map((locale) => ({
           params: {
-            slug: getSlugsFromPath(slug),
+            slug: getSlugsFromPath(slug.slug),
           },
           locale,
         }))
@@ -118,12 +165,16 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, lo
   const content = await client.fetch(
     `*[(_type=="tag"||_type=="destination_page") && slug.current=="${slug}"][0]`
   )
+  const tags = await fetchTags()
+  const destinations = await fetchDestinationNames()
   const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
   return {
     props: {
       slug: slug,
       articles: blogPageData,
       content,
+      tags,
+      destinations,
       locale: (locale ?? 'en') as SanityLocale,
       globals,
     },
