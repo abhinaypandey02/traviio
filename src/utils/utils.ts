@@ -47,7 +47,23 @@ const months = [
   'December',
 ]
 
-export default function DateFormat(date: Date) {
+const shortMonths = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Nov',
+  'Dec',
+]
+
+
+export default function DateFormat(date: Date, short: boolean = false) {
+  if(short) return date.getDate() + ' ' + shortMonths[date.getMonth()] + ' ' + date.getFullYear()
   return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
 }
 const pattern = /^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/
