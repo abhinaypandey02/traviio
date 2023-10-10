@@ -1,13 +1,70 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-import { SanityPricingSection } from '@/sanity/types'
-import { ArrowDown, ArrowLeft, ArrowRight, CaretDown, Info } from '@phosphor-icons/react'
+import { SanityPrice, SanityPricingSection, SanityTourTimeline } from '@/sanity/types'
+import { ArrowRight, CaretDown, Info } from '@phosphor-icons/react'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
 
+function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>) {
+  switch (day) {
+    case 'mon':
+      return 1
+    case 'tue':
+      return 2
+    case 'wed':
+      return 3
+    case 'thu':
+      return 4
+    case 'fri':
+      return 5
+    case 'sat':
+      return 6
+    case 'sun':
+      return 7
+  }
+}
+
 export default function PricingSection({ data }: { data: SanityPricingSection }) {
+  // The day of the week on which the tour starts
+  const startDay = data.weekly_schedule?.start_day ?? 'mon'
+  // The duration of the tour in days
+  const duration = data.weekly_schedule?.duration ?? 3
+  // The default price of the tour
+  const price = data.weekly_schedule?.price
+
+  // Prices to override the default price
+  const priceOverrides = data.price_override ?? []
+
+  // Generate the next 5 weeks for the tour on the basis of the start day and duration
+  const next5WeekPrices: { startDate: Date; endDate: Date; price?: SanityPrice }[] = []
+  for (let i = 0; i < 5; i++) {
+    const startDate = new Date()
+    startDate.setDate(startDate.getDate() + (i + 1) * 7)
+    startDate.setDate(startDate.getDate() + ((getDay(startDay) - startDate.getDay() + 7) % 7))
+    const endDate = new Date(startDate)
+    endDate.setDate(endDate.getDate() + duration)
+    // check if the price is overridden for this week
+    priceOverrides.filter((override) => {
+      const overrideStartDate = new Date(override.timeline?.start_date ?? '')
+      const overrideEndDate = new Date(override.timeline?.end_date ?? '')
+      return (
+        startDate.getTime() >= overrideStartDate.getTime() &&
+        endDate.getTime() <= overrideEndDate.getTime()
+      )
+    })
+    if (priceOverrides.length > 0) console.log(priceOverrides[0])
+
+    next5WeekPrices.push({
+      startDate,
+      endDate,
+      price: priceOverrides.length > 0 ? priceOverrides[0].price : price,
+    })
+  }
+
+  console.log({ next5WeekPrices })
+
   const prices = [{}, {}, {}, {}, {}]
   return (
     <Container>
@@ -73,7 +130,11 @@ const PriceCard = ({ data }: { data: any }) => {
             02 Jun 2023
           </div>
           <div className="flex items-center">
-            <ArrowRight width={40} weight="bold" className={`${isOpen ? 'text-yellow' : 'text-blue'}`} />
+            <ArrowRight
+              width={40}
+              weight="bold"
+              className={`${isOpen ? 'text-yellow' : 'text-blue'}`}
+            />
           </div>
           <div className={`text-base font-bold ${isOpen ? 'text-white' : 'text-black'}`}>
             11 Jun 2023

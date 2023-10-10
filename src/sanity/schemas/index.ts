@@ -16,6 +16,8 @@ import meta_data from './atoms/MetaData'
 import photo from './atoms/Photo'
 import price from './atoms/Price'
 import promo_banner from './atoms/PromoBanner'
+import timeline from './atoms/Timeline'
+import tour_timeline from './atoms/TourTimeline'
 import Article from './documents/Article'
 import blog_page from './documents/BlogPage'
 import destination_page from './documents/DestinationPage'
@@ -59,6 +61,8 @@ export const schemaTypes = [
   meta_data,
   promo_banner,
   price,
+  tour_timeline,
+  timeline,
   // content
   content_text,
   content_image,

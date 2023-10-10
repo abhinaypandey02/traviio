@@ -119,6 +119,58 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'timeline',
+      title: 'Timeline',
+      description: 'Timeline for the tour',
+      type: 'object',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        defineField({
+          name: 'timeline',
+          title: 'Timeline',
+          description: 'Timeline for the tour',
+          type: 'timeline',
+        }),
+        defineField({
+          name: 'disabled',
+          title: 'Disabled',
+          description: 'Disabled during',
+          type: 'array',
+          of: [{ type: 'timeline' }],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'price_override',
+      title: 'Price Override',
+      description: 'Price override for the tour',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'price_override',
+          title: 'Price Override',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'timeline',
+              title: 'Timeline',
+              description: 'Timeline for the price override',
+              type: 'timeline',
+            }),
+            defineField({
+              name: 'price',
+              title: 'Price',
+              description: 'Price for the price override',
+              type: 'price',
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: 'tags',
       title: 'Tags',
       description: 'Tags for the page',

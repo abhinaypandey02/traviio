@@ -140,6 +140,22 @@ export type SanityPromoBanner = {
   link?: SanityLink
 }
 
+export type SanityTimeline = {
+  _type: 'timeline'
+  _id: string
+  _key: string
+  start_date?: string
+  end_date?: string
+}
+
+export type SanityTourTimeline = {
+  _type: 'tour_timeline'
+  _id: string
+  _key: string
+  start_day?: 'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat'
+  duration?: number
+}
+
 //                   ______            __             __
 //                  / ____/___  ____  / /____  ____  / /_
 //                 / /   / __ \/ __ \/ __/ _ \/ __ \/ __/
@@ -649,6 +665,14 @@ export type SanityPricingSection = {
   _id: string
   _key: string
   title?: SanityLocaleString
+  weekly_schedule?: SanityTourTimeline & {
+    price: SanityPrice
+  }
+  disabled?: SanityTimeline[]
+  price_override?: {
+    timeline?: SanityTimeline
+    price?: SanityPrice
+  }[]
 }
 
 export type SanityTravelInfoSection = {
@@ -877,6 +901,14 @@ export type SanityTourPage = {
     title?: SanityLocaleString
     image?: SanityImage
   }
+  timeline?: {
+    timeline?: SanityTourTimeline
+    disabled?: SanityTimeline[]
+  }
+  price_override?: {
+    timeline?: SanityTimeline
+    price?: SanityPrice
+  }[]
   payment?: {
     room_options?: {
       title?: SanityLocaleString
