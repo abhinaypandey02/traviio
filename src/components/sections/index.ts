@@ -16,7 +16,7 @@ import AccommdationTypesSection from './Tours/AccommdationTypesSection'
 import ImageShowCaseSection from './Tours/ImageShowCaseSection'
 import ItinerarySection from './Tours/ItinerarySection'
 import MemorableExperiencesSection from './Tours/MemorableExperiencesSection'
-import PricingSection from './Tours/PricingSection'
+import PriceList from './PriceList'
 import WhatsIncludedSection from './Tours/WhatsIncludedSection'
 import AtAGlanceSection from './AtAGlanceSection'
 import BestToursSection from './BestToursSection'
@@ -90,7 +90,7 @@ export const TourSectionsMap: {
   memorable_experiences_section: MemorableExperiencesSection,
   gallery_section: GallerySection,
   whats_included_section: WhatsIncludedSection,
-  pricing_section: PricingSection,
+  pricing_section: PriceList,
   accommodation_types_section: AccommdationTypesSection,
   reviews_section: ReviewSection,
   feature_section: TourFeature,

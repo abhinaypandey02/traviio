@@ -7,25 +7,6 @@ import { ArrowRight, CaretDown, Info } from '@phosphor-icons/react'
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
 
-function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>) {
-  switch (day) {
-    case 'mon':
-      return 1
-    case 'tue':
-      return 2
-    case 'wed':
-      return 3
-    case 'thu':
-      return 4
-    case 'fri':
-      return 5
-    case 'sat':
-      return 6
-    case 'sun':
-      return 7
-  }
-}
-
 export default function PricingSection({ data }: { data: SanityPricingSection }) {
   // The day of the week on which the tour starts
   const startDay = data.weekly_schedule?.start_day ?? 'mon'
