@@ -35,7 +35,7 @@ export default function PricingSection({ data }: { data: SanityPricingSection })
   const price = data.weekly_schedule?.price
 
   // Prices to override the default price
-  const priceOverrides = data.price_override ?? []
+  const priceOverrides = data.price_overrides ?? []
 
   // Generate the next 5 weeks for the tour on the basis of the start day and duration
   const next5WeekPrices: { startDate: Date; endDate: Date; price?: SanityPrice }[] = []
@@ -46,20 +46,20 @@ export default function PricingSection({ data }: { data: SanityPricingSection })
     const endDate = new Date(startDate)
     endDate.setDate(endDate.getDate() + duration)
     // check if the price is overridden for this week
-    priceOverrides.filter((override) => {
+    const relatedPriceOverrides = priceOverrides.filter((override) => {
       const overrideStartDate = new Date(override.timeline?.start_date ?? '')
       const overrideEndDate = new Date(override.timeline?.end_date ?? '')
       return (
         startDate.getTime() >= overrideStartDate.getTime() &&
-        endDate.getTime() <= overrideEndDate.getTime()
+        startDate.getTime() <= overrideEndDate.getTime()
       )
     })
-    if (priceOverrides.length > 0) console.log(priceOverrides[0])
+    if (relatedPriceOverrides.length > 0) console.log(relatedPriceOverrides[0])
 
     next5WeekPrices.push({
       startDate,
       endDate,
-      price: priceOverrides.length > 0 ? priceOverrides[0].price : price,
+      price: relatedPriceOverrides.length > 0 ? relatedPriceOverrides[0].price : price,
     })
   }
 

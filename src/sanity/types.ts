@@ -669,7 +669,7 @@ export type SanityPricingSection = {
     price: SanityPrice
   }
   disabled?: SanityTimeline[]
-  price_override?: {
+  price_overrides?: {
     timeline?: SanityTimeline
     price?: SanityPrice
   }[]

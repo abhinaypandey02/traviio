@@ -100,10 +100,10 @@ async function fetchPageData(slug: string): Promise<SanityTourPage> {
         },
         _type == "pricing_section" => {
           ...,
-          "weekly_schedule": @["timeline"].timeline,
-          "disabled": @["timeline"].disabled,
-          "price_override": @["price_override"],
-          "price": @["overview_card"].price,
+          "weekly_schedule": ^.timeline.timeline,
+          "disabled": ^.timeline.disabled,
+          "price_overrides": ^.price_overrides,
+          "price": ^.overview_card.price,
         }
       }
     }`

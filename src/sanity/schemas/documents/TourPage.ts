@@ -144,9 +144,9 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'price_override',
-      title: 'Price Override',
-      description: 'Price override for the tour',
+      name: 'price_overrides',
+      title: 'Price price_overrides',
+      description: 'Price overrides for the tour',
       type: 'array',
       of: [
         defineArrayMember({
