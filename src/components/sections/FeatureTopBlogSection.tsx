@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityFeaturedPlaceBlogsSection } from '@/sanity/types'
+import Container from '../Container'
 
 export type SanityFeaturedBlogs = {
   data: SanityFeaturedPlaceBlogsSection
@@ -15,7 +16,8 @@ const FeatureTopBlogSection = (props: PropsWithLocale<SanityFeaturedBlogs>) => {
     data: { cards },
   } = props
   return (
-    <div className="md:px-32 px-10 md:py-10 py-5">
+    <Container>
+    <div className="  md:py-10 py-5">
       <div className="grid grid-cols-4 gap-7">
         {cards?.map((card, i) => (
           <Link
@@ -45,6 +47,7 @@ const FeatureTopBlogSection = (props: PropsWithLocale<SanityFeaturedBlogs>) => {
         ))}
       </div>
     </div>
+    </Container>
   )
 }
 
