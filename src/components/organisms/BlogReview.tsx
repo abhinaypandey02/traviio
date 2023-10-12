@@ -14,7 +14,9 @@ interface BlogReviewProps {
 function BlogReview(props: BlogReviewProps) {
   const { image, name, text, socialImage, socialLink } = props
   return (
-    <Container className="rounded-xl bg-primary py-12">
+    <Container className="rounded-xl my-10 bg-primary py-12">
+      
+      
       <div className="flex gap-7 mx-auto justify-center items-center">
         {/* left side */}
         <div className="flex flex-col gap-2 items-center">
