@@ -54,7 +54,7 @@ export default function BlogPage({
           image: content.hero_image,
           _type: 'image_header_section' as const,
         }
-      : (content.sections?.find(
+      : (content?.sections?.find(
           (s) => s?._type === 'image_header_section'
         ) as SanityImageHeaderSection)
   // console.log(articles)
