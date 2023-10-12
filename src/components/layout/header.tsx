@@ -24,12 +24,11 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
   }, [open])
   const { locale } = useContext(LocaleContext)
 
-  console.log({ navbar })
 
   return (
     <div>
-      <div className="w-full z-50 hidden lg:block">
-        <div className="bg-primary  py-1 ">
+      <div className="w-full z-50 hidden lg:block h-[100px]">
+        <div className="bg-primary py-1 ">
           <Container className="flex justify-end gap-1">
             <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
             <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
@@ -69,7 +68,7 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
         </Container>
       </div>
       <div className="w-full lg:hidden z-50 h-[80px]">
-        <div className="px-5 flex justify-between w-full bg-white relative py-5 z-10">
+        <div className="px-5 flex justify-between w-full bg-white relative py-5 z-[50]">
           <Image src="/company_logo.svg" height={40} width={172} alt="Company logo" />
           <div className="flex gap-3">
             <Image src="/whatsapp_logo.svg" height={24} width={24} alt="Whatsapp logo" />
@@ -84,13 +83,10 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
           </div>
         </div>
         <div
-          className={`relative  transition-all text-darkblue text-xl ease-in-out duration-700 py-10 bg-white flex flex-col gap-2 w-full justify-center items-center z-[5] ${
+          className={`relative transition-all text-darkblue text-xl ease-in-out duration-700 py-10 bg-white flex flex-col gap-2 w-full justify-center items-center z-[15] ${
             open ? '' : '-translate-y-full'
           }`}
           onClick={() => {
-            setOpen(false)
-          }}
-          onMouseLeave={() => {
             setOpen(false)
           }}
         >

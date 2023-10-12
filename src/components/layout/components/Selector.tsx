@@ -3,21 +3,21 @@ import React from 'react'
 function Selector(props: {
   title: string
   items: string[]
-  selectedItem: string
-  selectedItemToggle: (item: string) => void
+  selectedItem: number
+  selectedItemToggle: (item: number) => void
 }) {
   const { title, items, selectedItem, selectedItemToggle } = props
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2">
       <p className="font-semibold mb-2">{title}</p>
       {items.map((item, index) => {
         return (
           <div
             className={`${
-              item == selectedItem ? 'text-blue' : ''
-            } cursor-pointer hover:underline transition-all`}
+              index === selectedItem ? 'text-blue font-semibold ' : ''
+            } cursor-pointer hover:underline transition-all text-sm`}
             onClick={() => {
-              selectedItemToggle(item)
+              selectedItemToggle(index)
             }}
           >
             {item}
