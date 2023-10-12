@@ -120,7 +120,7 @@ export const getStaticProps: GetStaticProps<TailorYourTourPageProps> = async ({ 
     `*[_type == "tailor_your_tour"||_type=="destination_page"]`
   )) as (SanityTailorYourTour | SanityDestinationPage)[]
   const destinations = tailorYourTourPageData.filter(
-    (x) => x._type === 'destination_page'
+    (x) => x?._type === 'destination_page'
   ) as SanityDestinationPage[]
   const globals = (await client.fetch(`*[_type == "globals"][0]{
     ...,
@@ -143,7 +143,7 @@ export const getStaticProps: GetStaticProps<TailorYourTourPageProps> = async ({ 
   return {
     props: {
       data: tailorYourTourPageData.find(
-        (x) => x._type === 'tailor_your_tour'
+        (x) => x?._type === 'tailor_your_tour'
       ) as SanityTailorYourTour,
       destinations,
       locale: (locale ?? 'en') as SanityLocale,

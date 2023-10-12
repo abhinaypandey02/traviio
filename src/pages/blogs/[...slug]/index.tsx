@@ -48,14 +48,14 @@ export default function BlogPage({
   tags,
 }: BlogPageProps) {
   const imageHeaderData =
-    content._type === 'tag'
+    content?._type === 'tag'
       ? {
           header: content.name,
           image: content.hero_image,
           _type: 'image_header_section' as const,
         }
       : (content.sections?.find(
-          (s) => s._type === 'image_header_section'
+          (s) => s?._type === 'image_header_section'
         ) as SanityImageHeaderSection)
   // console.log(articles)
   const [value, setValue] = React.useState(0)

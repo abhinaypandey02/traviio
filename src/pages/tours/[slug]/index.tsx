@@ -55,7 +55,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
           overview_card={data.overview_card}
         />
         {data?.sections?.map((section) => {
-          const Component = TourSectionsMap[section._type]
+          const Component = TourSectionsMap[section?._type]
           return (
             <React.Fragment key={section._key}>
               {Component &&
