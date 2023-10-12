@@ -52,7 +52,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         ]}
         globals={globals}
         components={DestinationSectionsMap}
-        sections={data?.sections}
+        sections={data?.sections as any}
       />
     </LocaleProvider>
   )

@@ -6,6 +6,7 @@ import { ArrowRight, CaretDown, Info } from '@phosphor-icons/react'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
+import { getDay } from '@/components/sections/PriceList'
 
 export default function PricingSection({ data }: { data: SanityPricingSection }) {
   // The day of the week on which the tour starts

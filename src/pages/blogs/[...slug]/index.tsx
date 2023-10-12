@@ -84,7 +84,7 @@ export default function BlogPage({
                 {articles?.map((article, index) => {
                   return (
                     <BlogDetailCard
-                      country={localizedString(article.destination?.name)}
+                      country={localizedString((article.destination as any)?.name)}
                       excerpt={localizedString(article.introduction)}
                       image={article.cover_image ? urlFor(article.cover_image) : ''}
                       link={`/blogs${article.slug?.current}`}

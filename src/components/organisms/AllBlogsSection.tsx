@@ -1,10 +1,11 @@
 import React from 'react'
 
+import { localizedString } from '@/contexts/LocaleProvider'
+import { urlFor } from '@/sanity/client'
 import { SanityAllBlogsSection } from '@/sanity/types'
+
 import Container from '../Container'
 import BlogDetailCard from '../molecule/BlogDetailCard'
-import { urlFor } from '@/sanity/client'
-import { localizedString } from '@/contexts/LocaleProvider'
 
 function AllBlogsSection({ data }: { data: SanityAllBlogsSection }) {
   console.log(data.blogs)
@@ -31,7 +32,7 @@ function AllBlogsSection({ data }: { data: SanityAllBlogsSection }) {
         {data.blogs?.map((blog, index) => {
           return (
             <BlogDetailCard
-              country={localizedString(blog.destination?.name)}
+              country={localizedString((blog.destination as any)?.name)}
               excerpt={localizedString(blog.introduction)}
               image={blog.cover_image ? urlFor(blog.cover_image) : ''}
               link={`/blogs/${blog.slug?.current}`}

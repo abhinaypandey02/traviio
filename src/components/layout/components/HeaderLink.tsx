@@ -4,11 +4,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { LocalizedString, localizedString } from '@/contexts/LocaleProvider'
-import { SanityGlobals, SanityLink } from '@/sanity/types'
-import Selector from './Selector'
-import Card from './Card'
 import { urlFor } from '@/sanity/client'
+import { SanityGlobals, SanityLink } from '@/sanity/types'
+
 import Container from '@/components/Container'
+
+import Card from './Card'
+import Selector from './Selector'
 
 function HeaderLink({
   item,
@@ -60,9 +62,11 @@ function HeaderLink({
               <Container className=" grid gap-3 lg:grid-cols-5 md:grid-cols-3 grid-cols-1 my-5">
                 <Selector
                   title={localizedString(item.destinations_title)}
-                  items={item.destinations?.map((item, index) => {
-                    return localizedString(item.destination?.name)
-                  })}
+                  items={
+                    item.destinations?.map((item, index) => {
+                      return localizedString((item.destination as any)?.name)
+                    }) as any[]
+                  }
                   selectedItem={dest}
                   selectedItemToggle={setDest}
                 />
@@ -72,7 +76,7 @@ function HeaderLink({
                     ?.filter((item, index) => {
                       return index === dest
                     })[0]
-                    .tours?.map((item, index) => {
+                    .tours?.map((item: any, index) => {
                       return (
                         <Link
                           href={`/tours/${item.slug.current}`}
@@ -86,13 +90,13 @@ function HeaderLink({
                       )
                     })}
                 </div>
-                <div className='col-span-3 grid grid-cols-3 gap-[18px]'>
-                  {item.destinations
+                <div className="col-span-3 grid grid-cols-3 gap-[18px]">
+                  {(item.destinations as any[])
                     ?.filter((item, index) => {
                       return index === dest
                     })[0]
                     .blogs?.slice(0, 3)
-                    .map((item, index) => {
+                    .map((item: any, index: any) => {
                       return (
                         <Card
                           link=""

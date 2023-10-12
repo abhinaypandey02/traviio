@@ -2,8 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Button from '../buttons/ButtonTwo'
-import { ArrowRight, CaretDown } from '@phosphor-icons/react'
+import { localizedNumber } from '@/contexts/LocaleProvider'
 import {
   SanityLocaleNumber,
   SanityPrice,
@@ -11,7 +10,9 @@ import {
   SanityTourTimeline,
 } from '@/sanity/types'
 import DateFormat from '@/utils/utils'
-import { localizedNumber } from '@/contexts/LocaleProvider'
+import { ArrowRight, CaretDown } from '@phosphor-icons/react'
+
+import Button from '../buttons/ButtonTwo'
 import Container from '../Container'
 
 interface SinglePrice {
@@ -47,7 +48,7 @@ const MAPPINGS = {
   },
 }
 
-function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>) {
+export function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>) {
   switch (day) {
     case 'mon':
       return 1
@@ -75,7 +76,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
   const price = data.weekly_schedule?.price
 
   // Prices to override the default price
-  const priceOverrides = data.price_override ?? []
+  const priceOverrides = (data as any).price_override ?? []
 
   // Generate the next 5 weeks for the tour on the basis of the start day and duration
   const next5WeekPrices: {
@@ -91,7 +92,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
     const endDate = new Date(startDate)
     endDate.setDate(endDate.getDate() + duration)
     // check if the price is overridden for this week
-    priceOverrides.filter((override) => {
+    priceOverrides.filter((override: any) => {
       const overrideStartDate = new Date(override.timeline?.start_date ?? '')
       const overrideEndDate = new Date(override.timeline?.end_date ?? '')
       return (
