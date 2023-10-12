@@ -27,7 +27,7 @@ export default function Slicer({
       {sections?.map((section) => (
         <React.Fragment key={section._key}>
           {components[section._type] &&
-            React.createElement(components[section._type], {
+            React.createElement(components[section?._type], {
               data: section,
               locale,
             })}

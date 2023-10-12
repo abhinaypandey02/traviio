@@ -133,7 +133,7 @@ function PriceList({ data, slug }: { data: SanityPricingSection, slug: string })
           <div className="gap-3 flex flex-col my-2">
             <h1 className="tracking-wide">
               These dates don't work for you? Tailor your trip{' '}
-              <Link href={'/tailor-your-tour'} className="text-blue">
+              <Link href={'/tailor_your_tour'} className="text-blue">
                 here
               </Link>
             </h1>

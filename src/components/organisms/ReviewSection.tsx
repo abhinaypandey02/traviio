@@ -50,7 +50,7 @@ const ReviewSection = () => {
             return (
               <RatingCard
                 title={item.title}
-                name={item.name}
+                name={item?.name}
                 star={item.star}
                 review={item.review}
                 country={item.country}

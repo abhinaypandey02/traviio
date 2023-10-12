@@ -46,7 +46,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
             value: '/',
           },
           {
-            label: localizedString(data.name, locale),
+            label: localizedString(data?.name, locale),
             value: data.slug?.current || '/',
           },
         ]}

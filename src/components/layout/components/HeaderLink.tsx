@@ -30,7 +30,7 @@ function HeaderLink({
   }, [open])
   return (
     <>
-      {item._type === 'link' && (
+      {item?._type === 'link' && (
         <Link
           href={item.url || '/'}
           className={'font-medium ' + (item.url === router.route ? 'text-blue' : 'text-darkblue')}
@@ -38,7 +38,7 @@ function HeaderLink({
           <LocalizedString text={item.text} />
         </Link>
       )}
-      {item._type === 'tour_dropdown' && (
+      {item?._type === 'tour_dropdown' && (
         <>
           <div className={'flex items-center'}>
             <span className="flex items-center cursor-pointer" onClick={() => setOpen(!open)}>

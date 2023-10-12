@@ -66,7 +66,7 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
                     </div>
                     <div className="">
                       <h6 className="font-bold text-sm leading-[22px]">
-                        {localizedString(item.name, props.locale)}
+                        {localizedString(item?.name, props.locale)}
                       </h6>
                       <h6 className="text-xs leading-[20px] text-gray">
                         {localizedString(item.time, props.locale)}

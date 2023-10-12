@@ -134,7 +134,7 @@ export default function GuidePage({ slug, data, locale, globals }: GuidePageProp
       <Layout locale={locale} breadcrumbs={[]} globals={globals}>
         <ImageHeader image={data?.image_hero?.image} Title={data?.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data?.tagline?.en} />
-        <InfoSection data={data.sections} />
+        <InfoSection data={data?.sections} />
       </Layout>
     </LocaleProvider>
   )
