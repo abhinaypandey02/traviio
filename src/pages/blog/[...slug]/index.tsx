@@ -15,6 +15,7 @@ import Container from '@/components/Container'
 import BlogReview from '@/components/organisms/BlogReview'
 import BlogSidebar from '@/components/organisms/BlogSidebar'
 import InThisPost from '@/components/sections/InThisPost'
+import BlogContentSection from '@/components/sections/BlogContentSection'
 type BlogPageProps = {
   slug: string
   data: SanityBlogPage
@@ -31,7 +32,7 @@ export default function BlogPage({
   destinations,
   tags,
 }: BlogPageProps) {
-  console.log(data.article)
+  
   return (
     <LocaleProvider locale={locale}>
 
@@ -43,6 +44,8 @@ export default function BlogPage({
           <div className='w-3/4' >
             <ArticleHeroSection data={data.article} />
               <InThisPost/>
+
+              <BlogContentSection data={data?.article?.subsections}/>
             <BlogReview
               image="/temp.jpg"
               name="Robert Brown"
@@ -50,6 +53,7 @@ export default function BlogPage({
               socialLink="/"
               text="One of the most impressive and oldest landmarks in the area of Old Cairo. It has some interesting architectural features like its offset façade facing the street front. It stands out among other neighborhood buildings as they sit at an angle unlike the mosque. The mosque also aligns with the Muslim qibla, the direction where Muslims pray facing Mecca."
               />
+ 
           </div>
           <BlogSidebar />
         </div>
