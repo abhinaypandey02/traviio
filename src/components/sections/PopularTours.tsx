@@ -94,7 +94,7 @@ const PopularTours = () => {
           return (
             <div key={index} className="flex my-2">
               <Link href={item.link} className="py-1">
-                {item.name}
+                {item?.name}
               </Link>
               {index !== TOURS.length - 1 && (
                 <hr className="h-[70%] my-auto w-[2px] mx-1 bg-none border-gray border-r-[2px] border-0 opacity-60" />

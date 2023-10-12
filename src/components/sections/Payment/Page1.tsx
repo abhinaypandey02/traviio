@@ -319,7 +319,7 @@ const OptionalVisits = ({
       {Places.map((place, index) => (
         <div key={index}>
           <div className="flex justify-between items-center px-10 pt-10">
-            <p className="text-xl font-bold text-blue">{place.name}</p>
+            <p className="text-xl font-bold text-blue">{place?.name}</p>
             <p className="text-base font-bold text-red">(1/3)</p>
           </div>
           <div className="px-10 flex flex-col divide-y divide-yellow">

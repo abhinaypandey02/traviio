@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 // import Pagination from 'rc-pagination'
 import { Circle, Line } from 'rc-progress'
-import Star from '../Star'
+
 import { SanityReviewsSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
+
+import Star from '../Star'
 export type ReviewSectionProps = {
   data: SanityReviewsSection
 }
@@ -73,7 +75,9 @@ const Filter = ({
 }) => {
   return (
     <div className="rounded-xl shadow-xl w-[300px] my-2 ">
-      <div className=" py-[16px] tracking-wide font-medium rounded-t-2xl px-[18px] bg-[#ecf4ff] ">Filter by Rating</div>
+      <div className=" py-[16px] tracking-wide font-medium rounded-t-2xl px-[18px] bg-[#ecf4ff] ">
+        Filter by Rating
+      </div>
       <div className="flex flex-col px-6 py-4 gap-y-8">
         {ratings.reverse().map((rating) => (
           <div className=" flex gap-x-2 justify-center items-center">
@@ -105,11 +109,13 @@ const Filter = ({
   )
 }
 
-const   RatingCard = ({ title, review, country, name, date, star, varient }: any) => {
+const RatingCard = ({ title, review, country, name, date, star, varient }: any) => {
   return (
     <div className={'w-full rounded-2xl  border-gray   px-[20px] py-[30px] pb-7  shadow-xl'}>
       <div className="flex  text-xl my-2">
-        {Array.from(Array(star).keys()).map((x) => <Star/>)}
+        {Array.from(Array(star).keys()).map((x) => (
+          <Star />
+        ))}
       </div>
       <h3 className="text-lg  font-medium">{title.substring(0, 33)}...</h3>
       <h5 className="text-sm font-medium my-1 opacity-60">{review}...</h5>
@@ -172,7 +178,7 @@ const ReviewSection = (props: ReviewSectionProps) => {
               <RatingCard
                 key={index}
                 title={item.title?.en}
-                name={item.name?.en}
+                name={item?.name?.en}
                 star={item.rating}
                 review={item.text?.en}
                 country={
@@ -196,7 +202,7 @@ const ReviewSection = (props: ReviewSectionProps) => {
                 <RatingCard
                   key={index}
                   title={item.title?.en}
-                  name={item.name?.en}
+                  name={item?.name?.en}
                   star={5}
                   review={item.text?.en}
                   country={

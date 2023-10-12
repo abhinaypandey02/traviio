@@ -50,7 +50,7 @@ export default function BlogPage({
   const imageHeaderData =
     content?._type === 'tag'
       ? {
-          header: content.name,
+          header: content?.name,
           image: content.hero_image,
           _type: 'image_header_section' as const,
         }
@@ -61,7 +61,7 @@ export default function BlogPage({
   const [value, setValue] = React.useState(0)
   return (
     <LocaleProvider locale={locale}>
-      <SEO title={`${localizedString(content.name, locale)} - Blogs`} />
+      <SEO title={`${localizedString(content?.name, locale)} - Blogs`} />
       <Layout globals={globals} breadcrumbs={[]} locale={locale}>
         {imageHeaderData && <ImageHeaderSection data={imageHeaderData} />}
         <Container className={'my-5'}>
@@ -74,7 +74,7 @@ export default function BlogPage({
               <BlogChoose
                 items={[...destinations, ...tags].map((item) => {
                   return {
-                    title: localizedString(item.name),
+                    title: localizedString(item?.name),
                     link: `/blogs${item.slug}`,
                     images: [urlFor(item.icon)],
                   }
