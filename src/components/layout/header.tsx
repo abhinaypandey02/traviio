@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -10,10 +10,8 @@ import Container from '@/components/Container'
 
 import ButtonTwo from '../buttons/ButtonTwo'
 
-import Card from './components/Card'
 import HeaderLink from './components/HeaderLink'
 import LanguageDropdown from './components/LanguageDropdown'
-import Selector from './components/Selector'
 
 const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
   const [open, setOpen] = React.useState(false)
@@ -25,6 +23,9 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
     }
   }, [open])
   const { locale } = useContext(LocaleContext)
+
+  console.log({ navbar })
+
   return (
     <div>
       <div className="w-full z-50 hidden lg:block">

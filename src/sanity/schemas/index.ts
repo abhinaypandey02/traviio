@@ -21,7 +21,7 @@ import tour_timeline from './atoms/TourTimeline'
 import Article from './documents/Article'
 import blog_page from './documents/BlogPage'
 import destination_page from './documents/DestinationPage'
-import Globals from './documents/Globals'
+import Globals, { TourDropdown } from './documents/Globals'
 import Page from './documents/Page'
 import Tag from './documents/Tag'
 import tailor_your_tour from './documents/TailorYourTour'
@@ -101,6 +101,7 @@ export const schemaTypes = [
   Page,
   Tag,
   Globals,
+  TourDropdown,
   travel_guide,
   travel_wiki,
   destination_page,

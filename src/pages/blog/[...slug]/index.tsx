@@ -78,7 +78,24 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, lo
   const blogPageData = await fetchBlogPageData(slug)
   const tags = await fetchTags()
   const destinations = await fetchDestinationNames()
-  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
+  const globals = (await client.fetch(`*[_type == "globals"][0]{
+    ...,
+    navbar {
+  ...,
+      links[] {
+        ...,
+        _type == "tour_dropdown" => {
+          ...,
+          destinations[] {
+            ...,
+            destination->,
+            tours[]->,
+            blogs[]->,
+          }
+        }
+      }
+}
+}`)) as SanityGlobals
   return {
     props: {
       slug: slug,

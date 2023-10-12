@@ -128,7 +128,24 @@ export const getStaticProps: GetStaticProps<GuidePageProps> = async ({ locale })
   const guidePageData = (await client.fetch(
     `*[_type == "travel_guide"  && slug.current == "/"][0]`
   )) as SanityTravelGuide
-  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
+  const globals = (await client.fetch(`*[_type == "globals"][0]{
+    ...,
+    navbar {
+  ...,
+      links[] {
+        ...,
+        _type == "tour_dropdown" => {
+          ...,
+          destinations[] {
+            ...,
+            destination->,
+            tours[]->,
+            blogs[]->,
+          }
+        }
+      }
+}
+}`)) as SanityGlobals
   return {
     props: {
       data: guidePageData,

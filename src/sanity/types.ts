@@ -982,6 +982,32 @@ export type SanityTravelWiki = {
   sections?: SanityTravelWikiSection[]
 }
 
+export type SanityTourDropdown = {
+  _type: 'tour_dropdown'
+  _id: string
+  _key: string
+  destinations_title?: SanityLocaleString
+  tours_title?: SanityLocaleString
+  destinations?: {
+    _type: 'destination_link'
+    destination?: {
+      _type: 'reference'
+      _id: string
+      _ref: string
+    } & SanityDestinationPage
+    tours?: ({
+      _type: 'reference'
+      _id: string
+      _ref: string
+    } & SanityTourPage)[]
+    blogs?: {
+      _type: 'reference'
+      _id: string
+      _ref: string
+    } & SanityArticle
+  }[]
+}
+
 export type SanityGlobals = {
   _type: 'globals'
   _id: string
@@ -1000,6 +1026,7 @@ export type SanityGlobals = {
           title?: SanityLocaleString
           links?: SanityLink[]
         }
+      | SanityTourDropdown
     )[]
     cta?: SanityLinkButton
   }

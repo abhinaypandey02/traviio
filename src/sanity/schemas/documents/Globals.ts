@@ -93,6 +93,12 @@ export default defineType({
                 },
               },
             }),
+            defineArrayMember({
+              name: 'tour_dropdown',
+              title: 'Tour Dropdown',
+              icon: ListBullets as any,
+              type: 'navbar_tour_dropdown',
+            }),
           ],
         }),
         defineField({
@@ -320,4 +326,58 @@ export default defineType({
       title: 'Globals',
     }),
   },
+})
+
+export const TourDropdown = defineType({
+  name: 'navbar_tour_dropdown',
+  title: 'Navbar Tour Dropdown',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'destinations_title',
+      title: 'Destinations Title',
+      description: 'Title for the destinations list',
+      type: 'locale_string',
+    }),
+    defineField({
+      name: 'tours_title',
+      title: 'Tours Title',
+      description: 'Title for the tours list',
+      type: 'locale_string',
+    }),
+    defineField({
+      name: 'destinations',
+      title: 'Destinations',
+      description: 'Destinations for the destination',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'destination_link',
+          title: 'Destination Link',
+          icon: Link as any,
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'destination',
+              title: 'Destination',
+              type: 'reference',
+              to: [{ type: 'destination_page' }],
+            }),
+            defineField({
+              name: 'tours',
+              title: 'Tours',
+              type: 'array',
+              of: [{ type: 'reference', to: [{ type: 'tour_page' }] }],
+            }),
+            defineField({
+              name: 'blogs',
+              title: 'Blogs',
+              type: 'array',
+              of: [{ type: 'reference', to: [{ type: 'article' }] }],
+            }),
+          ],
+        }),
+      ],
+    }),
+  ],
 })

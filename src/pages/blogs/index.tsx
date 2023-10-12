@@ -80,7 +80,24 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ locale }) 
       }
       `
   )) as SanityBlogPage
-  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
+  const globals = (await client.fetch(`*[_type == "globals"][0]{
+    ...,
+    navbar {
+  ...,
+      links[] {
+        ...,
+        _type == "tour_dropdown" => {
+          ...,
+          destinations[] {
+            ...,
+            destination->,
+            tours[]->,
+            blogs[]->,
+          }
+        }
+      }
+}
+}`)) as SanityGlobals
   const destinations = await fetchDestinationNames()
   const tags = await fetchTags()
   return {

@@ -180,7 +180,24 @@ async function fetchPageData(slug: string): Promise<SanityTourPage> {
 export const getStaticProps: GetStaticProps<PageProps> = async ({ params, locale }) => {
   const slug = getSanitySlugFromSlugs(params?.slug)
   const pageData = await fetchPageData(slug)
-  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
+  const globals = (await client.fetch(`*[_type == "globals"][0]{
+    ...,
+    navbar {
+  ...,
+      links[] {
+        ...,
+        _type == "tour_dropdown" => {
+          ...,
+          destinations[] {
+            ...,
+            destination->,
+            tours[]->,
+            blogs[]->,
+          }
+        }
+      }
+}
+}`)) as SanityGlobals
   return {
     props: {
       slug: slug,

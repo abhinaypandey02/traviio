@@ -22,13 +22,12 @@ import { getSanitySlugFromSlugs, getSlugsFromPath, sanitizeSlug } from '@/utils/
 
 import Container from '@/components/Container'
 import Layout from '@/components/layout'
+import BlogChoose from '@/components/molecule/BlogChoose'
+import BlogDetailCard from '@/components/molecule/BlogDetailCard'
 import { BlogPageSectionsMap } from '@/components/sections'
 import ImageHeaderSection from '@/components/sections/ImageHeaderSection'
-import SEO from '@/components/Seo'
-import BlogDetailCard from '@/components/molecule/BlogDetailCard'
-import BlogChoose from '@/components/molecule/BlogChoose'
 import { Pagination } from '@/components/sections/ReviewSection'
-
+import SEO from '@/components/Seo'
 
 type BlogPageProps = {
   slug: string
@@ -167,7 +166,24 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, lo
   )
   const tags = await fetchTags()
   const destinations = await fetchDestinationNames()
-  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
+  const globals = (await client.fetch(`*[_type == "globals"][0]{
+    ...,
+    navbar {
+  ...,
+      links[] {
+        ...,
+        _type == "tour_dropdown" => {
+          ...,
+          destinations[] {
+            ...,
+            destination->,
+            tours[]->,
+            blogs[]->,
+          }
+        }
+      }
+}
+}`)) as SanityGlobals
   return {
     props: {
       slug: slug,

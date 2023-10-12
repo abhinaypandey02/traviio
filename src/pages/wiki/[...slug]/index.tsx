@@ -160,7 +160,24 @@ async function fetchBlogPageData(slug: string): Promise<SanityTravelWiki> {
 export const getStaticProps: GetStaticProps<WikiPageProps> = async ({ params, locale }) => {
   const slug = getSanitySlugFromSlugs(params?.slug)
   const wikiPageData = await fetchBlogPageData(slug)
-  const globals = (await client.fetch(`*[_type == "globals"][0]`)) as SanityGlobals
+  const globals = (await client.fetch(`*[_type == "globals"][0]{
+    ...,
+    navbar {
+  ...,
+      links[] {
+        ...,
+        _type == "tour_dropdown" => {
+          ...,
+          destinations[] {
+            ...,
+            destination->,
+            tours[]->,
+            blogs[]->,
+          }
+        }
+      }
+}
+}`)) as SanityGlobals
   return {
     props: {
       slug: slug,
