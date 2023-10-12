@@ -131,7 +131,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
           <div className="gap-3 flex flex-col my-2">
             <h1 className="tracking-wide">
               These dates don't work for you? Tailor your trip{' '}
-              <Link href={'/tailor-your-tour'} className="text-blue">
+              <Link href={'/tailor_your_tour'} className="text-blue">
                 here
               </Link>
             </h1>
@@ -251,7 +251,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
                       )}
                       {collapsed && (
                         <Link
-                          href={price.bookingLink || '/tailor-your-tour'}
+                          href={price.bookingLink || '/tailor_your_tour'}
                           className={`flex items-center ml-auto`}
                         >
                           <Button className="!bg-red flex items-center justify-center gap-1 px-3 !py-3 !my-auto !text-sm">
@@ -274,7 +274,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
                   </div>
                   {!collapsed && (
                     <Link
-                      href={price.bookingLink || '/tailor-your-tour'}
+                      href={price.bookingLink || '/tailor_your_tour'}
                       className={`flex items-center`}
                     >
                       <Button className="!bg-red flex items-center justify-center gap-2 px-5 !py-3 !my-auto !text-xl">
