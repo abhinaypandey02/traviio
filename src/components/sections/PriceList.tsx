@@ -14,6 +14,7 @@ import { ArrowRight, CaretDown } from '@phosphor-icons/react'
 
 import Button from '../buttons/ButtonTwo'
 import Container from '../Container'
+import { useRouter } from 'next/router'
 
 interface SinglePrice {
   from: Date
@@ -67,7 +68,7 @@ export function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>)
   }
 }
 
-function PriceList({ data }: { data: SanityPricingSection }) {
+function PriceList({ data, slug }: { data: SanityPricingSection, slug: string }) {
   // The day of the week on which the tour starts
   const startDay = data.weekly_schedule?.start_day ?? 'mon'
   // The duration of the tour in days
@@ -117,6 +118,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
   const [selected, setSelected] = React.useState(-1)
   const [collapsed, setCollapsed] = React.useState(false)
 
+
   React.useEffect(() => {
     setCollapsed(window.innerWidth < 768)
     window.addEventListener('resize', () => {
@@ -125,7 +127,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
   }, [])
 
   return (
-    <Container>
+    <Container id='price-list'>
       <div className={`rounded-md transition-all bg-darkblue bg-opacity-5 w-[970px] py-3 px-7`}>
         <div className="flex justify-between">
           <div className="gap-3 flex flex-col my-2">
@@ -251,7 +253,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
                       )}
                       {collapsed && (
                         <Link
-                          href={price.bookingLink || '/tailor-your-tour'}
+                          href={`tours/${slug}/payment`}
                           className={`flex items-center ml-auto`}
                         >
                           <Button className="!bg-red flex items-center justify-center gap-1 px-3 !py-3 !my-auto !text-sm">
@@ -274,7 +276,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
                   </div>
                   {!collapsed && (
                     <Link
-                      href={price.bookingLink || '/tailor-your-tour'}
+                      href={`tours/${slug}/payment`}
                       className={`flex items-center`}
                     >
                       <Button className="!bg-red flex items-center justify-center gap-2 px-5 !py-3 !my-auto !text-xl">

@@ -61,6 +61,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
               {Component &&
                 React.createElement(Component, {
                   data: section,
+                  slug: slug,
                   locale,
                 })}
             </React.Fragment>
