@@ -2,16 +2,17 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Button from '../buttons/ButtonTwo'
-import { ArrowRight, CaretDown } from '@phosphor-icons/react'
+import { localizedNumber } from '@/contexts/LocaleProvider'
 import {
   SanityLocaleNumber,
   SanityPrice,
   SanityPricingSection,
   SanityTourTimeline,
 } from '@/sanity/types'
-import DateFormat from '@/utils/utils'
-import { localizedNumber } from '@/contexts/LocaleProvider'
+import DateFormat, { getFirstDayOfMonth } from '@/utils/utils'
+import { ArrowRight, CaretDown } from '@phosphor-icons/react'
+
+import Button from '../buttons/ButtonTwo'
 import Container from '../Container'
 
 interface SinglePrice {
@@ -66,7 +67,11 @@ function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>) {
   }
 }
 
-function PriceList({ data }: { data: SanityPricingSection }) {
+function generatePriceList(
+  data: SanityPricingSection,
+  n: number = 5,
+  startMonth: number = new Date().getMonth()
+) {
   // The day of the week on which the tour starts
   const startDay = data.weekly_schedule?.start_day ?? 'mon'
   // The duration of the tour in days
@@ -84,8 +89,8 @@ function PriceList({ data }: { data: SanityPricingSection }) {
     currentPrice?: SanityLocaleNumber
     actualPrice?: SanityLocaleNumber
   }[] = []
-  for (let i = 0; i < 5; i++) {
-    const startDate = new Date()
+  for (let i = 0; i < n; i++) {
+    const startDate = getFirstDayOfMonth(startMonth)
     startDate.setDate(startDate.getDate() + (i + 1) * 7)
     startDate.setDate(startDate.getDate() + ((getDay(startDay) - startDate.getDay() + 7) % 7))
     const endDate = new Date(startDate)
@@ -112,7 +117,11 @@ function PriceList({ data }: { data: SanityPricingSection }) {
         priceOverrides.length > 0 ? priceOverrides[0].price?.initial_price : price?.initial_price,
     })
   }
-  const prices: SinglePrice[] = next5WeekPrices
+  return next5WeekPrices
+}
+
+function PriceList({ data }: { data: SanityPricingSection }) {
+  const prices: SinglePrice[] = generatePriceList(data, 5)
   const [selected, setSelected] = React.useState(-1)
   const [collapsed, setCollapsed] = React.useState(false)
 
