@@ -13,8 +13,8 @@ function Card(props: { title: string; excerpt: string; image: string; link: stri
         <div className="flex flex-col gap-3 p-3">
           <p className="font-semibold text-lg">{title}</p>
           <p className="text-sm">
-            <span className="opacity-50 line-clamp-3 text-sm">{excerpt}</span>{' '}
-            <span className="text-blue">Read More</span>
+            <span className="opacity-50 line-clamp-3 text-xs">{excerpt}</span>{' '}
+            <span className="text-blue text-xs">Read More</span>
           </p>
         </div>
       </div>

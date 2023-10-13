@@ -26,7 +26,6 @@ function HeaderLink({
     } else {
       document.body.classList.remove('overflow-hidden')
     }
-    console.log(open)
   }, [open])
   return (
     <>
@@ -54,61 +53,57 @@ function HeaderLink({
 
             <div
               className={
-                'w-screen max-h-[70vh] min-h-fit overflow-scroll bg-primary transition-all shadow-md absolute top-[100%] left-0 lg:top-[100px] z-[15] h-fit' +
-                (open ? '' : ' hidden')
+                'w-full h-fit overflow-scroll bg-primary transition-all shadow-md absolute top-[100%] left-0 lg:top-[100px] -z-[1]' +
+                (open ? '' : ' -translate-y-[100%]')
               }
               onClick={() => setOpen(false)}
             >
-              <Container className=" grid gap-3 lg:grid-cols-5 md:grid-cols-3 grid-cols-1 my-5">
-                <Selector
-                  title={localizedString(item.destinations_title)}
-                  items={
-                    item.destinations?.map((item, index) => {
-                      return localizedString((item.destination as any)?.name)
-                    }) as any[]
-                  }
-                  selectedItem={dest}
-                  selectedItemToggle={setDest}
-                />
-                <div className="flex flex-col gap-2">
-                  <p className="font-semibold mb-2">{localizedString(item.tours_title)}</p>
+              <div className="flex flex-wrap w-full lg:gap-[100px] gap-5 my-[52px] mx-20 h-fit min-h-[260px]">
+                <div className="flex flex-wrap lg:gap-[85px] gap-5">
+                  <Selector
+                    title={localizedString(item.destinations_title)}
+                    items={
+                      item.destinations?.map((item, index) => {
+                        return localizedString((item.destination as any)?.name)
+                      }) as any[]
+                    }
+                    selectedItem={dest}
+                    selectedItemToggle={setDest}
+                  />
+                  <div className="flex flex-col gap-3">
+                    <p className="font-semibold mb-2">{localizedString(item.tours_title)}</p>
+                    {(item.destinations as any[])
+                      ?.filter((item, index) => {
+                        return index === dest
+                      })[0]
+                      .blogs?.map((item: any, index: any) => {
+                        return (
+                          <Link href={`/blogs${item.slug.current}`}>
+                            <p>{localizedString(item.title)}</p>
+                          </Link>
+                        )
+                      })}
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-[18px]">
                   {item.destinations
                     ?.filter((item, index) => {
                       return index === dest
                     })[0]
-                    .tours?.map((item: any, index) => {
-                      return (
-                        <Link
-                          href={`/tours/${item.slug.current}`}
-                          key={index}
-                          className="hover:text-blue transition-all"
-                        >
-                          <p className="font-medium text-sm cursor-pointer">
-                            {localizedString(item.hero_section.title)}
-                          </p>
-                        </Link>
-                      )
-                    })}
-                </div>
-                <div className="col-span-3 grid grid-cols-3 gap-[18px]">
-                  {(item.destinations as any[])
-                    ?.filter((item, index) => {
-                      return index === dest
-                    })[0]
-                    .blogs?.slice(0, 3)
-                    .map((item: any, index: any) => {
+                    .tours?.slice(0, 3)
+                    .map((item: any, index) => {
                       return (
                         <Card
-                          link=""
-                          image={urlFor(item.cover_image)}
-                          title={localizedString(item.title)}
-                          excerpt={localizedString(item.introduction)}
+                          link={`/tours${item.slug.current}`}
                           key={index}
+                          excerpt={localizedString(item?.overview_card?.about)}
+                          image={urlFor(item?.hero_section?.image)}
+                          title={localizedString(item?.hero_section?.title)}
                         />
                       )
                     })}
                 </div>
-              </Container>
+              </div>
             </div>
           </div>
         </>
