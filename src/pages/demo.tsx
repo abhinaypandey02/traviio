@@ -5,10 +5,14 @@ import Layout from '@/components/layout'
 import BlogChoose from '@/components/molecule/BlogChoose'
 import PriceList from '@/components/sections/PriceList'
 import BlogReview from '@/components/organisms/BlogReview'
+import InThisPost from '@/components/sections/InThisPost'
+import ArticleHeroSection from '@/components/sections/ArticleHeroSection'
 
 const demo = () => {
   return (
     <Layout locale={'en'} breadcrumbs={[]}>
+      <Container>
+     
       <BlogReview
         image="/temp.jpg"
         name="Robert Brown"
@@ -16,6 +20,9 @@ const demo = () => {
         socialLink="/"
         text="One of the most impressive and oldest landmarks in the area of Old Cairo. It has some interesting architectural features like its offset façade facing the street front. It stands out among other neighborhood buildings as they sit at an angle unlike the mosque. The mosque also aligns with the Muslim qibla, the direction where Muslims pray facing Mecca."
       />
+
+      <InThisPost/>
+      </Container>
     </Layout>
   )
 }

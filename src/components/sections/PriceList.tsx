@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { localizedNumber } from '@/contexts/LocaleProvider'
 import {
@@ -48,7 +49,7 @@ const MAPPINGS = {
   },
 }
 
-function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>) {
+export function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>) {
   switch (day) {
     case 'mon':
       return 1
@@ -80,7 +81,7 @@ function generatePriceList(
   const price = data.weekly_schedule?.price
 
   // Prices to override the default price
-  const priceOverrides = data.price_override ?? []
+  const priceOverrides = (data as any).price_override ?? []
 
   // Generate the next 5 weeks for the tour on the basis of the start day and duration
   const next5WeekPrices: {
@@ -96,7 +97,7 @@ function generatePriceList(
     const endDate = new Date(startDate)
     endDate.setDate(endDate.getDate() + duration)
     // check if the price is overridden for this week
-    priceOverrides.filter((override) => {
+    priceOverrides.filter((override: any) => {
       const overrideStartDate = new Date(override.timeline?.start_date ?? '')
       const overrideEndDate = new Date(override.timeline?.end_date ?? '')
       return (
@@ -120,7 +121,7 @@ function generatePriceList(
   return next5WeekPrices
 }
 
-function PriceList({ data }: { data: SanityPricingSection }) {
+function PriceList({ data, slug }: { data: SanityPricingSection; slug: string }) {
   const prices: SinglePrice[] = generatePriceList(data, 5)
   const [selected, setSelected] = React.useState(-1)
   const [collapsed, setCollapsed] = React.useState(false)
@@ -133,13 +134,13 @@ function PriceList({ data }: { data: SanityPricingSection }) {
   }, [])
 
   return (
-    <Container>
+    <Container id="price-list">
       <div className={`rounded-md transition-all bg-darkblue bg-opacity-5 w-[970px] py-3 px-7`}>
         <div className="flex justify-between">
           <div className="gap-3 flex flex-col my-2">
             <h1 className="tracking-wide">
               These dates don't work for you? Tailor your trip{' '}
-              <Link href={'/tailor-your-tour'} className="text-blue">
+              <Link href={'/tailor_your_tour'} className="text-blue">
                 here
               </Link>
             </h1>
@@ -259,7 +260,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
                       )}
                       {collapsed && (
                         <Link
-                          href={price.bookingLink || '/tailor-your-tour'}
+                          href={`tours/${slug}/payment`}
                           className={`flex items-center ml-auto`}
                         >
                           <Button className="!bg-red flex items-center justify-center gap-1 px-3 !py-3 !my-auto !text-sm">
@@ -281,10 +282,7 @@ function PriceList({ data }: { data: SanityPricingSection }) {
                     </p>
                   </div>
                   {!collapsed && (
-                    <Link
-                      href={price.bookingLink || '/tailor-your-tour'}
-                      className={`flex items-center`}
-                    >
+                    <Link href={`tours/${slug}/payment`} className={`flex items-center`}>
                       <Button className="!bg-red flex items-center justify-center gap-2 px-5 !py-3 !my-auto !text-xl">
                         Book Tour <Image height={10} width={20} alt="" src="/white_arrow.png" />
                       </Button>

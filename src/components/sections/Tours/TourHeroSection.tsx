@@ -113,11 +113,11 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
         </div>
 
         <div className="flex flex-col w-full justify-between items-center  px-7">
-          <Link href={`/tours/${slug}/payment`}>
+          <Link href={`#price-list`}>
             <Button
               text={data?.cta_button?.label?.en}
               varient={data?.cta_button?.type}
-              className="text-center text-lg font-semibold w-[180px] py-3 translate-y-[-10px]"
+              className="text-center text-lg font-semibold w-[200px] py-3 translate-y-[-10px]"
             />
           </Link>
           <p className="text-xs font-medium text-red">{data?.cta_helper_text?.en}</p>

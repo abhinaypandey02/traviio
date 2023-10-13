@@ -8,31 +8,43 @@ import { SanityBlogPage, SanityGlobals, SanityLocale, SanitySlug } from '@/sanit
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs, getSlugsFromPath } from '@/utils/utils'
 
+import Container from '@/components/Container'
+import Layout from '@/components/layout/index'
 import { BlogPageSectionsMap } from '@/components/sections'
+import ArticleHeroSection from '@/components/sections/ArticleHeroSection'
+import BlogContentSection from '@/components/sections/BlogContentSection'
+import InThisPost from '@/components/sections/InThisPost'
+
+import BlogReview from '@/components/organisms/BlogReview'
+import BlogSidebar from '@/components/organisms/BlogSidebar'
 type BlogPageProps = {
-  slug: string
   data: SanityBlogPage
-  destinations: string[]
-  tags: string[]
   globals: SanityGlobals
 } & LocalePage
 
-export default function BlogPage({
-  slug,
-  data,
-  locale,
-  globals,
-  destinations,
-  tags,
-}: BlogPageProps) {
+export default function BlogPage({ data, locale, globals }: BlogPageProps) {
   return (
     <LocaleProvider locale={locale}>
-      <Slicer
-        breadcrumbs={[]}
-        globals={globals}
-        components={BlogPageSectionsMap}
-        sections={data?.sections}
-      />
+      <Layout breadcrumbs={[]} locale={locale} globals={globals}>
+        <Container>
+          <div className="flex items-start bg-white w-full gap-x-10">
+            <div className="w-3/4">
+              <ArticleHeroSection data={data.article} />
+              <InThisPost />
+
+              <BlogContentSection data={data?.article?.subsections} />
+              <BlogReview
+                image="/temp.jpg"
+                name="Robert Brown"
+                socialImage="/linkedin.svg"
+                socialLink="/"
+                text="One of the most impressive and oldest landmarks in the area of Old Cairo. It has some interesting architectural features like its offset façade facing the street front. It stands out among other neighborhood buildings as they sit at an angle unlike the mosque. The mosque also aligns with the Muslim qibla, the direction where Muslims pray facing Mecca."
+              />
+            </div>
+            <BlogSidebar />
+          </div>
+        </Container>
+      </Layout>
     </LocaleProvider>
   )
 }
@@ -70,6 +82,7 @@ async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
         }
       }`
   )) as SanityBlogPage
+  console.log(page)
   return page
 }
 

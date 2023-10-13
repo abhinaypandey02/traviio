@@ -80,7 +80,7 @@ const HappyTravelerSection = () => {
               <SwiperSlide>
                 <RatingCard
                   title={item.title}
-                  name={item.name}
+                  name={item?.name}
                   star={item.star}
                   review={item.review}
                   country={item.country}
@@ -109,7 +109,7 @@ const HappyTravelerSection = () => {
               <SwiperSlide key={index}>
                 <RatingCard
                   title={item.title}
-                  name={item.name}
+                  name={item?.name}
                   star={item.star}
                   review={item.review}
                   country={item.country}

@@ -23,9 +23,11 @@ export default function BlogPage({ data, locale, globals, allBlogs }: BlogPagePr
         breadcrumbs={[]}
         globals={globals}
         components={BlogPageSectionsMap}
-        sections={data?.sections?.map((sec) =>
-          sec._type === 'all_blogs_section' ? { ...sec, blogs: allBlogs } : sec
-        )}
+        sections={
+          data?.sections?.map((sec) =>
+            sec?._type === 'all_blogs_section' ? { ...sec, blogs: allBlogs } : sec
+          ) as any
+        }
       />
     </LocaleProvider>
   )

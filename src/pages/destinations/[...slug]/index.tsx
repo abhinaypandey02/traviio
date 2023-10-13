@@ -46,13 +46,13 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
             value: '/',
           },
           {
-            label: localizedString(data.name, locale),
+            label: localizedString(data?.name, locale),
             value: data.slug?.current || '/',
           },
         ]}
         globals={globals}
         components={DestinationSectionsMap}
-        sections={data?.sections}
+        sections={data?.sections as any}
       />
     </LocaleProvider>
   )

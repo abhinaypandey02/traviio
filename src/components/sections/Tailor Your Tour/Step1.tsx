@@ -94,15 +94,15 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
             <div className="p-5 grid grid-cols-2 bg-white gap-4 rounded shadow-md h-full">
               {Durations.map((item: any) => (
                 <div
-                  key={item.name}
+                  key={item?.name}
                   onClick={() => {
-                    setDuration(item.name)
+                    setDuration(item?.name)
                   }}
                   className={`rounded border border-darkblue/10 py-[14px] text-center text-sm cursor-pointer ${
-                    duration == item.name && 'bg-blue text-white'
+                    duration == item?.name && 'bg-blue text-white'
                   } ${item.gridSpan}`}
                 >
-                  {item.name}
+                  {item?.name}
                 </div>
               ))}
             </div>

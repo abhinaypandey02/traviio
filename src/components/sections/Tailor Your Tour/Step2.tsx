@@ -56,7 +56,7 @@ export default function Step2({ onChange }: { onChange: (data: TailorTripFormDat
   }
   return (
     <div className="grid lg:grid-cols-2 gap-[18px] px-12">
-      <Input setValue={makeSetValue('name')} value={formData.name} label="Name*" type="text" />
+      <Input setValue={makeSetValue('name')} value={formData?.name} label="Name*" type="text" />
       <Input setValue={makeSetValue('email')} value={formData.email} label="Email*" type="text" />
       <Input
         setValue={makeSetValue('nationality')}
