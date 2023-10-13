@@ -47,23 +47,10 @@ const months = [
   'December',
 ]
 
-const shortMonths = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Nov',
-  'Dec',
-]
-
+const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec']
 
 export default function DateFormat(date: Date, short: boolean = false) {
-  if(short) return date.getDate() + ' ' + shortMonths[date.getMonth()] + ' ' + date.getFullYear()
+  if (short) return date.getDate() + ' ' + shortMonths[date.getMonth()] + ' ' + date.getFullYear()
   return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
 }
 const pattern = /^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/
@@ -77,4 +64,11 @@ const decodeAssetId = (id: string) => {
     dimensions: { width, height },
     format,
   }
+}
+
+export function getFirstDayOfMonth(month: number) {
+  const firstDay = new Date()
+  firstDay.setMonth(month)
+  firstDay.setDate(1)
+  return firstDay
 }

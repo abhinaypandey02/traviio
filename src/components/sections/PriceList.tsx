@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { localizedNumber } from '@/contexts/LocaleProvider'
 import {
@@ -9,12 +10,11 @@ import {
   SanityPricingSection,
   SanityTourTimeline,
 } from '@/sanity/types'
-import DateFormat from '@/utils/utils'
+import DateFormat, { getFirstDayOfMonth } from '@/utils/utils'
 import { ArrowRight, CaretDown } from '@phosphor-icons/react'
 
 import Button from '../buttons/ButtonTwo'
 import Container from '../Container'
-import { useRouter } from 'next/router'
 
 interface SinglePrice {
   from: Date
@@ -68,7 +68,11 @@ export function getDay(day: Exclude<SanityTourTimeline['start_day'], undefined>)
   }
 }
 
-function PriceList({ data, slug }: { data: SanityPricingSection, slug: string }) {
+function generatePriceList(
+  data: SanityPricingSection,
+  n: number = 5,
+  startMonth: number = new Date().getMonth()
+) {
   // The day of the week on which the tour starts
   const startDay = data.weekly_schedule?.start_day ?? 'mon'
   // The duration of the tour in days
@@ -86,8 +90,8 @@ function PriceList({ data, slug }: { data: SanityPricingSection, slug: string })
     currentPrice?: SanityLocaleNumber
     actualPrice?: SanityLocaleNumber
   }[] = []
-  for (let i = 0; i < 5; i++) {
-    const startDate = new Date()
+  for (let i = 0; i < n; i++) {
+    const startDate = getFirstDayOfMonth(startMonth)
     startDate.setDate(startDate.getDate() + (i + 1) * 7)
     startDate.setDate(startDate.getDate() + ((getDay(startDay) - startDate.getDay() + 7) % 7))
     const endDate = new Date(startDate)
@@ -114,10 +118,13 @@ function PriceList({ data, slug }: { data: SanityPricingSection, slug: string })
         priceOverrides.length > 0 ? priceOverrides[0].price?.initial_price : price?.initial_price,
     })
   }
-  const prices: SinglePrice[] = next5WeekPrices
+  return next5WeekPrices
+}
+
+function PriceList({ data, slug }: { data: SanityPricingSection; slug: string }) {
+  const prices: SinglePrice[] = generatePriceList(data, 5)
   const [selected, setSelected] = React.useState(-1)
   const [collapsed, setCollapsed] = React.useState(false)
-
 
   React.useEffect(() => {
     setCollapsed(window.innerWidth < 768)
@@ -127,7 +134,7 @@ function PriceList({ data, slug }: { data: SanityPricingSection, slug: string })
   }, [])
 
   return (
-    <Container id='price-list'>
+    <Container id="price-list">
       <div className={`rounded-md transition-all bg-darkblue bg-opacity-5 w-[970px] py-3 px-7`}>
         <div className="flex justify-between">
           <div className="gap-3 flex flex-col my-2">
@@ -275,10 +282,7 @@ function PriceList({ data, slug }: { data: SanityPricingSection, slug: string })
                     </p>
                   </div>
                   {!collapsed && (
-                    <Link
-                      href={`tours/${slug}/payment`}
-                      className={`flex items-center`}
-                    >
+                    <Link href={`tours/${slug}/payment`} className={`flex items-center`}>
                       <Button className="!bg-red flex items-center justify-center gap-2 px-5 !py-3 !my-auto !text-xl">
                         Book Tour <Image height={10} width={20} alt="" src="/white_arrow.png" />
                       </Button>
