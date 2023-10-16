@@ -778,7 +778,16 @@ export type SanityArticle = {
     _weak?: boolean
   } & SanityTag[]
   introduction?: SanityLocaleString
-  author?: SanityLocaleString
+  author?: {
+    name?: SanityLocaleString
+    avatar?: SanityImage
+    bio?: SanityLocaleString
+    socials?: {
+      name: string
+      icon: SanityImage
+      link: string
+    }[]
+  }
   time?: SanityLocaleString
   subsections?: {
     tagline?: SanityLocaleString
