@@ -8,7 +8,7 @@ function Selector(props: {
 }) {
   const { title, items, selectedItem, selectedItemToggle } = props
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <p className="font-semibold mb-2">{title}</p>
       {items.map((item, index) => {
         return (
