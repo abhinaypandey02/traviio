@@ -75,7 +75,7 @@ function BlogSidebar() {
   ]
   const tags = ['India', 'Jaipur', 'Rajasthan', 'Monuments']
   return (
-    <div className="bg-primary w-[350px] px-3 py-10 rounded-md">
+    <div className="bg-primary w-[350px] mt-36 px-3 py-10 rounded-md">
       {/* Search */}
       <h4 className="font-semibold text-xl">Search articles</h4>
       <hr className="text-yellow h-1 rounded-full my-1  bg-yellow w-1/4 border-1" />
