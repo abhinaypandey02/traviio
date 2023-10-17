@@ -15,24 +15,23 @@ export default defineType({
       description: 'The title of the section',
       type: 'locale_string',
     }),
-    // defineField({
-    //   name: 'links',
-    //   title: 'Links',
-    //   description: 'Links for the section',
-    //   type: 'array',
-    //   of: [defineArrayMember({ type: 'link' })],
-    // }),
+    defineField({
+      name: 'tours',
+      title: 'Tour Links',
+      description: 'Tour Link',
+      type: 'array',
+      of: [defineArrayMember({ type: 'reference', to: [{ type: 'tour_page' }] })],
+    }),
   ],
   preview: {
     select: {
       title: 'title.en',
-      // links: 'links',
+      links: 'tours',
     },
     prepare: ({ title }) => {
       return {
         title: `Index Section`,
-        // subtitle: joinStrings('|', title, displayNumber(links?.length, 'Link')),
-        subtitle: joinStrings('|', title),
+        subtitle: joinStrings('|', title, displayNumber(links?.length, 'Link')),
       }
     },
   },
