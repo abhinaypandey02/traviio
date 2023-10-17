@@ -47,7 +47,7 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
                 : localizedString(blog?.title, locale)}
             </h3>
             <h4 className="mt-2 text-xs leading-[20px] text-gray ">{`By ${localizedString(
-              blog?.author,
+              blog?.author?.name  ,
               locale
             )} ${blog?._updatedAt ? 'on ' + DateFormat(new Date(blog?._updatedAt)) : ''}`}</h4>
           </div>

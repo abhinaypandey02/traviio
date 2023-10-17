@@ -90,7 +90,7 @@ export default function BlogPage({
                       link={`/blogs${article.slug?.current}`}
                       title={localizedString(article.title)}
                       date={localizedString(article.time)}
-                      author={localizedString(article.author)}
+                      author={localizedString(article.author?.name)}
                       key={index}
                     />
                   )

@@ -38,7 +38,7 @@ function AllBlogsSection({ data }: { data: SanityAllBlogsSection }) {
               link={`/blogs/${blog.slug?.current}`}
               title={localizedString(blog.title)}
               date={localizedString(blog.time)}
-              author={localizedString(blog.author)}
+              author={localizedString(blog.author?.name)}
               key={index}
             />
           )

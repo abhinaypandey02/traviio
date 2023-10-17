@@ -23,26 +23,23 @@ type BlogPageProps = {
 } & LocalePage
 
 export default function BlogPage({ data, locale, globals }: BlogPageProps) {
+ 
   return (
     <LocaleProvider locale={locale}>
       <Layout breadcrumbs={[]} locale={locale} globals={globals}>
         <Container>
-          <div className="flex items-start bg-white w-full gap-x-10">
+          <div className="flex items-start bg-white w-full gap-x-14">
             <div className="w-3/4">
               <ArticleHeroSection data={data.article} />
               <InThisPost />
 
               <BlogContentSection data={data?.article?.subsections} />
-              <BlogReview
-                image="/temp.jpg"
-                name="Robert Brown"
-                socialImage="/linkedin.svg"
-                socialLink="/"
-                text="One of the most impressive and oldest landmarks in the area of Old Cairo. It has some interesting architectural features like its offset façade facing the street front. It stands out among other neighborhood buildings as they sit at an angle unlike the mosque. The mosque also aligns with the Muslim qibla, the direction where Muslims pray facing Mecca."
-              />
             </div>
             <BlogSidebar />
           </div>
+              <BlogReview
+                data={data.article?.author} 
+              />
         </Container>
       </Layout>
     </LocaleProvider>
