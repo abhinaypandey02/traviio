@@ -12,6 +12,7 @@ import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout/index'
 import SEO from '@/components/Seo'
+import FilterDropdown from '@/components/organisms/FilterDropdown'
 
 type WikiPageProps = {
   slug: string
@@ -82,7 +83,7 @@ const InfoSection = ({ data }: any) => {
 
       {/* <hr className='py-5 text-gray opacity-40' /> */}
       <div className="flex gap-x-20 px-20 justify-between">
-        <div className="w-1/5 flex flex-col gap-y-2">
+        {/* <div className="w-1/5 flex flex-col gap-y-2">
           {data?.map((item: any, index: any) => {
             return (
               <a
@@ -103,7 +104,16 @@ const InfoSection = ({ data }: any) => {
               </a>
             )
           })}
-        </div>
+        </div> */}
+        <FilterDropdown
+          items={data.map((item : any) => {
+            return {
+              title: localizedString(item.title),
+              link: `#${item.title?.en}`,
+            }
+          })}
+          className='min-w-[390px]'
+        />
 
         <div className="w-2/3">
           {data?.map((item: any, index: any) => {
