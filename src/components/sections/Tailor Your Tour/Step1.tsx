@@ -9,10 +9,12 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
   const [duration, setDuration] = React.useState('')
   const [month, setMonth] = React.useState('')
   const [date, setDate] = React.useState<Date[]>()
+
   useEffect(() => {
     if (date) onChange(`From - ${date[0]?.toDateString()} To - ${date[1]?.toDateString()}`)
+    else if (!month || !duration) onChange('')
     else onChange(`Month - ${month}, Duration - ${duration}`)
-  }, [duration, month, onChange, date])
+  }, [duration, month, date])
   const Durations = [
     { name: 'Less than 1 Week', gridSpan: 'col-span-2' },
     { name: '1 Week', gridSpan: 'col-span-1' },

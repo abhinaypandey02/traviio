@@ -1,4 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
+import { FieldErrors, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+
+import { PaymentSchema } from '@/pages/tours/[slug]/payment'
 
 import Input from '@/components/atoms/Input'
 
@@ -18,22 +21,28 @@ export interface IContactInfo {
   town: string
   state: string
   country: string
+  adultPassenger: {
+    titlePrefix: string
+    firstName: string
+    middleName: string
+    lastName: string
+    dobDate: string
+    dobMonth: string
+    dobYear: string
+    email: string
+  }[]
 }
 export default function Page2({
-  setContactDetails,
-  contactDetails: formData,
+  register,
+  getValues,
+  setValue,
+  errors,
 }: {
-  setContactDetails: Dispatch<SetStateAction<IContactInfo>>
-  contactDetails: IContactInfo
+  register: UseFormRegister<PaymentSchema>
+  getValues: UseFormGetValues<PaymentSchema>
+  setValue: UseFormSetValue<PaymentSchema>
+  errors: FieldErrors<PaymentSchema>
 }) {
-  const makeSetValue = (key: string) => {
-    return (value: any) => {
-      setContactDetails((prev: any) => ({
-        ...prev,
-        [key]: value,
-      }))
-    }
-  }
   return (
     <div className="md:p-10 md:rounded-2xl overflow-hidden md:border md:border-darkblue/10 flex flex-col gap-10">
       <div className="flex flex-col gap-6">
@@ -48,15 +57,17 @@ export default function Page2({
           <p className="text-base font-medium text-darkblue">Full Name</p>
           <div className="grid grid-cols-[80px_1fr] gap-3">
             <Input
-              setValue={makeSetValue('titlePrefix')}
-              value={formData.titlePrefix}
+              name="titlePrefix"
+              register={register}
+              errorMsg={errors.titlePrefix?.message}
               placeholder="Prefix"
               type="select"
               options={['Mr', 'Ms', 'Dr', 'Pr']}
             />
             <Input
-              setValue={makeSetValue('firstName')}
-              value={formData.firstName}
+              name="firstName"
+              errorMsg={errors.firstName?.message}
+              register={register}
               placeholder="First Name"
               type="text"
             />
@@ -64,14 +75,16 @@ export default function Page2({
         </div>
         <div className="grid grid-cols-2 gap-3">
           <Input
-            setValue={makeSetValue('middleName')}
-            value={formData.middleName}
+            name="middleName"
+            errorMsg={errors.middleName?.message}
+            register={register}
             placeholder="Middle Name"
             type="text"
           />
           <Input
-            setValue={makeSetValue('lastName')}
-            value={formData.lastName}
+            name="lastName"
+            errorMsg={errors.lastName?.message}
+            register={register}
             placeholder="Last Name"
             type="text"
           />
@@ -80,22 +93,25 @@ export default function Page2({
           <p className="text-base font-medium text-darkblue">Date of Birth</p>
           <div className="grid grid-cols-3 gap-3">
             <Input
-              setValue={makeSetValue('dobDate')}
-              value={formData.dobDate}
+              name="dobDate"
+              errorMsg={errors.dobDate?.message}
+              register={register}
               placeholder="Date"
               options={new Array(31).fill(0).map((_, i) => i + 1)}
               type="select"
             />
             <Input
-              setValue={makeSetValue('dobMonth')}
-              value={formData.dobMonth}
+              name="dobMonth"
+              errorMsg={errors.dobMonth?.message}
+              register={register}
               placeholder="Month"
               options={new Array(12).fill(0).map((_, i) => i + 1)}
               type="select"
             />
             <Input
-              setValue={makeSetValue('dobYear')}
-              value={formData.dobYear}
+              name="dobYear"
+              errorMsg={errors.dobYear?.message}
+              register={register}
               placeholder="Year"
               options={new Array(100).fill(0).map((_, i) => i + 1924)}
               type="select"
@@ -104,8 +120,9 @@ export default function Page2({
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Nationality</p>
             <Input
-              setValue={makeSetValue('nationality')}
-              value={formData.nationality}
+              name="nationality"
+              errorMsg={errors.nationality?.message}
+              register={register}
               placeholder=" "
               type="select"
               options={['India', 'USA', 'UK', 'Australia']}
@@ -113,43 +130,56 @@ export default function Page2({
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Email</p>
-            <Input setValue={makeSetValue('email')} value={formData.email} type="text" />
+            <Input name="email" errorMsg={errors.email?.message} register={register} type="text" />
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Mobile</p>
             <div className="grid grid-cols-[80px_1fr] gap-3">
               <Input
-                setValue={makeSetValue('mobileCode')}
-                value={formData.mobileCode}
+                name="mobileCode"
+                errorMsg={errors.mobileCode?.message}
+                register={register}
                 type="select"
                 options={['+91', '+1', '+44', '+61']}
               />
               <Input
-                setValue={makeSetValue('mobileNumber')}
-                value={formData.mobileNumber}
+                name="mobileNumber"
+                errorMsg={errors.mobileNumber?.message}
+                register={register}
                 type="number"
               />
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Address</p>
-            <Input setValue={makeSetValue('address')} value={formData.address} type="text" />
+            <Input
+              name="address"
+              errorMsg={errors.address?.message}
+              register={register}
+              type="text"
+            />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-2">
               <p className="text-base font-medium text-darkblue">Town</p>
-              <Input setValue={makeSetValue('town')} value={formData.town} type="text" />
+              <Input name="town" errorMsg={errors.town?.message} register={register} type="text" />
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-base font-medium text-darkblue">State</p>
-              <Input setValue={makeSetValue('state')} value={formData.state} type="text" />
+              <Input
+                name="state"
+                errorMsg={errors.state?.message}
+                register={register}
+                type="text"
+              />
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Country</p>
             <Input
-              setValue={makeSetValue('country')}
-              value={formData.country}
+              name="country"
+              errorMsg={errors.country?.message}
+              register={register}
               type="select"
               placeholder=" "
               options={['India', 'USA', 'UK', 'Australia']}
@@ -165,15 +195,15 @@ export default function Page2({
           <p className="text-base font-medium text-darkblue">Full Name</p>
           <div className="grid grid-cols-[80px_1fr] gap-3">
             <Input
-              setValue={makeSetValue('titlePrefix')}
-              value={formData.titlePrefix}
+              name="adultPassenger.0.titlePrefix"
+              register={register}
               placeholder="Prefix"
               type="select"
               options={['Mr', 'Ms', 'Dr', 'Pr']}
             />
             <Input
-              setValue={makeSetValue('firstName')}
-              value={formData.firstName}
+              name="adultPassenger.0.firstName"
+              register={register}
               placeholder="First Name"
               type="text"
             />
@@ -181,14 +211,14 @@ export default function Page2({
         </div>
         <div className="grid grid-cols-2 gap-3">
           <Input
-            setValue={makeSetValue('middleName')}
-            value={formData.middleName}
+            name="adultPassenger.0.middleName"
+            register={register}
             placeholder="Middle Name"
             type="text"
           />
           <Input
-            setValue={makeSetValue('lastName')}
-            value={formData.lastName}
+            name="adultPassenger.0.lastName"
+            register={register}
             placeholder="Last Name"
             type="text"
           />
@@ -197,22 +227,22 @@ export default function Page2({
           <p className="text-base font-medium text-darkblue">Date of Birth</p>
           <div className="grid grid-cols-3 gap-3">
             <Input
-              setValue={makeSetValue('dobDate')}
-              value={formData.dobDate}
+              name="adultPassenger.0.dobDate"
+              register={register}
               placeholder="Date"
               options={new Array(31).fill(0).map((_, i) => i + 1)}
               type="select"
             />
             <Input
-              setValue={makeSetValue('dobMonth')}
-              value={formData.dobMonth}
+              name="adultPassenger.0.dobMonth"
+              register={register}
               placeholder="Month"
               options={new Array(12).fill(0).map((_, i) => i + 1)}
               type="select"
             />
             <Input
-              setValue={makeSetValue('dobYear')}
-              value={formData.dobYear}
+              name="adultPassenger.0.dobYear"
+              register={register}
               placeholder="Year"
               options={new Array(100).fill(0).map((_, i) => i + 1924)}
               type="select"
@@ -221,7 +251,7 @@ export default function Page2({
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-base font-medium text-darkblue">Email</p>
-          <Input setValue={makeSetValue('email')} value={formData.email} type="text" />
+          <Input name="adultPassenger.0.email" register={register} type="text" />
         </div>
         <button className="font-bold text-base text-blue self-start">Add Passenger</button>
       </div>

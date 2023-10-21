@@ -3,7 +3,7 @@ import React from 'react'
 import { Check, Minus, Plus } from '@phosphor-icons/react'
 
 interface Props {
-  name?: string
+  name: string
   type:
     | 'buttonNumber'
     | 'select'
@@ -13,13 +13,15 @@ interface Props {
     | 'checkbox'
     | 'boxSelection'
     | 'textarea'
-  value: any
-  setValue: any
+  register?: any
+  value?: any
+  setValue?: any
   variant?: 'primary' | 'secondary'
   placeholder?: string
   label?: any
   options?: string[] | number[] | { name: string; icon: any }[]
   className?: string
+  errorMsg?: any
 }
 
 const VARIANT = {
@@ -37,6 +39,7 @@ const VARIANT = {
 
 export default function Input({
   name,
+  register = (value: any) => {},
   type,
   value,
   setValue,
@@ -44,7 +47,8 @@ export default function Input({
   placeholder,
   label,
   options,
-  className
+  className,
+  errorMsg,
 }: Props) {
   if (type == 'buttonNumber')
     return (
@@ -76,6 +80,7 @@ export default function Input({
             </div>
           </div>
         </div>
+        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
   if (type == 'select')
@@ -85,11 +90,16 @@ export default function Input({
         <select
           id={name}
           className={`border bg-white border-darkblue/10 text-gray rounded p-1 ${className}`}
-          value={value}
+          {...register(name)}
+          {...(setValue
+            ? {
+                value: { value },
+                onChange: (e) => {
+                  setValue(e.target.value)
+                },
+              }
+            : {})}
           placeholder="Select"
-          onChange={(e) => {
-            setValue(e.target.value)
-          }}
         >
           {placeholder && (
             <option value="" disabled>
@@ -100,6 +110,7 @@ export default function Input({
             <option value={option}>{option}</option>
           ))}
         </select>
+        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
   if (['text', 'number', 'password'].includes(type))
@@ -111,11 +122,21 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           className="border border-darkblue/10 text-gray rounded p-1 min-w-0"
-          value={value}
-          onChange={(e) => {
-            setValue(type === 'number' ? parseInt(e.target.value) : e.target.value)
-          }}
+          // value={value}
+          // onChange={(e) => {
+          //   setValue(type === 'number' ? parseInt(e.target.value) : e.target.value)
+          // }}
+          {...register(name)}
+          {...(setValue
+            ? {
+                value: { value },
+                onChange: (e) => {
+                  setValue(e.target.value)
+                },
+              }
+            : {})}
         />
+        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
   if (type == 'checkbox')
@@ -153,6 +174,7 @@ export default function Input({
             </div>
           ))}
         </div>
+        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
   if (type == 'textarea')
@@ -164,11 +186,19 @@ export default function Input({
           id={name}
           rows={3}
           className="border border-darkblue/10 text-gray rounded p-1"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value)
-          }}
+          {...register(name)}
+          {...(setValue
+            ? {
+                value: { value },
+                onChange: (e) => {
+                  setValue(e.target.value)
+                },
+              }
+            : {})}
         />
+
+        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
+  return <></>
 }
