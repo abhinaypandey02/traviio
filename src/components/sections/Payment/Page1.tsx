@@ -1,8 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import Image from 'next/image'
+import { FieldErrors, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import ReactStars from 'react-stars'
 
 import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
+import { PaymentSchema } from '@/pages/tours/[slug]/payment'
 import { urlFor } from '@/sanity/client'
 import { SanityTourPage } from '@/sanity/types'
 import { CaretDown, Check } from '@phosphor-icons/react'
@@ -18,59 +20,63 @@ export interface IPaymentTourExtras {
   optionalVisits: any[]
 }
 export default function Page1({
+  errors,
   payment,
-  setTourData,
-  tourData,
+  register,
+  getValues,
+  setValue,
 }: {
   payment: SanityTourPage['payment']
-  tourData: IPaymentTourExtras
-  setTourData: Dispatch<SetStateAction<IPaymentTourExtras>>
+  register: UseFormRegister<PaymentSchema>
+  getValues: UseFormGetValues<PaymentSchema>
+  setValue: UseFormSetValue<PaymentSchema>
+  errors: FieldErrors<PaymentSchema>
 }) {
-  const makeSetValue = (key: string) => {
-    return (value: any) => {
-      setTourData((prev: any) => ({
-        ...prev,
-        [key]: value,
-      }))
-    }
-  }
   return (
     <div className="flex flex-col gap-7">
       <div className="p-10 bg-primary border border-darkblue/10 rounded-2xl">
         <p className="text-2xl font-bold text-darkblue">How many people are traveling?</p>
         <div className="grid grid-cols-2 gap-6">
           <Input
+            name="adultMembers"
             placeholder="Adults (+ 12 year)"
-            value={tourData.adultMembers}
-            setValue={makeSetValue('adultMembers')}
+            value={getValues('adultMembers')}
+            setValue={(value: any) => setValue('adultMembers', value, { shouldValidate: true })}
             type="buttonNumber"
             variant="secondary"
+            errorMsg={errors.adultMembers?.message}
           />
           <Input
+            name="childrenMembers"
             placeholder="Children (3 - 11 year)"
-            value={tourData.childrenMembers}
-            setValue={makeSetValue('childrenMembers')}
+            value={getValues('childrenMembers')}
+            setValue={(value: any) => setValue('childrenMembers', value, { shouldValidate: true })}
             type="buttonNumber"
             variant="secondary"
+            errorMsg={errors.childrenMembers?.message}
           />
         </div>
       </div>
       <HotelChoosing
         room_options={payment?.room_options}
-        value={tourData.hotelChoice}
-        setValue={makeSetValue('hotelChoice')}
+        value={getValues('hotelChoice')}
+        setValue={(value: any) => setValue('hotelChoice', value, { shouldValidate: true })}
+        errorMsg={errors.hotelChoice?.message}
       />
       <RomeType
         room_sharing_options={payment?.room_sharing_options}
-        value={tourData.roomType}
-        setValue={makeSetValue('roomType')}
-        value1={tourData.sharingRoomWith}
-        setValue1={makeSetValue('sharingRoomWith')}
+        value={getValues('roomType')}
+        setValue={(value: any) => setValue('roomType', value, { shouldValidate: true })}
+        errorMsg={errors.roomType?.message}
+        value1={getValues('sharingRoomWith')}
+        setValue1={(value: any) => setValue('sharingRoomWith', value, { shouldValidate: true })}
+        errorMsg1={errors.sharingRoomWith?.message}
       />
       <OptionalVisits
         data={payment?.extras}
-        value={tourData.optionalVisits}
-        setValue={makeSetValue('optionalVisits')}
+        value={getValues('optionalVisits')}
+        setValue={(value: any) => setValue('optionalVisits', value, { shouldValidate: true })}
+        errorMsg={errors.optionalVisits?.message}
       />
       <HelpWithExtras />
     </div>
@@ -81,10 +87,12 @@ const HotelChoosing = ({
   room_options,
   value,
   setValue,
+  errorMsg,
 }: {
   room_options?: Exclude<SanityTourPage['payment'], undefined>['room_options']
   value: any
   setValue: any
+  errorMsg?: string
 }) => {
   const plans = [
     {
@@ -121,6 +129,7 @@ const HotelChoosing = ({
             </div>
             <div className="w-[76px] flex flex-col justify-around items-center">
               <Input
+                name="hotelChoice"
                 value={value == localizedString(room.title)}
                 type="checkbox"
                 setValue={() => {
@@ -137,6 +146,7 @@ const HotelChoosing = ({
             </div>
           </div>
         ))}
+        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     </div>
   )
@@ -146,14 +156,18 @@ const RomeType = ({
   room_sharing_options,
   value,
   setValue,
+  errorMsg,
   value1,
   setValue1,
+  errorMsg1,
 }: {
   room_sharing_options?: Exclude<SanityTourPage['payment'], undefined>['room_sharing_options']
   value: any
   setValue: any
   value1: any
   setValue1: any
+  errorMsg?: string
+  errorMsg1?: string
 }) => {
   const plans = [
     {
@@ -195,12 +209,14 @@ const RomeType = ({
             </div>
             <div className="w-[76px] flex flex-col justify-around items-center">
               <Input
+                name="roomType"
                 value={value == localizedString(option.title)}
                 type="checkbox"
                 setValue={() => {
                   if (value == localizedString(option.title)) setValue('')
                   else setValue(localizedString(option.title))
                 }}
+                errorMsg={errorMsg}
               />
               {option.price?.initial_price && (
                 <p className="text-blue font-medium">
@@ -213,7 +229,14 @@ const RomeType = ({
         ))}
         <div className="flex flex-col gap-[18px] justify-between py-[18px]">
           <p>Sharing room with someone who is not part of this booking?</p>
-          <Input type="text" placeholder="Enter name" setValue={setValue1} value={value1} />
+          <Input
+            name="Sharing With"
+            type="text"
+            placeholder="Enter name"
+            setValue={setValue1}
+            value={value1}
+          />
+          {errorMsg1 && <span className="font-thin text-xs text-red">{errorMsg1}</span>}
         </div>
       </div>
     </div>
@@ -224,10 +247,12 @@ const OptionalVisits = ({
   data,
   value,
   setValue,
+  errorMsg,
 }: {
   data: Exclude<SanityTourPage['payment'], undefined>['extras']
   value: any
   setValue: any
+  errorMsg?: string
 }) => {
   // const Places = [
   //   {
@@ -345,6 +370,7 @@ const OptionalVisits = ({
                 </div>
                 <div className="w-[76px] flex flex-col justify-around items-center">
                   <Input
+                    name="optionalVisits"
                     value={value.includes(localizedString(plan.title))}
                     type="checkbox"
                     setValue={() => {
@@ -366,6 +392,7 @@ const OptionalVisits = ({
         </div>
       ))}
       <div className="px-10 pb-7 pt-4">
+        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
         <button className="text-blue flex items-center gap-3 mx-auto font-bold">
           View More <CaretDown />
         </button>

@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
 import { localizedString } from '@/contexts/LocaleProvider'
 import client, { urlFor } from '@/sanity/client'
@@ -18,7 +20,7 @@ import Layout from '@/components/layout'
 import FAQSection from '@/components/sections/FAQSection'
 import SelectDestinationStep from '@/components/sections/Tailor Your Tour/SelectDestinationStep'
 import Step1 from '@/components/sections/Tailor Your Tour/Step1'
-import Step2, { TailorTripFormData } from '@/components/sections/Tailor Your Tour/Step2'
+import Step2 from '@/components/sections/Tailor Your Tour/Step2'
 import Steps from '@/components/sections/Tailor Your Tour/Steps'
 
 type TailorYourTourPageProps = {
@@ -26,15 +28,107 @@ type TailorYourTourPageProps = {
   globals: SanityGlobals
   destinations: SanityDestinationPage[]
 } & LocalePage
+
+export type TailorTripFormData = {
+  selectedDestination: string
+  duration: string
+  name: string
+  email: string
+  nationality: string
+  phone: string
+  numberOfAdults: string
+  numberOfChildrens: string
+  budget: string
+  categories: string[]
+  moreInfo: string
+}
+
+export const useYupValidationResolver = (validationSchema: any) =>
+  useCallback(
+    async (data: any) => {
+      try {
+        const values = await validationSchema.validate(data, {
+          abortEarly: false,
+        })
+
+        return {
+          values,
+          errors: {},
+        }
+      } catch (errors: any) {
+        return {
+          values: {},
+          errors: errors.inner.reduce(
+            (allErrors: any, currentError: any) => ({
+              ...allErrors,
+              [currentError.path]: {
+                type: currentError.type ?? 'validation',
+                message: currentError.message,
+              },
+            }),
+            {}
+          ),
+        }
+      }
+    },
+    [validationSchema]
+  )
+
 export default function TailorYourTour({
   data,
   locale,
   destinations,
   globals,
 }: TailorYourTourPageProps) {
-  const [duration, setDuration] = useState<string>()
-  const [formData, setFormData] = useState<TailorTripFormData>()
-  const [selectedDestination, setSelectedDestination] = useState<string>('')
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+  const validationSchema = yup.object({
+    selectedDestination: yup.string().required('Required'),
+    duration: yup.string().required('Required'),
+    name: yup.string().required('Required'),
+    email: yup.string().email('Enter a Valid Email').required('Required'),
+    nationality: yup.string().required('Required'),
+    phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('Required'),
+    numberOfAdults: yup
+      .string()
+      .required('Required')
+      .test({ message: 'Should be atleast 1', test: (value) => parseInt(value || '0') > 0 }),
+    numberOfChildrens: yup.string().required('Required'),
+    budget: yup.string().required('Required'),
+    categories: yup
+      .array()
+      .of(yup.string())
+      .test({
+        message: 'Select Atleast One Category',
+        test: (value) => {
+          return value == null || value.length > 0
+        },
+      }),
+    moreInfo: yup.string().required('Required'),
+  })
+
+  const resolver = useYupValidationResolver(validationSchema)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<TailorTripFormData>({
+    defaultValues: {
+      categories: [],
+      numberOfAdults: '0',
+      numberOfChildrens: '0',
+    },
+    resolver,
+  })
+
+  useEffect(() => {
+    console.log({ values: getValues(), errors })
+  }, [getValues(), errors])
+
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       <Container>
@@ -72,40 +166,46 @@ export default function TailorYourTour({
         )}
         {selectedDestination && ( */}
         <Steps
-          disableNext={selectedDestination == ''}
-          onSubmit={() => {
+          disableNext={getValues('selectedDestination') == ''}
+          onSubmit={handleSubmit((data) => {
             fetch('/api/email', {
               method: 'POST',
               body: JSON.stringify({
                 subject: 'New Tailor Tour Request',
-                text: `You received a new "Tailor your tour" request by ${formData?.name}! Following are the details:
+                text: `You received a new "Tailor your tour" request by ${data?.name}! Following are the details:
                   
-                    Destination: ${destinations.find((d) => d._id === selectedDestination)
+                    Destination: ${destinations.find((d) => d._id === data?.selectedDestination)
                       ?.meta_data?.meta_title?.en}
-                    Duration: ${duration}
-                    Email: ${formData?.email}  
-                    Budget: ${formData?.budget}  
-                    Nationality: ${formData?.nationality}  
-                    Adults: ${formData?.numberOfAdults}  
-                    Children: ${formData?.numberOfChildrens}  
-                    Phone: ${formData?.phone}  
-                    Categories: ${formData?.categories}  
-                    More Info: ${formData?.moreInfo}  
+                    Duration: ${data?.duration}
+                    Email: ${data?.email}
+                    Budget: ${data?.budget}  
+                    Nationality: ${data?.nationality}  
+                    Adults: ${data?.numberOfAdults}  
+                    Children: ${data?.numberOfChildrens}  
+                    Phone: ${data?.phone}  
+                    Categories: ${data?.categories}  
+                    More Info: ${data?.moreInfo}  
                   `,
               }),
             }).then(() => {
               alert(`Request successfully submitted. You shall hear from us soon!`)
             })
-          }}
+          })}
         >
           <SelectDestinationStep
             destinations={destinations}
             locale={locale}
-            selectedDestination={selectedDestination}
-            setSelectedDestination={setSelectedDestination}
+            selectedDestination={getValues('selectedDestination')}
+            setSelectedDestination={(value: string) => {
+              setValue('selectedDestination', value, { shouldValidate: true })
+            }}
           />
-          <Step1 onChange={setDuration} />
-          <Step2 onChange={setFormData} />
+          <Step1
+            onChange={(value) => {
+              setValue('duration', value, { shouldValidate: true })
+            }}
+          />
+          <Step2 register={register} setValue={setValue} getValues={getValues} errors={errors} />
         </Steps>
         {/* )} */}
 
