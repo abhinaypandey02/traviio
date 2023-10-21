@@ -24,48 +24,49 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
   }, [open])
   const { locale } = useContext(LocaleContext)
 
-
   return (
     <div>
-      <div className="w-full z-50 hidden lg:block h-[100px] relative">
+      <div className="w-full z-50 hidden bg-white lg:block h-[100px] relative">
         <div className="bg-primary py-1 ">
           <Container className="flex justify-end gap-1">
             <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
             <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
           </Container>
         </div>
-        <Container className="py-[15px] bg-white flex gap-[138px] items-center">
-          <Link href={'/'}>
-            <Image
-              className={'h-10 w-[172px]'}
-              src="/company_logo.svg"
-              height={40}
-              width={172}
-              alt="Company logo"
-            />
-          </Link>
-          <div className="flex gap-[38px] justify-evenly text-darkblue">
-            {navbar?.links?.map((item, index) => {
-              return <HeaderLink item={item} key={index} />
-            })}
-          </div>
-          <div className="flex gap-3 items-stretch ml-auto">
-            <Link href={navbar?.cta?.url || '/'}>
-              <ButtonTwo className="flex gap-2.5 items-center">
-                {navbar?.cta?.icon && (
-                  <Image
-                    height={24}
-                    width={24}
-                    src={urlFor(navbar?.cta?.icon)}
-                    alt={localizedString(navbar.cta.icon.alt, locale)}
-                  />
-                )}
-                <LocalizedString text={navbar?.cta?.label} />
-              </ButtonTwo>
+        <div className="bg-white">
+          <Container className="py-[15px] bg-white flex gap-[138px] items-center">
+            <Link href={'/'}>
+              <Image
+                className={'h-10 w-[172px]'}
+                src="/company_logo.svg"
+                height={40}
+                width={172}
+                alt="Company logo"
+              />
             </Link>
-            <LanguageDropdown />
-          </div>
-        </Container>
+            <div className="flex gap-[38px] justify-evenly text-darkblue">
+              {navbar?.links?.map((item, index) => {
+                return <HeaderLink item={item} key={index} />
+              })}
+            </div>
+            <div className="flex gap-3 items-stretch ml-auto">
+              <Link href={navbar?.cta?.url || '/'}>
+                <ButtonTwo className="flex gap-2.5 items-center">
+                  {navbar?.cta?.icon && (
+                    <Image
+                      height={24}
+                      width={24}
+                      src={urlFor(navbar?.cta?.icon)}
+                      alt={localizedString(navbar.cta.icon.alt, locale)}
+                    />
+                  )}
+                  <LocalizedString text={navbar?.cta?.label} />
+                </ButtonTwo>
+              </Link>
+              <LanguageDropdown />
+            </div>
+          </Container>
+        </div>
       </div>
       <div className="w-full lg:hidden z-50 h-[80px]">
         <div className="px-5 flex justify-between w-full bg-white relative py-5 z-[50]">

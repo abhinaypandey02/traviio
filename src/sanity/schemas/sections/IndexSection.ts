@@ -30,8 +30,7 @@ export default defineType({
     },
     prepare: ({ title }) => {
       return {
-        title: `Index Section`,
-        subtitle: joinStrings('|', title, displayNumber(links?.length, 'Link')),
+        title: `Index Section`
       }
     },
   },
