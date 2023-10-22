@@ -228,6 +228,7 @@ const Costing = () => {
               type="text"
               value={promoCode}
               setValue={setPromoCode}
+              name='promoCode'
             />
             <button
               className="absolute right-2 inset-y-0 text-blue font-medium"

@@ -137,6 +137,7 @@ export default function Page3() {
                       value={formData.cardHolderName}
                       type="text"
                       placeholder=""
+                      name='cardHolderName'
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -146,6 +147,7 @@ export default function Page3() {
                       value={formData.cardNumber}
                       type="text"
                       placeholder="1234 5678 3245 9101"
+                      name='cardNumber'
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
@@ -157,16 +159,17 @@ export default function Page3() {
                         value={formData.expiryDate}
                         placeholder="MM / YY"
                         type="text"
+                        name='expiryDate'
                       />
                     </div>
                     <div className="flex flex-col gap-2">
                       <p className="text-base font-medium text-darkblue">Security Code</p>
-
                       <Input
                         setValue={makeSetValue('securityCode')}
                         value={formData.securityCode}
                         placeholder="123"
                         type="text"
+                        name='securityCode'
                       />
                     </div>
                   </div>
@@ -195,6 +198,7 @@ export default function Page3() {
                       value={formData.cardHolderName}
                       type="text"
                       placeholder=""
+                      name='cardHolderName'
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -204,27 +208,28 @@ export default function Page3() {
                       value={formData.cardNumber}
                       type="text"
                       placeholder="1234 5678 3245 9101"
+                      name='cardNumber'
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="flex flex-col gap-2">
                       <p className="text-base font-medium text-darkblue">Expiry Date</p>
-
                       <Input
                         setValue={makeSetValue('expiryDate')}
                         value={formData.expiryDate}
                         placeholder="MM / YY"
                         type="text"
+                        name='expiryDate'
                       />
                     </div>
                     <div className="flex flex-col gap-2">
                       <p className="text-base font-medium text-darkblue">Security Code</p>
-
                       <Input
                         setValue={makeSetValue('securityCode')}
                         value={formData.securityCode}
                         placeholder="123"
                         type="text"
+                        name='securityCode'
                       />
                     </div>
                   </div>
@@ -253,6 +258,7 @@ export default function Page3() {
                       value={formData.cardHolderName}
                       type="text"
                       placeholder=""
+                      name='cardHolderName'
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -262,27 +268,28 @@ export default function Page3() {
                       value={formData.cardNumber}
                       type="text"
                       placeholder="1234 5678 3245 9101"
+                      name='cardNumber'
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="flex flex-col gap-2">
                       <p className="text-base font-medium text-darkblue">Expiry Date</p>
-
                       <Input
                         setValue={makeSetValue('expiryDate')}
                         value={formData.expiryDate}
                         placeholder="MM / YY"
                         type="text"
+                        name='expiryDate'
                       />
                     </div>
                     <div className="flex flex-col gap-2">
                       <p className="text-base font-medium text-darkblue">Security Code</p>
-
                       <Input
                         setValue={makeSetValue('securityCode')}
                         value={formData.securityCode}
                         placeholder="123"
                         type="text"
+                        name='securityCode'
                       />
                     </div>
                   </div>
@@ -299,8 +306,8 @@ export default function Page3() {
             setValue={() => setValue(!formData.agreeTAndC, 'agreeTAndC')}
             type="checkbox"
             value={formData.agreeTAndC}
+            name='agreeTAndC'
           />
-
           <p className="">
             I agree to the{' '}
             <Link href="/terms-and-conditions" className="text-blue underline">
@@ -317,6 +324,7 @@ export default function Page3() {
             setValue={() => setValue(!formData.readTripInfo, 'readTripInfo')}
             type="checkbox"
             value={formData.readTripInfo}
+            name='readTripInfo'
           />
 
           <p className="">
@@ -331,6 +339,7 @@ export default function Page3() {
             setValue={() => setValue(!formData.receiveUpdates, 'receiveUpdates')}
             type="checkbox"
             value={formData.receiveUpdates}
+            name='receiveUpdates'
           />
 
           <p className="">
