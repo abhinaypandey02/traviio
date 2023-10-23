@@ -100,7 +100,6 @@ export async function getAllPages(): Promise<PageData[]> {
       slug,
       title
       }
-    }
   `)
   return pages
 }
