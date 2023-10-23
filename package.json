@@ -35,6 +35,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.47.0",
     "react-portable-text": "^0.6.0",
+    "react-responsive-modal": "^6.4.2",
     "react-server-dom-webpack": "^0.0.1",
     "react-stars": "^2.2.5",
     "sanity": "^3.14.5",
