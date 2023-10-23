@@ -5,6 +5,7 @@ import client, { urlFor } from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityPage } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
+import { getAllPages, PageData } from '@/utils/utils'
 
 import { SectionMap } from '@/components/sections'
 import SEO from '@/components/Seo'
@@ -12,9 +13,10 @@ import SEO from '@/components/Seo'
 type PageProps = {
   data: SanityPage
   globals: SanityGlobals
+  allPagesData: PageData[]
 } & LocalePage
 
-export default function Page({ data, locale, globals }: PageProps) {
+export default function Page({ data, locale, globals, allPagesData }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -89,8 +91,10 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
       }
 }
 }`)) as SanityGlobals
+  const allPages = await getAllPages()
   return {
     props: {
+      allPagesData: allPages,
       data: pageData,
       locale: (locale ?? 'en') as SanityLocale,
       globals,

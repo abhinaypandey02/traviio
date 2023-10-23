@@ -1,3 +1,6 @@
+import client from '@/sanity/client'
+import { SanitySlug } from '@/sanity/types'
+
 export function joinStrings(separator: string, ...strings: string[]): string {
   return strings.filter(Boolean).join(` ${separator.trim()} `)
 }
@@ -71,4 +74,33 @@ export function getFirstDayOfMonth(month: number) {
   firstDay.setMonth(month)
   firstDay.setDate(1)
   return firstDay
+}
+
+export type PageData = {
+  _id: string
+  _type: string
+  slug: SanitySlug
+  title: string
+}
+
+export async function getAllPages(): Promise<PageData[]> {
+  const pageTypes = [
+    'blog_page',
+    'destination_page',
+    'page',
+    'tailor_your_tour',
+    'tour_page',
+    'travel_guide',
+    'travel_wiki',
+  ]
+  const pages = await client.fetch(`
+    *[_type in ${JSON.stringify(pageTypes)}]{
+      _id,
+      _type,
+      slug,
+      title
+      }
+    }
+  `)
+  return pages
 }
