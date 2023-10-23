@@ -16,12 +16,14 @@ const Layout = ({
   breadcrumbs,
   promo_banner,
   locale,
+  head,
 }: {
   children: ReactNode
   globals?: SanityGlobals
   breadcrumbs: Breadcrumb[]
   promo_banner?: SanityPromoBanner
   locale: SanityLocale
+  head?: any
 }) => {
   return (
     <div className={myFont.className}>
