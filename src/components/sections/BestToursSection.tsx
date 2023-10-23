@@ -87,34 +87,7 @@ function BestToursSection({
       <div className=" grid md:grid-cols-4 grid-cols-1 gap-5">
         <div className="h-full">
           <FilterDropdown
-            className=""
-            items={[
-              {
-                title: 'Destination',
-                selectedItem: 'All',
-                selectionToggle: () => {},
-                subitems: ['All', 'Africa', 'Asia', 'Europe', 'North America', 'South America'],
-              },
-              {
-                title: 'Destination',
-                selectedItem: 'All',
-                selectionToggle: () => {},
-                subitems: ['All', 'Africa', 'Asia', 'Europe', 'North America', 'South America'],
-              },
-              {
-                title: 'Destination',
-                selectedItem: 'All',
-                selectionToggle: () => {},
-                subitems: ['All', 'Africa', 'Asia', 'Europe', 'North America', 'South America'],
-              },
-              {
-                title: 'Destination',
-                selectedItem: 'All',
-                selectionToggle: () => {},
-                subitems: ['All', 'Africa', 'Asia', 'Europe', 'North America', 'South America'],
-              },
-            ]}
-            selectedItemToggle={() => {}}
+            items={[]}
           />
         </div>
         <BestTours

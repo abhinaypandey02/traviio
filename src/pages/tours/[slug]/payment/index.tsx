@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from 'next/types'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
+import { useYupValidationResolver } from '@/pages/tailor_your_tour'
 import client from '@/sanity/client'
 import { SanityGlobals, SanityLocale, SanitySlug, SanityTourPage } from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
@@ -13,11 +16,14 @@ import Page1, { IPaymentTourExtras } from '@/components/sections/Payment/Page1'
 import Page2, { IContactInfo } from '@/components/sections/Payment/Page2'
 import Page3 from '@/components/sections/Payment/Page3'
 import Tabs from '@/components/sections/Payment/Tabs'
+
 type PageProps = {
   slug: string
   data: SanityTourPage
   globals: SanityGlobals
 } & LocalePage
+
+export type PaymentSchema = IPaymentTourExtras & IContactInfo
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
   const features: any = {
@@ -87,43 +93,80 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
     _type: 'feature_section',
     _key: '2d330e2f5c6c',
   }
-  const [tourData, setTourData] = useState<IPaymentTourExtras>({
-    adultMembers: 0,
-    childrenMembers: 0,
-    hotelChoice: '',
-    roomType: '',
-    sharingRoomWith: '',
-    optionalVisits: [],
+
+  const validationSchema = yup.object({
+    adultMembers: yup.number().required('Required'),
+    childrenMembers: yup.number().required('Required'),
+    hotelChoice: yup.string().required('Required'),
+    roomType: yup.string().required('Required'),
+    sharingRoomWith: yup.string().required('Required'),
+    optionalVisits: yup
+      .array()
+      .of(yup.string())
+      .test({
+        message: 'Should Select atleast 1',
+        test: (value) => (value ? value?.length > 0 : false),
+      }),
+    titlePrefix: yup.string().required('Required'),
+    firstName: yup.string().required('Required'),
+    middleName: yup.string().required('Required'),
+    lastName: yup.string().required('Required'),
+    dobDate: yup.string().required('Required'),
+    dobMonth: yup.string().required('Required'),
+    dobYear: yup.string().required('Required'),
+    nationality: yup.string().required('Required'),
+    email: yup.string().required('Required'),
+    mobileCode: yup.string().required('Required'),
+    mobileNumber: yup.string().required('Required'),
+    address: yup.string().required('Required'),
+    town: yup.string().required('Required'),
+    state: yup.string().required('Required'),
+    country: yup.string().required('Required'),
+    adultPassenger: yup.array().of(
+      yup.object({
+        titlePrefix: yup.string().required('Required'),
+        firstName: yup.string().required('Required'),
+        middleName: yup.string().required('Required'),
+        lastName: yup.string().required('Required'),
+        dobDate: yup.string().required('Required'),
+        dobMonth: yup.string().required('Required'),
+        dobYear: yup.string().required('Required'),
+        email: yup.string().required('Required'),
+      })
+    ),
   })
-  const [contactDetails, setContactDetails] = useState<IContactInfo>({
-    titlePrefix: 'Mr',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    dobDate: '',
-    dobMonth: '',
-    dobYear: '',
-    nationality: '',
-    email: '',
-    mobileCode: '',
-    mobileNumber: '',
-    address: '',
-    town: '',
-    state: '',
-    country: '',
+
+  const resolver = useYupValidationResolver(validationSchema)
+
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<PaymentSchema>({
+    defaultValues: {
+      optionalVisits: [],
+    },
+    resolver,
   })
+
+  useEffect(() => {
+    console.log(getValues(), errors)
+  }, [getValues(), errors])
+
   const router = useRouter()
-  const onSubmit = async () => {
+  const onSubmit: SubmitHandler<PaymentSchema> = async (data) => {
     fetch('/api/checkout', {
       method: 'POST',
       body: JSON.stringify({
         adults: [],
         from: new Date().toDateString(),
-        children: tourData.childrenMembers,
-        guests: tourData.childrenMembers + tourData.adultMembers,
+        children: data.childrenMembers,
+        guests: data.childrenMembers + data.adultMembers,
         tour: slug,
-        hotelType: tourData.hotelChoice,
-        roomType: tourData.roomType,
+        hotelType: data.hotelChoice,
+        roomType: data.roomType,
         to: new Date().toDateString(),
         price: 200,
       }),
@@ -135,9 +178,15 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       <FeatureSection data={features} />
-      <Tabs onSubmit={onSubmit} tour={data}>
-        <Page1 tourData={tourData} setTourData={setTourData} payment={data.payment} />
-        <Page2 contactDetails={contactDetails} setContactDetails={setContactDetails} />
+      <Tabs onSubmit={handleSubmit(onSubmit)} tour={data}>
+        <Page1
+          register={register}
+          errors={errors}
+          setValue={setValue}
+          getValues={getValues}
+          payment={data.payment}
+        />
+        <Page2 errors={errors} register={register} setValue={setValue} getValues={getValues} />
         <Page3 />
       </Tabs>
     </Layout>
