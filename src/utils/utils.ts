@@ -1,5 +1,5 @@
 import client from '@/sanity/client'
-import { SanitySlug } from '@/sanity/types'
+import { SanityMetaData, SanitySlug } from '@/sanity/types'
 
 export function joinStrings(separator: string, ...strings: string[]): string {
   return strings.filter(Boolean).join(` ${separator.trim()} `)
@@ -80,7 +80,7 @@ export type PageData = {
   _id: string
   _type: string
   slug: SanitySlug
-  title: string
+  meta_data: SanityMetaData
 }
 
 export async function getAllPages(): Promise<PageData[]> {
@@ -95,10 +95,10 @@ export async function getAllPages(): Promise<PageData[]> {
   ]
   const pages = await client.fetch(`
     *[_type in ${JSON.stringify(pageTypes)}]{
-      _id,
-      _type,
-      slug,
-      title
+        _id,
+        _type,
+        slug,
+        meta_data
       }
   `)
   return pages
