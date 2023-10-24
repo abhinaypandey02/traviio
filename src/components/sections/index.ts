@@ -37,6 +37,7 @@ import ReviewSection from './ReviewSection'
 import Testimonial from './Testimonial'
 import TourFeature from './TourFeature'
 import BlogHeroSection from './BlogHeroSection'
+import IndexSextion from './IndexSection'
 
 export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {
   hero_section: HeroSection,
@@ -55,7 +56,7 @@ export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any>
   // content_section,
   // deals_section,
   // gallery_section,
-  // index_section,
+  index_section:IndexSextion,
   // newsletter_section,
   // testimonial_section
 }
