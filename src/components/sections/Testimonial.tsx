@@ -32,7 +32,10 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
         <div className="lg:max-w-xs shrink-0 w-full">
           {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
           <h3 className=" text-[40px] leading-tight -tracking-[1.2px] font-bold">
-            {localizedString(title, props.locale)}
+            <span className='text-blue'>
+            {title?.en?.substring(0,16)}
+            </span>
+            {title?.en?.substring(16)}
           </h3>
           <h5 className="text-lg mt-3 opacity-60">{localizedString(subtitle, props.locale)}</h5>
           <Image

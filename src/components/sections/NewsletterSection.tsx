@@ -15,7 +15,7 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
   return (
     <Container className="flex justify-center items-center bg-white text-white">
       <div
-        className="w-full pt-[55px] pb-[45px] px-[60px] bg-blue md:rounded-3xl rounded-md"
+        className="w-full mb-10 pt-[55px] pb-[45px] px-[60px] bg-blue md:rounded-3xl rounded-md"
         style={{
           backgroundImage: `url(${data.image ? urlFor(data.image) : ''})`,
           backgroundPosition: 'center',
@@ -31,7 +31,7 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
           </h3>
           <div className="relative shadow-sm flex items-center">
             <input
-              className="w-[250px] md:w-[420px] h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-gray text-xs md:text-base leading-[22px] md:leading-normal "
+              className="w-[250px] text-black md:w-[420px] h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-gray text-xs md:text-base leading-[22px] md:leading-normal "
               type="text"
               placeholder={'Enter your email'}
             />
