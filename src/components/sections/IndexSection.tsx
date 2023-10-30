@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { SanityIndexSection } from '@/sanity/types'
 import Container from '@/components/Container'
-import { getAllPages } from '@/utils/utils'
+import { PageData, getAllPages } from '@/utils/utils'
 export type IndexSectionProps = {
   data: SanityIndexSection
 }
 const IndexSextion = (props: IndexSectionProps) => {
-   const [data,setData]=useState([])
+   const [data,setData]=useState<PageData[]>([])
    useEffect(()=>{
      const getdata= async()=>{
       const result= await getAllPages()

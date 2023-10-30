@@ -17,7 +17,7 @@ const Popup = () => {
 
   return (
     <div>
-       <Modal className='p-0' open={open} onClose={onCloseModal} center closeIcon={closeIcon}>
+       <Modal open={open} onClose={onCloseModal} center closeIcon={closeIcon}>
         <div className='rounded-xl  p-0 flex text-black  overflow-hidden overflow-x-auto'>
           <div className='w-1/2'>
           <img src="./popup_image.png" alt="" />

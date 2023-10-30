@@ -3,9 +3,8 @@ import React from 'react'
 
 const login = () => {
   return (
-   <Layout breadcrumbs={[]} >
-
-  </Layout>  
+    <>
+    </>
   )
 }
 

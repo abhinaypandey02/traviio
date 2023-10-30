@@ -8,6 +8,7 @@ import Swiper from '@/components/Swiper'
 import { SanityGallerySection, SanityImage } from '../../sanity/types'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { localizedString } from '@/contexts/LocaleProvider';
 export type GallerySectionProps = {
   data: SanityGallerySection
 }
@@ -38,11 +39,11 @@ const GallerySection = (props: GallerySectionProps) => {
           {title?.en}
         </h3>
         <div className="text-lg mt-1.5 text-gray text-center leading-[28px]">
-          {subtitle?.en.substring(0, 5)}
+          {localizedString(subtitle).substring(0, 5)}
           <span className='text-blue opacity-100'>
-            {subtitle?.en.substring(5, 32)}
+            {localizedString(subtitle).substring(5, 32)}
           </span>
-          {subtitle?.en.substring(32)}
+          {localizedString(subtitle).substring(32)}
         </div>
         <div className={'mt-2 mb-[30px]'}>
           <Image
