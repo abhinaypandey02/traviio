@@ -28,8 +28,9 @@ const Layout = ({
   return (
     <div className={myFont.className}>
       <div
-        className="overflow-x-hidden bg-white text-black min-h-screen flex flex-col"
-        style={{ width: process.env.NEXT_PUBLIC_DEVELOPMENT ? 1440 : '' }}
+        className="overflow-x-hidden bg-white text-black min-h-screen  flex flex-col"
+        // style={{ width: process.env.NEXT_PUBLIC_DEVELOPMENT ? 1440 : '' }}
+        style={{ width: process.env.NEXT_PUBLIC_DEVELOPMENT ? '' : '' }}
       >
         <Header navbar={globals?.navbar} />
 
