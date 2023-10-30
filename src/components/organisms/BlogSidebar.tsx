@@ -3,6 +3,8 @@ import React from 'react'
 import Button from '../buttons/Button'
 import LatestArticle from '../molecule/LatestArticle'
 
+import { SanityBlogSidebar } from '@/sanity/types'
+
 function BlogSidebar() {
   const latestArticles = [
     {
