@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { set } from 'mongoose'
-
+import { Country, State, City }  from 'country-state-city';
 import { urlFor } from '@/sanity/client'
 import {
   SanityItineraryDetailsListItem,
@@ -15,6 +15,7 @@ import Container from '@/components/Container'
 
 export default function ItinerarySection({ data }: { data?: SanityItinerarySection }) {
   // console.log('ItinerarySection-> ', data)
+    // console.log(Country.getAllCountries())
   return (
     <Container className=" flex flex-col py-20 gap-10">
       <div className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
@@ -28,7 +29,9 @@ export default function ItinerarySection({ data }: { data?: SanityItinerarySecti
         {/* Travel Schedule */}
         <TravelSchedule data={data?.itinerary_day_cards} />
         {/* Enquire Tab */}
+       
         <EnquireTab />
+        
       </div>
     </Container>
   )
@@ -115,7 +118,7 @@ const EnquireTab = () => {
           <input
             id="name"
             type="text"
-            className="border border-darkblue/10 text-gray rounded p-1"
+            className="border border-darkblue/10 text-black rounded p-1"
             value={formData['name']}
             onChange={(e) => {
               setValue(e.target.value, 'name')
@@ -127,7 +130,7 @@ const EnquireTab = () => {
           <input
             id="email"
             type="text"
-            className="border border-darkblue/10 text-gray rounded p-1"
+            className="border border-darkblue/10 text-black rounded p-1"
             value={formData['email']}
             onChange={(e) => {
               setValue(e.target.value, 'email')
@@ -138,7 +141,7 @@ const EnquireTab = () => {
           <label htmlFor="nationality">Nationality*</label>
           <select
             id="nationality"
-            className="border bg-white border-darkblue/10 text-gray rounded p-1 py-2"
+            className="border bg-white border-darkblue/10 text-black rounded p-1 py-2"
             value={formData['nationality']}
             placeholder="Select"
             onChange={(e) => {
@@ -148,13 +151,20 @@ const EnquireTab = () => {
             <option value="" disabled>
               Select Nationality
             </option>
+            {
+              Country.getAllCountries().map((item:any,index:any)=>{
+                  return(
+                    <option value={item.name}>{item.name}</option>
+                  )
+              })
+            }
             <option value="Nepal">Nepal</option>
             <option value="India">India</option>
           </select>
         </div>
         <div className="flex  font-medium text-base text-black flex-col gap-2">
           <label htmlFor="mobileNumber">Mobile</label>
-          <div className="border bg-white text-base border-darkblue/10 text-gray rounded p-1 grid grid-cols-[1fr_7fr] gap-1 divide-x-2 divide-darkblue/10 py-2">
+          <div className="border bg-white text-base border-darkblue/10 text-black rounded p-1 grid grid-cols-[1fr_7fr] gap-1 divide-x-2 divide-darkblue/10 py-2">
             <input
               className="min-w-0 w-full flex items-center justify-center h-full overflow-hidden focus:outline-none"
               id="mobileCode"
@@ -183,7 +193,7 @@ const EnquireTab = () => {
             <input
               id="from"
               type="date"
-              className="border border-darkblue/10 text-gray rounded p-1"
+              className="border border-darkblue/10 text-black rounded p-1"
               value={formData['from']}
               onChange={(e) => {
                 setValue(e.target.value, 'from')
@@ -195,7 +205,7 @@ const EnquireTab = () => {
             <input
               id="to"
               type="date"
-              className="border border-darkblue/10 text-gray rounded p-1"
+              className="border border-darkblue/10 text-black rounded p-1"
               value={formData['to']}
               onChange={(e) => {
                 setValue(e.target.value, 'to')
@@ -235,7 +245,7 @@ const EnquireTab = () => {
           <textarea
             id="details"
             rows={3}
-            className="border border-darkblue/10 text-gray rounded p-1"
+            className="border border-darkblue/10 text-black rounded p-1"
             value={formData['details']}
             onChange={(e) => {
               setValue(e.target.value, 'details')

@@ -63,15 +63,15 @@ export const TourCard = ({
             {process.env.NEXT_PUBLIC_DEVELOPMENT ? "Safari Falls: Cape's Exotic Adventure" : title}
           </h3>
           <div className="flex mt-3 justify-between">
-            <div className="text-sm leading-[22px] flex gap-1.5">
+            <div className="text-sm font-bold leading-[22px] flex gap-1.5">
               <Image height={18} width={18} alt="" src="/calendar.svg"></Image>
               <p className='font-medium'>{duration}</p>
             </div>
-            <div className="text-sm leading-[22px] flex gap-1.5">
+            <div className="text-sm leading-[22px] font-bold flex gap-1.5">
               <Image height={18} width={18} alt="" src="/map_plain.svg"></Image>
               <p className='font-medium'>{cities} Cities</p>
             </div>
-            <div className="text-sm leading-[22px] flex gap-1.5">
+            <div className="text-sm leading-[22px] font-bold flex gap-1.5">
               <Image height={18} width={18} alt="" src="/globe.svg"></Image>
               <p className='font-medium'>{countries} Countries </p>
             </div>
@@ -119,7 +119,7 @@ const DealsSection = ({
         </h4>
       </div>
 
-      <Swiper className={'gap-6 pb-3 mt-12'} length={deals?.length} scrollCount={4}>
+      <Swiper className={'gap-6 pb-3 mt-12'} length={deals?.length} scrollCount={4} >
         {deals?.map((({ tour }: { tour: SanityTourPage }) => (
           <TourCard
             title={localizedString(tour?.hero_section?.title, locale)}
