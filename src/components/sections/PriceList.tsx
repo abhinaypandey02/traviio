@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { localizedNumber } from '@/contexts/LocaleProvider'
 import {
   SanityLocaleNumber,
@@ -125,7 +124,7 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
   const prices: SinglePrice[] = generatePriceList(data, 5)
   const [selected, setSelected] = React.useState(-1)
   const [collapsed, setCollapsed] = React.useState(false)
-
+  const [show,setShow]=React.useState(4)
   React.useEffect(() => {
     setCollapsed(window.innerWidth < 768)
     window.addEventListener('resize', () => {
@@ -179,119 +178,130 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
             )}
           </div>
           {prices.map((price, index) => (
-            <div
-              className={`rounded-lg shadow transition-all ${
-                selected !== index ? 'bg-white py-1' : 'bg-blue text-white'
-              }`}
-              key={index}
-            >
-              <div
-                className={`grid gap-2 py-3 px-2 cursor-pointer font-semibold text-xl ${
-                  collapsed ? ' grid-cols-6' : 'grid-cols-12'
-                }`}
-                onClick={() => {
-                  selected === index ? setSelected(-1) : setSelected(index)
-                }}
-              >
-                <h1 className={`col-span-2 text-base ${collapsed ? 'text-sm ml-2' : 'ml-5'}`}>
-                  {DateFormat(price.from, true)}
-                </h1>
-                <Image
-                  src={selected === index ? '/arrow_icon.svg' : '/arrow_blue.svg'}
-                  height={9}
-                  width={40}
-                  alt=""
-                  className="my-auto mx-auto"
-                />
-                <h1 className={`col-span-2 text-base ${collapsed && 'text-sm'}`}>
-                  {DateFormat(price.to, true)}
-                </h1>
-                {!collapsed && (
-                  <>
-                    <p
-                      className={`col-span-3 text-center text-base ${
-                        MAPPINGS[price.availability || 'Available'].availablecolor
-                      } ${selected === index ? 'text-white' : ''}`}
-                    >
-                      {MAPPINGS[price.availability || 'Available'].availability}
-                    </p>
-                    <div></div>
-                    <div
-                      className={`col-span-2 text-base text-center flex items-center gap-2 ${
-                        MAPPINGS[price.availability || 'Available'].color
-                      } ${selected === index ? 'opacity-0' : ''}`}
-                    >
-                      <p>$ {localizedNumber(price.currentPrice)}</p>
-                      {price.actualPrice && (
-                        <p className="line-through text-xs">
-                          $ {localizedNumber(price.actualPrice)}
-                        </p>
-                      )}
-                    </div>
-                  </>
-                )}
-                <CaretDown
-                  height={20}
-                  width={20}
-                  className={`ml-auto mr-5 my-auto transition-all ${
-                    selected === index && '-rotate-180'
-                  }`}
-                />
-              </div>
-              {selected === index && (
-                <div className="bg-white text-darkblue p-8 rounded-b-lg col-span-full flex justify-between">
-                  <div className="flex gap-2 flex-col">
-                    <div className="flex gap-3 items-center">
-                      <h1
-                        className={`${
-                          MAPPINGS[price.availability || 'Available'].color
-                        } font-bold whitespace-nowrap ${collapsed ? 'text-xl' : 'text-4xl'}`}
-                      >
-                        $ {localizedNumber(price.currentPrice)}
-                      </h1>
-                      {price.actualPrice && (
-                        <h1
-                          className={`text-gray line-through text-2xl font-semibold whitespace-nowrap ${
-                            collapsed ? 'text-sm' : 'text-2xl'
-                          }`}
-                        >
-                          $ {localizedNumber(price.actualPrice)}
-                        </h1>
-                      )}
-                      {collapsed && (
-                        <Link
-                          href={`tours/${slug}/payment`}
-                          className={`flex items-center ml-auto`}
-                        >
-                          <Button className="!bg-red flex items-center justify-center gap-1 px-3 !py-3 !my-auto !text-sm">
-                            Book Tour
-                          </Button>
-                        </Link>
-                      )}
-                    </div>
-                    <p className="text-gray mt-3 text-sm">
-                      Per person in a {price.roomType || 'Double Seater'}
-                    </p>
-                    <p className="text-sm">
-                      Looking for a Different Room Type?
-                      <span className="text-blue"> Find the pricing in the next steps.</span>
-                    </p>
-                    <p className="text-sm">
-                      <span className="text-blue">Customize your trip</span> with optional tours
-                      during booking!
-                    </p>
-                  </div>
-                  {!collapsed && (
-                    <Link href={`tours/${slug}/payment`} className={`flex items-center`}>
-                      <Button className="!bg-red flex items-center justify-center gap-2 px-5 !py-3 !my-auto !text-xl">
-                        Book Tour <Image height={10} width={20} alt="" src="/white_arrow.png" />
-                      </Button>
-                    </Link>
-                  )}
-                </div>
-              )}
-            </div>
+           index<show? <div
+           className={`rounded-lg shadow transition-all ${
+             selected !== index ? 'bg-white py-1' : 'bg-blue text-white'
+           }`}
+           key={index}
+         >
+           <div
+             className={`grid gap-2 py-3 px-2 cursor-pointer font-semibold text-xl ${
+               collapsed ? ' grid-cols-6' : 'grid-cols-12'
+             }`}
+             onClick={() => {
+               selected === index ? setSelected(-1) : setSelected(index)
+             }}
+           >
+             <h1 className={`col-span-2 text-base ${collapsed ? 'text-sm ml-2' : 'ml-5'}`}>
+               {DateFormat(price.from, true)}
+             </h1>
+             <Image
+               src={selected === index ? '/arrow_icon.svg' : '/arrow_blue.svg'}
+               height={9}
+               width={40}
+               alt=""
+               className="my-auto mx-auto"
+             />
+             <h1 className={`col-span-2 text-base ${collapsed && 'text-sm'}`}>
+               {DateFormat(price.to, true)}
+             </h1>
+             {!collapsed && (
+               <>
+                 <p
+                   className={`col-span-3 text-center text-base ${
+                     MAPPINGS[price.availability || 'Available'].availablecolor
+                   } ${selected === index ? 'text-white' : ''}`}
+                 >
+                   {MAPPINGS[price.availability || 'Available'].availability}
+                 </p>
+                 <div></div>
+                 <div
+                   className={`col-span-2 text-base text-center flex items-center gap-2 ${
+                     MAPPINGS[price.availability || 'Available'].color
+                   } ${selected === index ? 'opacity-0' : ''}`}
+                 >
+                   <p>$ {localizedNumber(price.currentPrice)}</p>
+                   {price.actualPrice && (
+                     <p className="line-through text-xs">
+                       $ {localizedNumber(price.actualPrice)}
+                     </p>
+                   )}
+                 </div>
+               </>
+             )}
+             <CaretDown
+               height={20}
+               width={20}
+               className={`ml-auto mr-5 my-auto transition-all ${
+                 selected === index && '-rotate-180'
+               }`}
+             />
+           </div>
+           {selected === index && (
+             <div className="bg-white text-darkblue p-8 rounded-b-lg col-span-full flex justify-between">
+               <div className="flex gap-2 flex-col">
+                 <div className="flex gap-3 items-center">
+                   <h1
+                     className={`${
+                       MAPPINGS[price.availability || 'Available'].color
+                     } font-bold whitespace-nowrap ${collapsed ? 'text-xl' : 'text-4xl'}`}
+                   >
+                     $ {localizedNumber(price.currentPrice)}
+                   </h1>
+                   {price.actualPrice && (
+                     <h1
+                       className={`text-gray line-through text-2xl font-semibold whitespace-nowrap ${
+                         collapsed ? 'text-sm' : 'text-2xl'
+                       }`}
+                     >
+                       $ {localizedNumber(price.actualPrice)}
+                     </h1>
+                   )}
+                   {collapsed && (
+                     <Link
+                       href={`tours/${slug}/payment`}
+                       className={`flex items-center ml-auto`}
+                     >
+                       <Button className="!bg-red flex items-center justify-center gap-1 px-3 !py-3 !my-auto !text-sm">
+                         Book Tour
+                       </Button>
+                     </Link>
+                   )}
+                 </div>
+                 <p className="text-gray mt-3 text-sm">
+                   Per person in a {price.roomType || 'Double Seater'}
+                 </p>
+                 <p className="text-sm">
+                   Looking for a Different Room Type?
+                   <span className="text-blue"> Find the pricing in the next steps.</span>
+                 </p>
+                 <p className="text-sm">
+                   <span className="text-blue">Customize your trip</span> with optional tours
+                   during booking!
+                 </p>
+               </div>
+               {!collapsed && (
+                 <Link href={`tours/${slug}/payment`} className={`flex items-center`}>
+                   <Button className="!bg-red flex items-center justify-center gap-2 px-5 !py-3 !my-auto !text-xl">
+                     Book Tour <Image height={10} width={20} alt="" src="/white_arrow.png" />
+                   </Button>
+                 </Link>
+               )}
+             </div>
+           )}
+         </div>:null
           ))}
+          {
+            show<prices.length?
+            <div onClick={()=>{setShow(show+4)}} className='text-center text-lg font-semibold mt-3 text-blue cursor-pointer'>
+            view more  <CaretDown/>
+            </div>
+            :
+            <div onClick={()=>{setShow(show-4)}} className='text-center text-lg font-semibold mt-3 text-blue cursor-pointer'>
+             view less  <CaretDown/>
+            </div>
+          }
+          
         </div>
       </div>
     </Container>
