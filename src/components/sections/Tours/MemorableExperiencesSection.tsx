@@ -75,6 +75,7 @@ export default function MemorableExperiencesSection({
                 observer
                 observeParents
                 onSwiper={setSwiper}
+                scrollCount={4}
               >
                 {data?.experience_cards?.map((card, index) => (
                   <SwiperSlide key={index}>
@@ -93,6 +94,7 @@ export default function MemorableExperiencesSection({
         >
           <ArrowLeft color="white" />
         </div>
+
         <div
           className="w-[50px] h-[50px] rounded-full bg-blue flex items-center justify-center"
           ref={nextRef}
