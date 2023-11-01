@@ -22,6 +22,15 @@ module.exports = {
         primary: '#F2FAFF',
         green: '#4CAF50',
       },
+      animation: {
+        fade: 'fadeOut infinite 1s ease-in-out',
+      },
+      keyframes: theme => ({
+        fadeOut: {
+          '0%': { background: "rgba(0, 0, 0, 0)" },
+          '100%': { background: "rgba(0, 0, 0, 0)" },
+        },
+      }),
     },
   },
   plugins: [],

@@ -134,10 +134,10 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
 
   return (
     <Container id="price-list">
-      <div className={`rounded-md transition-all bg-darkblue bg-opacity-5 w-[970px] py-3 px-7`}>
+      <div className={` transition-all font-semibold rounded-2xl bg-[#f5f3f0] bg-opacity-60 w-[970px] py-3 px-7`}>
         <div className="flex justify-between">
           <div className="gap-3 flex flex-col my-2">
-            <h1 className="tracking-wide">
+            <h1 className="tracking-wide font-semibold">
               These dates don't work for you? Tailor your trip{' '}
               <Link href={'/tailor_your_tour'} className="text-blue">
                 here
@@ -148,7 +148,7 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
               <p className="text-md font-semibold text-blue">Secure Payments</p>
             </div>
           </div>
-          <div className="my-3">
+          <div className="my-3 font-semibold">
             <div className="h-12 w-[280px] grid grid-cols-[1fr_36px] bg-white divide-x-2 divide-darkblue p-3 border border-darkblue rounded-md">
               <div className="flex gap-3 items-center">
                 <Image src="/calendar.svg" alt="" height={24} width={24} />
@@ -293,12 +293,15 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
           ))}
           {
             show<prices.length?
-            <div onClick={()=>{setShow(show+4)}} className='text-center text-lg font-semibold mt-3 text-blue cursor-pointer'>
+            <div onClick={()=>{setShow(show+4)}} className='text-center flex gap-x-2 items-center justify-center text-lg font-semibold mt-3 text-blue cursor-pointer'>
             view more  <CaretDown/>
             </div>
             :
-            <div onClick={()=>{setShow(show-4)}} className='text-center text-lg font-semibold mt-3 text-blue cursor-pointer'>
-             view less  <CaretDown/>
+            <div onClick={()=>{setShow(show-4)}} className='text-center text-lg font-semibold flex gap-x-2 items-center justify-center mt-3 text-blue cursor-pointer'>
+             view less 
+             <div className='rotate-180'>
+              <CaretDown/>
+             </div>
             </div>
           }
           

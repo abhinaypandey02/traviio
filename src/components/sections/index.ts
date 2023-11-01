@@ -11,7 +11,7 @@ import AllBlogsSection from '@/components/organisms/AllBlogsSection'
 
 import DestinationsSection from '../organisms/DestinationsSection'
 import TravelInformation from '../TravelInformation'
-
+import TourGallerySection from './TourGallerySection'
 import AccommdationTypesSection from './Tours/AccommdationTypesSection'
 import ImageShowCaseSection from './Tours/ImageShowCaseSection'
 import ItinerarySection from './Tours/ItinerarySection'
@@ -90,7 +90,7 @@ export const TourSectionsMap: {
   itinerary_section: ItinerarySection,
   content_section: ContentSection,
   memorable_experiences_section: MemorableExperiencesSection,
-  gallery_section: GallerySection,
+  gallery_section: TourGallerySection,
   whats_included_section: WhatsIncludedSection,
   pricing_section: PriceList,
   accommodation_types_section: AccommdationTypesSection,

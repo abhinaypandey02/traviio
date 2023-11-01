@@ -12,7 +12,7 @@ import { localizedString } from '@/contexts/LocaleProvider';
 export type GallerySectionProps = {
   data: SanityGallerySection
 }
-const TourGallerySection = (props: GallerySectionProps) => {
+const GallerySection = (props: GallerySectionProps) => {
   const {
     data: { title, subtitle, images },
   } = props
@@ -33,12 +33,13 @@ const TourGallerySection = (props: GallerySectionProps) => {
  
 
   return (
-    <div className="pt-10 bg-[#F2FAFF] text-black">
+    <div className="pt-10  text-black">
       <Container>
-        <h3 className="text-[40px] leading-tight -tracking-[1.2px] font-bold text-center">
+        <h3 className="text-[40px] leading-tight -tracking-[1.2px] font-bold ">
           {title?.en}
         </h3>
-        <div className="text-lg mt-1.5 text-gray text-center leading-[28px]">
+        <hr  className='text-yellow bg-yellow my-2 h-1 rounded-full border-1 w-1/6' />
+        <div className="text-lg mt-1.5 text-gray  leading-[28px]">
           {localizedString(subtitle).substring(0, 5)}
           <span className='text-blue opacity-100'>
             {localizedString(subtitle).substring(5, 32)}
@@ -111,4 +112,4 @@ const TourGallerySection = (props: GallerySectionProps) => {
   )
 }
 
-export default TourGallerySection
+export default GallerySection

@@ -62,7 +62,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
     data: { tagline, title, featured_blogs },
   } = props
   return (
-    <Container className="pb-20 pt-[84px]  bg-white text-darkblue">
+    <Container className="pb-20 pt-[84px]    bg-white text-darkblue">
       <h2 className="text-blue font-medium text-center">
         {localizedString(tagline, props.locale)}
       </h2>
@@ -70,7 +70,8 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
         {localizedString(title, props.locale)}
         <hr className="w-full mt-[9px] text-yellow bg-yellow  rounded-full border-t border-b-2 " />
       </h4>
-      <div className=" lg:block hidden ">
+      <div className=" lg:block hidden bg-gradient-to-r from-white   ">
+      
         <Swiper className={'gap-6'} length={featured_blogs?.length} scrollCount={2}>
           {featured_blogs?.map((blog: any) => (
             <>
@@ -87,6 +88,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
               <BlogCard blog={blog} locale={props?.locale} />
             </>
           ))}
+          
         </Swiper>
       </div>
     </Container>
