@@ -76,7 +76,12 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const slugs = (await client.fetch(`*[_type == "tour_page"]{slug}.slug`)) as SanitySlug[]
 
   return {
-    paths: slugs.map((slug) => ({ params: { slug: slug.current.slice(1) } })),
+    paths: slugs
+      .map(
+        (slug) =>
+          locales || [].map((locale) => ({ params: { slug: slug.current.slice(1) }, locale }))
+      )
+      .flat(),
     fallback: false,
   }
 }

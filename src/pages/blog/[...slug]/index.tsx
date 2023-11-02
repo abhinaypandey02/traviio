@@ -23,7 +23,6 @@ type BlogPageProps = {
 } & LocalePage
 
 export default function BlogPage({ data, locale, globals }: BlogPageProps) {
- 
   return (
     <LocaleProvider locale={locale}>
       <Layout breadcrumbs={[]} locale={locale} globals={globals}>
@@ -37,9 +36,7 @@ export default function BlogPage({ data, locale, globals }: BlogPageProps) {
             </div>
             <BlogSidebar />
           </div>
-              <BlogReview
-                data={data.article?.author} 
-              />
+          <BlogReview data={data.article?.author} />
         </Container>
       </Layout>
     </LocaleProvider>
@@ -54,16 +51,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   )) as SanitySlug[]
 
   return {
-    paths: slugs
-      .map((slug) =>
-        (locales ?? []).map((locale) => ({
-          params: {
-            slug: getSlugsFromPath(slug.current),
-          },
-          locale,
-        }))
-      )
-      .flat(),
+    paths: getPaths(slugs, locales),
     fallback: false,
   }
 }
@@ -106,6 +94,7 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, lo
       }
 }
 }`)) as SanityGlobals
+  console.log(locale)
   return {
     props: {
       slug: slug,
