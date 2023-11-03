@@ -13,7 +13,6 @@ export async function POST(req: Request) {
 
   try {
     const stripe = getStripe()
-    // console.log(payload, sig, endpointSecret, req.headers.get('stripe-signature'))
     event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
   } catch (error) {
     console.error(error)
@@ -25,7 +24,7 @@ export async function POST(req: Request) {
     case 'checkout.session.completed': {
       const checkoutSessionCompleted = event.data.object as any
       const bookingId = checkoutSessionCompleted.metadata?.booking
-      await client.mutate({
+      client.mutate({
         mutation: gql(`
           #graphql
           mutation UpdateBookingPayment($id:String!, $key:String!){
@@ -35,6 +34,15 @@ export async function POST(req: Request) {
           id: bookingId,
           key: process.env.BACKEND_SECRET!,
         },
+      })
+      fetch('/api/email', {
+        method: 'POST',
+        body: JSON.stringify({
+          subject: 'New Bookings!',
+          text: `Thanks for the new bookings `,
+        }),
+      }).then(() => {
+        alert(`Request successfully submitted. You shall hear from us soon!`)
       })
       break
     }

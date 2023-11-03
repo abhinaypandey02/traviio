@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { JWTPayload } from 'jose'
+import jwt from 'jsonwebtoken'
 
 import types from './types'
 
@@ -18,7 +20,16 @@ types.forEach((type) => {
   }
 })
 export async function middleware(req: NextRequest, res: any) {
-  // new NextResponse('', { status: 500, headers: { 'Set-Cookie': 'coo=coooo' } })
+  const bearer = req.headers.get('authorization')
+  if (bearer) {
+    const token = bearer.slice(7)
+    try {
+      const res = jwt.verify(token, process.env.SIGNING_KEY!) as JWTPayload
+      return { userId: res.id }
+    } catch (e) {
+      return {}
+    }
+  }
   return {}
 }
 export default resolvers

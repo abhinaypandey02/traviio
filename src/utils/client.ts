@@ -10,7 +10,7 @@ export function makeClientWithAuth(id?: string) {
   return function makeClient() {
     const httpLink = new HttpLink({
       // https://studio.apollographql.com/public/spacex-l4uc6p/
-      uri: process.env.GRAPHQL_BASE_URL,
+      uri: process.env.NEXT_PUBLIC_GRAPHQL_BASE_URL,
       headers: {
         authorization: `Bearer ${id || null}`,
       },
@@ -40,7 +40,7 @@ export const getClient = async (
       return new ApolloClient({
         cache: new InMemoryCache(),
         link: new HttpLink({
-          uri: process.env.GRAPHQL_BASE_URL,
+          uri: process.env.NEXT_PUBLIC_GRAPHQL_BASE_URL,
           headers: {
             authorization: `Bearer ${idToken || null}`,
           },

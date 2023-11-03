@@ -9,9 +9,16 @@ import { IAddUserInput, IMongoose, IUpdateUserInput } from './interface'
 const MAX_DEVICES = 2
 
 const QueryResolvers = {
-  async user(_: null, args: { id?: string }): Promise<IMongoose | null> {
+  async user(
+    _: null,
+    args: { id?: string },
+    { userId }: { userId: string }
+  ): Promise<IMongoose | null> {
     if (args.id) {
       return MongooseModel.findOne({ _id: args.id })
+    }
+    if (userId) {
+      return MongooseModel.findOne({ _id: userId })
     }
     return null
   },
@@ -52,6 +59,7 @@ const QueryResolvers = {
       return null
     }
     const old = await MongooseModel.findOne({ _id: payload.id })
+
     if (!old) return null
     const tokens = old.refreshTokens
     const tokensIndex = tokens.indexOf(refreshToken)
