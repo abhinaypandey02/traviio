@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import LocaleContext, { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
-import { SanityTourPage } from '@/sanity/types'
+import { SanityPricingSection, SanityTourPage, SanityPrice } from '@/sanity/types'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
@@ -13,12 +13,39 @@ import Input from '@/components/atoms/Input'
 export default function Tabs({
   children,
   tour,
+  startDate,
+  endDate,
+  pricingData,
   onSubmit,
 }: {
   children?: any[]
   tour: SanityTourPage
+  startDate: Date
+  endDate: Date
+  pricingData: SanityPricingSection
   onSubmit: () => void
 }) {
+  let priceOverrides = pricingData.price_overrides ?? []
+  const price = pricingData?.price
+
+  priceOverrides = priceOverrides.filter((override: any) => {
+    const overrideStartDate = new Date(override.timeline?.start_date ?? '')
+    const overrideEndDate = new Date(override.timeline?.end_date ?? '')
+    return (
+      startDate >= overrideStartDate &&
+      endDate <= overrideEndDate
+    )
+  })
+
+  let actualPrice =
+    priceOverrides.length > 0 ? priceOverrides[0].price?.initial_price : price?.initial_price
+  let currentPrice =
+    (priceOverrides.length > 0
+      ? priceOverrides[0].price?.discounted_price
+      : price?.discounted_price) || actualPrice
+
+  console.log(pricingData, actualPrice, currentPrice)
+
   const [page, setPage] = useState(1)
   return (
     <Container className="flex flex-col gap-16 py-16">
@@ -92,7 +119,7 @@ export default function Tabs({
         )}
         <div className="flex flex-col gap-7">
           <SelectedTour tour={tour} />
-          <TripDuration />
+          <TripDuration startDate={startDate} endDate={endDate} />
           <Costing />
         </div>
       </div>
@@ -141,7 +168,7 @@ const SelectedTour = ({ tour }: { tour: SanityTourPage }) => {
   )
 }
 
-const TripDuration = () => {
+const TripDuration = ({ startDate, endDate }: { startDate: Date; endDate: Date }) => {
   return (
     <div className="bg-primary border border-darkblue/10 rounded-2xl overflow-hidden">
       <div className="grid grid-cols-2 bg-blue p-2">
@@ -150,11 +177,11 @@ const TripDuration = () => {
       </div>
       <div className="grid grid-cols-2 p-3">
         <div className="flex flex-col gap-1 items-center justify-center">
-          <p className="text-darkblue">Tue, 13 June 2023</p>
+          <p className="text-darkblue">{startDate.toDateString()}</p>
           <p className="text-gray">London, UK</p>
         </div>
         <div className="flex flex-col gap-1 items-center justify-center">
-          <p className="text-darkblue">Tue, 25 June 2023</p>
+          <p className="text-darkblue">{endDate.toDateString()}</p>
           <p className="text-gray">London, UK</p>
         </div>
       </div>
@@ -228,7 +255,7 @@ const Costing = () => {
               type="text"
               value={promoCode}
               setValue={setPromoCode}
-              name='promoCode'
+              name="promoCode"
             />
             <button
               className="absolute right-2 inset-y-0 text-blue font-medium"

@@ -6,7 +6,13 @@ import * as yup from 'yup'
 
 import { useYupValidationResolver } from '@/pages/tailor_your_tour'
 import client from '@/sanity/client'
-import { SanityGlobals, SanityLocale, SanitySlug, SanityTourPage } from '@/sanity/types'
+import {
+  SanityGlobals,
+  SanityLocale,
+  SanityPricingSection,
+  SanitySlug,
+  SanityTourPage,
+} from '@/sanity/types'
 import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
@@ -16,6 +22,7 @@ import Page1, { IPaymentTourExtras } from '@/components/sections/Payment/Page1'
 import Page2, { IContactInfo } from '@/components/sections/Payment/Page2'
 import Page3 from '@/components/sections/Payment/Page3'
 import Tabs from '@/components/sections/Payment/Tabs'
+import { useSearchParams } from 'next/navigation'
 
 type PageProps = {
   slug: string
@@ -138,6 +145,10 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
 
   const resolver = useYupValidationResolver(validationSchema)
 
+  const pricingData: SanityPricingSection = data?.sections?.find(
+    (section) => section._type === 'pricing_section'
+  ) as SanityPricingSection
+
   const {
     register,
     setValue,
@@ -154,20 +165,23 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
   useEffect(() => {
     console.log(getValues(), errors)
   }, [getValues(), errors])
-
   const router = useRouter()
+
+  const startDate = new Date()
+  const endDate = new Date()
+
   const onSubmit: SubmitHandler<PaymentSchema> = async (data) => {
     fetch('/api/checkout', {
       method: 'POST',
       body: JSON.stringify({
         adults: [],
-        from: new Date().toDateString(),
+        from: startDate.toDateString(),
         children: data.childrenMembers,
         guests: data.childrenMembers + data.adultMembers,
         tour: slug,
         hotelType: data.hotelChoice,
         roomType: data.roomType,
-        to: new Date().toDateString(),
+        to: endDate.toDateString(),
         price: 200,
       }),
     }).then(async (res) => {
@@ -178,7 +192,13 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       <FeatureSection data={features} />
-      <Tabs onSubmit={handleSubmit(onSubmit)} tour={data}>
+      <Tabs
+        onSubmit={handleSubmit(onSubmit)}
+        tour={data}
+        startDate={startDate}
+        endDate={endDate}
+        pricingData={pricingData}
+      >
         <Page1
           register={register}
           errors={errors}
@@ -218,6 +238,13 @@ async function fetchPageData(slug: string): Promise<SanityTourPage> {
         _type == "tour_selection_section" => {
           ...,
           tags[]->
+        },
+        _type == "pricing_section" => {
+          ...,
+          "weekly_schedule": ^.timeline.timeline,
+          "disabled": ^.timeline.disabled,
+          "price_overrides": ^.price_overrides,
+          "price": ^.overview_card.price,
         }
       }
     }`
