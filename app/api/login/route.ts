@@ -100,7 +100,17 @@ export const GET = async (req: Request) => {
     })
     return response
   }
-  return new NextResponse('', {
+  const _res = new NextResponse('', {
     status: 403,
   })
+  _res.cookies.set('refresh', '', { expires: 0 })
+  return _res
+}
+
+export const DELETE = async () => {
+  const _res = new NextResponse('', {
+    status: 200,
+  })
+  _res.cookies.set('refresh', '', { expires: 0 })
+  return _res
 }

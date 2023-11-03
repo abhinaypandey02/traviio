@@ -13,11 +13,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n            #graphql\n            mutation AddBooking($booking:AddBookingInput!){\n                addBooking(booking:$booking)\n            }\n        ": types.AddBookingDocument,
     "\n        #graphql\n        mutation AddUser($user: AddUserInput!) {\n          addUser(user:$user){\n            access\n            refresh\n          }\n        }\n      ": types.AddUserDocument,
     "\n        #graphql\n        query LoginUser($email: String!, $password:String!){\n          loginUser(email: $email, password:$password){\n            access\n            refresh\n          }\n        }\n      ": types.LoginUserDocument,
     "\n      #graphql\n      query GetAccessToken($refreshToken: String!, $secret:String!){\n        getAccessToken(refreshToken: $refreshToken, secret:$secret){\n          refresh\n          access\n        }\n      }\n\n    ": types.GetAccessTokenDocument,
-    "\n            #graphql\n            mutation AddBooking($booking:AddBookingInput!){\n                addBooking(booking:$booking)\n            }\n        ": types.AddBookingDocument,
     "\n          #graphql\n          mutation UpdateBookingPayment($id:String!, $key:String!){\n            completeBooking(booking: $id, token:$key)\n          }": types.UpdateBookingPaymentDocument,
+    "\n      #graphql\n      query GetUser{\n        user{\n          name\n        }\n      }\n    ": types.GetUserDocument,
 };
 
 /**
@@ -37,6 +38,10 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n            #graphql\n            mutation AddBooking($booking:AddBookingInput!){\n                addBooking(booking:$booking)\n            }\n        "): (typeof documents)["\n            #graphql\n            mutation AddBooking($booking:AddBookingInput!){\n                addBooking(booking:$booking)\n            }\n        "];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n        #graphql\n        mutation AddUser($user: AddUserInput!) {\n          addUser(user:$user){\n            access\n            refresh\n          }\n        }\n      "): (typeof documents)["\n        #graphql\n        mutation AddUser($user: AddUserInput!) {\n          addUser(user:$user){\n            access\n            refresh\n          }\n        }\n      "];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -49,11 +54,11 @@ export function gql(source: "\n      #graphql\n      query GetAccessToken($refre
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n            #graphql\n            mutation AddBooking($booking:AddBookingInput!){\n                addBooking(booking:$booking)\n            }\n        "): (typeof documents)["\n            #graphql\n            mutation AddBooking($booking:AddBookingInput!){\n                addBooking(booking:$booking)\n            }\n        "];
+export function gql(source: "\n          #graphql\n          mutation UpdateBookingPayment($id:String!, $key:String!){\n            completeBooking(booking: $id, token:$key)\n          }"): (typeof documents)["\n          #graphql\n          mutation UpdateBookingPayment($id:String!, $key:String!){\n            completeBooking(booking: $id, token:$key)\n          }"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n          #graphql\n          mutation UpdateBookingPayment($id:String!, $key:String!){\n            completeBooking(booking: $id, token:$key)\n          }"): (typeof documents)["\n          #graphql\n          mutation UpdateBookingPayment($id:String!, $key:String!){\n            completeBooking(booking: $id, token:$key)\n          }"];
+export function gql(source: "\n      #graphql\n      query GetUser{\n        user{\n          name\n        }\n      }\n    "): (typeof documents)["\n      #graphql\n      query GetUser{\n        user{\n          name\n        }\n      }\n    "];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

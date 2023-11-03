@@ -8,7 +8,6 @@ import Container from '../Container'
 import BlogDetailCard from '../molecule/BlogDetailCard'
 
 function AllBlogsSection({ data }: { data: SanityAllBlogsSection }) {
-  console.log(data.blogs)
   // blogs: [
   //   {
   //     destination: [Object],
