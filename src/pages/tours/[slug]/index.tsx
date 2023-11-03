@@ -77,9 +77,8 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
   return {
     paths: slugs
-      .map(
-        (slug) =>
-          locales || [].map((locale) => ({ params: { slug: slug.current.slice(1) }, locale }))
+      .map((slug) =>
+        (locales || []).map((locale) => ({ params: { slug: slug.current.slice(1) }, locale }))
       )
       .flat(),
     fallback: false,

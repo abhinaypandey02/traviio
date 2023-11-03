@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 
 import { LocalizedString } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
@@ -68,4 +69,4 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
   )
 }
 
-export default DestinationsSection
+export default dynamic(Promise.resolve(DestinationsSection), { ssr: false })

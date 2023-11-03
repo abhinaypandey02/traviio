@@ -32,13 +32,13 @@ export function LocaleProvider({
   children: ReactNode
   locale: SanityLocale
 }) {
-  const router = useRouter()
-  useEffect(() => {
-    const redirect_language = getRedirectLanguage()
-    if (redirect_language != locale) {
-      router.push(router.asPath, { pathname: router.asPath }, { locale: redirect_language })
-    }
-  }, [])
+  // const router = useRouter()
+  // useEffect(() => {
+  //   const redirect_language = getRedirectLanguage()
+  //   if (redirect_language != locale) {
+  //     router.push(router.asPath, { pathname: router.asPath }, { locale: redirect_language })
+  //   }
+  // }, [])
   return <LocaleContext.Provider value={{ locale }}>{children}</LocaleContext.Provider>
 }
 
