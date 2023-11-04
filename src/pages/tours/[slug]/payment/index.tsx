@@ -23,6 +23,7 @@ import Page2, { IContactInfo } from '@/components/sections/Payment/Page2'
 import Page3 from '@/components/sections/Payment/Page3'
 import Tabs from '@/components/sections/Payment/Tabs'
 import { useSearchParams } from 'next/navigation'
+import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 
 type PageProps = {
   slug: string
@@ -162,8 +163,24 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
     resolver,
   })
 
+  const [addons, setAddons] = useState<number>(0)
+
   useEffect(() => {
-    console.log(getValues(), errors)
+    let a = 0
+    const optionalVisit = getValues('optionalVisits')
+    data?.payment?.extras?.forEach((extra) => {
+        optionalVisit?.includes(localizedString(extra.title)) &&
+        (a += localizedNumber(extra.price?.initial_price) || 0)
+    })
+    data?.payment?.room_sharing_options?.forEach((room) => {
+        localizedString(room?.title) === getValues('roomType') &&
+        (a += localizedNumber(room?.price?.initial_price) || 0)
+    })
+    data?.payment?.room_options?.forEach((room) => {
+        localizedString(room?.title) === getValues('hotelChoice') &&
+        (a += localizedNumber(room?.price?.initial_price) || 0)
+    })
+    setAddons(a)
   }, [getValues(), errors])
   const router = useRouter()
 
@@ -174,7 +191,7 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
     fetch('/api/checkout', {
       method: 'POST',
       body: JSON.stringify({
-        adults: [],
+        adults: data.adultMembers,
         from: startDate.toDateString(),
         children: data.childrenMembers,
         guests: data.childrenMembers + data.adultMembers,
@@ -198,6 +215,9 @@ export default function Page({ slug, data, locale, globals }: PageProps) {
         startDate={startDate}
         endDate={endDate}
         pricingData={pricingData}
+        adultsNumber={getValues('adultMembers')}
+        childrenNumber={getValues('childrenMembers')}
+        addons={addons}
       >
         <Page1
           register={register}

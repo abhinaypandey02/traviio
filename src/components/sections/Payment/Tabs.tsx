@@ -16,6 +16,9 @@ export default function Tabs({
   startDate,
   endDate,
   pricingData,
+  adultsNumber,
+  childrenNumber,
+  addons,
   onSubmit,
 }: {
   children?: any[]
@@ -23,28 +26,28 @@ export default function Tabs({
   startDate: Date
   endDate: Date
   pricingData: SanityPricingSection
+  adultsNumber: number
+  childrenNumber: number
+  addons: number
   onSubmit: () => void
 }) {
   let priceOverrides = pricingData.price_overrides ?? []
-  const price = pricingData?.price
+  const price = (pricingData as any)?.price
 
   priceOverrides = priceOverrides.filter((override: any) => {
     const overrideStartDate = new Date(override.timeline?.start_date ?? '')
     const overrideEndDate = new Date(override.timeline?.end_date ?? '')
-    return (
-      startDate >= overrideStartDate &&
-      endDate <= overrideEndDate
-    )
+    return startDate >= overrideStartDate && endDate <= overrideEndDate
   })
 
   let actualPrice =
-    priceOverrides.length > 0 ? priceOverrides[0].price?.initial_price : price?.initial_price
+    priceOverrides.length > 0
+      ? localizedNumber(priceOverrides[0].price?.initial_price)
+      : localizedNumber(price?.initial_price)
   let currentPrice =
     (priceOverrides.length > 0
-      ? priceOverrides[0].price?.discounted_price
-      : price?.discounted_price) || actualPrice
-
-  console.log(pricingData, actualPrice, currentPrice)
+      ? localizedNumber(priceOverrides[0].price?.discounted_price)
+      : localizedNumber(price?.discounted_price)) || actualPrice
 
   const [page, setPage] = useState(1)
   return (
@@ -120,7 +123,13 @@ export default function Tabs({
         <div className="flex flex-col gap-7">
           <SelectedTour tour={tour} />
           <TripDuration startDate={startDate} endDate={endDate} />
-          <Costing />
+          <Costing
+            actualPrice={actualPrice}
+            currentPrice={currentPrice}
+            adults={adultsNumber || 0}
+            childrenNumber={childrenNumber || 0}
+            addons={addons}
+          />
         </div>
       </div>
     </Container>
@@ -189,46 +198,92 @@ const TripDuration = ({ startDate, endDate }: { startDate: Date; endDate: Date }
   )
 }
 
-const Costing = () => {
-  const [promoCode, setPromoCode] = useState('')
+const Costing = ({
+  adults,
+  childrenNumber,
+  actualPrice,
+  currentPrice,
+  promoCodeDiscount,
+  setPromoCode,
+  promoCode,
+  addons,
+}: {
+  adults: number
+  childrenNumber: number
+  actualPrice: number
+  currentPrice: number
+  promoCodeDiscount?: number
+  setPromoCode?: (value: string) => void
+  promoCode?: string
+  addons?: number
+}) => {
   const [promoApplied, setPromoApplied] = useState(false)
+  const originalPrice = (adults + childrenNumber) * actualPrice + ((parseInt(adults) + parseInt(childrenNumber)) * addons || 0)
+  const totalPrice =
+    (adults + childrenNumber) * currentPrice + ((parseInt(adults) + parseInt(childrenNumber)) * addons || 0) - ((parseInt(adults) + parseInt(childrenNumber)) * promoCodeDiscount || 0)
   return (
     <div className="bg-primary border border-darkblue/10 rounded-2xl overflow-hidden p-10">
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-5">
           <div className="flex justify-between gap-2">
             <p className="text-base font-bold text-darkblue">Passengers</p>
-            <p className="text-base font-bold text-darkblue">2 Adults</p>
+            <p className="text-base font-bold text-darkblue">
+              {adults > 0 && `${adults} Adults`}
+              {childrenNumber > 0 && (
+                <>
+                  <br />
+                  {`${childrenNumber} Children`}
+                </>
+              )}
+            </p>
           </div>
           <div className="flex justify-between gap-2">
             <p className="text-base font-medium text-gray">Tour Package</p>
-            <p className="text-base font-medium text-gray">2 x $ 2,260.00</p>
+            <p className="text-base font-medium text-gray">
+              {`${parseInt(adults) + parseInt(childrenNumber)} x $ ${actualPrice}`}
+            </p>
           </div>
-          <div className="flex justify-between gap-2">
-            <p className="text-base font-medium text-gray">Discount</p>
-            <p className="text-base font-medium text-green">- $ 100.00</p>
-          </div>
-          {promoApplied && (
+          {addons != 0 && (
+            <div className="flex justify-between gap-2">
+              <p className="text-base font-medium text-gray">Addons</p>
+              <p className="text-base font-medium text-gray">{(parseInt(adults) + parseInt(childrenNumber))} x $ {addons}</p>
+            </div>
+          )}
+          {actualPrice != currentPrice && (parseInt(adults) + parseInt(childrenNumber) != 0) && (
+            <div className="flex justify-between gap-2">
+              <p className="text-base font-medium text-gray">Discount</p>
+              <p className="text-base font-medium text-green">
+                - $ {(parseInt(adults) + parseInt(childrenNumber)) * (actualPrice - currentPrice)}
+              </p>
+            </div>
+          )}
+          {promoCodeDiscount && (
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Promo Code</p>
-              <p className="text-base font-medium text-green">- $ 100.00</p>
+              <p className="text-base font-medium text-green">- $ {promoCodeDiscount}</p>
             </div>
           )}
         </div>
         <hr className="w-full text-yellow" />
         <div className="flex flex-col gap-5">
-          <div className="flex justify-between gap-2">
-            <p className="text-base font-bold text-darkblue">Original Price</p>
-            <p className="text-base font-bold text-darkblue line-through">$ 4,520.00</p>
-          </div>
+          {originalPrice != totalPrice && (
+            <div className="flex justify-between gap-2">
+              <p className="text-base font-bold text-darkblue">Original Price</p>
+              <p className="text-base font-bold text-darkblue line-through">$ {originalPrice}</p>
+            </div>
+          )}
           <div>
             <div className="flex justify-between gap-2">
               <p className="text-base font-bold text-darkblue">Total Price</p>
-              <p className="text-base font-bold text-darkblue line-through">$ 4,420.00</p>
+              <p className="text-base font-bold text-darkblue">$ {totalPrice}</p>
             </div>
-            <div>
-              <p className="text-red font-bold text-[10px] text-end">You save $100</p>
-            </div>
+            {originalPrice != totalPrice && (
+              <div>
+                <p className="text-red font-bold text-[10px] text-end">
+                  You save ${originalPrice - totalPrice}
+                </p>
+              </div>
+            )}
           </div>
           <div className="flex justify-between gap-2 items-center">
             <p className="text-base font-bold text-darkblue">Payment Today</p>
@@ -260,7 +315,7 @@ const Costing = () => {
             <button
               className="absolute right-2 inset-y-0 text-blue font-medium"
               onClick={() => {
-                if (promoCode.length > 2) setPromoApplied(true)
+                if ((promoCode || '').length > 2) setPromoApplied(true)
               }}
             >
               Apply
