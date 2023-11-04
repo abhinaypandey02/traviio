@@ -23,32 +23,7 @@ export default defineType({
       name: 'experience_cards',
       title: 'Experience Cards',
       type: 'array',
-      of: [
-        defineArrayMember({
-          name: 'experience_card',
-          title: 'Experience Card',
-          icon: ShootingStar as any,
-          description: 'A card with an experience',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'image',
-              title: 'Image',
-              type: 'image',
-            }),
-            defineField({
-              name: 'title',
-              title: 'Title',
-              type: 'locale_string',
-            }),
-            defineField({
-              name: 'description',
-              title: 'Description',
-              type: 'locale_text',
-            }),
-          ],
-        }),
-      ],
+      of: [{ type: 'reference', to: [{ type: 'travel_wiki' }] }],
     }),
   ],
 })
