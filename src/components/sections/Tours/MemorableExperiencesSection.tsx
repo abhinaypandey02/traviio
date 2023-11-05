@@ -75,7 +75,6 @@ export default function MemorableExperiencesSection({
                 observer
                 observeParents
                 onSwiper={setSwiper}
-                scrollCount={4}
               >
                 {data?.experience_cards?.map((card, index) => (
                   <SwiperSlide key={index}>
@@ -111,6 +110,7 @@ const Card = ({
 }: {
   data: Exclude<SanityMemorableExperiencesSection['experience_cards'], undefined>[0]
 }) => {
+  if (!data) return null
   return (
     <div className="w-full min-h-[400px] min-w-[300px] rounded-2xl overflow-hidden bg-white shadow-md m-1">
       <div className="h-[220px] relative">
