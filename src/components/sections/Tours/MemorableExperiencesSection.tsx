@@ -44,46 +44,42 @@ export default function MemorableExperiencesSection({
       </div>
       <div className="w-full bg-primary">
         <Container className="flex flex-col py-7 relative">
-          <div className="App">
-            <div className="carousel-container">
-              <Swiper
-                modules={[Navigation, Scrollbar, A11y, Controller]}
-                className="external-buttons mySwiper "
-                breakpoints={{
-                  0: {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                  },
-                  690: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  1040: {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
-                  },
-                  1390: {
-                    slidesPerView: 4,
-                    spaceBetween: 24,
-                  },
-                }}
-                navigation={{
-                  prevEl: prevRef?.current,
-                  nextEl: nextRef?.current,
-                }}
-                updateOnWindowResize
-                observer
-                observeParents
-                onSwiper={setSwiper}
-              >
-                {data?.experience_cards?.map((card, index) => (
-                  <SwiperSlide key={index}>
-                    <Card data={card} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </div>
+          <Swiper
+            modules={[Navigation, Scrollbar, A11y, Controller]}
+            className="external-buttons mySwiper "
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
+              690: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1040: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1390: {
+                slidesPerView: 4,
+                spaceBetween: 24,
+              },
+            }}
+            navigation={{
+              prevEl: prevRef?.current,
+              nextEl: nextRef?.current,
+            }}
+            updateOnWindowResize
+            observer
+            observeParents
+            onSwiper={setSwiper}
+          >
+            {data?.experience_cards?.map((card, index) => (
+              <SwiperSlide key={index}>
+                <Card data={card} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </Container>
       </div>
       <Container className="gap-12  relative flex justify-center">

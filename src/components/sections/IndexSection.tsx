@@ -14,7 +14,6 @@ const IndexSextion = (props: IndexSectionProps) => {
     const getdata = async () => {
       const result = await getAllPages()
       setData(result)
-      console.log(result)
     }
     getdata()
   }, [getAllPages])

@@ -13,10 +13,10 @@ import SEO from '@/components/Seo'
 type PageProps = {
   data: SanityPage
   globals: SanityGlobals
-  allPagesData: PageData[]
 } & LocalePage
 
-export default function Page({ data, locale, globals, allPagesData }: PageProps) {
+export default function Page({ data, locale, globals }: PageProps) {
+  console.log(data.sections)
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -91,10 +91,8 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
       }
 }
 }`)) as SanityGlobals
-  const allPages = await getAllPages()
   return {
     props: {
-      allPagesData: allPages,
       data: pageData,
       locale: (locale ?? 'en') as SanityLocale,
       globals,
