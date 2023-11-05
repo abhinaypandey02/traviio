@@ -45,7 +45,7 @@ export default function Swiper({
       {showNext && (
         <div
           className={
-            'rounded-full bg-blue h-10 flex items-center justify-center w-10 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer'
+            'rounded-full bg-blue  h-10 z-50 flex items-center justify-center w-10 absolute right-4 -bottom-20 md:top-1/2 -translate-y-1/2 cursor-pointer'
           }
           onClick={onNext}
         >
@@ -66,7 +66,7 @@ export default function Swiper({
       {showPrev && (
         <div
           className={
-            'rounded-full bg-blue h-10 flex items-center justify-center w-10 absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer'
+            'rounded-full  z-50 bg-blue h-10 flex items-center justify-center w-10 absolute right-20 -bottom-20  md:right-0 md:left-4 md:top-1/2 -translate-y-1/2 cursor-pointer '
           }
           onClick={onPrev}
         >

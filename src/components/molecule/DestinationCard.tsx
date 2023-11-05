@@ -15,7 +15,7 @@ const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
   const image = data.image || data.destination?.meta_data?.meta_image
   return (
     <div className="w-full h-fit">
-      <div className={'min-h-[310px]  relative'}>
+      <div className={'min-h-[250px] md:min-h-[310px]  relative'}>
         {image && (
           <Image
             height={310}
@@ -26,12 +26,12 @@ const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
           />
         )}
       </div>
-      <h3 className="mt-4 text-lg font-bold">
+      <h3 className="mt-2 md:mt-4 text-lg font-bold leading-7">
         {/* @ts-ignore */}
         <LocalizedString text={data.destination?.name} />
       </h3>
       {tourCount && (
-        <h4 className="text-gray font-medium mt-0.5 text-sm">
+        <h4 className="text-gray font-medium mt-0 md:mt-[2px] text-xs leading-tight">
           {displayNumber(tourCount, 'Tour Package')}
         </h4>
       )}
