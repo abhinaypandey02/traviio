@@ -48,7 +48,7 @@ export async function POST(req: Request) {
           key: process.env.BACKEND_SECRET!,
         },
       })
-      fetch('/api/email', {
+      fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/email', {
         method: 'POST',
         body: JSON.stringify({
           subject: 'New Bookings!',
