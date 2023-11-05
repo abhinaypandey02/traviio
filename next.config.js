@@ -25,7 +25,7 @@ const nextConfig = {
   },
   reactStrictMode: false,
 }
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: true,
-})
-module.exports = withBundleAnalyzer(nextConfig)
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: true,
+// })
+module.exports = nextConfig
