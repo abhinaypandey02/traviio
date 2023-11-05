@@ -1,4 +1,5 @@
 import { ComponentClass, FunctionComponent } from 'react'
+import dynamic from 'next/dynamic'
 
 import {
   SanityBlogPageSectionNames,
@@ -15,28 +16,28 @@ import TravelInformation from '../TravelInformation'
 import AccommdationTypesSection from './Tours/AccommdationTypesSection'
 import ItinerarySection from './Tours/ItinerarySection'
 import MemorableExperiencesSection from './Tours/MemorableExperiencesSection'
-import WhatsIncludedSection from './Tours/WhatsIncludedSection'
-import AtAGlanceSection from './AtAGlanceSection'
 import BestToursSection from './BestToursSection'
 import BlogHeroSection from './BlogHeroSection'
 import BlogSection from './BlogSection'
 import ContentSection from './ContentSection'
 import DealsSection from './DealsSection'
-import FAQSection from './FAQSection'
 import FeatureSection from './FeatureSection'
 import FeatureTopBlogSection from './FeatureTopBlogSection'
-import GallerySection from './GallerySection'
 import HeroSection from './HeroSection'
 import ImageHeaderSection from './ImageHeaderSection'
-import IndexSextion from './IndexSection'
-import InterestSection from './InterestSection'
-import NewsletterSection from './NewsletterSection'
-import OfficeLocationSection from './OfficeLocationSection'
-import PriceList from './PriceList'
-import ReviewSection from './ReviewSection'
-import Testimonial from './Testimonial'
-import TourFeature from './TourFeature'
-import TourGallerySection from './TourGallerySection'
+const IndexSection = dynamic(() => import('./IndexSection'))
+const WhatsIncludedSection = dynamic(() => import('./Tours/WhatsIncludedSection'))
+const AtAGlanceSection = dynamic(() => import('./AtAGlanceSection'))
+const FAQSection = dynamic(() => import('./FAQSection'))
+const NewsletterSection = dynamic(() => import('./NewsletterSection'))
+const InterestSection = dynamic(() => import('./InterestSection'))
+const GallerySection = dynamic(() => import('./GallerySection'))
+const TourGallerySection = dynamic(() => import('./TourGallerySection'))
+const TourFeature = dynamic(() => import('./TourFeature'))
+const Testimonial = dynamic(() => import('./Testimonial'))
+const ReviewSection = dynamic(() => import('./ReviewSection'))
+const PriceList = dynamic(() => import('./PriceList'))
+const OfficeLocationSection = dynamic(() => import('./OfficeLocationSection'))
 
 export const SectionMap: {
   [name in SanitySectionNames]?: FunctionComponent<any> | ComponentClass<any, any>
@@ -53,11 +54,11 @@ export const SectionMap: {
   content_section: ContentSection,
   reviews_section: ReviewSection,
   office_locations_section: OfficeLocationSection,
-  index_section: IndexSextion,
+  index_section: IndexSection,
 }
 
 export const DestinationSectionsMap: {
-  [name in SanityDestinationSectionNames]?: FunctionComponent<any>
+  [name in SanityDestinationSectionNames]?: FunctionComponent<any> | ComponentClass<any, any>
 } = {
   image_header_section: ImageHeaderSection,
   reviews_section: ReviewSection,
@@ -69,7 +70,7 @@ export const DestinationSectionsMap: {
 }
 
 export const BlogPageSectionsMap: {
-  [name in SanityBlogPageSectionNames]?: FunctionComponent<any>
+  [name in SanityBlogPageSectionNames]?: FunctionComponent<any> | ComponentClass<any, any>
 } = {
   image_header_section: BlogHeroSection,
   newsletter_section: NewsletterSection,
@@ -80,7 +81,7 @@ export const BlogPageSectionsMap: {
 }
 
 export const TourSectionsMap: {
-  [name in SanityTourSectionNames]?: FunctionComponent<any>
+  [name in SanityTourSectionNames]?: FunctionComponent<any> | ComponentClass<any, any>
 } = {
   itinerary_section: ItinerarySection,
   content_section: ContentSection,
