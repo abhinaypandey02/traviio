@@ -16,8 +16,8 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
     <Container className="flex justify-center items-center bg-white text-white">
       <div className="w-full mb-10 pt-[55px] pb-[45px] px-[60px] bg-blue md:rounded-3xl rounded-md relative">
         <Image
-          width={1280}
-          height={444}
+          width={640}
+          height={222}
           src={data.image ? urlFor(data.image) : ''}
           alt={''}
           className={'absolute w-full h-full top-0 left-0 object-cover'}
