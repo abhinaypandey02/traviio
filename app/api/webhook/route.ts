@@ -33,6 +33,9 @@ export async function POST(req: Request) {
             }
           }
         `),
+        variables: {
+          id: bookingId,
+        },
       })
       client.mutate({
         mutation: gql(`
