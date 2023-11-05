@@ -21,7 +21,7 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
           src={data.image ? urlFor(data.image) : ''}
           alt={''}
           sizes={`
-              100%
+              100vw
             `}
           className={'absolute w-full h-full top-0 left-0 object-cover'}
         />
