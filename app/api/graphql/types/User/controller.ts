@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { generateAccessToken } from '../../../lib'
+import { MongooseModel as BookingModel } from '../Booking'
 
 import { MongooseModel } from './index'
 import { IAddUserInput, IMongoose, IUpdateUserInput } from './interface'
@@ -101,7 +102,11 @@ const MutationResolvers = {
   },
 }
 
-const TypeResolvers = {}
+const TypeResolvers = {
+  async bookings(parent: any) {
+    return BookingModel.find({ user: parent.email })
+  },
+}
 
 const GQLResolvers = {
   query: QueryResolvers,

@@ -42,6 +42,7 @@ const GraphqlType = `
     name:String!
     email:String!
     refreshTokens:[String!]
+    bookings:[Booking!]
   }
 `
 

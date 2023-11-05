@@ -8,11 +8,11 @@ const transport = nodemailer.createTransport({
   },
 })
 export async function POST(request: NextRequest) {
-  const { subject, text, html } = await request.json()
+  const { subject, text, html, to } = await request.json()
   if (!subject || !text) return new Response(null, { status: 400 })
   await transport.sendMail({
     from: process.env.EMAIL_USERNAME,
-    to: process.env.EMAIL_USERNAME,
+    to: to || process.env.EMAIL_USERNAME,
     subject,
     text,
     html,

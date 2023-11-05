@@ -28,6 +28,7 @@ type Booking {
     _id: ID!
     adults: [Adult]!
     children: Int!
+    email: String!
     from: String!
     guests: Int!
     hotelType: String!
@@ -37,6 +38,7 @@ type Booking {
     status: Status!
     to: String!
     tour: ID!
+    user: User
 }
 
 type Mutation {
@@ -80,6 +82,7 @@ type Tokens {
 "User type"
 type User {
     _id: ID!
+    bookings: [Booking!]
     email: String!
     name: String!
     refreshTokens: [String!]
@@ -95,6 +98,7 @@ enum Status {
 input AddBookingInput {
     adults: [AdultInput]!
     children: Int!
+    email: ID!
     from: String!
     guests: Int!
     hotelType: String!

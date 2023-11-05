@@ -1,5 +1,7 @@
 import { ObjectId } from 'mongodb'
 
+import User, { MongooseModel as UserModel } from '../User'
+
 import { MongooseModel } from './index'
 import { AddBookingInput, IMongoose } from './interface'
 
@@ -27,7 +29,11 @@ const MutationResolvers = {
   },
 }
 
-const TypeResolvers = {}
+const TypeResolvers = {
+  async user(parent: IMongoose) {
+    return UserModel.findOne({ email: parent.email })
+  },
+}
 
 const GQLResolvers = {
   query: QueryResolvers,

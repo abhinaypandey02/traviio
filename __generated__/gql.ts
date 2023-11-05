@@ -17,6 +17,7 @@ const documents = {
     "\n        #graphql\n        mutation AddUser($user: AddUserInput!) {\n          addUser(user:$user){\n            access\n            refresh\n          }\n        }\n      ": types.AddUserDocument,
     "\n        #graphql\n        query LoginUser($email: String!, $password:String!){\n          loginUser(email: $email, password:$password){\n            access\n            refresh\n          }\n        }\n      ": types.LoginUserDocument,
     "\n      #graphql\n      query GetAccessToken($refreshToken: String!, $secret:String!){\n        getAccessToken(refreshToken: $refreshToken, secret:$secret){\n          refresh\n          access\n        }\n      }\n\n    ": types.GetAccessTokenDocument,
+    "\n          #graphql\n          query GetBooking($id:String!){\n            booking(id: $id){\n              email\n            }\n          }\n        ": types.GetBookingDocument,
     "\n          #graphql\n          mutation UpdateBookingPayment($id:String!, $key:String!){\n            completeBooking(booking: $id, token:$key)\n          }": types.UpdateBookingPaymentDocument,
     "\n      #graphql\n      query GetUser{\n        user{\n          name\n        }\n      }\n    ": types.GetUserDocument,
 };
@@ -51,6 +52,10 @@ export function gql(source: "\n        #graphql\n        query LoginUser($email:
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n      #graphql\n      query GetAccessToken($refreshToken: String!, $secret:String!){\n        getAccessToken(refreshToken: $refreshToken, secret:$secret){\n          refresh\n          access\n        }\n      }\n\n    "): (typeof documents)["\n      #graphql\n      query GetAccessToken($refreshToken: String!, $secret:String!){\n        getAccessToken(refreshToken: $refreshToken, secret:$secret){\n          refresh\n          access\n        }\n      }\n\n    "];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n          #graphql\n          query GetBooking($id:String!){\n            booking(id: $id){\n              email\n            }\n          }\n        "): (typeof documents)["\n          #graphql\n          query GetBooking($id:String!){\n            booking(id: $id){\n              email\n            }\n          }\n        "];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

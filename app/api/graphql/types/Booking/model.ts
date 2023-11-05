@@ -77,6 +77,7 @@ const GraphqlType = `
       hotelType:String!
       roomType:String!
       optionalTours:[String!]
+      email:ID!
   }
   "Tour Booking"
   type Booking {
@@ -92,6 +93,8 @@ const GraphqlType = `
     roomType:String!
     optionalTours:[String!]
     status:Status!
+    user:User
+    email:String!  
   }
 `
 
@@ -135,6 +138,10 @@ export const MongooseSchema = new Schema<IMongoose>(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
     children: {
       type: Number,
       required: true,
@@ -155,22 +162,25 @@ export const MongooseSchema = new Schema<IMongoose>(
             lastName: String,
           },
           address: {
-            line1: {
-              type: String,
-              required: true,
+            type: {
+              line1: {
+                type: String,
+                required: true,
+              },
+              town: {
+                type: String,
+                required: true,
+              },
+              state: {
+                type: String,
+                required: true,
+              },
+              country: {
+                type: String,
+                required: true,
+              },
             },
-            town: {
-              type: String,
-              required: true,
-            },
-            state: {
-              type: String,
-              required: true,
-            },
-            country: {
-              type: String,
-              required: true,
-            },
+            required: false,
           },
           dob: {
             type: Schema.Types.Date,

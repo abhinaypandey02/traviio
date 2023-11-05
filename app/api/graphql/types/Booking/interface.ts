@@ -12,6 +12,7 @@ export interface AddBookingInput {
     hotelType: string
     roomType: string
     optionalTours: string[]
+    email: string
   }
 }
 interface IAdult {
@@ -45,4 +46,5 @@ export interface IMongoose {
   roomType: string
   optionalTours: string[]
   status: string
+  email: string
 }

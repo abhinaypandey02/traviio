@@ -20,6 +20,7 @@ export default function Tabs({
   childrenNumber,
   addons,
   onSubmit,
+  trigger,
 }: {
   children?: any[]
   tour: SanityTourPage
@@ -30,6 +31,7 @@ export default function Tabs({
   childrenNumber: number
   addons: number
   onSubmit: () => void
+  trigger: any
 }) {
   let priceOverrides = pricingData.price_overrides ?? []
   const price = (pricingData as any)?.price

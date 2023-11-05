@@ -24,6 +24,16 @@ export async function POST(req: Request) {
     case 'checkout.session.completed': {
       const checkoutSessionCompleted = event.data.object as any
       const bookingId = checkoutSessionCompleted.metadata?.booking
+      const booking = await client.query({
+        query: gql(`
+          #graphql
+          query GetBooking($id:String!){
+            booking(id: $id){
+              email
+            }
+          }
+        `),
+      })
       client.mutate({
         mutation: gql(`
           #graphql
@@ -39,10 +49,8 @@ export async function POST(req: Request) {
         method: 'POST',
         body: JSON.stringify({
           subject: 'New Bookings!',
-          text: `Thanks for the new bookings `,
+          html: `Thanks for the new booking. Create a new account by visiting <a href="https://traviio.vercel.app/signup?email=${booking.data.booking?.email}">here.</a>`,
         }),
-      }).then(() => {
-        alert(`Request successfully submitted. You shall hear from us soon!`)
       })
       break
     }

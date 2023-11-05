@@ -26,6 +26,8 @@ import Page2, { IContactInfo } from '@/components/sections/Payment/Page2'
 import Page3 from '@/components/sections/Payment/Page3'
 import Tabs from '@/components/sections/Payment/Tabs'
 
+import { AddBookingMutationVariables } from '../../../../../__generated__/graphql'
+
 type PageProps = {
   slug: string
   data: SanityTourPage
@@ -35,73 +37,6 @@ type PageProps = {
 } & LocalePage
 
 export type PaymentSchema = IPaymentTourExtras & IContactInfo
-const features: any = {
-  type: 'small',
-  features: [
-    {
-      _type: 'feature',
-      icon: {
-        _type: 'icon',
-        asset: {
-          _ref: 'image-111ab8f560c67845718f8442c6d48685a58376ff-49x48-svg',
-          _type: 'reference',
-        },
-      },
-      _key: 'a01d9ed85a9b',
-      title: {
-        _type: 'localestring',
-        en: 'Book with $200 deposit',
-      },
-    },
-    {
-      _type: 'feature',
-      icon: {
-        _type: 'icon',
-        asset: {
-          _ref: 'image-393fae89d6050e95f8b506e48e723bd52c388c70-96x96-png',
-          _type: 'reference',
-        },
-      },
-      _key: '78c1fc3ff814',
-      title: {
-        _type: 'localestring',
-        en: 'Interest free payment plans',
-      },
-    },
-    {
-      _key: 'eb7c0e8cedbc',
-      title: {
-        _type: 'localestring',
-        en: 'No fees for booking modifications',
-      },
-      _type: 'feature',
-      icon: {
-        _type: 'icon',
-        asset: {
-          _ref: 'image-201f1571c134329463aaeef8eadefa10bdab1994-96x96-png',
-          _type: 'reference',
-        },
-      },
-    },
-    {
-      _type: 'feature',
-      icon: {
-        _type: 'icon',
-        asset: {
-          _type: 'reference',
-          _ref: 'image-d1aab501335dae71547bde67e1c87c39aa8e72d6-96x96-png',
-        },
-      },
-      _key: '0954f10e731a',
-      title: {
-        _type: 'localestring',
-        en: '24/7 Support',
-      },
-    },
-  ],
-  _type: 'feature_section',
-  _key: '2d330e2f5c6c',
-}
 export default function Page({ slug, data, locale, globals, from, to }: PageProps) {
   const validationSchema = yup.object({
     adultMembers: yup.number().required('Required'),
@@ -156,6 +91,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
     setValue,
     handleSubmit,
     getValues,
+    trigger,
     formState: { errors },
   } = useForm<PaymentSchema>({
     defaultValues: {
@@ -182,26 +118,65 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         (a += localizedNumber(room?.price?.initial_price) || 0)
     })
     setAddons(a)
-  }, [getValues(), errors])
+  }, [getValues, errors])
   const router = useRouter()
 
   const startDate = new Date(from)
   const endDate = new Date(to)
 
   const onSubmit: SubmitHandler<PaymentSchema> = async (data) => {
+    const booking: AddBookingMutationVariables['booking'] = {
+      adults: [
+        {
+          email: data.email,
+          dob: new Date(
+            parseInt(data.dobYear),
+            parseInt(data.dobMonth),
+            parseInt(data.dobDate)
+          ).toString(),
+          name: {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            middleName: data.middleName,
+            designation: data.titlePrefix,
+          },
+          phone: data.mobileCode + data.mobileNumber,
+          nationality: data.nationality,
+          address: {
+            country: data.country,
+            town: data.town,
+            state: data.state,
+            line1: data.address,
+          },
+        },
+        ...data.adultPassenger.map((passenger) => ({
+          email: passenger.email,
+          dob: new Date(
+            parseInt(passenger.dobYear),
+            parseInt(passenger.dobMonth),
+            parseInt(passenger.dobDate)
+          ).toString(),
+          name: {
+            firstName: passenger.firstName,
+            lastName: passenger.lastName,
+            middleName: passenger.middleName,
+            designation: passenger.titlePrefix,
+          },
+        })),
+      ],
+      from: startDate.toDateString(),
+      children: data.childrenMembers,
+      guests: data.childrenMembers + data.adultMembers,
+      tour: slug,
+      hotelType: data.hotelChoice,
+      roomType: data.roomType,
+      to: endDate.toDateString(),
+      price: 200,
+      email: data.email,
+    }
     fetch('/api/checkout', {
       method: 'POST',
-      body: JSON.stringify({
-        adults: data.adultMembers,
-        from: startDate.toDateString(),
-        children: data.childrenMembers,
-        guests: data.childrenMembers + data.adultMembers,
-        tour: slug,
-        hotelType: data.hotelChoice,
-        roomType: data.roomType,
-        to: endDate.toDateString(),
-        price: 200,
-      }),
+      body: JSON.stringify(booking),
     }).then(async (res) => {
       const url = await res.text()
       router.replace(url || '/')
@@ -211,6 +186,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       {/*<FeatureSection data={features} />*/}
       <Tabs
+        trigger={trigger}
         onSubmit={handleSubmit(onSubmit)}
         tour={data}
         startDate={startDate}
