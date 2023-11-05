@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react'
+import React, { ComponentClass, FunctionComponent, useContext } from 'react'
 
 import LocaleContext from '@/contexts/LocaleProvider'
 import { SanityGlobals, SanityPromoBanner } from '@/sanity/types'
@@ -16,7 +16,7 @@ export default function Slicer({
   promo_banner,
 }: {
   sections?: ({ _type: string; _key: string } & { [x in string]: any })[]
-  components: { [name in string]: FunctionComponent<any> }
+  components: { [name in string]: FunctionComponent<any> | ComponentClass<any, any> }
   globals?: SanityGlobals
   breadcrumbs: Breadcrumb[]
   promo_banner?: SanityPromoBanner

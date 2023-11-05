@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import { ComponentClass, FunctionComponent } from 'react'
 
 import {
   SanityBlogPageSectionNames,
@@ -11,35 +11,36 @@ import AllBlogsSection from '@/components/organisms/AllBlogsSection'
 
 import DestinationsSection from '../organisms/DestinationsSection'
 import TravelInformation from '../TravelInformation'
-import TourGallerySection from './TourGallerySection'
+
 import AccommdationTypesSection from './Tours/AccommdationTypesSection'
-import ImageShowCaseSection from './Tours/ImageShowCaseSection'
 import ItinerarySection from './Tours/ItinerarySection'
 import MemorableExperiencesSection from './Tours/MemorableExperiencesSection'
-import PriceList from './PriceList'
 import WhatsIncludedSection from './Tours/WhatsIncludedSection'
 import AtAGlanceSection from './AtAGlanceSection'
 import BestToursSection from './BestToursSection'
+import BlogHeroSection from './BlogHeroSection'
 import BlogSection from './BlogSection'
 import ContentSection from './ContentSection'
 import DealsSection from './DealsSection'
 import FAQSection from './FAQSection'
-import FeaturedPlaceBlogSection from './FeaturedPlaceBlogSection'
 import FeatureSection from './FeatureSection'
 import FeatureTopBlogSection from './FeatureTopBlogSection'
 import GallerySection from './GallerySection'
 import HeroSection from './HeroSection'
 import ImageHeaderSection from './ImageHeaderSection'
+import IndexSextion from './IndexSection'
 import InterestSection from './InterestSection'
 import NewsletterSection from './NewsletterSection'
 import OfficeLocationSection from './OfficeLocationSection'
+import PriceList from './PriceList'
 import ReviewSection from './ReviewSection'
 import Testimonial from './Testimonial'
 import TourFeature from './TourFeature'
-import BlogHeroSection from './BlogHeroSection'
-import IndexSextion from './IndexSection'
+import TourGallerySection from './TourGallerySection'
 
-export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any> } = {
+export const SectionMap: {
+  [name in SanitySectionNames]?: FunctionComponent<any> | ComponentClass<any, any>
+} = {
   hero_section: HeroSection,
   feature_section: FeatureSection,
   newsletter_section: NewsletterSection,
@@ -52,13 +53,7 @@ export const SectionMap: { [name in SanitySectionNames]?: FunctionComponent<any>
   content_section: ContentSection,
   reviews_section: ReviewSection,
   office_locations_section: OfficeLocationSection,
-  // blog_section,
-  // content_section,
-  // deals_section,
-  // gallery_section,
-  index_section:IndexSextion,
-  // newsletter_section,
-  // testimonial_section
+  index_section: IndexSextion,
 }
 
 export const DestinationSectionsMap: {

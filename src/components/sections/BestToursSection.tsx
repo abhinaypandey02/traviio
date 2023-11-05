@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { LocaleContextType, localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
 import { SanityTag, SanityTourPage, SanityTourSelectionSection } from '@/sanity/types'
 
@@ -86,9 +86,7 @@ function BestToursSection({
       </div>
       <div className=" grid md:grid-cols-4 grid-cols-1 gap-5">
         <div className="h-full">
-          <FilterDropdown
-            items={[]}
-          />
+          <FilterDropdown items={[]} />
         </div>
         <BestTours
           className="col-span-3"

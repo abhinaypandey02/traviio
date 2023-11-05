@@ -32,6 +32,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           style={{ boxShadow: linearGradient }}
           height={538}
           width={1440}
+          priority={true}
           // fill
           src={urlFor(data.image)}
           alt={'hero'}

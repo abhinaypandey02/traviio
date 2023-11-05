@@ -26,7 +26,6 @@ const ImageHeaderSection = (props: ImageHeaderSectionProps) => {
           height={73}
           alt=""
         />
-        {/* <img className='w-full  max-h-[500px]' src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000" alt="" /> */}
         <h2 className="text-[56px]  text-white -translate-y-32  font-extrabold text-center ">
           {header?.en}
         </h2>

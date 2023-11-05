@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Image from 'next/image'
 // import Pagination from 'rc-pagination'
 import { Circle, Line } from 'rc-progress'
 
@@ -121,7 +122,13 @@ const RatingCard = ({ title, review, country, name, date, star, varient }: any) 
       <h5 className="text-sm font-medium my-1 opacity-60">{review}...</h5>
       <div className="flex gap-x-2 mt-5">
         <div>
-          <img src={country} className="rounded-full h-9 w-9" alt="" />
+          <Image
+            width={36}
+            height={36}
+            src={country}
+            className="rounded-full h-9 w-9"
+            alt="country"
+          />
         </div>
         <div className="ml-2 ">
           <h6 className="font-semibold text-[14px]">{name}</h6>
