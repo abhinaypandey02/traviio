@@ -1,6 +1,8 @@
 import type { AppProps } from 'next/app'
 
-import UserProvider from '@/contexts/UserProvider'
+const UserProvider = dynamic(() => import('@/contexts/UserProvider'))
+
+import dynamic from 'next/dynamic'
 
 import '@/styles/globals.css'
 

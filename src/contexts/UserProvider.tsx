@@ -3,6 +3,7 @@ import { createContext, PropsWithChildren, useContext, useEffect, useState } fro
 import { gql } from '../../__generated__'
 import { GetUserQuery } from '../../__generated__/graphql'
 import { getReactClient } from '../../apollo-client-ssr'
+
 export async function getAccessToken() {
   const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/login')
   if (res.ok) return res.text()
@@ -32,8 +33,7 @@ export async function getUser(token: string) {
   return res?.data?.user
 }
 export function useUser() {
-  const userContext = useContext(UserContext)
-  return userContext
+  return useContext(UserContext)
 }
 export default function UserProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<GetUserQuery['user'] | null>()
