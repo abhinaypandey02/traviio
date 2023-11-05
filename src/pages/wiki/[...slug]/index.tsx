@@ -12,6 +12,7 @@ import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout/index'
 import SEO from '@/components/Seo'
+
 import FilterDropdown from '@/components/organisms/FilterDropdown'
 
 type WikiPageProps = {
@@ -106,13 +107,13 @@ const InfoSection = ({ data }: any) => {
           })}
         </div> */}
         <FilterDropdown
-          items={data.map((item : any) => {
+          items={data.map((item: any) => {
             return {
               title: localizedString(item.title),
               link: `#${item.title?.en}`,
             }
           })}
-          className='min-w-[390px]'
+          className="min-w-[390px]"
         />
 
         <div className="w-2/3">

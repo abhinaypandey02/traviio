@@ -11,7 +11,7 @@ import { CaretDown, Check } from '@phosphor-icons/react'
 
 import Input from '@/components/atoms/Input'
 
-export interface  IPaymentTourExtras {
+export interface IPaymentTourExtras {
   adultMembers: number
   childrenMembers: number
   hotelChoice: string

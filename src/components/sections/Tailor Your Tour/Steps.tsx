@@ -39,7 +39,7 @@ export default function Steps({
                   onClick={() => {
                     setStep(step - 1)
                   }}
-                  className='px-[30px] py-3 w-[246px] ml-auto'
+                  className="px-[30px] py-3 w-[246px] ml-auto"
                 />
               ) : (
                 <div></div>
@@ -52,10 +52,15 @@ export default function Steps({
                     setStep(step + 1)
                   }}
                   disabled={disableNext}
-                  className='px-[30px] py-3 w-[246px] !text-base'
+                  className="px-[30px] py-3 w-[246px] !text-base"
                 />
               ) : (
-                <Button varient="primary" text={'Submit'} onClick={onSubmit} className='px-[30px] py-3 w-[246px]'/>
+                <Button
+                  varient="primary"
+                  text={'Submit'}
+                  onClick={onSubmit}
+                  className="px-[30px] py-3 w-[246px]"
+                />
               )}
             </div>
           </>

@@ -26,7 +26,6 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
     layout_group: (props: any) => {
       return (
         <div className="flex w-full max-md:flex-col font-medium  gap-4 md:gap-12">
-
           {props.items.map((item: any) => (
             <PortableText
               // className={item._type === 'content_image' ? 'w-full' : ''}
@@ -93,17 +92,15 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         <hr className="lg:w-1/12 w-1/3 mt-[9px] text-yellow m-auto  bg-yellow   border-t-2 border-b" />
       </div>
 
-
-       <div className='font-medium'>
-
-      {content[props.locale] && (
-        <PortableText
-        content={content[props.locale]}
-        className="flex flex-col gap-6 leading-[1.75] tracking-[0.64px]"
-        serializers={PortableTextSerializer}
-        />
+      <div className="font-medium">
+        {content[props.locale] && (
+          <PortableText
+            content={content[props.locale]}
+            className="flex flex-col gap-6 leading-[1.75] tracking-[0.64px]"
+            serializers={PortableTextSerializer}
+          />
         )}
-        </div>
+      </div>
     </Container>
   )
 }

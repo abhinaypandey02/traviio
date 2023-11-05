@@ -142,7 +142,7 @@ export default function Index() {
                       type="checkbox"
                       value={rememberMe}
                       setValue={() => setRememberMe(!rememberMe)}
-                      name='rememberMe'
+                      name="rememberMe"
                     />
                     <p>Remember me</p>
                   </div>
@@ -185,7 +185,7 @@ export default function Index() {
                     type="checkbox"
                     value={readTAndC}
                     setValue={() => setReadTAndC(!readTAndC)}
-                    name='readTAndC'
+                    name="readTAndC"
                   />
                   <p>
                     I agree to the{' '}

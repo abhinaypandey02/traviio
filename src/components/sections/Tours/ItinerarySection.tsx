@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { City, Country, State } from 'country-state-city'
 import { set } from 'mongoose'
-import { Country, State, City }  from 'country-state-city';
+
 import { urlFor } from '@/sanity/client'
 import {
   SanityItineraryDetailsListItem,
@@ -15,7 +16,7 @@ import Container from '@/components/Container'
 
 export default function ItinerarySection({ data }: { data?: SanityItinerarySection }) {
   // console.log('ItinerarySection-> ', data)
-    // console.log(Country.getAllCountries())
+  // console.log(Country.getAllCountries())
   return (
     <Container className=" flex flex-col py-20 gap-10">
       <div className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
@@ -29,9 +30,8 @@ export default function ItinerarySection({ data }: { data?: SanityItinerarySecti
         {/* Travel Schedule */}
         <TravelSchedule data={data?.itinerary_day_cards} />
         {/* Enquire Tab */}
-       
+
         <EnquireTab />
-        
       </div>
     </Container>
   )
@@ -151,13 +151,9 @@ const EnquireTab = () => {
             <option value="" disabled>
               Select Nationality
             </option>
-            {
-              Country.getAllCountries().map((item:any,index:any)=>{
-                  return(
-                    <option value={item.name}>{item.name}</option>
-                  )
-              })
-            }
+            {Country.getAllCountries().map((item: any, index: any) => {
+              return <option value={item.name}>{item.name}</option>
+            })}
             <option value="Nepal">Nepal</option>
             <option value="India">India</option>
           </select>

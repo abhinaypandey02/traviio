@@ -33,7 +33,7 @@ const OfficeLocationSection = (props: OfficeLocationSectionProps) => {
                   />
                 </div>
 
-                <div className='flex flex-col gap-0'>
+                <div className="flex flex-col gap-0">
                   <h2 className="text-lg font-medium opacity-50">{item?.title?.en}</h2>
                   <h6 className="flex mt-3 items-start gap-x-2 opacity-50">
                     <svg

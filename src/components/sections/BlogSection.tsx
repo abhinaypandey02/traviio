@@ -12,9 +12,10 @@ import DateFormat from '@/utils/utils'
 import Container from '@/components/Container'
 import Swiper from '@/components/Swiper'
 
+import BlogDetailCard from '../molecule/BlogDetailCard'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
-import BlogDetailCard from '../molecule/BlogDetailCard'
 
 export type BlogSectionProps = {
   data: SanityFeaturedBlogsSection
@@ -47,7 +48,7 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
                 : localizedString(blog?.title, locale)}
             </h3>
             <h4 className="mt-2 text-xs leading-[20px] text-gray ">{`By ${localizedString(
-              blog?.author?.name  ,
+              blog?.author?.name,
               locale
             )} ${blog?._updatedAt ? 'on ' + DateFormat(new Date(blog?._updatedAt)) : ''}`}</h4>
           </div>
@@ -71,7 +72,6 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
         <hr className="w-full mt-[9px] text-yellow bg-yellow  rounded-full border-t border-b-2 " />
       </h4>
       <div className=" lg:block hidden bg-gradient-to-r from-white   ">
-      
         <Swiper className={'gap-6'} length={featured_blogs?.length} scrollCount={2}>
           {featured_blogs?.map((blog: any) => (
             <>
@@ -88,7 +88,6 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
               <BlogCard blog={blog} locale={props?.locale} />
             </>
           ))}
-          
         </Swiper>
       </div>
     </Container>

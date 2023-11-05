@@ -1,7 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import { SanityLink } from '@/sanity/types'
+
 import { localizedString } from '@/contexts/LocaleProvider'
+import { SanityLink } from '@/sanity/types'
 
 interface item {
   href: string

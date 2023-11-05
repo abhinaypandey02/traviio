@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
 import PortableText from 'react-portable-text'
+
 import { LocalizedString, localizedString } from '@/contexts/LocaleProvider'
 
 const PortableTextSerializer = {
@@ -32,8 +32,10 @@ function BlogDetailCard(props: {
         <div className="px-5 pt-3 text-sm  pb-5 flex flex-col gap-1 h-fit">
           <p className="uppercase text-blue text-lg font-semibold">{country}</p>
           <h3 className=" text-xl font-[700] capitalize">{title}</h3>
-          <div className='flex flex-col mb-3' >
-            <span className="text-md text-gray mt-3 font-semibold gap-1 line-clamp-2">{excerpt}</span>
+          <div className="flex flex-col mb-3">
+            <span className="text-md text-gray mt-3 font-semibold gap-1 line-clamp-2">
+              {excerpt}
+            </span>
             <span className="underline text-blue">Read More</span>
           </div>
           <p className="text-gray text-xs">

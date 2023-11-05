@@ -30,7 +30,7 @@ export default defineType({
     },
     prepare: ({ title }) => {
       return {
-        title: `Index Section`
+        title: `Index Section`,
       }
     },
   },

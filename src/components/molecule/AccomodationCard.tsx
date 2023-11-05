@@ -1,9 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 import ReactStars from 'react-stars'
-import Star from '../Star'
+
 import { urlFor } from '@/sanity/client'
 import { SanityAccommodationSection } from '@/sanity/types'
+
+import Star from '../Star'
 const AccomodationCard = ({
   data,
 }: {
@@ -15,12 +17,11 @@ const AccomodationCard = ({
         <h4 className="text-xl text-white font-semibold">{data.title?.en}</h4>
         <h5 className="text-white text-sm">{data.subtitle?.en}</h5>
         {/*@ts-ignore*/}
-        <div className='flex'>
-
-        <Star/>
-        <Star/>
-        <Star/>
-        <Star/>
+        <div className="flex">
+          <Star />
+          <Star />
+          <Star />
+          <Star />
         </div>
       </div>
       <div className="bg-[#ecf4ff] py-4 px-4 flex flex-col gap-4">

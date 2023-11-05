@@ -13,7 +13,7 @@ const FAQSection = ({ data }: FAQSectionProps) => {
   const [open, setOpen] = React.useState(-1)
   return (
     <Container className="bg-white flex flex-col items-center py-[75px] ">
-      <div className='flex flex-col items-center gap-3'>
+      <div className="flex flex-col items-center gap-3">
         <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
           {data?.tagline?.en}
         </h1>
@@ -38,7 +38,9 @@ const FAQSection = ({ data }: FAQSectionProps) => {
               />
               <p className="font-semibold text-lg">{faq?.question?.en}</p>
             </div>
-            <div className={`${open === index ? '' : 'hidden'} ml-10 max-w-[90%] leading-6 text-gray`}>
+            <div
+              className={`${open === index ? '' : 'hidden'} ml-10 max-w-[90%] leading-6 text-gray`}
+            >
               <p>{faq?.answer?.en}</p>
             </div>
           </div>

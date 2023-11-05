@@ -1,8 +1,10 @@
 import React from 'react'
-import Container from '../Container'
 import Image from 'next/image'
 import Link from 'next/link'
+
 import { urlFor } from '@/sanity/client'
+
+import Container from '../Container'
 
 interface BlogReviewProps {
   data: any
@@ -13,12 +15,9 @@ function BlogReview(props: BlogReviewProps) {
   console.log(data)
   return (
     <Container className="rounded-xl my-10 bg-primary py-12">
-
-
       <div className="flex gap-7 mx-auto justify-center items-center">
         {/* left side */}
         <div className="flex flex-col gap-2 items-center">
-
           <Image
             src={urlFor(data.avatar)}
             height={60}
@@ -31,21 +30,22 @@ function BlogReview(props: BlogReviewProps) {
             {data.name?.en}
           </p>
 
-          {
-            data.socials.map((it: any, ind: any) => {
-              return (
-                <Link key={ind} href={it.link} className="flex mt-1 items-center justify-center">
-                  <Image src={urlFor(it.icon)} height={20} width={20} className="rounded-full" alt={it.name} />
-                </Link>
-              )
-            })
-          }
-
+          {data.socials.map((it: any, ind: any) => {
+            return (
+              <Link key={ind} href={it.link} className="flex mt-1 items-center justify-center">
+                <Image
+                  src={urlFor(it.icon)}
+                  height={20}
+                  width={20}
+                  className="rounded-full"
+                  alt={it.name}
+                />
+              </Link>
+            )
+          })}
         </div>
         {/* right side */}
-        <div className='grow max-w-[560px]'>
-          {data.bio?.en}
-        </div>
+        <div className="grow max-w-[560px]">{data.bio?.en}</div>
       </div>
     </Container>
   )

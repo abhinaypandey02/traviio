@@ -1,14 +1,19 @@
 import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
-import 'react-photo-view/dist/react-photo-view.css';
-import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { PhotoProvider, PhotoView } from 'react-photo-view'
+
+import { localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
+
 import Container from '@/components/Container'
 import Swiper from '@/components/Swiper'
+
 import { SanityGallerySection, SanityImage } from '../../sanity/types'
+
+import 'react-photo-view/dist/react-photo-view.css'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { localizedString } from '@/contexts/LocaleProvider';
 export type GallerySectionProps = {
   data: SanityGallerySection
 }
@@ -30,18 +35,14 @@ const GallerySection = (props: GallerySectionProps) => {
     }
   }
 
- 
-
   return (
     <div className="pt-10  text-black">
       <Container>
-        <h3 className="text-[40px] leading-tight -tracking-[1.2px] font-bold ">
-          {title?.en}
-        </h3>
-        <hr  className='text-yellow bg-yellow my-2 h-1 rounded-full border-1 w-1/6' />
+        <h3 className="text-[40px] leading-tight -tracking-[1.2px] font-bold ">{title?.en}</h3>
+        <hr className="text-yellow bg-yellow my-2 h-1 rounded-full border-1 w-1/6" />
         <div className="text-lg mt-1.5 text-gray  leading-[28px]">
           {localizedString(subtitle).substring(0, 5)}
-          <span className='text-blue opacity-100'>
+          <span className="text-blue opacity-100">
             {localizedString(subtitle).substring(5, 32)}
           </span>
           {localizedString(subtitle).substring(32)}
@@ -60,47 +61,45 @@ const GallerySection = (props: GallerySectionProps) => {
             i % 2 == 0 ? (
               <div className={'min-w-[320px] h-[320px] overflow-hidden rounded-lg'}>
                 <PhotoProvider>
-                <PhotoView key={i} src={urlFor(image[0])}>
-
-                <Image
-                  src={urlFor(image[0])}
-                  width={320}
-                  height={320}
-                  alt={'image'}
-                  className={'w-full h-full flex-shrink-0 object-cover'}
-                  />
-                </PhotoView>
+                  <PhotoView key={i} src={urlFor(image[0])}>
+                    <Image
+                      src={urlFor(image[0])}
+                      width={320}
+                      height={320}
+                      alt={'image'}
+                      className={'w-full h-full flex-shrink-0 object-cover'}
+                    />
+                  </PhotoView>
                 </PhotoProvider>
               </div>
-
             ) : (
               <div className={'min-w-[160px] h-[320px] flex flex-col gap-2.5'}>
                 <div className={'h-[160px] w-[160px] overflow-hidden rounded-lg'}>
-                <PhotoProvider>
-                  <PhotoView key={i} src={urlFor(image[0])}>
-                  <Image
-                    src={urlFor(image[0])}
-                    width={160}
-                    height={160}
-                    alt={'image'}
-                    className={'object-cover'}
-                    />
-                  </PhotoView> 
-                 </PhotoProvider>
+                  <PhotoProvider>
+                    <PhotoView key={i} src={urlFor(image[0])}>
+                      <Image
+                        src={urlFor(image[0])}
+                        width={160}
+                        height={160}
+                        alt={'image'}
+                        className={'object-cover'}
+                      />
+                    </PhotoView>
+                  </PhotoProvider>
                 </div>
                 {image[1] && (
                   <div className={'h-[160px] w-[160px] overflow-hidden rounded-lg'}>
-                       <PhotoProvider>
-                       <PhotoView key={i} src={urlFor(image[1])}>
-                    <Image
-                      src={urlFor(image[1])}
-                      width={160}
-                      height={160}
-                      alt={'image'}
-                      className={'object-cover'}
-                      />
+                    <PhotoProvider>
+                      <PhotoView key={i} src={urlFor(image[1])}>
+                        <Image
+                          src={urlFor(image[1])}
+                          width={160}
+                          height={160}
+                          alt={'image'}
+                          className={'object-cover'}
+                        />
                       </PhotoView>
-                      </PhotoProvider>
+                    </PhotoProvider>
                   </div>
                 )}
               </div>

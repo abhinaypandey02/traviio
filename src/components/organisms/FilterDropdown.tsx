@@ -29,13 +29,7 @@ function FilterDropdown(props: FilterDropdownProps) {
   return (
     <div className={'flex flex-col gap-5 ' + props.className}>
       {props.items.map((item, index) => {
-        return (
-          <FilterItem
-            title={item.title}
-            link={item.link}
-            key={index}
-          />
-        )
+        return <FilterItem title={item.title} link={item.link} key={index} />
       })}
     </div>
   )

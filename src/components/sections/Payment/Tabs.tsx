@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import LocaleContext, { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
-import { SanityPricingSection, SanityTourPage, SanityPrice } from '@/sanity/types'
+import { SanityPrice, SanityPricingSection, SanityTourPage } from '@/sanity/types'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
@@ -218,9 +218,13 @@ const Costing = ({
   addons?: number
 }) => {
   const [promoApplied, setPromoApplied] = useState(false)
-  const originalPrice = (adults + childrenNumber) * actualPrice + ((parseInt(adults) + parseInt(childrenNumber)) * addons || 0)
+  const originalPrice =
+    (adults + childrenNumber) * actualPrice +
+    (parseInt(adults.toString()) + parseInt(childrenNumber.toString())) * (addons || 0)
   const totalPrice =
-    (adults + childrenNumber) * currentPrice + ((parseInt(adults) + parseInt(childrenNumber)) * addons || 0) - ((parseInt(adults) + parseInt(childrenNumber)) * promoCodeDiscount || 0)
+    (adults + childrenNumber) * currentPrice +
+    (parseInt(adults.toString()) + parseInt(childrenNumber.toString())) * (addons || 0) -
+    (parseInt(adults.toString()) + parseInt(childrenNumber.toString())) * (promoCodeDiscount || 0)
   return (
     <div className="bg-primary border border-darkblue/10 rounded-2xl overflow-hidden p-10">
       <div className="flex flex-col gap-5">
@@ -240,23 +244,30 @@ const Costing = ({
           <div className="flex justify-between gap-2">
             <p className="text-base font-medium text-gray">Tour Package</p>
             <p className="text-base font-medium text-gray">
-              {`${parseInt(adults) + parseInt(childrenNumber)} x $ ${actualPrice}`}
+              {`${
+                parseInt(adults.toString()) + parseInt(childrenNumber.toString())
+              } x $ ${actualPrice}`}
             </p>
           </div>
           {addons != 0 && (
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Addons</p>
-              <p className="text-base font-medium text-gray">{(parseInt(adults) + parseInt(childrenNumber))} x $ {addons}</p>
-            </div>
-          )}
-          {actualPrice != currentPrice && (parseInt(adults) + parseInt(childrenNumber) != 0) && (
-            <div className="flex justify-between gap-2">
-              <p className="text-base font-medium text-gray">Discount</p>
-              <p className="text-base font-medium text-green">
-                - $ {(parseInt(adults) + parseInt(childrenNumber)) * (actualPrice - currentPrice)}
+              <p className="text-base font-medium text-gray">
+                {parseInt(adults.toString()) + parseInt(childrenNumber.toString())} x $ {addons}
               </p>
             </div>
           )}
+          {actualPrice != currentPrice &&
+            parseInt(adults.toString()) + parseInt(childrenNumber.toString()) != 0 && (
+              <div className="flex justify-between gap-2">
+                <p className="text-base font-medium text-gray">Discount</p>
+                <p className="text-base font-medium text-green">
+                  - ${' '}
+                  {(parseInt(adults.toString()) + parseInt(childrenNumber.toString())) *
+                    (actualPrice - currentPrice)}
+                </p>
+              </div>
+            )}
           {promoCodeDiscount && (
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Promo Code</p>

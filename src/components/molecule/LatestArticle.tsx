@@ -1,8 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { SanityPrice } from '@/sanity/types'
+
 import { localizedString } from '@/contexts/LocaleProvider'
+import { SanityPrice } from '@/sanity/types'
 
 function LatestArticle(props: {
   image: string
