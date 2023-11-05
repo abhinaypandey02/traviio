@@ -14,15 +14,15 @@ export type NewsletterSectionProps = {
 const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionProps>) => {
   return (
     <Container className="flex justify-center items-center bg-white text-white">
-      <div
-        className="w-full mb-10 pt-[55px] pb-[45px] px-[60px] bg-blue md:rounded-3xl rounded-md"
-        style={{
-          backgroundImage: `url(${data.image ? urlFor(data.image) : ''})`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-        }}
-      >
-        <div className="flex  flex-col justify-center md:justify-start items-center md:items-start ">
+      <div className="w-full mb-10 pt-[55px] pb-[45px] px-[60px] bg-blue md:rounded-3xl rounded-md relative">
+        <Image
+          width={1280}
+          height={444}
+          src={data.image ? urlFor(data.image) : ''}
+          alt={''}
+          className={'absolute w-full h-full top-0 left-0 object-cover'}
+        />
+        <div className="flex  flex-col justify-center md:justify-start items-center md:items-start relative z-10 ">
           <h1 className="text-center -tracking-[1.2px] max-w-3xl md:text-start text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
             {localizedString(data.title, locale)}
           </h1>
