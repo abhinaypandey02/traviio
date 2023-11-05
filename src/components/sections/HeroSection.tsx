@@ -33,6 +33,9 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           height={538}
           width={1440}
           priority={true}
+          sizes={`
+              100vw
+            `}
           // fill
           src={urlFor(data.image)}
           alt={'hero'}
