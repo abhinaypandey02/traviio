@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { SanityIndexSection } from '@/sanity/types'
-import { getAllPages } from '@/utils/utils'
+import { getAllPages, PageData } from '@/utils/utils'
 
 import Container from '@/components/Container'
 export type IndexSectionProps = {
   data: SanityIndexSection
 }
 const IndexSextion = (props: IndexSectionProps) => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<PageData[]>([])
   useEffect(() => {
     const getdata = async () => {
       const result = await getAllPages()
@@ -28,7 +28,7 @@ const IndexSextion = (props: IndexSectionProps) => {
         <h4 className="font-[700] text-[24px]">{title?.en}</h4>
         <hr className="text-yellow bg-yellow w-[85px] md:w-1/12 rounded-full border-2 my-2" />
         <div className="my-10 mt-[30px] md:mt-10 gap-[11px] flex flex-wrap text-gray">
-          {data.map((item, index) => {
+          {data.map((item: any, index) => {
             return (
               <Link
                 key={index}

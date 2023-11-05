@@ -44,7 +44,7 @@ const TourGallerySection = (props: GallerySectionProps) => {
         {/* <div className="w-[335px] text-center"><span style="text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-normal">Over </span><span style="text-sky-400 text-sm font-medium font-['Satoshi Variable'] leading-normal">200,000 Satisfied Travelers</span><span style="text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-normal"> in 20 years of travel excellence with our local tour operator</span></div> */}
         <div className="text-sm md:text-lg mt-[10px] md:mt-1.5  text-gray text-center md:leading-[28px] leading-[24px]">
           {subtitle?.en?.substring(0, 5)}
-          <span className="text-blue opacity-100">{subtitle?.en.substring(5, 32)}</span>
+          <span className="text-blue opacity-100">{subtitle?.en?.substring(5, 32)}</span>
           {subtitle?.en?.substring(32)}
         </div>
         <div className={'mt-[10px] md:mt-2 mb-[30px]'}>
