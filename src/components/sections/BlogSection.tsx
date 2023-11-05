@@ -28,9 +28,13 @@ export type BlogCardProps = {
 const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
   return (
     blog && (
-      <Link className={'flex-shrink-0 w-[410px]'} href={blog?.slug ? blog?.slug.current : ''}>
+      <Link className={'flex-shrink-0 '} href={blog?.slug ? blog?.slug.current : ''}>
         <div className=" w-full ">
-          <div className={' h-[460px] w-full relative rounded-3xl overflow-hidden'}>
+          <div
+            className={
+              '  relative rounded-3xl overflow-hidden  w-[250px] h-[280px] md:w-[410px] md:h-[460px]'
+            }
+          >
             {blog?.cover_image && (
               <Image
                 width={410}
@@ -42,12 +46,13 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
             )}
           </div>
           <div className="mt-4">
-            <h3 className="text-xl max-w-sm leading-[1.6] font-medium ">
+            <h3 className="text-base  md:text-xl max-w-[250px] md:max-w-[380px] font-bold  md:font-medium  leading-normal md:leading-loose ">
               {process.env.NEXT_PUBLIC_DEVELOPMENT
                 ? '10 Indonesian Destinations you should visit in this year'
                 : localizedString(blog?.title, locale)}
             </h3>
-            <h4 className="mt-2 text-xs leading-[20px] text-gray ">{`By ${localizedString(
+
+            <h4 className="mt-[6px] md:mt-2 text-[10px] md:text-xs font-normal leading-3 md:leading-tight  text-gray ">{`By ${localizedString(
               blog?.author?.name,
               locale
             )} ${blog?._updatedAt ? 'on ' + DateFormat(new Date(blog?._updatedAt)) : ''}`}</h4>
@@ -63,16 +68,22 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
     data: { tagline, title, featured_blogs },
   } = props
   return (
-    <Container className="pb-20 pt-[84px]    bg-white text-darkblue">
-      <h2 className="text-blue font-medium text-center">
+    <Container className="pt-[50px] pb-[100px] md:pt-[84px] mb:pb-20   bg-white text-darkblue">
+      <h2 className="text-blue text-xs md:text-base font-medium text-center uppercase leading-tight md:leading-normal">
         {localizedString(tagline, props.locale)}
       </h2>
-      <h4 className="text-2xl mt-3 -tracking-[1.2px] mb-12 w-fit mx-auto md:text-[40px] font-bold md:leading-tight  text-center">
+
+      <h4 className="text-2xl mt-2 md:mt-3 -tracking-[1.2px] mb-[30px] md:mb-12 w-fit mx-auto md:text-[40px] font-bold  leading-loose md:leading-[50px]  text-center">
         {localizedString(title, props.locale)}
-        <hr className="w-full mt-[9px] text-yellow bg-yellow  rounded-full border-t border-b-2 " />
+        <hr className="w-full mt-[4px] md:mt-[12px] text-yellow bg-yellow  rounded-full border-t border-b-2 " />
       </h4>
-      <div className=" lg:block hidden bg-gradient-to-r from-white   ">
-        <Swiper className={'gap-6'} length={featured_blogs?.length} scrollCount={2}>
+
+      <div>
+        <Swiper
+          className={'gap-3 md:gap-6 w-screen  overflow-hidden '}
+          length={featured_blogs?.length}
+          scrollCount={2}
+        >
           {featured_blogs?.map((blog: any) => (
             <>
               {/* {JSON.stringify({blog})} */}
@@ -85,6 +96,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
                 link={blog.slug ? blog.slug.current : ''}
                 author={localizedString(blog.author)}
               /> */}
+              <BlogCard blog={blog} locale={props?.locale} />
               <BlogCard blog={blog} locale={props?.locale} />
             </>
           ))}

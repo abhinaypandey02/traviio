@@ -19,7 +19,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
   return (
     <div
       className={
-        'relative z-10 h-screen max-h-[540px] flex items-end md:items-center  max-w-[1440px] border  md:h-full'
+        'relative z-10 h-screen max-h-[540px] flex items-end md:items-center justify-center border  md:h-full'
       }
     >
       <div

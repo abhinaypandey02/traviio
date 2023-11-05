@@ -46,16 +46,17 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
   }, [])
 
   return (
-    <Container className={'mb-[84px]'}>
+    <Container className={'mb-[50px] md:mb-[80px]'}>
       <div>
-        <h4 className="text-blue text-base font-medium">
+        <h4 className="text-blue text-xs  md:text-base font-medium uppercase leading-tight md:leading-normal ">
           <LocalizedString text={data.tagline} />
         </h4>
-        <h2 className="text-[40px] w-fit leading-tight my-3 font-bold -tracking-[1.2px]">
+
+        <h2 className="text-2xl md:text-[40px] w-fit leading-tight my-3 font-bold -tracking-[1.2px] md:leading-[50px]">
           <LocalizedString text={data.title} />
-          <hr className="w-1/3 text-yellow  bg-yellow mt-[9px] rounded-full border-t border-b-2" />
+          <hr className="w-[85px] md:w-1/3 text-yellow  bg-yellow mt-[9px] rounded-full border-t border-b-2" />
         </h2>
-        <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-7 mt-12">
+        <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 md:gap-7 mt-[30px] md:mt-12">
           {validDestinations.map((destination, idx) => (
             <DestinationCard
               key={destination._key + idx}
