@@ -20,6 +20,9 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
           height={222}
           src={data.image ? urlFor(data.image) : ''}
           alt={''}
+          sizes={`
+              100%
+            `}
           className={'absolute w-full h-full top-0 left-0 object-cover'}
         />
         <div className="flex  flex-col justify-center md:justify-start items-center md:items-start relative z-10 ">
