@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react'
-import { FieldErrors, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import {
+  Control,
+  FieldErrors,
+  useForm,
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form'
 
 import { TailorTripFormData } from '@/pages/tailor_your_tour'
 import { Boat, Car, Compass, Cross, FinnTheHuman, Leaf, WaveTriangle } from '@phosphor-icons/react'
@@ -7,15 +14,11 @@ import { Boat, Car, Compass, Cross, FinnTheHuman, Leaf, WaveTriangle } from '@ph
 import Input from '@/components/atoms/Input'
 
 export default function Step2({
-  register,
+  control,
   setValue,
-  getValues,
-  errors,
 }: {
-  register: UseFormRegister<TailorTripFormData>
   setValue: UseFormSetValue<TailorTripFormData>
-  getValues: UseFormGetValues<TailorTripFormData>
-  errors: FieldErrors<TailorTripFormData>
+  control: Control<any>
 }) {
   const CategoriesOptions = [
     { name: 'Historic Sites', icon: <Leaf /> },
@@ -39,24 +42,11 @@ export default function Step2({
 
   return (
     <div className="grid lg:grid-cols-2 gap-[18px] px-12">
+      <Input name="name" label="Name*" type="text" control={control} />
+      <Input name="email" label="Email*" type="text" control={control} />
       <Input
-        errorMsg={errors.name?.message}
-        name="name"
-        register={register}
-        label="Name*"
-        type="text"
-      />
-      <Input
-        errorMsg={errors.email?.message}
-        name="email"
-        register={register}
-        label="Email*"
-        type="text"
-      />
-      <Input
-        errorMsg={errors.name?.message}
+        control={control}
         name="nationality"
-        register={register}
         label="Nationality*"
         options={['Indian', 'American']}
         type="select"
@@ -89,28 +79,17 @@ export default function Step2({
       <div className="flex flex-col gap-2">
         <p className="font-medium text-base text-black">Number of People*</p>
         <div className="grid sm:grid-cols-2 gap-3">
+          <Input name="numberOfAdults" placeholder="Adults" type="buttonNumber" control={control} />
           <Input
-            errorMsg={errors.numberOfAdults?.message}
-            name="numberOfAdults"
-            value={getValues('numberOfAdults')}
-            setValue={(value: any) => setValue('numberOfAdults', value, { shouldValidate: true })}
-            placeholder="Adults"
-            type="buttonNumber"
-          />
-          <Input
-            errorMsg={errors.numberOfChildrens?.message}
             name="numberOfChildrens"
-            value={getValues('numberOfChildrens')}
-            setValue={(value: any) =>
-              setValue('numberOfChildrens', value, { shouldValidate: true })
-            }
+            control={control}
             placeholder="Children"
             type="buttonNumber"
           />
         </div>
       </div>
       <Input
-        errorMsg={errors.budget?.message}
+        control={control}
         label={
           <p className="flex gap-[6px] items-center">
             Your Budget
@@ -118,30 +97,21 @@ export default function Step2({
           </p>
         }
         name="budget"
-        register={register}
         type="select"
         options={['less than $1000', '$1000-$2000', '$2000-$3000', 'more than $3000']}
         className="h-[38px]"
       />
       <div className="col-span-full">
         <Input
-          errorMsg={errors.categories?.message}
+          control={control}
           name="categories"
-          value={getValues('categories')}
-          setValue={(value: any) => setValue('categories', value, { shouldValidate: true })}
           type="boxSelection"
           options={CategoriesOptions}
           label={'Select Categories'}
         />
       </div>
       <div className="col-span-full">
-        <Input
-          errorMsg={errors.moreInfo?.message}
-          type="textarea"
-          label="More Information"
-          name="moreInfo"
-          register={register}
-        />
+        <Input control={control} type="textarea" label="More Information" name="moreInfo" />
       </div>
     </div>
   )

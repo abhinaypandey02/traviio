@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { Control } from 'react-hook-form'
 
 import LocaleContext, { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
@@ -20,6 +21,7 @@ export default function Tabs({
   childrenNumber,
   addons,
   onSubmit,
+  control,
   trigger,
 }: {
   children?: any[]
@@ -31,7 +33,8 @@ export default function Tabs({
   childrenNumber: number
   addons: number
   onSubmit: () => void
-  trigger: any
+  control: Control<any>
+  trigger: () => any
 }) {
   let priceOverrides = pricingData.price_overrides ?? []
   const price = (pricingData as any)?.price
@@ -52,13 +55,14 @@ export default function Tabs({
       : localizedNumber(price?.discounted_price)) || actualPrice
 
   const [page, setPage] = useState(1)
+  useEffect(() => {}, [page])
   return (
     <Container className="flex flex-col gap-16 py-16">
       <div className="flex items-center gap-1 px-6 max-w-[800px] mx-auto w-full h-[68px] ">
         <div
           className="relative cursor-pointer"
-          onClick={() => {
-            setPage(1)
+          onClick={async () => {
+            if (await trigger()) setPage(1)
           }}
         >
           <Image alt="" src={'/circleTick.svg'} height={36} width={36} />
@@ -69,8 +73,8 @@ export default function Tabs({
         <hr className="flex-1 bg-yellow text-yellow h-[2px]" />
         <div
           className="relative cursor-pointer"
-          onClick={() => {
-            setPage(2)
+          onClick={async () => {
+            if (await trigger()) setPage(2)
           }}
         >
           <Image alt="" src={'/circleTick.svg'} height={36} width={36} />
@@ -81,8 +85,8 @@ export default function Tabs({
         <hr className="flex-1 bg-yellow text-yellow h-[2px]" />
         <div
           className="relative cursor-pointer"
-          onClick={() => {
-            setPage(3)
+          onClick={async () => {
+            if (await trigger()) setPage(3)
           }}
         >
           <Image alt="" src={'/circleTick.svg'} height={36} width={36} />
@@ -92,7 +96,7 @@ export default function Tabs({
         </div>
       </div>
 
-      <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 xl:grid-cols-[5fr_3fr] gap-12">
+      <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 xl:grid-cols-[5fr_3fr] gap-12 relative">
         {children && (
           <div className="flex flex-col gap-10">
             {children.length >= page ? children[page - 1] : <div>Under Construction</div>}
@@ -112,8 +116,8 @@ export default function Tabs({
                 <Button
                   varient="primary"
                   text={'Next'}
-                  onClick={() => {
-                    setPage(page + 1)
+                  onClick={async () => {
+                    if (await trigger()) setPage(page + 1)
                   }}
                 />
               ) : (
@@ -122,10 +126,11 @@ export default function Tabs({
             </div>
           </div>
         )}
-        <div className="flex flex-col gap-7">
+        <div className="flex flex-col gap-7 sticky top-0">
           <SelectedTour tour={tour} />
           <TripDuration startDate={startDate} endDate={endDate} />
           <Costing
+            control={control}
             actualPrice={actualPrice}
             currentPrice={currentPrice}
             adults={adultsNumber || 0}
@@ -209,6 +214,7 @@ const Costing = ({
   setPromoCode,
   promoCode,
   addons,
+  control,
 }: {
   adults: number
   childrenNumber: number
@@ -218,15 +224,11 @@ const Costing = ({
   setPromoCode?: (value: string) => void
   promoCode?: string
   addons?: number
+  control: Control<any>
 }) => {
   const [promoApplied, setPromoApplied] = useState(false)
-  const originalPrice =
-    (adults + childrenNumber) * actualPrice +
-    (parseInt(adults.toString()) + parseInt(childrenNumber.toString())) * (addons || 0)
-  const totalPrice =
-    (adults + childrenNumber) * currentPrice +
-    (parseInt(adults.toString()) + parseInt(childrenNumber.toString())) * (addons || 0) -
-    (parseInt(adults.toString()) + parseInt(childrenNumber.toString())) * (promoCodeDiscount || 0)
+  const originalPrice = adults * actualPrice + parseInt(adults.toString()) * (addons || 0)
+  const totalPrice = adults * (currentPrice + (addons || 0))
   return (
     <div className="bg-primary border border-darkblue/10 rounded-2xl overflow-hidden p-10">
       <div className="flex flex-col gap-5">
@@ -246,30 +248,25 @@ const Costing = ({
           <div className="flex justify-between gap-2">
             <p className="text-base font-medium text-gray">Tour Package</p>
             <p className="text-base font-medium text-gray">
-              {`${
-                parseInt(adults.toString()) + parseInt(childrenNumber.toString())
-              } x $ ${actualPrice}`}
+              {`${parseInt(adults.toString())} x $ ${actualPrice}`}
             </p>
           </div>
           {addons != 0 && (
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Addons</p>
               <p className="text-base font-medium text-gray">
-                {parseInt(adults.toString()) + parseInt(childrenNumber.toString())} x $ {addons}
+                {parseInt(adults.toString())} x $ {addons}
               </p>
             </div>
           )}
-          {actualPrice != currentPrice &&
-            parseInt(adults.toString()) + parseInt(childrenNumber.toString()) != 0 && (
-              <div className="flex justify-between gap-2">
-                <p className="text-base font-medium text-gray">Discount</p>
-                <p className="text-base font-medium text-green">
-                  - ${' '}
-                  {(parseInt(adults.toString()) + parseInt(childrenNumber.toString())) *
-                    (actualPrice - currentPrice)}
-                </p>
-              </div>
-            )}
+          {actualPrice != currentPrice && parseInt(adults.toString()) != 0 && (
+            <div className="flex justify-between gap-2">
+              <p className="text-base font-medium text-gray">Discount</p>
+              <p className="text-base font-medium text-green">
+                - $ {parseInt(adults.toString()) * (actualPrice - currentPrice)}
+              </p>
+            </div>
+          )}
           {promoCodeDiscount && (
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Promo Code</p>
@@ -300,7 +297,7 @@ const Costing = ({
           </div>
           <div className="flex justify-between gap-2 items-center">
             <p className="text-base font-bold text-darkblue">Payment Today</p>
-            <p className="text-2xl font-bold text-blue">$ 200.00</p>
+            <p className="text-2xl font-bold text-blue">$ {totalPrice}</p>
           </div>
         </div>
 
@@ -318,13 +315,7 @@ const Costing = ({
           </div>
         ) : (
           <div className="w-full relative">
-            <Input
-              placeholder="Add promo code"
-              type="text"
-              value={promoCode}
-              setValue={setPromoCode}
-              name="promoCode"
-            />
+            <Input placeholder="Add promo code" type="text" control={control} name="promoCode" />
             <button
               className="absolute right-2 inset-y-0 text-blue font-medium"
               onClick={() => {

@@ -1,5 +1,11 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
-import { FieldErrors, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import {
+  Control,
+  FieldErrors,
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form'
 
 import { PaymentSchema } from '@/pages/tours/[slug]/payment'
 
@@ -32,17 +38,7 @@ export interface IContactInfo {
     email: string
   }[]
 }
-export default function Page2({
-  register,
-  getValues,
-  setValue,
-  errors,
-}: {
-  register: UseFormRegister<PaymentSchema>
-  getValues: UseFormGetValues<PaymentSchema>
-  setValue: UseFormSetValue<PaymentSchema>
-  errors: FieldErrors<PaymentSchema>
-}) {
+export default function Page2({ control }: { control: Control<any> }) {
   return (
     <div className="md:p-10 md:rounded-2xl overflow-hidden md:border md:border-darkblue/10 flex flex-col gap-10">
       <div className="flex flex-col gap-6">
@@ -58,33 +54,27 @@ export default function Page2({
           <div className="grid grid-cols-[80px_1fr] gap-3">
             <Input
               name="titlePrefix"
-              register={register}
-              errorMsg={errors.titlePrefix?.message}
+              control={control}
               placeholder="Prefix"
               type="select"
               options={['Mr', 'Ms', 'Dr', 'Pr']}
+              rules={{ required: true }}
             />
             <Input
+              rules={{ required: true }}
               name="firstName"
-              errorMsg={errors.firstName?.message}
-              register={register}
+              control={control}
               placeholder="First Name"
               type="text"
             />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
+          <Input name="middleName" control={control} placeholder="Middle Name" type="text" />
           <Input
-            name="middleName"
-            errorMsg={errors.middleName?.message}
-            register={register}
-            placeholder="Middle Name"
-            type="text"
-          />
-          <Input
+            rules={{ required: true }}
             name="lastName"
-            errorMsg={errors.lastName?.message}
-            register={register}
+            control={control}
             placeholder="Last Name"
             type="text"
           />
@@ -94,92 +84,82 @@ export default function Page2({
           <div className="grid grid-cols-3 gap-3">
             <Input
               name="dobDate"
-              errorMsg={errors.dobDate?.message}
-              register={register}
+              control={control}
               placeholder="Date"
               options={new Array(31).fill(0).map((_, i) => i + 1)}
               type="select"
+              rules={{ required: true }}
             />
             <Input
               name="dobMonth"
-              errorMsg={errors.dobMonth?.message}
-              register={register}
+              control={control}
               placeholder="Month"
               options={new Array(12).fill(0).map((_, i) => i + 1)}
               type="select"
+              rules={{ required: true }}
             />
             <Input
               name="dobYear"
-              errorMsg={errors.dobYear?.message}
-              register={register}
+              control={control}
               placeholder="Year"
               options={new Array(100).fill(0).map((_, i) => i + 1924)}
               type="select"
+              rules={{ required: true }}
             />
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Nationality</p>
             <Input
               name="nationality"
-              errorMsg={errors.nationality?.message}
-              register={register}
+              control={control}
               placeholder=" "
+              rules={{ required: true }}
               type="select"
               options={['India', 'USA', 'UK', 'Australia']}
             />
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Email</p>
-            <Input name="email" errorMsg={errors.email?.message} register={register} type="text" />
+            <Input rules={{ required: true }} name="email" control={control} type="text" />
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Mobile</p>
             <div className="grid grid-cols-[80px_1fr] gap-3">
               <Input
                 name="mobileCode"
-                errorMsg={errors.mobileCode?.message}
-                register={register}
+                rules={{ required: true }}
+                control={control}
                 type="select"
                 options={['+91', '+1', '+44', '+61']}
               />
               <Input
                 name="mobileNumber"
-                errorMsg={errors.mobileNumber?.message}
-                register={register}
+                rules={{ required: true }}
+                control={control}
                 type="number"
               />
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Address</p>
-            <Input
-              name="address"
-              errorMsg={errors.address?.message}
-              register={register}
-              type="text"
-            />
+            <Input rules={{ required: true }} name="address" control={control} type="text" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-2">
               <p className="text-base font-medium text-darkblue">Town</p>
-              <Input name="town" errorMsg={errors.town?.message} register={register} type="text" />
+              <Input name="town" control={control} type="text" />
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-base font-medium text-darkblue">State</p>
-              <Input
-                name="state"
-                errorMsg={errors.state?.message}
-                register={register}
-                type="text"
-              />
+              <Input rules={{ required: true }} name="state" control={control} type="text" />
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Country</p>
             <Input
+              rules={{ required: true }}
               name="country"
-              errorMsg={errors.country?.message}
-              register={register}
+              control={control}
               type="select"
               placeholder=" "
               options={['India', 'USA', 'UK', 'Australia']}
@@ -196,14 +176,16 @@ export default function Page2({
           <div className="grid grid-cols-[80px_1fr] gap-3">
             <Input
               name="adultPassenger.0.titlePrefix"
-              register={register}
+              rules={{ required: true }}
+              control={control}
               placeholder="Prefix"
               type="select"
               options={['Mr', 'Ms', 'Dr', 'Pr']}
             />
             <Input
               name="adultPassenger.0.firstName"
-              register={register}
+              rules={{ required: true }}
+              control={control}
               placeholder="First Name"
               type="text"
             />
@@ -212,13 +194,14 @@ export default function Page2({
         <div className="grid grid-cols-2 gap-3">
           <Input
             name="adultPassenger.0.middleName"
-            register={register}
+            control={control}
             placeholder="Middle Name"
             type="text"
           />
           <Input
             name="adultPassenger.0.lastName"
-            register={register}
+            rules={{ required: true }}
+            control={control}
             placeholder="Last Name"
             type="text"
           />
@@ -228,21 +211,24 @@ export default function Page2({
           <div className="grid grid-cols-3 gap-3">
             <Input
               name="adultPassenger.0.dobDate"
-              register={register}
+              rules={{ required: true }}
+              control={control}
               placeholder="Date"
               options={new Array(31).fill(0).map((_, i) => i + 1)}
               type="select"
             />
             <Input
               name="adultPassenger.0.dobMonth"
-              register={register}
+              rules={{ required: true }}
+              control={control}
               placeholder="Month"
               options={new Array(12).fill(0).map((_, i) => i + 1)}
               type="select"
             />
             <Input
               name="adultPassenger.0.dobYear"
-              register={register}
+              rules={{ required: true }}
+              control={control}
               placeholder="Year"
               options={new Array(100).fill(0).map((_, i) => i + 1924)}
               type="select"
@@ -251,7 +237,12 @@ export default function Page2({
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-base font-medium text-darkblue">Email</p>
-          <Input name="adultPassenger.0.email" register={register} type="text" />
+          <Input
+            rules={{ required: true }}
+            name="adultPassenger.0.email"
+            control={control}
+            type="text"
+          />
         </div>
         <button className="font-bold text-base text-blue self-start">Add Passenger</button>
       </div>

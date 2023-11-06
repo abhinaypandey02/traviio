@@ -1,4 +1,5 @@
 import React from 'react'
+import { Control, RegisterOptions, useController } from 'react-hook-form'
 
 import { Check, Minus, Plus } from '@phosphor-icons/react'
 
@@ -13,15 +14,14 @@ interface Props {
     | 'checkbox'
     | 'boxSelection'
     | 'textarea'
-  register?: any
-  value?: any
-  setValue?: any
+  control: Control<any>
   variant?: 'primary' | 'secondary'
   placeholder?: string
   label?: any
   options?: string[] | number[] | { name: string; icon: any }[]
   className?: string
-  errorMsg?: any
+  checkboxValue?: any
+  rules?: RegisterOptions
 }
 
 const VARIANT = {
@@ -36,20 +36,29 @@ const VARIANT = {
     },
   },
 }
-
+export const ERROR_MESSAGES = {
+  required: 'Required',
+}
 export default function Input({
   name,
-  register = (value: any) => {},
+  control,
   type,
-  value,
-  setValue,
   variant = 'primary',
   placeholder,
   label,
   options,
   className,
-  errorMsg,
+  checkboxValue,
+  rules,
 }: Props) {
+  const {
+    field,
+    fieldState: { error },
+  } = useController({ control, name, rules })
+  console.log(field.value, error)
+  const errorMsg = error?.type
+    ? ERROR_MESSAGES[error.type as keyof typeof ERROR_MESSAGES] || 'Error'
+    : undefined
   if (type == 'buttonNumber')
     return (
       <div className={`flex font-medium text-base text-black flex-col gap-2 ${className}`}>
@@ -60,7 +69,7 @@ export default function Input({
             <div
               className={`w-[22px] h-[22px] ${VARIANT.buttonNumber.button[variant]} flex items-center justify-center`}
               onClick={() => {
-                setValue(Math.max(parseInt(value || '0') - 1, 1).toString(), 'members')
+                field.onChange(Math.max(parseInt(field.value || '0') - 1, 1).toString(), 'members')
               }}
             >
               {<Minus color="white" />}
@@ -68,12 +77,12 @@ export default function Input({
             <div
               className={`w-[22px] h-[22px] ${VARIANT.buttonNumber.display[variant]} text-black flex items-center justify-center select-none`}
             >
-              {value}
+              {field.value}
             </div>
             <div
               className={`w-[22px] h-[22px] ${VARIANT.buttonNumber.button[variant]} flex items-center justify-center`}
               onClick={() => {
-                setValue(Math.min(parseInt(value || '0') + 1, 30).toString(), 'members')
+                field.onChange(Math.min(parseInt(field.value || '0') + 1, 30).toString(), 'members')
               }}
             >
               {<Plus color="white" />}
@@ -90,22 +99,11 @@ export default function Input({
         <select
           id={name}
           className={`border bg-white border-darkblue/10 text-gray rounded p-1 ${className}`}
-          {...register(name)}
-          {...(setValue
-            ? {
-                value: { value },
-                onChange: (e) => {
-                  setValue(e.target.value)
-                },
-              }
-            : {})}
+          {...field}
           placeholder="Select"
         >
-          {placeholder && (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          )}
+          <option>{placeholder}</option>
+
           {(options as string[] | number[])?.map((option) => (
             <option value={option}>{option}</option>
           ))}
@@ -126,15 +124,7 @@ export default function Input({
           // onChange={(e) => {
           //   setValue(type === 'number' ? parseInt(e.target.value) : e.target.value)
           // }}
-          {...register(name)}
-          {...(setValue
-            ? {
-                value: { value },
-                onChange: (e) => {
-                  setValue(e.target.value)
-                },
-              }
-            : {})}
+          {...field}
         />
         {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
@@ -143,10 +133,14 @@ export default function Input({
     return (
       <div
         className={`h-6 w-6 flex justify-center items-center rounded-lg border ${
-          value ? 'bg-blue border-blue' : 'bg-white  border-gray'
+          field.value === checkboxValue
+            ? 'bg-blue border-blue'
+            : errorMsg
+            ? 'bg-white border-red'
+            : 'bg-white  border-gray'
         }`}
         onClick={() => {
-          setValue()
+          field.onChange(checkboxValue)
         }}
       >
         <Check color="white" width={16} height={16} weight="bold" />
@@ -160,13 +154,13 @@ export default function Input({
           {options?.map((option: any) => (
             <div
               className={`flex border w-fit border-darkblue/10 rounded ${
-                value.includes(option.name) ? 'text-white bg-blue' : 'text-gray bg-white'
+                field.value.includes(option.name) ? 'text-white bg-blue' : 'text-gray bg-white'
               } px-3 py-[10px] text-sm gap-2 items-center whitespace-nowrap flex-nowrap`}
               onClick={() => {
-                if (value.includes(option.name)) {
-                  setValue(value.filter((item: any) => item != option.name))
+                if (field.value.includes(option.name)) {
+                  field.onChange(field.value.filter((item: any) => item != option.name))
                 } else {
-                  setValue([...value, option.name])
+                  field.onChange([...field.value, option.name])
                 }
               }}
             >
@@ -186,15 +180,7 @@ export default function Input({
           id={name}
           rows={3}
           className="border border-darkblue/10 text-gray rounded p-1"
-          {...register(name)}
-          {...(setValue
-            ? {
-                value: { value },
-                onChange: (e) => {
-                  setValue(e.target.value)
-                },
-              }
-            : {})}
+          {...field}
         />
 
         {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}

@@ -109,14 +109,7 @@ export default function TailorYourTour({
   })
 
   const resolver = useYupValidationResolver(validationSchema)
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm<TailorTripFormData>({
+  const { control, handleSubmit, setValue, getValues } = useForm<TailorTripFormData>({
     defaultValues: {
       categories: [],
       numberOfAdults: '0',
@@ -124,10 +117,6 @@ export default function TailorYourTour({
     },
     resolver,
   })
-
-  useEffect(() => {
-    console.log({ values: getValues(), errors })
-  }, [getValues(), errors])
 
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
@@ -205,7 +194,7 @@ export default function TailorYourTour({
               setValue('duration', value, { shouldValidate: true })
             }}
           />
-          <Step2 register={register} setValue={setValue} getValues={getValues} errors={errors} />
+          <Step2 setValue={setValue} control={control} />
         </Steps>
         {/* )} */}
 

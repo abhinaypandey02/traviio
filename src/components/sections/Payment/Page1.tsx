@@ -1,15 +1,21 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
 import Image from 'next/image'
-import { FieldErrors, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import {
+  Control,
+  FieldErrors,
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form'
 import ReactStars from 'react-stars'
 
-import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
+import LocaleContext, { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { PaymentSchema } from '@/pages/tours/[slug]/payment'
 import { urlFor } from '@/sanity/client'
 import { SanityTourPage } from '@/sanity/types'
 import { CaretDown, Check } from '@phosphor-icons/react'
 
-import Input from '@/components/atoms/Input'
+import Input, { ERROR_MESSAGES } from '@/components/atoms/Input'
 
 export interface IPaymentTourExtras {
   adultMembers: number
@@ -20,64 +26,48 @@ export interface IPaymentTourExtras {
   optionalVisits: any[]
 }
 export default function Page1({
-  errors,
   payment,
-  register,
-  getValues,
-  setValue,
+  control,
+  errors,
 }: {
   payment: SanityTourPage['payment']
-  register: UseFormRegister<PaymentSchema>
-  getValues: UseFormGetValues<PaymentSchema>
-  setValue: UseFormSetValue<PaymentSchema>
-  errors: FieldErrors<PaymentSchema>
+  control: Control<any>
+  errors: any
 }) {
+  console.log(errors)
   return (
     <div className="flex flex-col gap-7">
       <div className="p-10 bg-primary border border-darkblue/10 rounded-2xl">
         <p className="text-2xl font-bold text-darkblue">How many people are traveling?</p>
         <div className="grid grid-cols-2 gap-6">
           <Input
+            control={control}
             name="adultMembers"
             placeholder="Adults (+ 12 year)"
-            value={getValues('adultMembers')}
-            setValue={(value: any) => setValue('adultMembers', value, { shouldValidate: true })}
             type="buttonNumber"
             variant="secondary"
-            errorMsg={errors.adultMembers?.message}
+            rules={{ required: true }}
           />
           <Input
             name="childrenMembers"
             placeholder="Children (3 - 11 year)"
-            value={getValues('childrenMembers')}
-            setValue={(value: any) => setValue('childrenMembers', value, { shouldValidate: true })}
+            control={control}
             type="buttonNumber"
             variant="secondary"
-            errorMsg={errors.childrenMembers?.message}
           />
         </div>
       </div>
       <HotelChoosing
+        errorMsg={(ERROR_MESSAGES as any)[errors?.['hotelChoice']?.type]}
+        control={control}
         room_options={payment?.room_options}
-        value={getValues('hotelChoice')}
-        setValue={(value: any) => setValue('hotelChoice', value, { shouldValidate: true })}
-        errorMsg={errors.hotelChoice?.message}
       />
       <RomeType
+        errorMsg1={(ERROR_MESSAGES as any)[errors?.['roomType']?.type]}
+        control={control}
         room_sharing_options={payment?.room_sharing_options}
-        value={getValues('roomType')}
-        setValue={(value: any) => setValue('roomType', value, { shouldValidate: true })}
-        errorMsg={errors.roomType?.message}
-        value1={getValues('sharingRoomWith')}
-        setValue1={(value: any) => setValue('sharingRoomWith', value, { shouldValidate: true })}
-        errorMsg1={errors.sharingRoomWith?.message}
       />
-      <OptionalVisits
-        data={payment?.extras}
-        value={getValues('optionalVisits')}
-        setValue={(value: any) => setValue('optionalVisits', value, { shouldValidate: true })}
-        errorMsg={errors.optionalVisits?.message}
-      />
+      <OptionalVisits control={control} data={payment?.extras} />
       <HelpWithExtras />
     </div>
   )
@@ -85,34 +75,15 @@ export default function Page1({
 
 const HotelChoosing = ({
   room_options,
-  value,
-  setValue,
   errorMsg,
+  control,
 }: {
   room_options?: Exclude<SanityTourPage['payment'], undefined>['room_options']
-  value: any
-  setValue: any
+
   errorMsg?: string
+  control: Control<any>
 }) => {
-  const plans = [
-    {
-      name: 'Basic',
-      rating: 4,
-      details: 'Comfortable accommodation',
-    },
-    {
-      name: 'Deluxe',
-      rating: 5,
-      details: 'Comfortable accommodation',
-      extra: '$40 Extra',
-    },
-    {
-      name: 'Super Deluxe',
-      rating: 6,
-      details: 'Comfortable accommodation',
-      extra: '$70 Extra',
-    },
-  ]
+  const { locale } = useContext(LocaleContext)
   return (
     <div className="bg-darkblue/[0.02] border border-darkblue/10 rounded-2xl overflow-hidden">
       <div className="py-2 bg-blue">
@@ -122,25 +93,27 @@ const HotelChoosing = ({
         {room_options?.map((room, index) => (
           <div key={index} className="flex justify-between gap-2 py-[18px]">
             <div className="flex flex-col gap-1">
-              <p className="font-bold text-darkblue text-xl">{localizedString(room.title)}</p>
+              <p className="font-bold text-darkblue text-xl">
+                {localizedString(room.title, locale)}
+              </p>
               {/* @ts-ignore */}
               <ReactStars count={room.rating} value={room.rating} edit={false} size={16} />
-              <p className="text-sm font-medium text-gray">{localizedString(room.description)}</p>
+              <p className="text-sm font-medium text-gray">
+                {localizedString(room.description, locale)}
+              </p>
             </div>
             <div className="w-[76px] flex flex-col justify-around items-center">
               <Input
+                checkboxValue={localizedString(room.title)}
                 name="hotelChoice"
-                value={value == localizedString(room.title)}
                 type="checkbox"
-                setValue={() => {
-                  if (value == localizedString(room.title)) setValue('')
-                  else setValue(localizedString(room.title))
-                }}
+                control={control}
+                rules={{ required: true }}
               />
               {room.price?.initial_price && (
                 <p className="text-blue font-medium">
-                  {localizedString(room.price?.currency_symbol)}
-                  {localizedNumber(room.price?.initial_price)}
+                  {localizedString(room.price?.currency_symbol, locale)}
+                  {localizedNumber(room.price?.initial_price, locale)}
                 </p>
               )}
             </div>
@@ -154,40 +127,17 @@ const HotelChoosing = ({
 
 const RomeType = ({
   room_sharing_options,
-  value,
-  setValue,
+  control,
   errorMsg,
-  value1,
-  setValue1,
   errorMsg1,
 }: {
   room_sharing_options?: Exclude<SanityTourPage['payment'], undefined>['room_sharing_options']
-  value: any
-  setValue: any
-  value1: any
-  setValue1: any
   errorMsg?: string
   errorMsg1?: string
+  control: Control<any>
 }) => {
-  const plans = [
-    {
-      name: 'Signal share room',
-      capacity: 1,
-      details: 'Comfortable accommodation',
-    },
-    {
-      name: 'Deluxe',
-      capacity: 2,
-      details: 'Comfortable accommodation',
-      extra: '$40 Extra',
-    },
-    {
-      name: 'Super Deluxe',
-      capacity: 3,
-      details: 'Comfortable accommodation',
-      extra: '$70 Extra',
-    },
-  ]
+  const { locale } = useContext(LocaleContext)
+
   return (
     <div className="bg-darkblue/[0.02] border border-darkblue/10 rounded-2xl overflow-hidden">
       <div className="py-2 bg-blue">
@@ -201,27 +151,26 @@ const RomeType = ({
                 <Image key={index} alt="" src={option.image ? urlFor(option.image) : ''} fill />
               </div>
               <div className="flex flex-col gap-1">
-                <p className="font-bold text-darkblue text-xl">{localizedString(option.title)}</p>
+                <p className="font-bold text-darkblue text-xl">
+                  {localizedString(option.title, locale)}
+                </p>
                 <p className="text-sm font-medium text-gray">
-                  {localizedString(option.description)}
+                  {localizedString(option.description, locale)}
                 </p>
               </div>
             </div>
             <div className="w-[76px] flex flex-col justify-around items-center">
               <Input
+                checkboxValue={localizedString(option.title)}
                 name="roomType"
-                value={value == localizedString(option.title)}
                 type="checkbox"
-                setValue={() => {
-                  if (value == localizedString(option.title)) setValue('')
-                  else setValue(localizedString(option.title))
-                }}
-                errorMsg={errorMsg}
+                control={control}
+                rules={{ required: true }}
               />
               {option.price?.initial_price && (
                 <p className="text-blue font-medium">
-                  {localizedString(option.price.currency_symbol)}{' '}
-                  {localizedNumber(option.price.initial_price)}
+                  {localizedString(option.price.currency_symbol, locale)}{' '}
+                  {localizedNumber(option.price.initial_price, locale)}
                 </p>
               )}
             </div>
@@ -229,13 +178,7 @@ const RomeType = ({
         ))}
         <div className="flex flex-col gap-[18px] justify-between py-[18px]">
           <p>Sharing room with someone who is not part of this booking?</p>
-          <Input
-            name="Sharing With"
-            type="text"
-            placeholder="Enter name"
-            setValue={setValue1}
-            value={value1}
-          />
+          <Input name="Sharing With" type="text" placeholder="Enter name" control={control} />
           {errorMsg1 && <span className="font-thin text-xs text-red">{errorMsg1}</span>}
         </div>
       </div>
@@ -245,91 +188,11 @@ const RomeType = ({
 
 const OptionalVisits = ({
   data,
-  value,
-  setValue,
-  errorMsg,
+  control,
 }: {
   data: Exclude<SanityTourPage['payment'], undefined>['extras']
-  value: any
-  setValue: any
-  errorMsg?: string
+  control: Control<any>
 }) => {
-  // const Places = [
-  //   {
-  //     name: 'Cario Tours',
-  //     tours: [
-  //       {
-  //         id: 1,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //       {
-  //         id: 2,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //       {
-  //         id: 3,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //       {
-  //         id: 4,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: 'Luxor Tours',
-  //     tours: [
-  //       {
-  //         id: 5,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //       {
-  //         id: 6,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //       {
-  //         id: 7,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //       {
-  //         id: 8,
-  //         name: 'The Egyptian Museum in Cairo',
-  //         description:
-  //           'The Egyptian Museum in Cairo, known as simply the Egyptian Museum, located in Cairo, Egypt  located in Cairo, Egypt.',
-  //         image: '/demo/tourimage.png',
-  //         extra: '$200 Extra',
-  //       },
-  //     ],
-  //   },
-  // ]
   const cities = Array.from(new Set(data?.map((item) => localizedString(item.city_name))))
   const Places = cities.map((city) => {
     const cityTours = data?.filter((item) => localizedString(item.city_name) == city)
@@ -348,7 +211,7 @@ const OptionalVisits = ({
             <p className="text-base font-bold text-red">(1/3)</p>
           </div>
           <div className="px-10 flex flex-col divide-y divide-yellow">
-            {place.tours?.map((plan, index) => (
+            {place.tours?.map((plan: any, index) => (
               <div key={index} className="flex justify-between gap-2 py-[18px]">
                 <div className="flex gap-5">
                   <div className="w-[120px] h-[84px] flex gap-2 border rounded border-blue items-center justify-center">
@@ -370,14 +233,10 @@ const OptionalVisits = ({
                 </div>
                 <div className="w-[76px] flex flex-col justify-around items-center">
                   <Input
-                    name="optionalVisits"
-                    value={value.includes(localizedString(plan.title))}
+                    checkboxValue={plan._key}
+                    name={'optionalVisits.' + place.name}
                     type="checkbox"
-                    setValue={() => {
-                      if (value.includes(localizedString(plan.title)))
-                        setValue(value.filter((id: any) => id != localizedString(plan.title)))
-                      else setValue([...value, localizedString(plan.title)])
-                    }}
+                    control={control}
                   />
                   {plan.price?.initial_price && (
                     <p className="text-blue font-medium whitespace-nowrap">
@@ -392,7 +251,6 @@ const OptionalVisits = ({
         </div>
       ))}
       <div className="px-10 pb-7 pt-4">
-        {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
         <button className="text-blue flex items-center gap-3 mx-auto font-bold">
           View More <CaretDown />
         </button>
