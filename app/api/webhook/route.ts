@@ -52,6 +52,7 @@ export async function POST(req: Request) {
         method: 'POST',
         body: JSON.stringify({
           subject: 'New Bookings!',
+          to: booking.data.booking?.email,
           html: `Thanks for the new booking. Create a new account by visiting <a href="https://traviio.vercel.app/signup?email=${booking.data.booking?.email}">here.</a>`,
           text: `Thanks for the new booking. Create a new account by visiting here.`,
         }),
