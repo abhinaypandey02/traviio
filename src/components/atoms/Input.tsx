@@ -22,6 +22,7 @@ interface Props {
   className?: string
   checkboxValue?: any
   rules?: RegisterOptions
+  disabled?: boolean
 }
 
 const VARIANT = {
@@ -49,6 +50,7 @@ export default function Input({
   options,
   className,
   checkboxValue,
+  disabled,
   rules,
 }: Props) {
   const {
@@ -97,6 +99,7 @@ export default function Input({
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         {label && <label htmlFor={name}>{label}</label>}
         <select
+          disabled={disabled}
           id={name}
           className={`border bg-white border-darkblue/10 text-gray rounded p-1 ${className}`}
           {...field}
@@ -116,6 +119,7 @@ export default function Input({
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         {label && <label htmlFor={name}>{label}</label>}
         <input
+          disabled={disabled}
           id={name}
           type={type}
           placeholder={placeholder}
@@ -177,6 +181,7 @@ export default function Input({
         {label && <label htmlFor={name}>{label}</label>}
 
         <textarea
+          disabled={disabled}
           id={name}
           rows={3}
           className="border border-darkblue/10 text-gray rounded p-1"

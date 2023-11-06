@@ -14,8 +14,14 @@ const UserContext = createContext<{
   user?: GetUserQuery['user'] | null
   refetch: () => Promise<void>
   login: (email: string, password: string) => Promise<boolean>
+  signup: (email: string, password: string, name: string) => Promise<boolean>
   logout: () => Promise<void>
-}>({ refetch: async () => {}, login: async () => false, logout: async () => {} })
+}>({
+  refetch: async () => {},
+  login: async () => false,
+  signup: async () => false,
+  logout: async () => {},
+})
 
 export async function getUser(token: string) {
   const client = getReactClient(token)
@@ -57,6 +63,18 @@ export default function UserProvider({ children }: PropsWithChildren) {
     }
     return false
   }
+  async function signup(email: string, password: string, name: string) {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password, name, signup: true }),
+    })
+    if (res.ok) {
+      const token = await res.text()
+      await refetch(token)
+      return true
+    }
+    return false
+  }
   async function refetch(t?: string) {
     const token = t || (await getAccessToken())
     if (token) {
@@ -72,7 +90,7 @@ export default function UserProvider({ children }: PropsWithChildren) {
     refetch()
   }, [])
   return (
-    <UserContext.Provider value={{ token, user, refetch, login, logout }}>
+    <UserContext.Provider value={{ token, user, refetch, login, logout, signup }}>
       {children}
     </UserContext.Provider>
   )
