@@ -23,7 +23,7 @@ export type TestimonialSectionProps = {
 
 const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
   const {
-    data: { title, subtitle, image, testimonials },
+    data: { title, subtitle, image, testimonials },locale
   } = props
 
   return (
@@ -36,8 +36,8 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
             {/* <div class="w-[335px] text-center text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-tight">Adored by Countless Explorers of Egypt, Dubai, Saudi Arabia, Turkey, and Israel</div> */}
             {/* .. */}
             {/* <div class="w-80 text-gray-500 text-lg font-normal font-['Satoshi Variable'] leading-7">Adored by Countless Explorers of Egypt, Dubai, Saudi Arabia, Turkey, and Israel</div> */}
-            <span className="text-blue">{title?.en?.substring(0, 16)}</span>
-            {title?.en?.substring(16)}
+            <span className="text-blue">{localizedString(title, locale).substring(0, 16)}</span>
+              {localizedString(title, locale).substring(16)}
           </h3>
           <h5 className="text-sm md:text-lg mt-3 opacity-60">
             {localizedString(subtitle, props.locale)}

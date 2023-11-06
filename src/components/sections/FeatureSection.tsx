@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { urlFor } from '@/sanity/client'
-
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import Container from '@/components/Container'
 
 import { SanityFeature, SanityFeatureSection } from '../../sanity/types'
@@ -44,7 +44,7 @@ const mobBgArrowSVG = {
   ),
 }
 
-export default function FeatureSection({ data }: FeatureSectionProps) {
+export default function FeatureSection({ data,locale }: PropsWithLocale<FeatureSectionProps>) {
   if (data?.type != 'small') {
     return (
       <Container
@@ -53,13 +53,14 @@ export default function FeatureSection({ data }: FeatureSectionProps) {
         {data.title?.en && (
           <>
             <h2 className=" text-darkblue w-fit -tracking-[1.2px] mx-auto text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px]  text-center ">
-              {data.title?.en}
+
+              {localizedString(data.title, locale)}
               <hr className="w-1/3 mt-[9px] m-auto bg-yellow text-yellow h-[3px] rounded-full  " />
             </h2>
           </>
         )}
         <div className="flex flex-col md:flex-row md:justify-between  mt-[54px] md:mt-[74px]   gap-[60px] md:gap-6 w-full ">
-          {data?.features?.map((feature, index) => <Feature key={index} data={feature} />)}
+          {data?.features?.map((feature, index) => <Feature key={index} data={feature}  locale={locale}/>)}
           <div className="absolute left-0 top-48 max-md:hidden w-full  flex  items-center -z-[0]">
             <svg width="100%" height="135" viewBox="0 0 856 135" fill="none">
               <path
@@ -90,7 +91,7 @@ export default function FeatureSection({ data }: FeatureSectionProps) {
           </>
         )}
         <div className="flex justify-between w-full  flex-wrap gap-[15px] ">
-          {data?.features?.map((feature, index) => <SmallFeature key={index} data={feature} />)}
+          {data?.features?.map((feature, index) => <SmallFeature key={index} data={feature} locale={locale} />)}
         </div>
       </Container>
     </section>
@@ -99,7 +100,7 @@ export default function FeatureSection({ data }: FeatureSectionProps) {
 
 export type FeatureProps = { data: SanityFeature }
 
-const Feature = ({ data }: FeatureProps) => {
+const Feature = ({ data,locale }:  PropsWithLocale<FeatureProps>) => {
   return (
     <div className="relative text-center flex flex-row-reversse justify-between md:flex-col items-center z-[2] h-[90px] md:h-[194px] [&:nth-child(odd)]:flex-row-reverse md:[&:nth-child(odd)]:flex-col">
       {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={68} height={68} alt="" />}
@@ -107,18 +108,18 @@ const Feature = ({ data }: FeatureProps) => {
         className={`md:mt-9 md:mb-2.5  text-start md:text-center max-w-[231px] md:max-w-[348px]`}
       >
         <p className="font-bold -tracking-[0.6px] text-base md:text-xl  leading-normal md:leading-loose">
-          {data.title?.en}
+            {localizedString(data.title, locale)}
         </p>
 
         <p className="opacity-60 text-xs md:text-base  leading-tight md:leading-normal">
-          {data.description?.en}
+            {localizedString(data.description, locale)}
         </p>
       </div>
     </div>
   )
 }
 
-const SmallFeature = ({ data }: FeatureProps) => {
+const SmallFeature = ({ data,locale }:  PropsWithLocale<FeatureProps>) => {
   return (
     <div className="text-center flex items-center  min-w-[160px] min-h-[64px] md:min-h-[48px] flex-col md:flex-row ">
       <Image
@@ -129,7 +130,7 @@ const SmallFeature = ({ data }: FeatureProps) => {
         className={'h-12 w-12'}
       />
       <p className="text-center font-medium md:text-start text-xs md:text-base  leading-[20px] md:leading-[24px] ml-3">
-        {data.title?.en}
+        {localizedString(data.title, locale)}
       </p>
     </div>
   )

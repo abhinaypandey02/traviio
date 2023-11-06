@@ -27,7 +27,7 @@ const ImageHeaderSection = (props: ImageHeaderSectionProps) => {
           alt=""
         />
         <h2 className="text-[56px]  text-white -translate-y-32  font-extrabold text-center ">
-          {header?.en}
+          <LocalizedString text={header} />
         </h2>
       </div>
       <Container className="px-10 text-[16px] -translate-y-9  font-[400] opacity-80 leading-6 ">

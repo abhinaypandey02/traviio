@@ -15,8 +15,7 @@ interface BestToursSectionProps {
 
 function BestToursSection({
   data: { tags, title, tagline, filters },
-  locale,
-}: PropsWithLocale<BestToursSectionProps>) {
+locale,}: PropsWithLocale<BestToursSectionProps>) {
   const [loading, setLoading] = React.useState<boolean>(false)
   const [pageNumber, setPageNumber] = React.useState<number>(0)
   const lastIds = React.useRef<(string | null)[]>([''])

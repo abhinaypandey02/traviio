@@ -3,8 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
-// import { FreeMode, Navigation } from 'swiper/modules'
-// import { Swiper, SwiperSlide } from 'swiper/react'
+
 import { urlFor } from '@/sanity/client'
 import { SanityArticle, SanityFeaturedBlogsSection } from '@/sanity/types'
 import DateFormat from '@/utils/utils'

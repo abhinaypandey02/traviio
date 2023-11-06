@@ -5,21 +5,24 @@ import { urlFor } from '@/sanity/client'
 import { SanityAtGlanceSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
-
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 export type AtAGlanceSectionProps = {
   data: SanityAtGlanceSection
 }
 
-const AtAGlanceSection = (props: AtAGlanceSectionProps) => {
+const AtAGlanceSection = (props: PropsWithLocale<AtAGlanceSectionProps>) => {
   const {
-    data: { tagline, title, useful_links_section, facts },
+    data: { tagline, title, useful_links_section, facts },locale
   } = props
 
   return (
     <div className=" ">
       <Container className="bg-[#F2FAFF] py-12">
-        <h2 className="text-[#3FA9F5] text-[16px] font-[500] text-center">{tagline?.en}</h2>
-        <h4 className="text-[36px] font-[700] mt-2 text-center">{title?.en}</h4>
+        <h2 className="text-[#3FA9F5] text-[16px] font-[500] text-center">
+          {localizedString(tagline, locale)}
+        </h2>
+        <h4 className="text-[36px] font-[700] mt-2 text-center">
+        {localizedString(title, locale)} </h4>
         <hr className="lg:w-1/12 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
         <div className="py-2 grid grid-flow-row grid-cols-4 px-10 gap-x-24 mt-16 gap-y-12">
           {facts?.map((item: any, index: any) => {
@@ -27,8 +30,11 @@ const AtAGlanceSection = (props: AtAGlanceSectionProps) => {
               <div className="flex gap-x-2 items-center ">
                 <Image alt={''} src={urlFor(item.icon)} width={48} height={48} />
                 <div className=" ">
-                  <h3 className="text-[18px] font-[500]">{item.title?.en}</h3>
-                  <h3 className="text-[14px] text-[#726E83]">{item.subtitle?.en}</h3>
+                  <h3 className="text-[18px] font-[500]">
+                    {localizedString(item.title, locale)}
+                  </h3>
+                  <h3 className="text-[14px] text-[#726E83]">
+                  {localizedString(item.subtitle, locale)} </h3>
                 </div>
               </div>
             )
@@ -46,7 +52,7 @@ const AtAGlanceSection = (props: AtAGlanceSectionProps) => {
                     <div className="flex items-center gap-x-2 ">
                       <Image alt={''} src={urlFor(item.icon)} width={28} height={28} />
                       <span className="font-[500] text-[18px] text-[#140D31]">
-                        {item.title?.en}
+                      {localizedString(item.title, locale)}
                       </span>
                     </div>
                   </a>

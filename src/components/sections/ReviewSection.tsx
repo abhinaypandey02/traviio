@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 // import Pagination from 'rc-pagination'
 import { Circle, Line } from 'rc-progress'
-
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { SanityReviewsSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
@@ -139,9 +139,9 @@ const RatingCard = ({ title, review, country, name, date, star, varient }: any) 
   )
 }
 
-const ReviewSection = (props: ReviewSectionProps) => {
+const ReviewSection = (props: PropsWithLocale<ReviewSectionProps>) => {
   let {
-    data: { title, tagline, reviews },
+    data: { title, tagline, reviews },locale
   } = props
 
   const [pageNumber, setPageNumber] = useState(0)
@@ -163,8 +163,10 @@ const ReviewSection = (props: ReviewSectionProps) => {
   const pageSize = 3
   return (
     <Container className=" py-10  bg-white text-black">
-      <h2 className="text-[#3FA9F5] text-[16px]   font-[500] text-center">{tagline?.en}</h2>
-      <h4 className="text-[40px] mt-2 font-[700] tracking-[0.5px] text-center">{title?.en}</h4>
+      <h2 className="text-[#3FA9F5] text-[16px]   font-[500] text-center">
+      {localizedString(tagline, locale)}</h2>
+      <h4 className="text-[40px] mt-2 font-[700] tracking-[0.5px] text-center">
+      {localizedString(title, locale)} </h4>
       <hr className="lg:w-1/12 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
 
       <div className="flex gap-x-5 mt-8">

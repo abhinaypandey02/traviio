@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { SanityFAQSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
@@ -9,18 +9,16 @@ export type FAQSectionProps = {
   data: SanityFAQSection
 }
 
-const FAQSection = ({ data }: FAQSectionProps) => {
+const FAQSection = ({ data,locale }: PropsWithLocale<FAQSectionProps>) => {
   const [open, setOpen] = React.useState(-1)
   return (
     <Container className="bg-white flex flex-col items-center py-[52px] md:py-[75px] ">
       <div className="flex flex-col items-center gap-3">
-        {/* <div class="text-center text-sky-400 text-xs font-medium font-['Satoshi Variable'] uppercase leading-tight">FAQ</div> */}
-        <h1 className="text-blue  text-[12px] md:text-[16px] font-[500]  leading-[20px] md:leading-[24px] uppercase">
-          {data.title?.en}
+        <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
+          {localizedString(data?.title, locale)}
         </h1>
-        {/* <div class="text-slate-900 text-2xl font-bold font-['Satoshi Variable'] leading-loose">Frequently asked questions</div> */}
         <h3 className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
-          {data?.tagline?.en}
+          {localizedString(data.tagline, locale)}
         </h3>
         <hr className="w-[85px] md:w-[117px] bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
       </div>
@@ -40,7 +38,7 @@ const FAQSection = ({ data }: FAQSectionProps) => {
               />
 
               <p className="font-medium text-base md:text-xl leading-normal md:leading-loose">
-                {faq?.question?.en}
+                  {localizedString(faq?.question, locale)}
               </p>
             </div>
 
@@ -49,7 +47,7 @@ const FAQSection = ({ data }: FAQSectionProps) => {
               text-xs md:text-base font-normal leading-normal md:leading-tight
               `}
             >
-              <p>{faq?.answer?.en}</p>
+              <p>{localizedString(faq?.answer, locale)}</p>
             </div>
           </div>
         ))}

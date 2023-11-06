@@ -1,11 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
-
 import { urlFor } from '@/sanity/client'
 import { SanityHeroSection } from '@/sanity/types'
-
 import Container from '@/components/Container'
-
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import PrimaryButton from '../buttons/PrimaryButton'
 import SecondaryButton from '../buttons/SecondaryButton'
 
@@ -13,7 +11,7 @@ export type HeroSectionProps = {
   data: SanityHeroSection
 }
 
-const HeroSection = ({ data }: HeroSectionProps) => {
+const HeroSection = ({ data,locale }: PropsWithLocale<HeroSectionProps>) => {
   const linearGradient =
     'linear-gradient(75.52deg, #000000 1.5%, rgba(0, 0, 0, 0.8) 9.18%, rgba(0, 0, 0, 0.7) 15.93%, rgba(0, 0, 0, 0.6) 37.5%, rgba(0, 0, 0, 0) 63.68%)'
   return (
@@ -46,10 +44,10 @@ const HeroSection = ({ data }: HeroSectionProps) => {
         <Container className="flex items-center  md:items-start justify-center md:justify-between flex-col">
           <div className="w-[335px]  md:w-[572px] ">
             <h1 className="text-[28px] md:text-[56px] font-black -tracking-[1.68px] leading-[38px] md:leading-[76px] text-center md:text-start ">
-              {data.title?.en}
+            {localizedString(data.title, locale)}
             </h1>
             <h3 className="mt-2 md:mt-[10px] text-sm md:text-[20px] leading-[20px] md:leading-[30px] text-center md:text-start ">
-              {data?.subtitle?.en}
+              {localizedString(data?.subtitle, locale)}
             </h3>
             <div className="flex gap-3 md:gap-4 mt-5 md:mt-12 items-center justify-center md:justify-start">
               <PrimaryButton title={'Inquire Now'} />

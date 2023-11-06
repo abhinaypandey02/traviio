@@ -10,19 +10,23 @@ import {
   SanityLocaleString,
 } from '@/sanity/types'
 import { CaretDown, Dot, Minus, Plus } from '@phosphor-icons/react'
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
 
-export default function ItinerarySection({ data }: { data?: SanityItinerarySection }) {
+export default function ItinerarySection({ data,locale }: PropsWithLocale<SanityItinerarySection> ) {
   // console.log('ItinerarySection-> ', data)
   // console.log(Country.getAllCountries())
   return (
     <Container className=" flex flex-col py-20 gap-10">
       <div className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
-        <h2 className="text-blue text-base font-medium capitalize">{data?.tagline?.en}</h2>
+        <h2 className="text-blue text-base font-medium capitalize">
+          {localizedString(data?.tagline, locale)}
+        </h2>
         <div>
-          <h3 className="text-black font-bold text-[40px] tracking-tight">{data?.title?.en}</h3>
+          <h3 className="text-black font-bold text-[40px] tracking-tight">
+          {localizedString(data?.title, locale)}</h3>
           <hr className="lg:w-1/3 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
         </div>
       </div>
