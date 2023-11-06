@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { A11y, Controller, Navigation, Pagination, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityMemorableExperiencesSection } from '@/sanity/types'
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
@@ -15,11 +15,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
-export default function MemorableExperiencesSection({
-  data,
-}: {
-  data: SanityMemorableExperiencesSection
-}) {
+export default function MemorableExperiencesSection({data,locale}: PropsWithLocale<SanityMemorableExperiencesSection>
+) {
   const [swiper, setSwiper] = React.useState<any>()
   const prevRef = React.useRef<any>()
   const nextRef = React.useRef<any>()
@@ -36,9 +33,13 @@ export default function MemorableExperiencesSection({
   return (
     <div className="flex flex-col gap-12 mb-16">
       <div className="flex gap-3 flex-col justify-center w-fit mx-auto items-center">
-        <h1 className="text-blue text-base font-medium">{data?.tagline?.en}</h1>
+        <h1 className="text-blue text-base font-medium">
+
+          {localizedString(data?.tagline, locale)}
+        </h1>
         <div>
-          <h2 className="text-black font-bold text-4xl text-c">{data?.title?.en}</h2>
+          <h2 className="text-black font-bold text-4xl text-c">
+          {localizedString(data?.title, locale)}</h2>
           <hr className="lg:w-1/3 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
         </div>
       </div>
