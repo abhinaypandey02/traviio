@@ -198,7 +198,7 @@ export default function TailorYourTour({
         </Steps>
         {/* )} */}
 
-        {data.step_1?.faq_section && <FAQSection data={data.step_1?.faq_section} />}
+        {data.step_1?.faq_section && <FAQSection locale={locale} data={data.step_1?.faq_section} />}
       </Container>
     </Layout>
   )

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { City, Country, State } from 'country-state-city'
 import { set } from 'mongoose'
 
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import {
   SanityItineraryDetailsListItem,
@@ -10,12 +11,14 @@ import {
   SanityLocaleString,
 } from '@/sanity/types'
 import { CaretDown, Dot, Minus, Plus } from '@phosphor-icons/react'
-import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
 
-export default function ItinerarySection({ data,locale }: PropsWithLocale<SanityItinerarySection> ) {
+export default function ItinerarySection({
+  data,
+  locale,
+}: PropsWithLocale<{ data: SanityItinerarySection }>) {
   // console.log('ItinerarySection-> ', data)
   // console.log(Country.getAllCountries())
   return (
@@ -26,7 +29,8 @@ export default function ItinerarySection({ data,locale }: PropsWithLocale<Sanity
         </h2>
         <div>
           <h3 className="text-black font-bold text-[40px] tracking-tight">
-          {localizedString(data?.title, locale)}</h3>
+            {localizedString(data?.title, locale)}
+          </h3>
           <hr className="lg:w-1/3 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
         </div>
       </div>
