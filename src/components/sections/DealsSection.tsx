@@ -173,7 +173,7 @@ const DealsSection = ({
                 src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
                 alt: localizedString(tour?.hero_section?.title, locale) || '',
               }}
-              href={tour?.slug ? '/tours/' + tour.slug.current : ''}
+              href={tour?.slug ? '/tours' + tour.slug.current : ''}
               duration={localizedString(tour?.overview_card?.duration, locale)}
               currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
               cities={tour.overview_card?.cities}

@@ -47,31 +47,43 @@ export default function UserProvider({ children }: PropsWithChildren) {
   async function logout() {
     setUser(null)
     setToken(null)
-    await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/login', {
-      method: 'DELETE',
-    })
+    try {
+      await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/login', {
+        method: 'DELETE',
+      })
+    } catch (e) {
+      return
+    }
   }
   async function login(email: string, password: string) {
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    })
-    if (res.ok) {
-      const token = await res.text()
-      await refetch(token)
-      return true
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      })
+      if (res.ok) {
+        const token = await res.text()
+        await refetch(token)
+        return true
+      }
+    } catch (e) {
+      return false
     }
     return false
   }
   async function signup(email: string, password: string, name: string) {
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password, name, signup: true }),
-    })
-    if (res.ok) {
-      const token = await res.text()
-      await refetch(token)
-      return true
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password, name, signup: true }),
+      })
+      if (res.ok) {
+        const token = await res.text()
+        await refetch(token)
+        return true
+      }
+    } catch (e) {
+      return false
     }
     return false
   }

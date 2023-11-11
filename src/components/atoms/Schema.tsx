@@ -6,7 +6,7 @@ function Schema({ data }: { data: { [key: string]: any } }) {
     <Script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-      id="product-jsonld"
+      id={'jsonld' + new Date().toISOString()}
     />
   )
 }

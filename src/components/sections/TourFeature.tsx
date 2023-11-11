@@ -23,7 +23,7 @@ const TourFeature = ({ data }: FeatureSectionProps) => {
           <hr className="w-[85px] md:w-[110px] my-2  bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" />
         </div>
       )}
-      <section
+      <div
         className={
           data?.type == 'small'
             ? 'bg-[#F2FAFF] rounded-2xl text-center lg:w-3/4 w-full py-8'
@@ -39,7 +39,7 @@ const TourFeature = ({ data }: FeatureSectionProps) => {
             {data?.features?.map((feature, index) => <LargeFeature key={index} data={feature} />)}
           </div>
         )}
-      </section>
+      </div>
     </Container>
   )
 }

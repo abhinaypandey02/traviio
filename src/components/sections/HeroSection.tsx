@@ -18,7 +18,7 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
   const linearGradient =
     'linear-gradient(75.52deg, #000000 1.5%, rgba(0, 0, 0, 0.8) 9.18%, rgba(0, 0, 0, 0.7) 15.93%, rgba(0, 0, 0, 0.6) 37.5%, rgba(0, 0, 0, 0) 63.68%)'
   return (
-    <section
+    <div
       className={
         'relative z-10 h-screen max-h-[540px] flex items-end md:items-center justify-center border  md:h-full'
       }
@@ -78,7 +78,7 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
           </footer>
         </Container>
       </div>
-    </section>
+    </div>
   )
 }
 

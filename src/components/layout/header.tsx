@@ -28,10 +28,12 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
     <div>
       <div className="w-full z-50 hidden bg-white lg:block h-[100px] relative">
         <div className="bg-primary py-1 ">
-          <Container className="flex justify-end gap-1">
-            <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
-            <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
-          </Container>
+          <a target={'_blank'} href={'whatsapp://+919456679268'}>
+            <Container className="flex justify-end gap-1">
+              <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
+              <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
+            </Container>
+          </a>
         </div>
         <div className="bg-white">
           <Container className="py-[15px] bg-white flex gap-[138px] items-center">

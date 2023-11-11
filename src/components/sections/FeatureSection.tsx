@@ -82,7 +82,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
     )
   }
   return (
-    <section className={'bg-[#F2FAFF] text-center py-3 '}>
+    <div className={'bg-[#F2FAFF] text-center py-3 '}>
       <Container>
         {data.title?.en && (
           <div className="flex items-center justify-center flex-col text-2xl -tracking-[0.72px] font-bold w-fit mx-auto leading-[30px] md:leading-[34px]  ">
@@ -96,7 +96,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
           ))}
         </div>
       </Container>
-    </section>
+    </div>
   )
 }
 
