@@ -12,7 +12,6 @@ interface BlogReviewProps {
 
 function BlogReview(props: BlogReviewProps) {
   const { data } = props
-  console.log(data)
   return (
     <Container className="rounded-xl my-10 bg-primary py-12">
       <div className="flex gap-7 mx-auto justify-center items-center">

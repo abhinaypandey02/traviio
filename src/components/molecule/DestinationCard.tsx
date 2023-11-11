@@ -1,20 +1,31 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { LocalizedString } from '@/contexts/LocaleProvider'
+import { LocalizedString, localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityDestinationsSection } from '@/sanity/types'
 import { displayNumber } from '@/utils/utils'
+
+import Schema from '@/components/atoms/Schema'
 
 type DestinationCardProps = {
   data: Exclude<SanityDestinationsSection['destinations'], undefined>[number]
   tourCount?: number
 }
 
-const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
+const DestinationCard = ({ data, tourCount, locale }: PropsWithLocale<DestinationCardProps>) => {
   const image = data.image || data.destination?.meta_data?.meta_image
   return (
     <div className="w-full h-fit">
+      <Schema
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Place',
+          address: localizedString(data.destination?.name, locale),
+          name: localizedString(data.destination?.name, locale),
+          image: image && urlFor(image),
+        }}
+      />
       <div className={'min-h-[250px] md:min-h-[310px]  relative'}>
         {image && (
           <Image
@@ -31,9 +42,9 @@ const DestinationCard = ({ data, tourCount }: DestinationCardProps) => {
         <LocalizedString text={data.destination?.name} />
       </h3>
       {tourCount && (
-        <h4 className="text-gray font-medium mt-0 md:mt-[2px] text-xs leading-tight">
+        <p className="text-gray font-medium mt-0 md:mt-[2px] text-xs leading-tight">
           {displayNumber(tourCount, 'Tour Package')}
-        </h4>
+        </p>
       )}
     </div>
   )

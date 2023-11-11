@@ -1,27 +1,44 @@
 import React from 'react'
 import Image from 'next/image'
+
 import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { SanityFAQSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
 
+import Schema from '@/components/atoms/Schema'
+
 export type FAQSectionProps = {
   data: SanityFAQSection
 }
 
-const FAQSection = ({ data,locale }: PropsWithLocale<FAQSectionProps>) => {
+const FAQSection = ({ data, locale }: PropsWithLocale<FAQSectionProps>) => {
   const [open, setOpen] = React.useState(-1)
   return (
     <Container className="bg-white flex flex-col items-center py-[52px] md:py-[75px] ">
-      <div className="flex flex-col items-center gap-3">
-        <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
+      <Schema
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: data.faqs?.map((faq) => ({
+            '@type': 'Question',
+            name: localizedString(faq?.question, locale),
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: localizedString(faq?.answer, locale),
+            },
+          })),
+        }}
+      />
+      <header className="flex flex-col items-center gap-3">
+        <h2 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
           {localizedString(data?.title, locale)}
-        </h1>
-        <h3 className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
+        </h2>
+        <p className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
           {localizedString(data.tagline, locale)}
-        </h3>
+        </p>
         <hr className="w-[85px] md:w-[117px] bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
-      </div>
+      </header>
       <div className="w-full mt-[40px] md:mt-12 space-y-5 md:space-y-6">
         {data.faqs?.map((faq, index) => (
           <div className="flex flex-col gap-5" key={index}>
@@ -37,9 +54,9 @@ const FAQSection = ({ data,locale }: PropsWithLocale<FAQSectionProps>) => {
                 className={`${open === index ? '' : '-rotate-90'} transition-all`}
               />
 
-              <p className="font-medium text-base md:text-xl leading-normal md:leading-loose">
-                  {localizedString(faq?.question, locale)}
-              </p>
+              <strong className="font-medium text-base md:text-xl leading-normal md:leading-loose">
+                {localizedString(faq?.question, locale)}
+              </strong>
             </div>
 
             <div

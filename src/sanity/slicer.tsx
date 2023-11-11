@@ -22,7 +22,6 @@ export default function Slicer({
   promo_banner?: SanityPromoBanner
 }) {
   const { locale } = useContext(LocaleContext)
-  console.log(sections)
   return (
     <Layout locale={locale} promo_banner={promo_banner} breadcrumbs={breadcrumbs} globals={globals}>
       {sections?.map((section) => (

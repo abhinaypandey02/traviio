@@ -8,7 +8,6 @@ import { AddBookingMutationVariables } from '../../../__generated__/graphql'
 
 export const POST = async (req: Request) => {
   const booking: AddBookingMutationVariables['booking'] = await req.json()
-  console.log(booking)
   const stripe = getStripe()
   const client = await getClient()
   const tour: SanityTourPage = await sanityClient.fetch(

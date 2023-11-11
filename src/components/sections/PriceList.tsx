@@ -105,7 +105,6 @@ function generatePriceList(
         endDate.getTime() <= overrideEndDate.getTime()
       )
     })
-    if (priceOverrides.length > 0) console.log(priceOverrides[0])
 
     next5WeekPrices.push({
       from: startDate,

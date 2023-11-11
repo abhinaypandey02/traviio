@@ -65,7 +65,6 @@ async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
         }
       }`
   )) as SanityBlogPage
-  console.log(page)
   return page
 }
 
@@ -92,7 +91,6 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, lo
       }
 }
 }`)) as SanityGlobals
-  console.log(locale)
   return {
     props: {
       slug: slug,

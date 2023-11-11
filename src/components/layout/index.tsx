@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
 import localFont from 'next/font/local'
 
+import { urlFor } from '@/sanity/client'
 import { SanityGlobals, SanityLocale, SanityPromoBanner } from '@/sanity/types'
 
 import PromoBanner from '@/components/PromoBanner'
 
 import Breadcrumbs, { Breadcrumb } from '@/components/atoms/Breadcrumbs'
+import Schema from '@/components/atoms/Schema'
 
 import Footer from './footer'
 import Header from './header'
@@ -27,6 +29,16 @@ const Layout = ({
 }) => {
   return (
     <div className={myFont.className}>
+      {globals?.navbar?.logo && (
+        <Schema
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            url: process.env.NEXT_PUBLIC_BASE_URL,
+            logo: urlFor(globals?.navbar?.logo),
+          }}
+        />
+      )}
       <div
         className="overflow-x-hidden bg-white text-black min-h-screen  flex flex-col"
         // style={{ width: process.env.NEXT_PUBLIC_DEVELOPMENT ? 1440 : '' }}

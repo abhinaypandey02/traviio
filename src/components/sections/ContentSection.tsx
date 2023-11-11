@@ -83,12 +83,12 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
   return (
     <Container className="mt-12 mb-20">
       <div className="mb-12">
-        <h2 className="text-blue uppercase font-medium text-center mb-3">
+        <p className="text-blue uppercase font-medium text-center mb-3">
           {localizedString(tagline, props.locale)}
-        </h2>
-        <h4 className="text-[40px] leading-tight -tracking-[1.2px] font-bold text-center">
+        </p>
+        <h2 className="text-[40px] leading-tight -tracking-[1.2px] font-bold text-center">
           {localizedString(title, props.locale)}
-        </h4>
+        </h2>
         <hr className="lg:w-1/12 w-1/3 mt-[9px] text-yellow m-auto  bg-yellow   border-t-2 border-b" />
       </div>
 

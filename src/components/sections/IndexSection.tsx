@@ -14,7 +14,6 @@ const IndexSextion = (props: IndexSectionProps) => {
     const getdata = async () => {
       const result = await getAllPages()
       setData(result)
-      console.log(result)
     }
     getdata()
   }, [getAllPages])
@@ -25,7 +24,7 @@ const IndexSextion = (props: IndexSectionProps) => {
   return (
     <div className="pb-10">
       <Container>
-        <h4 className="font-[700] text-[24px]">{title?.en}</h4>
+        <h2 className="font-[700] text-[24px]">{title?.en}</h2>
         <hr className="text-yellow bg-yellow w-[85px] md:w-1/12 rounded-full border-2 my-2" />
         <div className="my-10 mt-[30px] md:mt-10 gap-[11px] flex flex-wrap text-gray">
           {data.map((item: any, index) => {

@@ -141,7 +141,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
       ],
       from: startDate.toDateString(),
       children: data.childrenMembers,
-      guests: data.childrenMembers + data.adultMembers,
+      guests: parseInt(data.childrenMembers.toString()) + parseInt(data.adultMembers.toString()),
       tour: slug,
       hotelType: data.hotelChoice,
       roomType: data.roomType,
@@ -158,7 +158,6 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
     })
   }
 
-  console.log(errors, getValues('hotelChoice'))
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       <Tabs

@@ -57,7 +57,6 @@ export default function Input({
     field,
     fieldState: { error },
   } = useController({ control, name, rules })
-  console.log(field.value, error)
   const errorMsg = error?.type
     ? ERROR_MESSAGES[error.type as keyof typeof ERROR_MESSAGES] || 'Error'
     : undefined

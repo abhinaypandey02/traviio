@@ -34,7 +34,6 @@ export default function Page1({
   control: Control<any>
   errors: any
 }) {
-  console.log(errors)
   return (
     <div className="flex flex-col gap-7">
       <div className="p-10 bg-primary border border-darkblue/10 rounded-2xl">

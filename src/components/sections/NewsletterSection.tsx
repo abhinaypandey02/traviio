@@ -22,24 +22,26 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
           backgroundSize: 'cover',
         }}
       >
-          <Image
-              width={640}
-              height={222}
-              src={data.image ? urlFor(data.image) : ''}
-              alt={''}
-              sizes={`
+        <Image
+          width={640}
+          height={222}
+          src={data.image ? urlFor(data.image) : ''}
+          alt={''}
+          sizes={`
               100vw
             `}
-              className={'absolute w-full h-full top-0 left-0 object-cover'}
-          />
+          className={'absolute w-full h-full top-0 left-0 object-cover'}
+        />
         <div className="flex relative z-10 flex-col justify-center md:justify-start items-center md:items-start ">
-          <h1 className="text-center -tracking-[1.2px] max-w-3xl md:text-start text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] w-[335px] md:w-full">
-            {localizedString(data.title, locale)}
-          </h1>
+          <header>
+            <h2 className="text-center -tracking-[1.2px] max-w-3xl md:text-start text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] w-[335px] md:w-full">
+              {localizedString(data.title, locale)}
+            </h2>
 
-          <h3 className="w-[335px] md:w-full  text-center max-w-[610px] -tracking-[0.6px] mt-2.5 mb-[30px] md:text-start text-[14px] md:text-[20px] font-[500] md:font-normal leading-[20px] md:leading-[32px]">
-            {localizedString(data.subtitle, locale)}
-          </h3>
+            <p className="w-[335px] md:w-full  text-center max-w-[610px] -tracking-[0.6px] mt-2.5 mb-[30px] md:text-start text-[14px] md:text-[20px] font-[500] md:font-normal leading-[20px] md:leading-[32px]">
+              {localizedString(data.subtitle, locale)}
+            </p>
+          </header>
           <div className="relative shadow-sm flex items-center  ">
             <input
               className=" text-black w-[335px]  md:w-[420px] h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-gray text-xs   md:text-base leading-[22px] md:leading-normal "
@@ -51,10 +53,10 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
             </button>
           </div>
 
-          <div className="flex md:flex-col w-[335px] items-center md:items-start gap-1.5 mt-2 md:mt-[30px]">
-            <p className="text-[12px] md:text-[20px] font-bold leading-[20px] md:leading-[32px] ">
+          <footer className="flex md:flex-col w-[335px] items-center md:items-start gap-1.5 mt-2 md:mt-[30px]">
+            <strong className="text-[12px] md:text-[20px] font-bold leading-[20px] md:leading-[32px] ">
               Have any questions?
-            </p>
+            </strong>
             <div className="flex items-center gap-1">
               <svg width="24px" height="24px" viewBox="0 0 32 32" fill="none">
                 <path
@@ -96,7 +98,7 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
                 +1 0000 000 000
               </p>
             </div>
-          </div>
+          </footer>
         </div>
       </div>
     </Container>

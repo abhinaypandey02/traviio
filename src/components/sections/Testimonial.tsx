@@ -11,6 +11,8 @@ import Container from '@/components/Container'
 import Star from '@/components/Star'
 import Swiper from '@/components/Swiper'
 
+import Schema from '@/components/atoms/Schema'
+
 import plane from '../../../public/plane.svg'
 
 import 'swiper/css'
@@ -23,7 +25,8 @@ export type TestimonialSectionProps = {
 
 const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
   const {
-    data: { title, subtitle, image, testimonials },locale
+    data: { title, subtitle, image, testimonials },
+    locale,
   } = props
 
   return (
@@ -32,16 +35,16 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
         <div className="lg:max-w-xs shrink-0 w-full text-center md:text-start">
           {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
           {/* <div class="w-[335px] text-center text-sky-400 text-xl font-bold font-['Satoshi Variable'] leading-[30px]">Hear it from our Happy travelers</div> */}
-          <h3 className=" text-xl  md:text-[40px] leading-[30px] md:leading-tight -tracking-[1.2px] font-bold">
+          <h2 className=" text-xl  md:text-[40px] leading-[30px] md:leading-tight -tracking-[1.2px] font-bold">
             {/* <div class="w-[335px] text-center text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-tight">Adored by Countless Explorers of Egypt, Dubai, Saudi Arabia, Turkey, and Israel</div> */}
             {/* .. */}
             {/* <div class="w-80 text-gray-500 text-lg font-normal font-['Satoshi Variable'] leading-7">Adored by Countless Explorers of Egypt, Dubai, Saudi Arabia, Turkey, and Israel</div> */}
             <span className="text-blue">{localizedString(title, locale).substring(0, 16)}</span>
-              {localizedString(title, locale).substring(16)}
-          </h3>
-          <h5 className="text-sm md:text-lg mt-3 opacity-60">
+            {localizedString(title, locale).substring(16)}
+          </h2>
+          <p className="text-sm md:text-lg mt-3 opacity-60">
             {localizedString(subtitle, props.locale)}
-          </h5>
+          </p>
           <Image
             src={image ? urlFor(image) : ''}
             width={260}
@@ -60,6 +63,29 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
             {testimonials?.map((item, index: any) => {
               return (
                 <div key={index} className={'w-[284px] shrink-0 '}>
+                  <Schema
+                    data={{
+                      '@context': 'https://schema.org/',
+                      '@type': 'Review',
+                      itemReviewed: {
+                        '@type': 'TravelAgency',
+                        name: 'Traviio',
+                      },
+                      reviewRating: {
+                        '@type': 'Rating',
+                        ratingValue: '5',
+                      },
+                      name: localizedString(item.title, props.locale),
+                      author: {
+                        '@type': 'Person',
+                        name: localizedString(item?.name, props.locale),
+                      },
+                      publisher: {
+                        '@type': 'Organization',
+                        name: 'Traviio',
+                      },
+                    }}
+                  />
                   <div className="flex gap-x-0.5 mb-1.5">
                     <Star />
                     <Star />
@@ -72,22 +98,22 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
                     {localizedString(item.title, props.locale)}
                   </h3>
                   {/* <div class="w-[280px] text-gray-500 text-xs font-normal font-['Satoshi Variable'] leading-tight">We had an unforgettable stay with Michelle & Michael. Everything was perfect and even better than the pictures, better than the pictures.</div> */}
-                  <h5 className="text-xs md:text-sm font-normal md:font-medium opacity-60 leading-tight md:leading-[22px] max-w-[273px]">
+                  <p className="text-xs md:text-sm font-normal md:font-medium opacity-60 leading-tight md:leading-[22px] max-w-[273px]">
                     {localizedString(item.text, props.locale)}
-                  </h5>
+                  </p>
                   <div className="flex gap-x-3 mt-4  items-center">
                     <div>
                       <Image alt={''} width={38} height={38} src={urlFor((item as any)?.avatar)} />
                     </div>
                     <div className="gap-1 md:gap-0">
                       {/* <div class="text-slate-900 text-xs font-bold font-['Satoshi Variable'] leading-tight">Andrzej Przybylski</div> */}
-                      <h6 className="font-bold text-xs md:text-sm  leading-tight md:leading-[22px]">
+                      <div className="font-bold text-xs md:text-sm  leading-tight md:leading-[22px]">
                         {localizedString(item?.name, props.locale)}
-                      </h6>
+                      </div>
 
-                      <h6 className="text-[10px] md:text-xs font-normal leading-3 md:leading-[20px] text-gray">
+                      <time className="text-[10px] md:text-xs font-normal leading-3 md:leading-[20px] text-gray">
                         {localizedString(item.time, props.locale)}
-                      </h6>
+                      </time>
                     </div>
                   </div>
                 </div>

@@ -27,7 +27,3 @@ export function assertAuthenticated(userId: unknown): userId is string {
   }
   return true
 }
-
-export function handleError(error: unknown) {
-  console.error(error)
-}

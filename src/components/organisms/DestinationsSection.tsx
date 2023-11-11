@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
-import { LocalizedString } from '@/contexts/LocaleProvider'
+import { LocalizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import client from '@/sanity/client'
 import { SanityDestinationsSection } from '@/sanity/types'
+
+import Schema from '@/components/atoms/Schema'
 
 import Container from '../Container'
 import DestinationCard from '../molecule/DestinationCard'
@@ -12,7 +14,7 @@ type DestinationsSectionProps = {
   data: SanityDestinationsSection
 }
 
-const DestinationsSection = ({ data }: DestinationsSectionProps) => {
+const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSectionProps>) => {
   const [tourCounts, setTourCounts] = useState(
     Array.from({ length: data.destinations?.length || 0 }, () => 0)
   )
@@ -48,20 +50,25 @@ const DestinationsSection = ({ data }: DestinationsSectionProps) => {
   return (
     <Container className={'mb-[50px] md:mb-[80px]'}>
       <div>
-        <h4 className="text-blue text-xs  md:text-base font-medium uppercase leading-tight md:leading-normal ">
-          <LocalizedString text={data.tagline} />
-        </h4>
+        <header>
+          <p className="text-blue text-xs  md:text-base font-medium uppercase leading-tight md:leading-normal ">
+            <LocalizedString text={data.tagline} />
+          </p>
 
-        <h2 className="text-2xl md:text-[40px] w-fit leading-tight my-3 font-bold -tracking-[1.2px] md:leading-[50px]">
-          <LocalizedString text={data.title} />
-          <hr className="w-[85px] md:w-1/3 text-yellow  bg-yellow mt-[9px] rounded-full border-t border-b-2" />
-        </h2>
+          <div className="text-2xl md:text-[40px] w-fit leading-tight my-3 font-bold -tracking-[1.2px] md:leading-[50px]">
+            <h2>
+              <LocalizedString text={data.title} />
+            </h2>
+            <hr className="w-[85px] md:w-1/3 text-yellow  bg-yellow mt-[9px] rounded-full border-t border-b-2" />
+          </div>
+        </header>
         <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 md:gap-7 mt-[30px] md:mt-12">
           {validDestinations.map((destination, idx) => (
             <DestinationCard
               key={destination._key + idx}
               data={destination}
               tourCount={tourCounts?.[idx]}
+              locale={locale}
             />
           ))}
         </div>

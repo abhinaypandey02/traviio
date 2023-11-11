@@ -15,6 +15,8 @@ import {
 import Container from '@/components/Container'
 import Swiper from '@/components/Swiper'
 
+import Schema from '@/components/atoms/Schema'
+
 import Button from '../buttons/Button'
 
 import 'swiper/css'
@@ -47,6 +49,27 @@ export const TourCard = ({
 }) => {
   return (
     <Link className={'flex-shrink-0 max-w-[250px] md:max-w-[302px]'} href={href}>
+      <Schema
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Event',
+          name: title,
+          startDate: new Date().toISOString(),
+          endDate: new Date().toISOString(),
+          eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+          eventStatus: 'https://schema.org/EventScheduled',
+          image: [image.src],
+          description: duration,
+          offers: {
+            '@type': 'Offer',
+            url: 'https://www.example.com/event_offer/12345_201803180430',
+            price: new_price,
+            priceCurrency: currency,
+            availability: 'https://schema.org/InStock',
+            validFrom: new Date().toISOString(),
+          },
+        }}
+      />
       <div className="bg-white relative h-min shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
         <span className="bg-red absolute m-3 right-0 px-3 py-1 leading-[20px] text-white font-bold text-[10px] md:text-xs rounded-full">
           Hot Deal
@@ -131,108 +154,18 @@ const DealsSection = ({
       <div
         className={_type === ('featured_tours_section' as any) ? 'flex flex-col items-center' : ''}
       >
-        <h2 className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
+        <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {tagline?.en}
-        </h2>
+        </p>
 
-        <h4 className="text-[24px] md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
+        <h2 className="text-[24px] md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
           {title?.en}
           <hr className="w-1/2 text-yellow  bg-yellow  rounded-full mt-2.5 border-t-2 border-b" />
-        </h4>
+        </h2>
       </div>
       <div className=" h-fit  mt-12  ">
         {/* <div className="absolute hidden md:block h-full bg-white opacity-70  right-0 z-30  w-[4.5%] "></div> */}
         <Swiper className={'gap-6 pb-3 '} length={deals?.length} scrollCount={4}>
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours/' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours/' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours/' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours/' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours/' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours/' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
           {deals?.map((({ tour }: { tour: SanityTourPage }) => (
             <TourCard
               title={localizedString(tour?.hero_section?.title, locale)}
