@@ -14,14 +14,7 @@ export type NewsletterSectionProps = {
 const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionProps>) => {
   return (
     <Container className="flex  justify-center items-center bg-white text-white">
-      <div
-        className=" mb-10 pt-[30px] md:pt-[55px] pb-[45px] px-[60px] h-[300px] md:h-full w-screen md:w-full bg-blue md:rounded-3xl  relative"
-        style={{
-          backgroundImage: `url(${data.image ? urlFor(data.image) : ''})`,
-          backgroundPosition: '75% 0%',
-          backgroundSize: 'cover',
-        }}
-      >
+      <div className=" mb-10 pt-[30px] md:pt-[55px] pb-[45px] px-[60px] h-[300px] md:h-full w-screen md:w-full bg-blue md:rounded-3xl  relative">
         <Image
           width={640}
           height={222}

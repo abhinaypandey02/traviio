@@ -58,6 +58,9 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
                 className=" absolute h-full  object-cover w-full "
                 src={urlFor(blog?.cover_image)}
                 alt="w"
+                sizes={`
+              (max-width: 640px) 100vw, 410px
+            `}
               />
             )}
           </div>
