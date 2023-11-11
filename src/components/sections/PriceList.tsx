@@ -78,7 +78,7 @@ function generatePriceList(
   // The duration of the tour in days
   const duration = data.weekly_schedule?.duration ?? 3
   // The default price of the tour
-  const price = data.weekly_schedule?.price
+  const price = (data as any)?.price
 
   // Prices to override the default price
   const priceOverrides = (data as any).price_override ?? []

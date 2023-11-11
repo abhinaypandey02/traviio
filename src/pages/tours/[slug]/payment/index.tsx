@@ -158,6 +158,8 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
     })
   }
 
+  const [totalPrice, setTotalPrice] = useState(0)
+
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
       <Tabs
@@ -170,11 +172,12 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         adultsNumber={watch('adultMembers')}
         childrenNumber={watch('childrenMembers')}
         trigger={trigger}
+        setTotalPrice={setTotalPrice}
         addons={roomTypes + hotelChoice + optionalVisits}
       >
         <Page1 errors={errors} control={control} payment={data.payment} />
         <Page2 control={control} />
-        <Page3 />
+        <Page3 totalPrice={totalPrice}/>
       </Tabs>
     </Layout>
   )

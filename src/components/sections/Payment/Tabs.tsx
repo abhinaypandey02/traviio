@@ -21,6 +21,7 @@ export default function Tabs({
   childrenNumber,
   addons,
   onSubmit,
+  setTotalPrice,
   control,
   trigger,
 }: {
@@ -33,6 +34,7 @@ export default function Tabs({
   childrenNumber: number
   addons: number
   onSubmit: () => void
+  setTotalPrice: (a: number) => void
   control: Control<any>
   trigger: () => any
 }) {
@@ -53,7 +55,9 @@ export default function Tabs({
     (priceOverrides.length > 0
       ? localizedNumber(priceOverrides[0].price?.discounted_price)
       : localizedNumber(price?.discounted_price)) || actualPrice
-
+  setTotalPrice(
+    currentPrice * (adultsNumber + childrenNumber) + (addons || 0) * (adultsNumber + childrenNumber)
+  )
   const [page, setPage] = useState(1)
   useEffect(() => {}, [page])
   return (
@@ -227,8 +231,9 @@ const Costing = ({
   control: Control<any>
 }) => {
   const [promoApplied, setPromoApplied] = useState(false)
-  const originalPrice = adults * actualPrice + parseInt(adults.toString()) * (addons || 0)
-  const totalPrice = adults * (currentPrice + (addons || 0))
+  const people = adults + childrenNumber
+  const originalPrice = people * actualPrice + parseInt(people.toString()) * (addons || 0)
+  const totalPrice = people * (currentPrice + (addons || 0))
   return (
     <div className="bg-primary border border-darkblue/10 rounded-2xl overflow-hidden p-10">
       <div className="flex flex-col gap-5">
@@ -248,14 +253,14 @@ const Costing = ({
           <div className="flex justify-between gap-2">
             <p className="text-base font-medium text-gray">Tour Package</p>
             <p className="text-base font-medium text-gray">
-              {`${parseInt(adults.toString())} x $ ${actualPrice}`}
+              {`${parseInt(people.toString())} x $ ${actualPrice}`}
             </p>
           </div>
           {addons != 0 && (
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Addons</p>
               <p className="text-base font-medium text-gray">
-                {parseInt(adults.toString())} x $ {addons}
+                {parseInt(people.toString())} x $ {addons}
               </p>
             </div>
           )}
@@ -263,7 +268,7 @@ const Costing = ({
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Discount</p>
               <p className="text-base font-medium text-green">
-                - $ {parseInt(adults.toString()) * (actualPrice - currentPrice)}
+                - $ {parseInt(people.toString()) * (actualPrice - currentPrice)}
               </p>
             </div>
           )}
