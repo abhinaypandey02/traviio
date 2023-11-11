@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import Input from '@/components/atoms/Input'
 import OptionSelectButton from '@/components/atoms/OptionSelectButton'
 
-export default function Page3() {
+export default function Page3({ totalPrice }: { totalPrice: number }) {
   const [formData, setFormData] = useState({
     bookingMode: 'payFull',
     paymentOption: 'creditCard',
@@ -55,7 +55,7 @@ export default function Page3() {
           }}
         >
           <OptionSelectButton value={formData.bookingMode == 'payFull'} />
-          <p>Pay in full USD $11,850.00</p>
+          <p>Pay in full USD ${totalPrice}</p>
         </div>
         <div
           className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
