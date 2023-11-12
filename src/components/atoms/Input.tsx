@@ -13,12 +13,13 @@ interface Props {
     | 'password'
     | 'checkbox'
     | 'boxSelection'
+    | 'date'
     | 'textarea'
   control: Control<any>
   variant?: 'primary' | 'secondary'
   placeholder?: string
   label?: any
-  options?: string[] | number[] | { name: string; icon: any }[]
+  options?: { label: string; value: any }[] | { name: string; icon: any }[]
   className?: string
   checkboxValue?: any
   rules?: RegisterOptions
@@ -58,7 +59,7 @@ export default function Input({
     fieldState: { error },
   } = useController({ control, name, rules })
   const errorMsg = error?.type
-    ? ERROR_MESSAGES[error.type as keyof typeof ERROR_MESSAGES] || 'Error'
+    ? ERROR_MESSAGES[error.type as keyof typeof ERROR_MESSAGES] || error.message || 'Error'
     : undefined
   if (type == 'buttonNumber')
     return (
@@ -106,14 +107,14 @@ export default function Input({
         >
           <option>{placeholder}</option>
 
-          {(options as string[] | number[])?.map((option) => (
-            <option value={option}>{option}</option>
+          {(options as { label: string; value: any }[])?.map((option) => (
+            <option value={option.value}>{option.label}</option>
           ))}
         </select>
         {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
-  if (['text', 'number', 'password'].includes(type))
+  if (['text', 'number', 'password', 'date'].includes(type))
     return (
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         {label && <label htmlFor={name}>{label}</label>}

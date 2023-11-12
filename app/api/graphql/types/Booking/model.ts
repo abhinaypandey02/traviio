@@ -10,7 +10,7 @@ const GraphqlMutation = `
   "[Auth required] Add new booking"
   addBooking(booking:AddBookingInput!): String
   "[Webhook only] Complete booking"
-  completeBooking(booking:String!, token:String!): Boolean
+  completeBooking(booking:String!, token:String!, paid:Int!): Boolean
 `
 const GraphqlType = `
   #graphql
@@ -88,6 +88,7 @@ const GraphqlType = `
     from:String!
     to:String!
     price:Float!
+    paid:Float!
     guests:Int!
     hotelType:String!
     roomType:String!
@@ -109,6 +110,10 @@ export const MongooseSchema = new Schema<IMongoose>(
       required: true,
     },
     price: {
+      type: Number,
+      required: true,
+    },
+    paid: {
       type: Number,
       required: true,
     },

@@ -7,7 +7,7 @@ import { gql } from '../../../__generated__'
 import { AddBookingMutationVariables } from '../../../__generated__/graphql'
 
 export const POST = async (req: Request) => {
-  const booking: AddBookingMutationVariables['booking'] = await req.json()
+  const booking: AddBookingMutationVariables['booking'] & { paid: number } = await req.json()
   const stripe = getStripe()
   const client = await getClient()
   const tour: SanityTourPage = await sanityClient.fetch(
@@ -32,12 +32,24 @@ export const POST = async (req: Request) => {
     },
   })
   if (newBooking.data?.addBooking) {
+    if (!booking.paid) {
+      await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/email', {
+        method: 'POST',
+        body: JSON.stringify({
+          subject: '[PAYMENT REQUIRED] New Booking!',
+          to: booking.adults[0]?.email,
+          html: `Thanks for the new booking. Complete payment by sending to this acc:08765432.`,
+          text: `Thanks for the new booking. Complete payment by sending to this acc:08765432.`,
+        }),
+      })
+      return
+    }
     const checkout = await stripe.checkout.sessions.create({
       customer_email: booking.adults[0]?.email,
       line_items: [
         {
           price_data: {
-            unit_amount: booking.price,
+            unit_amount: booking.paid,
             product_data: {
               name:
                 tour.hero_section?.title?.en || tour.meta_data?.meta_title?.en || 'Tour booking',

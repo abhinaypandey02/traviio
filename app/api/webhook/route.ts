@@ -39,12 +39,13 @@ export async function POST(req: Request) {
       client.mutate({
         mutation: gql(`
           #graphql
-          mutation UpdateBookingPayment($id:String!, $key:String!){
-            completeBooking(booking: $id, token:$key)
+          mutation UpdateBookingPayment($id:String!, $key:String!, $paid:Int!){
+            completeBooking(booking: $id, token:$key, paid:$paid)
           }`),
         variables: {
           id: bookingId,
           key: process.env.BACKEND_SECRET!,
+          paid: checkoutSessionCompleted.amount_total,
         },
       })
       fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/email', {

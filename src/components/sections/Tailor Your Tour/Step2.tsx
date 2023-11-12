@@ -9,6 +9,7 @@ import {
 } from 'react-hook-form'
 
 import { TailorTripFormData } from '@/pages/tailor_your_tour'
+import countries from '@/utils/countries.json'
 import { Boat, Car, Compass, Cross, FinnTheHuman, Leaf, WaveTriangle } from '@phosphor-icons/react'
 
 import Input from '@/components/atoms/Input'
@@ -48,32 +49,25 @@ export default function Step2({
         control={control}
         name="nationality"
         label="Nationality*"
-        options={['Indian', 'American']}
+        options={countries.map((c) => ({ value: c.name, label: c.name }))}
         type="select"
         placeholder="Select your Nationality"
         className="h-[38px]"
       />
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         <label htmlFor="mobileNumber">Mobile</label>
-        <div className="border bg-white text-base border-darkblue/10 text-gray rounded p-1 h-[38px] grid grid-cols-[1fr_7fr] gap-1 divide-x-2 divide-darkblue/10">
-          <input
-            className="min-w-0 w-full flex items-center justify-center py-2 h-full overflow-hidden focus:outline-none"
-            id="mobileCode"
-            value={mobileNumber['mobileCode']}
-            onChange={(e) => {
-              setMobileNumber({ ...mobileNumber, mobileCode: e.target.value || '+' })
-              // console.log(mobileNumber)
-            }}
+        <div className="grid grid-cols-[120px_1fr] gap-3">
+          <Input
+            name="mobileCode"
+            rules={{ required: true }}
+            control={control}
+            type="select"
+            options={countries.map((c) => ({
+              value: c.dial_code,
+              label: `${c.name} (${c.dial_code})`,
+            }))}
           />
-          <input
-            className="h-full min-w-0 w-full overflow-hidden focus:outline-none px-2"
-            id="mobileNumber"
-            value={mobileNumber['mobileNumber']}
-            placeholder="Mobile Number"
-            onChange={(e) => {
-              setMobileNumber({ ...mobileNumber, mobileNumber: e.target.value })
-            }}
-          />
+          <Input name="mobileNumber" rules={{ required: true }} control={control} type="number" />
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -98,7 +92,12 @@ export default function Step2({
         }
         name="budget"
         type="select"
-        options={['less than $1000', '$1000-$2000', '$2000-$3000', 'more than $3000']}
+        options={[
+          { value: 'less than $1000', label: 'less than $1000' },
+          { value: '$1000-$2000', label: '$1000-$2000' },
+          { value: '$2000-$3000', label: '$2000-$3000' },
+          { value: 'more than $3000', label: 'more than $3000' },
+        ]}
         className="h-[38px]"
       />
       <div className="col-span-full">

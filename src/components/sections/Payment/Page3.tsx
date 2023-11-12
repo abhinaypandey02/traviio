@@ -7,7 +7,19 @@ import { useForm } from 'react-hook-form'
 import Input from '@/components/atoms/Input'
 import OptionSelectButton from '@/components/atoms/OptionSelectButton'
 
-export default function Page3({ totalPrice }: { totalPrice: number }) {
+export default function Page3({
+  totalPrice,
+  toggleBookOnly,
+  bookOnly,
+  paymentMethod,
+  setPaymentMethod,
+}: {
+  totalPrice: number
+  paymentMethod: 'stripe' | 'paypal' | 'bank'
+  setPaymentMethod: (o: 'stripe' | 'paypal' | 'bank') => void
+  toggleBookOnly: () => void
+  bookOnly: boolean
+}) {
   const [formData, setFormData] = useState({
     bookingMode: 'payFull',
     paymentOption: 'creditCard',
@@ -28,11 +40,11 @@ export default function Page3({ totalPrice }: { totalPrice: number }) {
   }
   const CARDS = [
     '/visa_card.png',
-    '/visa_card.png',
-    '/visa_card.png',
-    '/visa_card.png',
-    '/visa_card.png',
-    '/visa_card.png',
+    '/mastercard.png',
+    '/amex.png',
+    '/discover.png',
+    '/paypal.png',
+    '/bank-transfer.png',
   ]
   return (
     <div className="md:p-10 md:rounded-2xl overflow-hidden md:border border-darkblue/10 flex flex-col gap-12">
@@ -50,20 +62,16 @@ export default function Page3({ totalPrice }: { totalPrice: number }) {
         <p className="text-2xl text-darkblue font-bold">Payment options</p>
         <div
           className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
-          onClick={() => {
-            setValue('payFull', 'bookingMode')
-          }}
+          onClick={toggleBookOnly}
         >
-          <OptionSelectButton value={formData.bookingMode == 'payFull'} />
+          <OptionSelectButton value={!bookOnly} />
           <p>Pay in full USD ${totalPrice}</p>
         </div>
         <div
           className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
-          onClick={() => {
-            setValue('secureSpot', 'bookingMode')
-          }}
+          onClick={toggleBookOnly}
         >
-          <OptionSelectButton value={formData.bookingMode == 'secureSpot'} />
+          <OptionSelectButton value={bookOnly} />
           <p>Secure your spot with a deposit of $200 </p>
         </div>
       </div>
@@ -94,7 +102,7 @@ export default function Page3({ totalPrice }: { totalPrice: number }) {
           {CARDS.map((item, index) => {
             return (
               <Image
-                width={50}
+                width={100}
                 height={32}
                 src={item}
                 alt=""
@@ -105,7 +113,30 @@ export default function Page3({ totalPrice }: { totalPrice: number }) {
           })}
         </div>
       </div>
-
+      <div className="flex flex-col gap-5">
+        <p className="text-2xl text-darkblue font-bold">Payment methods</p>
+        <div
+          className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
+          onClick={() => setPaymentMethod('stripe')}
+        >
+          <OptionSelectButton value={paymentMethod === 'stripe'} />
+          <p>Credit Card</p>
+        </div>
+        <div
+          className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
+          onClick={() => setPaymentMethod('paypal')}
+        >
+          <OptionSelectButton value={paymentMethod === 'paypal'} />
+          <p>PayPal</p>
+        </div>
+        <div
+          className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
+          onClick={() => setPaymentMethod('bank')}
+        >
+          <OptionSelectButton value={paymentMethod === 'bank'} />
+          <p>Bank Transfer</p>
+        </div>
+      </div>
       {/*<div className="flex flex-col gap-5">*/}
       {/*  <p className="text-2xl text-darkblue font-bold">Payment options</p>*/}
       {/*  <div className="flex flex-col gap-4">*/}
@@ -329,7 +360,7 @@ export default function Page3({ totalPrice }: { totalPrice: number }) {
 
       <div className="flex justify-between text-2xl text-darkblue font-bold">
         <p>Payment today</p>
-        <p>$200</p>
+        <p>${bookOnly ? 200 : totalPrice}</p>
       </div>
     </div>
   )

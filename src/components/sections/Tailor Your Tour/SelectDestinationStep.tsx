@@ -23,7 +23,7 @@ export default function SelectDestinationStep({
         <div
           key={ind}
           onClick={() => setSelectedDestination(d._id)}
-          className={`relative w-full h-[224px] rounded-xl overflow-hidden ${
+          className={`relative w-full h-[224px] rounded-xl overflow-hidden cursor-pointer ${
             [2, 3].includes(ind % 6) && 'lg:col-span-2'
           }`}
         >
@@ -38,13 +38,10 @@ export default function SelectDestinationStep({
           <Button
             text={localizedString(d.meta_data?.meta_title, locale)}
             className={`w-fit px-4 text-base absolute z-10 bottom-3 left-3 cursor-pointer ${
-              selectedDestination == d._id && 'bg-white/40 backdrop-blur'
+              selectedDestination !== d._id && 'bg-white/40 backdrop-blur'
             }`}
             style={{
               width: 'fit-content',
-            }}
-            onClick={() => {
-              setSelectedDestination(d._id)
             }}
           />
         </div>

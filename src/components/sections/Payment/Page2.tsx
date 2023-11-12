@@ -11,14 +11,13 @@ import { PaymentSchema } from '@/pages/tours/[slug]/payment'
 
 import Input from '@/components/atoms/Input'
 
+import countries from '../../../utils/countries.json'
 export interface IContactInfo {
   titlePrefix: string
   firstName: string
   middleName: string
   lastName: string
-  dobDate: string
-  dobMonth: string
-  dobYear: string
+  dob: string
   nationality: string
   email: string
   mobileCode: string
@@ -32,13 +31,21 @@ export interface IContactInfo {
     firstName: string
     middleName: string
     lastName: string
-    dobDate: string
-    dobMonth: string
-    dobYear: string
+    dob: string
     email: string
   }[]
 }
-export default function Page2({ control }: { control: Control<any> }) {
+export default function Page2({
+  control,
+  adultsNumber,
+  addPassenger,
+  removePassenger,
+}: {
+  control: Control<any>
+  adultsNumber: number
+  addPassenger: () => void
+  removePassenger: () => void
+}) {
   return (
     <div className="md:p-10 md:rounded-2xl overflow-hidden md:border md:border-darkblue/10 flex flex-col gap-10">
       <div className="flex flex-col gap-6">
@@ -57,7 +64,11 @@ export default function Page2({ control }: { control: Control<any> }) {
               control={control}
               placeholder="Prefix"
               type="select"
-              options={['Mr', 'Ms', 'Dr', 'Pr']}
+              options={[
+                { label: 'Mr', value: 'Mr' },
+                { label: 'Ms', value: 'Ms' },
+                { label: 'Dr', value: 'Dr' },
+              ]}
               rules={{ required: true }}
             />
             <Input
@@ -81,32 +92,13 @@ export default function Page2({ control }: { control: Control<any> }) {
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-base font-medium text-darkblue">Date of Birth</p>
-          <div className="grid grid-cols-3 gap-3">
-            <Input
-              name="dobDate"
-              control={control}
-              placeholder="Date"
-              options={new Array(31).fill(0).map((_, i) => i + 1)}
-              type="select"
-              rules={{ required: true }}
-            />
-            <Input
-              name="dobMonth"
-              control={control}
-              placeholder="Month"
-              options={new Array(12).fill(0).map((_, i) => i + 1)}
-              type="select"
-              rules={{ required: true }}
-            />
-            <Input
-              name="dobYear"
-              control={control}
-              placeholder="Year"
-              options={new Array(100).fill(0).map((_, i) => i + 1924)}
-              type="select"
-              rules={{ required: true }}
-            />
-          </div>
+          <Input
+            name="dob"
+            control={control}
+            placeholder="Date"
+            type="date"
+            rules={{ required: true }}
+          />
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Nationality</p>
             <Input
@@ -115,7 +107,7 @@ export default function Page2({ control }: { control: Control<any> }) {
               placeholder=" "
               rules={{ required: true }}
               type="select"
-              options={['India', 'USA', 'UK', 'Australia']}
+              options={countries.map((c) => ({ value: c.name, label: c.name }))}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -124,13 +116,16 @@ export default function Page2({ control }: { control: Control<any> }) {
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-base font-medium text-darkblue">Mobile</p>
-            <div className="grid grid-cols-[80px_1fr] gap-3">
+            <div className="grid grid-cols-[120px_1fr] gap-3">
               <Input
                 name="mobileCode"
                 rules={{ required: true }}
                 control={control}
                 type="select"
-                options={['+91', '+1', '+44', '+61']}
+                options={countries.map((c) => ({
+                  value: c.dial_code,
+                  label: `${c.name} (${c.dial_code})`,
+                }))}
               />
               <Input
                 name="mobileNumber"
@@ -162,90 +157,90 @@ export default function Page2({ control }: { control: Control<any> }) {
               control={control}
               type="select"
               placeholder=" "
-              options={['India', 'USA', 'UK', 'Australia']}
+              options={countries.map((c) => ({
+                label: c.name,
+                value: c.name,
+              }))}
             />
           </div>
         </div>
       </div>
-      <div className="">
-        <p className="text-2xl text-darkblue font-bold">2. Adult Passenger Details</p>
-      </div>
-      <div className="flex flex-col gap-[18px] max-w-[390px]">
-        <div className="flex flex-col gap-2">
-          <p className="text-base font-medium text-darkblue">Full Name</p>
-          <div className="grid grid-cols-[80px_1fr] gap-3">
-            <Input
-              name="adultPassenger.0.titlePrefix"
-              rules={{ required: true }}
-              control={control}
-              placeholder="Prefix"
-              type="select"
-              options={['Mr', 'Ms', 'Dr', 'Pr']}
-            />
-            <Input
-              name="adultPassenger.0.firstName"
-              rules={{ required: true }}
-              control={control}
-              placeholder="First Name"
-              type="text"
-            />
+      {Array.from(Array(adultsNumber - 1).keys()).map((i) => (
+        <div>
+          <div className="mb-2 flex w-full justify-between items-end">
+            <p className="text-2xl text-darkblue font-bold">{i + 2}. Adult Passenger Details</p>
+            <button
+              onClick={removePassenger}
+              className="font-bold text-base text-blue self-start mt-auto"
+            >
+              Remove
+            </button>
+          </div>
+          <div className="flex flex-col gap-[18px] max-w-[390px]">
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-medium text-darkblue">Full Name</p>
+              <div className="grid grid-cols-[80px_1fr] gap-3">
+                <Input
+                  name={`adultPassenger.${i}.titlePrefix`}
+                  rules={{ required: true }}
+                  control={control}
+                  placeholder="Prefix"
+                  type="select"
+                  options={[
+                    { label: 'Mr', value: 'Mr' },
+                    { label: 'Ms', value: 'Ms' },
+                    { label: 'Dr', value: 'Dr' },
+                  ]}
+                />
+                <Input
+                  name={`adultPassenger.${i}.firstName`}
+                  rules={{ required: true }}
+                  control={control}
+                  placeholder="First Name"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Input
+                name={`adultPassenger.${i}.middleName`}
+                control={control}
+                placeholder="Middle Name"
+                type="text"
+              />
+              <Input
+                name={`adultPassenger.${i}.lastName`}
+                rules={{ required: true }}
+                control={control}
+                placeholder="Last Name"
+                type="text"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-medium text-darkblue">Date of Birth</p>
+              <Input
+                name={`adultPassenger.${i}.dob`}
+                rules={{ required: true }}
+                control={control}
+                placeholder="Date"
+                type="date"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-medium text-darkblue">Email</p>
+              <Input
+                rules={{ required: true }}
+                name={`adultPassenger.${i}.email`}
+                control={control}
+                type="text"
+              />
+            </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <Input
-            name="adultPassenger.0.middleName"
-            control={control}
-            placeholder="Middle Name"
-            type="text"
-          />
-          <Input
-            name="adultPassenger.0.lastName"
-            rules={{ required: true }}
-            control={control}
-            placeholder="Last Name"
-            type="text"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-base font-medium text-darkblue">Date of Birth</p>
-          <div className="grid grid-cols-3 gap-3">
-            <Input
-              name="adultPassenger.0.dobDate"
-              rules={{ required: true }}
-              control={control}
-              placeholder="Date"
-              options={new Array(31).fill(0).map((_, i) => i + 1)}
-              type="select"
-            />
-            <Input
-              name="adultPassenger.0.dobMonth"
-              rules={{ required: true }}
-              control={control}
-              placeholder="Month"
-              options={new Array(12).fill(0).map((_, i) => i + 1)}
-              type="select"
-            />
-            <Input
-              name="adultPassenger.0.dobYear"
-              rules={{ required: true }}
-              control={control}
-              placeholder="Year"
-              options={new Array(100).fill(0).map((_, i) => i + 1924)}
-              type="select"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-base font-medium text-darkblue">Email</p>
-          <Input
-            rules={{ required: true }}
-            name="adultPassenger.0.email"
-            control={control}
-            type="text"
-          />
-        </div>
-        <button className="font-bold text-base text-blue self-start">Add Passenger</button>
-      </div>
+      ))}
+      <button onClick={addPassenger} className="font-bold text-base text-blue self-start">
+        Add Passenger
+      </button>
     </div>
   )
 }

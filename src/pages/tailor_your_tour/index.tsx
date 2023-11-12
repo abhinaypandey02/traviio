@@ -22,6 +22,7 @@ import SelectDestinationStep from '@/components/sections/Tailor Your Tour/Select
 import Step1 from '@/components/sections/Tailor Your Tour/Step1'
 import Step2 from '@/components/sections/Tailor Your Tour/Step2'
 import Steps from '@/components/sections/Tailor Your Tour/Steps'
+import SEO from '@/components/Seo'
 
 type TailorYourTourPageProps = {
   data: SanityTailorYourTour
@@ -82,14 +83,18 @@ export default function TailorYourTour({
 }: TailorYourTourPageProps) {
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-
+  const [loading, setLoading] = useState(false)
   const validationSchema = yup.object({
     selectedDestination: yup.string().required('Required'),
     duration: yup.string().required('Required'),
     name: yup.string().required('Required'),
     email: yup.string().email('Enter a Valid Email').required('Required'),
     nationality: yup.string().required('Required'),
-    phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('Required'),
+    mobileNumber: yup
+      .string()
+      .matches(phoneRegExp, 'Phone number is not valid')
+      .required('Required'),
+    mobileCode: yup.string().required('Required'),
     numberOfAdults: yup
       .string()
       .required('Required')
@@ -105,11 +110,16 @@ export default function TailorYourTour({
           return value == null || value.length > 0
         },
       }),
-    moreInfo: yup.string().required('Required'),
   })
 
   const resolver = useYupValidationResolver(validationSchema)
-  const { control, handleSubmit, setValue, getValues } = useForm<TailorTripFormData>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    getValues,
+  } = useForm<TailorTripFormData>({
     defaultValues: {
       categories: [],
       numberOfAdults: '0',
@@ -120,6 +130,7 @@ export default function TailorYourTour({
 
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
+      <SEO title={'Tailor your tour'} />
       <Container>
         {/* {!selectedDestination && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
@@ -155,8 +166,10 @@ export default function TailorYourTour({
         )}
         {selectedDestination && ( */}
         <Steps
+          loading={loading}
           disableNext={getValues('selectedDestination') == ''}
           onSubmit={handleSubmit((data) => {
+            setLoading(true)
             fetch('/api/email', {
               method: 'POST',
               body: JSON.stringify({
@@ -176,9 +189,11 @@ export default function TailorYourTour({
                     More Info: ${data?.moreInfo}  
                   `,
               }),
-            }).then(() => {
-              alert(`Request successfully submitted. You shall hear from us soon!`)
             })
+              .then(() => {
+                alert(`Request successfully submitted. You shall hear from us soon!`)
+              })
+              .finally(() => setLoading(false))
           })}
         >
           <SelectDestinationStep
@@ -186,6 +201,7 @@ export default function TailorYourTour({
             locale={locale}
             selectedDestination={getValues('selectedDestination')}
             setSelectedDestination={(value: string) => {
+              console.log(value)
               setValue('selectedDestination', value, { shouldValidate: true })
             }}
           />

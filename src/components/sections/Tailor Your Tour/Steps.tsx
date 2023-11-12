@@ -6,7 +6,9 @@ export default function Steps({
   disableNext,
   children,
   onSubmit,
+  loading,
 }: {
+  loading: boolean
   disableNext?: boolean
   children?: any[]
   onSubmit: () => void
@@ -56,8 +58,9 @@ export default function Steps({
                 />
               ) : (
                 <Button
+                  disabled={loading}
                   varient="primary"
-                  text={'Submit'}
+                  text={loading ? 'Submitting...' : 'Submit'}
                   onClick={onSubmit}
                   className="px-[30px] py-3 w-[246px]"
                 />

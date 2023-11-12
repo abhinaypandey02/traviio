@@ -6,7 +6,7 @@ import * as yup from 'yup'
 
 import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { useYupValidationResolver } from '@/pages/tailor_your_tour'
-import client from '@/sanity/client'
+import client, { urlFor } from '@/sanity/client'
 import { SanityGlobals, SanityLocale, SanityPricingSection, SanityTourPage } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
@@ -16,6 +16,7 @@ import Page1, { IPaymentTourExtras } from '@/components/sections/Payment/Page1'
 import Page2, { IContactInfo } from '@/components/sections/Payment/Page2'
 import Page3 from '@/components/sections/Payment/Page3'
 import Tabs from '@/components/sections/Payment/Tabs'
+import SEO from '@/components/Seo'
 
 import { AddBookingMutationVariables } from '../../../../../__generated__/graphql'
 
@@ -98,17 +99,14 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
 
   const startDate = new Date(from)
   const endDate = new Date(to)
-
+  const [loading, setLoading] = useState(false)
   const onSubmit: SubmitHandler<PaymentSchema> = async (data) => {
-    const booking: AddBookingMutationVariables['booking'] = {
+    setLoading(true)
+    const booking: AddBookingMutationVariables['booking'] & { paid: number } = {
       adults: [
         {
           email: data.email,
-          dob: new Date(
-            parseInt(data.dobYear),
-            parseInt(data.dobMonth),
-            parseInt(data.dobDate)
-          ).toString(),
+          dob: new Date(data.dob).toString(),
           name: {
             firstName: data.firstName,
             lastName: data.lastName,
@@ -126,11 +124,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         },
         ...data.adultPassenger.map((passenger) => ({
           email: passenger.email,
-          dob: new Date(
-            parseInt(passenger.dobYear),
-            parseInt(passenger.dobMonth),
-            parseInt(passenger.dobDate)
-          ).toString(),
+          dob: new Date(passenger.dob).toString(),
           name: {
             firstName: passenger.firstName,
             lastName: passenger.lastName,
@@ -146,22 +140,42 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
       hotelType: data.hotelChoice,
       roomType: data.roomType,
       to: endDate.toDateString(),
-      price: 200,
+      paid: paymentMethod === 'bank' ? 0 : bookOnly ? 20000 : totalPrice * 100,
+      price: totalPrice * 100,
       email: data.email,
     }
     fetch('/api/checkout', {
       method: 'POST',
       body: JSON.stringify(booking),
-    }).then(async (res) => {
-      const url = await res.text()
-      router.replace(url || '/')
     })
+      .then(async (res) => {
+        if (paymentMethod === 'bank') {
+          alert('Payment info sent to the bank!')
+        }
+        const url = await res.text()
+        router.replace(url || '/')
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const [totalPrice, setTotalPrice] = useState(0)
-
+  const [bookOnly, setBookOnly] = useState(false)
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'bank'>('stripe')
   return (
     <Layout locale={locale} breadcrumbs={[]} globals={globals}>
+      <SEO
+        title={
+          data?.meta_data?.meta_title &&
+          'Book ' + localizedString(data.meta_data?.meta_title, locale)
+        }
+        description={
+          data?.meta_data?.meta_description &&
+          localizedString(data?.meta_data?.meta_description, locale)
+        }
+        image={data?.meta_data?.meta_image && urlFor(data?.meta_data?.meta_image)}
+      />
       <Tabs
         control={control}
         onSubmit={handleSubmit(onSubmit)}
@@ -173,11 +187,23 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         childrenNumber={watch('childrenMembers')}
         trigger={trigger}
         setTotalPrice={setTotalPrice}
+        loading={loading}
         addons={roomTypes + hotelChoice + optionalVisits}
       >
         <Page1 errors={errors} control={control} payment={data.payment} />
-        <Page2 control={control} />
-        <Page3 totalPrice={totalPrice}/>
+        <Page2
+          addPassenger={() => setValue('adultMembers', getValues('adultMembers') + 1)}
+          removePassenger={() => setValue('adultMembers', getValues('adultMembers') - 1)}
+          adultsNumber={watch('adultMembers')}
+          control={control}
+        />
+        <Page3
+          setPaymentMethod={setPaymentMethod}
+          paymentMethod={paymentMethod}
+          bookOnly={bookOnly}
+          toggleBookOnly={() => setBookOnly((o) => !o)}
+          totalPrice={totalPrice}
+        />
       </Tabs>
     </Layout>
   )

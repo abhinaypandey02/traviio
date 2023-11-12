@@ -27,12 +27,15 @@ function HeaderLink({
       document.body.classList.remove('overflow-hidden')
     }
   }, [open])
+  console.log(router.asPath, item)
   return (
     <>
       {item?._type === 'link' && (
         <Link
           href={item.url || '/'}
-          className={'font-medium ' + (item.url === router.route ? 'text-blue' : 'text-darkblue')}
+          className={
+            'font-medium ' + ((item.url || '/') === router.asPath ? 'text-blue' : 'text-darkblue')
+          }
         >
           <LocalizedString text={item.text} />
         </Link>

@@ -39,6 +39,7 @@ export interface IMongoose {
   from: typeof Date
   to: typeof Date
   price: number
+  paid: number
   tour: string
   children: number
   adults: IAdult[]

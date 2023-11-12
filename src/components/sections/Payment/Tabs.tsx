@@ -24,6 +24,7 @@ export default function Tabs({
   setTotalPrice,
   control,
   trigger,
+  loading,
 }: {
   children?: any[]
   tour: SanityTourPage
@@ -37,6 +38,7 @@ export default function Tabs({
   setTotalPrice: (a: number) => void
   control: Control<any>
   trigger: () => any
+  loading: boolean
 }) {
   let priceOverrides = pricingData.price_overrides ?? []
   const price = (pricingData as any)?.price
@@ -119,7 +121,8 @@ export default function Tabs({
               {page < children.length ? (
                 <Button
                   varient="primary"
-                  text={'Next'}
+                  disabled={loading}
+                  text={loading ? 'Loading...' : 'Next'}
                   onClick={async () => {
                     if (await trigger()) setPage(page + 1)
                   }}
@@ -171,7 +174,7 @@ const SelectedTour = ({ tour }: { tour: SanityTourPage }) => {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-[6px]">
               <Image alt="" src={'/calendar.svg'} height={18} width={18} />
-              <p>{localizedString(tour.overview_card?.duration, locale)} Days</p>
+              <p>{localizedString(tour.overview_card?.duration, locale)}</p>
             </div>
             <div className="flex items-center gap-[6px]">
               <Image alt="" src={'/calendar.svg'} height={18} width={18} />
