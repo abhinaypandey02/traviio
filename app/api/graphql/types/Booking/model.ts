@@ -36,16 +36,16 @@ const GraphqlType = `
   "Address broken down"
   type Address{
       line1:String!
-      town:String!
-      state:String
-      country:String
+      town:String
+      state:String!
+      country:String!
   }
   "Address broken down"
   input AddressInput{
       line1:String!
-      town:String!
-      state:String
-      country:String
+      town:String
+      state:String!
+      country:String!
   }
   "Adult details in a booking"
   type Adult{
@@ -174,7 +174,7 @@ export const MongooseSchema = new Schema<IMongoose>(
               },
               town: {
                 type: String,
-                required: true,
+                required: false,
               },
               state: {
                 type: String,

@@ -7,7 +7,7 @@ import { gql } from '../../../__generated__'
 import { AddBookingMutationVariables } from '../../../__generated__/graphql'
 
 export const POST = async (req: Request) => {
-  const booking: AddBookingMutationVariables['booking'] & { paid: number } = await req.json()
+  const booking: AddBookingMutationVariables['booking'] & { paid?: number } = await req.json()
   const stripe = getStripe()
   const client = await getClient()
   const tour: SanityTourPage = await sanityClient.fetch(
@@ -20,6 +20,8 @@ export const POST = async (req: Request) => {
   if (tour.hero_section?.image) {
     images.push(urlFor(tour.hero_section?.image))
   }
+  const bookingData = { ...booking }
+  delete bookingData.paid
   const newBooking = await client.mutate({
     mutation: gql(`
             #graphql
@@ -28,7 +30,7 @@ export const POST = async (req: Request) => {
             }
         `),
     variables: {
-      booking,
+      booking: bookingData,
     },
   })
   if (newBooking.data?.addBooking) {
@@ -72,6 +74,7 @@ export const POST = async (req: Request) => {
       },
       mode: 'payment',
       success_url: process.env.NEXT_PUBLIC_BASE_URL!,
+      payment_method_types: ['card', 'paypal'],
     })
     return new Response(checkout.url)
   }

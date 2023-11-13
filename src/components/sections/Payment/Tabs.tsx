@@ -128,7 +128,12 @@ export default function Tabs({
                   }}
                 />
               ) : (
-                <Button varient="primary" text={'Pay'} onClick={onSubmit} />
+                <Button
+                  varient="primary"
+                  text={loading ? 'Booking...' : 'Pay'}
+                  disabled={loading}
+                  onClick={onSubmit}
+                />
               )}
             </div>
           </div>

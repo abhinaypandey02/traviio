@@ -122,7 +122,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
             line1: data.address,
           },
         },
-        ...data.adultPassenger.map((passenger) => ({
+        ...(data?.adultPassenger?.map((passenger) => ({
           email: passenger.email,
           dob: new Date(passenger.dob).toString(),
           name: {
@@ -131,7 +131,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
             middleName: passenger.middleName,
             designation: passenger.titlePrefix,
           },
-        })),
+        })) || []),
       ],
       from: startDate.toDateString(),
       children: data.childrenMembers,

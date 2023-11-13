@@ -41,18 +41,18 @@ export type AddUserInput = {
 /** Address broken down */
 export type Address = {
   __typename?: 'Address';
-  country?: Maybe<Scalars['String']['output']>;
+  country: Scalars['String']['output'];
   line1: Scalars['String']['output'];
-  state?: Maybe<Scalars['String']['output']>;
-  town: Scalars['String']['output'];
+  state: Scalars['String']['output'];
+  town?: Maybe<Scalars['String']['output']>;
 };
 
 /** Address broken down */
 export type AddressInput = {
-  country?: InputMaybe<Scalars['String']['input']>;
+  country: Scalars['String']['input'];
   line1: Scalars['String']['input'];
-  state?: InputMaybe<Scalars['String']['input']>;
-  town: Scalars['String']['input'];
+  state: Scalars['String']['input'];
+  town?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Adult details in a booking */
