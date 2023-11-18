@@ -32,10 +32,10 @@ const FAQSection = ({ data, locale }: PropsWithLocale<FAQSectionProps>) => {
       />
       <header className="flex flex-col items-center gap-3">
         <h2 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
-          {localizedString(data?.title, locale)}
-        </h2>
-        <p className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
           {localizedString(data.tagline, locale)}
+        </h2>
+        <p className="text-darkblue text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px] ">
+          {localizedString(data?.title, locale)}
         </p>
         <hr className="w-[85px] md:w-[117px] bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
       </header>

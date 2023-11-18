@@ -14,18 +14,19 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
   const {
     data: { title, tagline, content },
   } = props
+
   const PortableTextSerializer = {
     h3: (props: any) => {
       return (
         <div>
-          <p className="font-bold text-2xl" {...props} />
+          <p className="font-bold text-2xl " {...props} />
           <hr className="w-20 my-2 text-yellow bg-yellow  rounded-full border-2" />
         </div>
       )
     },
     layout_group: (props: any) => {
       return (
-        <div className="flex w-full max-md:flex-col font-medium  gap-4 md:gap-12">
+        <div className="flex w-full max-md:flex-col  gap-4 md:gap-12">
           {props.items.map((item: any) => (
             <PortableText
               // className={item._type === 'content_image' ? 'w-full' : ''}
@@ -57,20 +58,24 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
     },
     content_image: (props: any) => {
       const { dimensions } = decodeAssetId(props.image.asset._ref)
+      // const imgWidth = ` md:w-[${dimensions?.width}px] `
+      // const imgHeight = `md:h-[${dimensions?.height}px] `
+      // console.log(dimensions)
+      // console.log(imgWidth)
       return (
         <div
           style={{
             width: dimensions?.width,
             height: dimensions?.height,
           }}
-          className="shrink-0 w-full"
+          className={`shrink-0   flex  w-full box-border`}
         >
           <Image
             alt=""
             src={urlFor(props.image)}
             width={dimensions?.width}
             height={dimensions?.height}
-            className="object-cover w-full "
+            className="object-fill md:object-cover w-full"
           />
           <div className={'text-center'}>
             <LocalizedString text={props.image.alt} />
@@ -82,21 +87,22 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
 
   return (
     <Container className="mt-12 mb-20">
-      <div className="mb-12">
-        <p className="text-blue uppercase font-medium text-center mb-3">
+      <div className="mb-[30px] md:mb-12 flex flex-col items-center">
+        <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {localizedString(tagline, props.locale)}
         </p>
-        <h2 className="text-[40px] leading-tight -tracking-[1.2px] font-bold text-center">
+
+        <h2 className="text-[24px] md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-2 md:mt-3  w-fit  font-bold">
           {localizedString(title, props.locale)}
+          <hr className="w-1/2 mx-auto text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
         </h2>
-        <hr className="lg:w-1/12 w-1/3 mt-[9px] text-yellow m-auto  bg-yellow   border-t-2 border-b" />
       </div>
 
-      <div className="font-medium">
+      <div className="text-sm md:text-base font-normal">
         {content[props.locale] && (
           <PortableText
             content={content[props.locale]}
-            className="flex flex-col gap-6 leading-[1.75] tracking-[0.64px]"
+            className="flex flex-col gap-[10px] md:gap-6 leading-normal md:leading-7 md:tracking-wide"
             serializers={PortableTextSerializer}
           />
         )}

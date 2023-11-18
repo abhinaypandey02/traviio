@@ -21,17 +21,27 @@ const ImageHeaderSection = (props: ImageHeaderSectionProps) => {
       <div>
         <Image
           src={image ? urlFor(image) : ''}
-          style={{ width: '100%', height: '480px', objectFit: 'cover' }}
+          // style={{ width: '100%', height: '480px', objectFit: 'cover' }}
+          className="h-[200px] md:h-[480px] w-full "
           width={700}
           height={73}
+          objectFit="cover"
           alt=""
         />
-        <h2 className="text-[56px]  text-white -translate-y-32  font-extrabold text-center ">
+
+        <h2 className="hidden md:block text-xl md:text-[56px]  text-white -translate-y-32  font-bold md:font-black text-center leading-[30px] md:leading-[72px]">
           <LocalizedString text={header} />
         </h2>
       </div>
-      <Container className="px-10 text-[16px] -translate-y-9  font-[400] opacity-80 leading-6 ">
-        {/* {content?content} */} <LocalizedString text={content} />
+
+      <Container className="px-10 text-sm md:text-[16px] translate-y-[18px]  md:-translate-y-9  font-normal opacity-80 leading-normal md:leading-6 text-center md:text-start ">
+        <div className="md:hidden text-xl  -tracking-[1.2px] mb-[30px] font-bold w-full leading-[30px]  flex justify-center">
+          <div className="w-fit">
+            <LocalizedString text={header} />
+            <hr className="ww-full mt-[4px] md:mt-[12px] text-yellow bg-yellow  rounded-full border-t border-b-2 " />
+          </div>
+        </div>
+        <LocalizedString text={content} />
       </Container>
     </div>
   )
