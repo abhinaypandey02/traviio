@@ -71,11 +71,13 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
         </div>
       </div>
       <div className="w-full lg:hidden z-50 h-[80px]">
-        <div className="px-5 flex justify-between w-full bg-white relative py-5 z-[50]">
-          <Image src="/company_logo.svg" height={40} width={172} alt="Company logo" />
-          <div className="flex gap-3">
+        <div className="px-5 flex justify-between items-center w-full bg-white relative h-full  py-[16px] md:py-5 z-[50]">
+          <Image src="/company_logo.svg" height={24} width={105} alt="Company logo" />
+          <div className="flex gap-3  h-[24px]  items-center">
             <Image src="/whatsapp_logo.svg" height={24} width={24} alt="Whatsapp logo" />
+
             {/* Language selector */}
+            <LanguageDropdown />
             <Image
               src="/menu_icon.svg"
               height={24}

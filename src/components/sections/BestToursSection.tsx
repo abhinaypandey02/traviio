@@ -15,7 +15,8 @@ interface BestToursSectionProps {
 
 function BestToursSection({
   data: { tags, title, tagline, filters },
-locale,}: PropsWithLocale<BestToursSectionProps>) {
+  locale,
+}: PropsWithLocale<BestToursSectionProps>) {
   const [loading, setLoading] = React.useState<boolean>(false)
   const [pageNumber, setPageNumber] = React.useState<number>(0)
   const lastIds = React.useRef<(string | null)[]>([''])
@@ -79,12 +80,18 @@ locale,}: PropsWithLocale<BestToursSectionProps>) {
   return (
     <Container className="flex flex-col items-center gap-5">
       <div className="flex flex-col items-center">
-        <h2 className="text-blue text-[16px] font-[500]">{localizedString(tagline, locale)}</h2>
-        <h4 className="text-[40px] font-[700] ">{localizedString(title, locale)}</h4>
-        <hr className="lg:w-1/2 w-1/3 my-2 text-yellow  bg-yellow  rounded-full border-2" />
+        <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
+          {localizedString(tagline, locale)}
+        </p>
+
+        <h2 className="text-[24px] md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
+          {localizedString(title, locale)}
+          <hr className="w-1/2 mx-auto text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
+        </h2>
       </div>
-      <div className=" grid md:grid-cols-4 grid-cols-1 gap-5">
-        <div className="h-full">
+
+      <div className=" grid  md:grid-cols-4 grid-cols-1 gap-5">
+        <div className="h-full ">
           <FilterDropdown items={[]} />
         </div>
         <BestTours

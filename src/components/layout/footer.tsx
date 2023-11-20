@@ -57,21 +57,30 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
         <div className="mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
           {/* Left side */}
           <div className="flex flex-col gap-2 mb-12 md:mt-5 max-w-[364px]">
-            <div className="flex flex-col gap-2">
-              <Image
-                src={(footer?.logo && urlFor(footer?.logo)) || ''}
-                width={260}
-                height={80}
-                alt="Company logo"
-              ></Image>
+            <div className="flex flex-col gap-1 md:gap-2">
+              <div className="relative w-40 md:w-[260px] h-[34px] md:h-[48px]">
+                <Image
+                  src={(footer?.logo && urlFor(footer?.logo)) || ''}
+                  // width={260}
+                  // height={48}
+                  layout="fill"
+                  alt="Company logo"
+                ></Image>
+              </div>
               <p>
-                <Link href="/" className="font-semibold text-blue">
+                <Link
+                  href="/"
+                  className="text-sm md:text-base md:font-normal font-medium leading-normal text-blue"
+                >
                   {localizedString(footer?.title)}
                 </Link>
               </p>
             </div>
-            <p className="leading-relaxed mt-3">{localizedString(footer?.description)}</p>
-            <div className="flex flex-wrap gap-6 mt-5">
+
+            <p className="text-gray text-sm md:text-base font-medium md:font-normal leading-normal mt-5">
+              {localizedString(footer?.description)}
+            </p>
+            <div className="flex flex-wrap gap-6 mt-5  justify-center md:justify-start">
               {SOCIAL_LINKS.map((item, index) => {
                 return (
                   <Link href={item.href} key={index}>
@@ -97,7 +106,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
           </div>
           {/* Right side */}
           <div className="grow flex flex-col gap-4 text-darkblue">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 justify-between">
+            <div className="grid  grid-cols-3 gap-3 justify-between">
               {LINKS.map((item, index) => {
                 return (
                   <Footer__links

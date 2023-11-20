@@ -1,58 +1,71 @@
 import React from 'react'
 import Image from 'next/image'
 
+import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import { SanityAtGlanceSection } from '@/sanity/types'
 
 import Container from '@/components/Container'
-import { localizedString, PropsWithLocale } from '@/contexts/LocaleProvider'
 export type AtAGlanceSectionProps = {
   data: SanityAtGlanceSection
 }
 
 const AtAGlanceSection = (props: PropsWithLocale<AtAGlanceSectionProps>) => {
   const {
-    data: { tagline, title, useful_links_section, facts },locale
+    data: { tagline, title, useful_links_section, facts },
+    locale,
   } = props
 
   return (
     <div className=" ">
       <Container className="bg-[#F2FAFF] py-12">
-        <h2 className="text-[#3FA9F5] text-[16px] font-[500] text-center">
-          {localizedString(tagline, locale)}
-        </h2>
-        <h4 className="text-[36px] font-[700] mt-2 text-center">
-        {localizedString(title, locale)} </h4>
-        <hr className="lg:w-1/12 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
-        <div className="py-2 grid grid-flow-row grid-cols-4 px-10 gap-x-24 mt-16 gap-y-12">
+        <div className="flex flex-col items-center">
+          <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
+            {localizedString(tagline, locale)}
+          </p>
+
+          <h2 className="text-[24px] md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
+            {localizedString(title, locale)}
+            <hr className="w-1/2 mx-auto text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
+          </h2>
+        </div>
+
+        <div className="pys-2 grid grid-flow-row grid-cols-2 md:grid-cols-4   md:px-10 gap-x-[15px] md:gap-x-[58px] mt-10 md:mt-16 gap-y-[30px] md:gap-y-12">
           {facts?.map((item: any, index: any) => {
             return (
-              <div className="flex gap-x-2 items-center ">
+              <div className="flex md:gap-x-3  gap-y-[10px] md:gap-y-0  flex-col md:flex-row w-full  items-center ">
                 <Image alt={''} src={urlFor(item.icon)} width={48} height={48} />
-                <div className=" ">
-                  <h3 className="text-[18px] font-[500]">
+                <div className=" text-center md:text-start  space-y-[2px]">
+                  <h3 className="text-base md:text-lg font-medium  leading-normal md:leading-7">
                     {localizedString(item.title, locale)}
                   </h3>
-                  <h3 className="text-[14px] text-[#726E83]">
-                  {localizedString(item.subtitle, locale)} </h3>
+
+                  <h3 className="text-xs md:text-sm text-gray   font-normal md:font-medium leading-tight md:leading-normal">
+                    {localizedString(item.subtitle, locale)}{' '}
+                  </h3>
                 </div>
               </div>
             )
           })}
         </div>
-        <hr className="mt-14 mb-11 m-auto text-[#CFEAFD] bg-[#CFEAFD] w-10/12 " />
+        <hr className="my-10 md:my-14 m-auto text-[#CFEAFD] bg-[#CFEAFD] w-10/12 " />
         <div>
-          <h4 className="text-[24px] font-[700] text-center">{useful_links_section?.title?.en}</h4>
-          <hr className="lg:w-1/12 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
-          <div className="py-2 grid grid-flow-row grid-cols-4 mt-16 pl-20  gap-y-12">
+          <div className="w-fit mx-auto">
+            <h4 className="text-xl md:text-[24px] font-bold text-center leading-[30px]">
+              {useful_links_section?.title?.en}
+            </h4>
+            <hr className=" md:w-2/3 w-1/2 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
+          </div>
+          <div className="py-2 grid grid-flow-row grid-cols-1 md:grid-cols-4 mt-10 md:mt-16 md:pl-[53px]  gap-y-[30px] md:gap-y-[42px]">
             {useful_links_section?.useful_links?.map((item: any, index: any) => {
               return (
                 <div>
                   <a href={item.url}>
                     <div className="flex items-center gap-x-2 ">
                       <Image alt={''} src={urlFor(item.icon)} width={28} height={28} />
-                      <span className="font-[500] text-[18px] text-[#140D31]">
-                      {localizedString(item.title, locale)}
+
+                      <span className="text-base md:text-lg md:font-medium text-[18px] leading-normal md:leading-7 ">
+                        {localizedString(item.title, locale)}
                       </span>
                     </div>
                   </a>

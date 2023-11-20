@@ -74,6 +74,7 @@ export const TourCard = ({
         <span className="bg-red absolute m-3 right-0 px-3 py-1 leading-[20px] text-white font-bold text-[10px] md:text-xs rounded-full">
           Hot Deal
         </span>
+
         <Image
           width={302}
           height={100}
@@ -160,7 +161,7 @@ const DealsSection = ({
 
         <h2 className="text-[24px] md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
           {title?.en}
-          <hr className="w-1/2 text-yellow  bg-yellow  rounded-full mt-2.5 border-t-2 border-b" />
+          <hr className="w-1/2 mx-auto text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
         </h2>
       </div>
       <div className=" h-fit  mt-12  ">

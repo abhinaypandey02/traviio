@@ -39,8 +39,8 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
             {/* <div class="w-[335px] text-center text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-tight">Adored by Countless Explorers of Egypt, Dubai, Saudi Arabia, Turkey, and Israel</div> */}
             {/* .. */}
             {/* <div class="w-80 text-gray-500 text-lg font-normal font-['Satoshi Variable'] leading-7">Adored by Countless Explorers of Egypt, Dubai, Saudi Arabia, Turkey, and Israel</div> */}
-            <span className="text-blue">{localizedString(title, locale).substring(0, 16)}</span>
-            {localizedString(title, locale).substring(16)}
+            <span className="">{localizedString(title, locale).substring(0, 16)}</span>
+            <span className="text-blue">{localizedString(title, locale).substring(16)}</span>
           </h2>
           <p className="text-sm md:text-lg mt-3 opacity-60">
             {localizedString(subtitle, props.locale)}
