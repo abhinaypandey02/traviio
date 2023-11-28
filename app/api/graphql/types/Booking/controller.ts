@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 import User, { MongooseModel as UserModel } from '../User'
 
 import { MongooseModel } from './index'
-import { AddBookingInput, IMongoose } from './interface'
+import { AddBookingInput, IMongoose, UpdateBookingInput } from './interface'
 
 const QueryResolvers = {
   async booking(_: null, args: { id: string }): Promise<IMongoose | null> {
@@ -18,6 +18,13 @@ const MutationResolvers = {
     const newBooking = await MongooseModel.create({ ...booking, status: 'UNPAID', paid: 0 })
     const doc = await newBooking.save()
     return doc._id
+  },
+  async updateBooking(_: any, { booking }: UpdateBookingInput): Promise<ObjectId | null> {
+    const newBooking = await MongooseModel.findOneAndUpdate(
+      { _id: new ObjectId(booking.id) },
+      booking
+    )
+    return newBooking?._id || null
   },
   async completeBooking(
     _: any,

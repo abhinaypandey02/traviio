@@ -30,8 +30,8 @@ export type SanityLocale = SupportedLanguage['id']
 export type SanityLocaleString = {
   [x in SanityLocale]?: string
 } & {
-  _type: 'localeString'
-  _id: string
+  // _type: 'localeString'
+  // _id: string
 }
 
 export type SanityLocaleText = {
@@ -937,11 +937,16 @@ export type SanityTourPage = {
       price?: SanityPrice
     }[]
     extras?: {
+      _key: string
       city_name?: SanityLocaleString
-      title?: SanityLocaleString
-      description?: SanityLocaleString
-      image?: SanityImage
-      price?: SanityPrice
+      count?: number
+      visits?: {
+        _key: string
+        title?: SanityLocaleString
+        description?: SanityLocaleString
+        image?: SanityImage
+        price?: SanityPrice
+      }[]
     }[]
   }
   overview_card?: {

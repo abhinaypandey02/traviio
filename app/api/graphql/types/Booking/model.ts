@@ -9,6 +9,7 @@ const GraphqlQuery = `
 const GraphqlMutation = `
   "[Auth required] Add new booking"
   addBooking(booking:AddBookingInput!): String
+  updateBooking(booking:UpdateBookingInput!): String
   "[Webhook only] Complete booking"
   completeBooking(booking:String!, token:String!, paid:Int!): Boolean
 `
@@ -67,7 +68,7 @@ const GraphqlType = `
   }
   "Arguments to add booking"
   input AddBookingInput{
-      adults:[AdultInput]!
+      adults:[AdultInput!]!
       children:Int!
       tour:ID!
       from:String!
@@ -76,15 +77,40 @@ const GraphqlType = `
       guests:Int!
       hotelType:String!
       roomType:String!
-      optionalTours:[String!]
+      optionalTours:[OptionalTourInput!]
       email:ID!
+  }
+  "Arguments to update booking"
+  input UpdateBookingInput{
+      id:ID!
+      adults:[AdultInput!]
+      children:Int
+      guests:Int
+      hotelType:String
+      roomType:String
+      optionalTours:[OptionalTourInput!]
+      requests:[String!]
+  }
+  input OptionalTourInput{
+      cityID:String!
+      cityName:String!
+      visitID:String!
+      visitName:String!
+      price:Int!
+  }
+  type OptionalTour{
+      cityID:String!
+      cityName:String!
+      visitID:String!
+      visitName:String!
+      price:Int!
   }
   "Tour Booking"
   type Booking {
     _id:ID!
     tour:ID!
     children:Int!
-    adults:[Adult]!
+    adults:[Adult!]!
     from:String!
     to:String!
     price:Float!
@@ -92,10 +118,11 @@ const GraphqlType = `
     guests:Int!
     hotelType:String!
     roomType:String!
-    optionalTours:[String!]
+    optionalTours:[OptionalTour!]
     status:Status!
     user:User
     email:String!  
+    requests:[String!]
   }
 `
 
@@ -135,8 +162,11 @@ export const MongooseSchema = new Schema<IMongoose>(
     },
     optionalTours: [
       {
-        type: String,
-        required: true,
+        cityID: String,
+        visitID: String,
+        cityName: String,
+        visitName: String,
+        price: Number,
       },
     ],
     status: {
@@ -145,6 +175,10 @@ export const MongooseSchema = new Schema<IMongoose>(
     },
     email: {
       type: String,
+      required: true,
+    },
+    requests: {
+      type: [String],
       required: true,
     },
     children: {

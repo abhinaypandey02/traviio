@@ -153,7 +153,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const slugs = (await client.fetch(
     `*[_type == "travel_wiki" && slug.current != "/"]{slug}.slug`
   )) as SanitySlug[]
-
+  console.log(slugs)
   return {
     paths: getPaths(slugs, locales),
     fallback: false,

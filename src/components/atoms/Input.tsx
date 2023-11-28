@@ -141,13 +141,16 @@ export default function Input({
             ? 'bg-blue border-blue'
             : errorMsg
             ? 'bg-white border-red'
+            : disabled
+            ? 'bg-gray/10 cursor-not-allowed '
             : 'bg-white  border-gray'
         }`}
         onClick={() => {
-          field.onChange(checkboxValue)
+          if (field.value === checkboxValue) field.onChange(undefined)
+          else if (!disabled) field.onChange(checkboxValue)
         }}
       >
-        <Check color="white" width={16} height={16} weight="bold" />
+        {(!disabled || field.value) && <Check color="white" width={16} height={16} weight="bold" />}
       </div>
     )
   if (type == 'boxSelection')

@@ -74,7 +74,7 @@ export const POST = async (req: Request) => {
       },
       mode: 'payment',
       success_url: process.env.NEXT_PUBLIC_BASE_URL!,
-      payment_method_types: ['card', 'paypal'],
+      payment_method_types: ['card'],
     })
     return new Response(checkout.url)
   }

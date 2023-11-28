@@ -308,30 +308,49 @@ export default defineType({
                   type: 'locale_string',
                 }),
                 defineField({
-                  name: 'title',
-                  title: 'Title',
-                  type: 'locale_string',
+                  name: 'count',
+                  title: 'Max visits',
+                  description: 'Maximum visits allowed',
+                  type: 'number',
                 }),
                 defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'locale_string',
-                }),
-                defineField({
-                  name: 'image',
-                  title: 'Image',
-                  type: 'image',
-                }),
-                defineField({
-                  name: 'price',
-                  title: 'Price',
-                  description: 'Price of the extra',
-                  type: 'price',
+                  name: 'visits',
+                  title: 'Visits',
+                  type: 'array',
+                  of: [
+                    defineArrayMember({
+                      name: 'visit',
+                      type: 'object',
+                      fields: [
+                        defineField({
+                          name: 'title',
+                          title: 'Title',
+                          type: 'locale_string',
+                        }),
+                        defineField({
+                          name: 'description',
+                          title: 'Description',
+                          type: 'locale_string',
+                        }),
+                        defineField({
+                          name: 'image',
+                          title: 'Image',
+                          type: 'image',
+                        }),
+                        defineField({
+                          name: 'price',
+                          title: 'Price',
+                          description: 'Price of the extra',
+                          type: 'price',
+                        }),
+                      ],
+                    }),
+                  ],
                 }),
               ],
               preview: {
                 select: {
-                  title: 'title.en',
+                  title: 'city_name.en',
                   media: 'image',
                 },
                 prepare: ({ title, media }) => {

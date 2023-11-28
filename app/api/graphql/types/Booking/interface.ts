@@ -11,8 +11,20 @@ export interface AddBookingInput {
     adults: IAdult[]
     hotelType: string
     roomType: string
-    optionalTours: string[]
+    optionalTours: OptionalTour[]
     email: string
+  }
+}
+export interface UpdateBookingInput {
+  booking: {
+    id: string
+    guests?: number
+    children?: number
+    adults?: IAdult[]
+    hotelType?: string
+    roomType?: string
+    optionalTours?: OptionalTour[]
+    requests?: string[]
   }
 }
 interface IAdult {
@@ -33,6 +45,13 @@ interface IAdult {
   email: string
   phone?: string
 }
+interface OptionalTour {
+  cityID: string
+  visitID: string
+  visitName: string
+  cityName: string
+  price: number
+}
 export interface IMongoose {
   _id: Types.ObjectId
   guests: number
@@ -45,7 +64,8 @@ export interface IMongoose {
   adults: IAdult[]
   hotelType: string
   roomType: string
-  optionalTours: string[]
+  optionalTours: OptionalTour[]
   status: string
   email: string
+  requests: string[]
 }

@@ -45,11 +45,12 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
   } = useForm<PaymentSchema>({
     mode: 'onChange',
     defaultValues: {
-      optionalVisits: [],
+      optionalVisits: {},
       adultMembers: 1,
       childrenMembers: 0,
     },
   })
+  console.log(watch('optionalVisits'))
 
   const [optionalVisits, setOptionalVisits] = useState(0)
   const [roomTypes, setRoomTypes] = useState(0)
@@ -58,15 +59,19 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
     const unsub = watch((value, _info) => {
       const info = _info as { name: keyof typeof value }
       if (info.name?.startsWith('optionalVisits')) {
-        const selected = Object.values(value['optionalVisits'] as any)
-        setOptionalVisits(
-          data?.payment?.extras?.reduce(
-            (acc, extra: any) =>
-              acc +
-              (selected.includes(extra._key) ? localizedNumber(extra.price?.initial_price) : 0),
-            0
-          ) || 0
-        )
+        let sum = 0
+        for (const cityId in value['optionalVisits']) {
+          const city = data.payment?.extras?.find((city) => city._key === cityId)
+          for (const visitId of value['optionalVisits'][cityId]) {
+            if (visitId) {
+              const visit = city?.visits?.find((visit) => visit._key === visitId)
+              if (visit) {
+                sum += localizedNumber(visit.price?.discounted_price, locale)
+              }
+            }
+          }
+        }
+        setOptionalVisits(sum)
       }
       if (info.name === 'roomType') {
         setRoomTypes(
@@ -100,29 +105,42 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
   const startDate = new Date(from)
   const endDate = new Date(to)
   const [loading, setLoading] = useState(false)
-  const onSubmit: SubmitHandler<PaymentSchema> = async (data) => {
+  const onSubmit: SubmitHandler<PaymentSchema> = async (_data) => {
     setLoading(true)
+    const optionalVisits = Object.keys(_data.optionalVisits).flatMap((cityID) => {
+      const city = data.payment?.extras?.find((city) => city._key === cityID)
+      return _data.optionalVisits[cityID].filter(Boolean).map((visitID: string) => {
+        const visit = city?.visits?.find((visit) => visit._key === visitID)
+        return {
+          cityID,
+          visitID,
+          cityName: localizedString(city?.city_name, locale),
+          visitName: localizedString(visit?.title, locale),
+          price: localizedNumber(visit?.price?.discounted_price, locale),
+        }
+      })
+    })
     const booking: AddBookingMutationVariables['booking'] & { paid: number } = {
       adults: [
         {
-          email: data.email,
-          dob: new Date(data.dob).toString(),
+          email: _data.email,
+          dob: new Date(_data.dob).toString(),
           name: {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            middleName: data.middleName,
-            designation: data.titlePrefix,
+            firstName: _data.firstName,
+            lastName: _data.lastName,
+            middleName: _data.middleName,
+            designation: _data.titlePrefix,
           },
-          phone: data.mobileCode + data.mobileNumber,
-          nationality: data.nationality,
+          phone: _data.mobileCode + _data.mobileNumber,
+          nationality: _data.nationality,
           address: {
-            country: data.country,
-            town: data.town,
-            state: data.state,
-            line1: data.address,
+            country: _data.country,
+            town: _data.town,
+            state: _data.state,
+            line1: _data.address,
           },
         },
-        ...(data?.adultPassenger?.map((passenger) => ({
+        ...(_data?.adultPassenger?.map((passenger) => ({
           email: passenger.email,
           dob: new Date(passenger.dob).toString(),
           name: {
@@ -134,15 +152,16 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         })) || []),
       ],
       from: startDate.toDateString(),
-      children: data.childrenMembers,
-      guests: parseInt(data.childrenMembers.toString()) + parseInt(data.adultMembers.toString()),
+      children: parseInt(_data.childrenMembers.toString()),
+      guests: parseInt(_data.childrenMembers.toString()) + parseInt(_data.adultMembers.toString()),
       tour: slug,
-      hotelType: data.hotelChoice,
-      roomType: data.roomType,
+      hotelType: _data.hotelChoice,
+      roomType: _data.roomType,
       to: endDate.toDateString(),
       paid: paymentMethod === 'bank' ? 0 : bookOnly ? 20000 : totalPrice * 100,
       price: totalPrice * 100,
-      email: data.email,
+      email: _data.email,
+      optionalTours: optionalVisits,
     }
     fetch('/api/checkout', {
       method: 'POST',
@@ -190,7 +209,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         loading={loading}
         addons={roomTypes + hotelChoice + optionalVisits}
       >
-        <Page1 errors={errors} control={control} payment={data.payment} />
+        <Page1 locale={locale} errors={errors} control={control} payment={data.payment} />
         <Page2
           addPassenger={() => setValue('adultMembers', getValues('adultMembers') + 1)}
           removePassenger={() => setValue('adultMembers', getValues('adultMembers') - 1)}

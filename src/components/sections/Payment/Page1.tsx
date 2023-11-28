@@ -1,8 +1,9 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import {
   Control,
   FieldErrors,
+  useController,
   UseFormGetValues,
   UseFormRegister,
   UseFormSetValue,
@@ -12,8 +13,8 @@ import ReactStars from 'react-stars'
 import LocaleContext, { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { PaymentSchema } from '@/pages/tours/[slug]/payment'
 import { urlFor } from '@/sanity/client'
-import { SanityTourPage } from '@/sanity/types'
-import { CaretDown, Check } from '@phosphor-icons/react'
+import { SanityLocale, SanityTourPage } from '@/sanity/types'
+import { CaretDown, CaretUp, Check } from '@phosphor-icons/react'
 
 import Input, { ERROR_MESSAGES } from '@/components/atoms/Input'
 
@@ -23,16 +24,18 @@ export interface IPaymentTourExtras {
   hotelChoice: string
   roomType: string
   sharingRoomWith: string
-  optionalVisits: any[]
+  optionalVisits: any
 }
 export default function Page1({
   payment,
   control,
   errors,
+  locale,
 }: {
   payment: SanityTourPage['payment']
   control: Control<any>
   errors: any
+  locale: SanityLocale
 }) {
   return (
     <div className="flex flex-col gap-7">
@@ -66,7 +69,7 @@ export default function Page1({
         control={control}
         room_sharing_options={payment?.room_sharing_options}
       />
-      <OptionalVisits control={control} data={payment?.extras} />
+      <OptionalVisits control={control} data={payment?.extras} locale={locale} />
       <HelpWithExtras />
     </div>
   )
@@ -188,72 +191,88 @@ const RomeType = ({
 const OptionalVisits = ({
   data,
   control,
+  locale,
 }: {
-  data: Exclude<SanityTourPage['payment'], undefined>['extras']
+  data: NonNullable<SanityTourPage['payment']>['extras']
   control: Control<any>
+  locale: SanityLocale
 }) => {
-  const cities = Array.from(new Set(data?.map((item) => localizedString(item.city_name))))
-  const Places = cities.map((city) => {
-    const cityTours = data?.filter((item) => localizedString(item.city_name) == city)
-    return { name: city, tours: cityTours }
-  })
-
+  const { field } = useController({ control, name: 'optionalVisits' })
+  const [viewMore, setViewMore] = useState<string>()
   return (
     <div className="bg-darkblue/[0.02] border border-darkblue/10 rounded-2xl overflow-hidden">
       <div className="py-2 bg-blue">
         <p className="text-center text-white font-bold text-xl">Hotel choosing</p>
       </div>
-      {Places.map((place, index) => (
-        <div key={index}>
-          <div className="flex justify-between items-center px-10 pt-10">
-            <p className="text-xl font-bold text-blue">{place?.name}</p>
-            <p className="text-base font-bold text-red">(1/3)</p>
-          </div>
-          <div className="px-10 flex flex-col divide-y divide-yellow">
-            {place.tours?.map((plan: any, index) => (
-              <div key={index} className="flex justify-between gap-2 py-[18px]">
-                <div className="flex gap-5">
-                  <div className="w-[120px] h-[84px] flex gap-2 border rounded border-blue items-center justify-center">
-                    <Image
-                      key={index}
-                      alt=""
-                      src={'/bed.svg'}
-                      height={24}
-                      width={24}
-                      className="object-cover object-center"
+      {data?.map((place, index) => {
+        const count = field.value?.[place._key]?.filter(Boolean).length || 0
+        return (
+          <div key={index}>
+            <div className="flex justify-between items-center px-10 pt-10">
+              <p className="text-xl font-bold text-blue">
+                {localizedString(place.city_name, locale)}
+              </p>
+              <p className="text-base font-bold text-red">
+                ({count}/{place.count})
+              </p>
+            </div>
+            <div className="px-10 flex flex-col divide-y divide-yellow">
+              {place.visits?.slice(0, viewMore === place._key ? 9999 : 2).map((plan, index) => (
+                <div key={index} className="flex justify-between gap-2 py-[18px]">
+                  <div className="flex gap-5">
+                    <div className="w-[120px] h-[84px] flex gap-2 border rounded border-blue items-center justify-center">
+                      {plan.image && (
+                        <Image
+                          key={index}
+                          alt={localizedString(plan.title)}
+                          src={urlFor(plan.image)}
+                          height={100}
+                          width={100}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <p className="font-bold text-darkblue text-xl">
+                        {localizedString(plan.title)}
+                      </p>
+                      <p className="text-sm font-medium text-gray">
+                        {localizedString(plan.description)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-[76px] flex flex-col justify-around items-center">
+                    <Input
+                      disabled={count >= (place.count || 0)}
+                      checkboxValue={plan._key}
+                      name={`optionalVisits.${place._key}.${index}`}
+                      type="checkbox"
+                      control={control}
                     />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <p className="font-bold text-darkblue text-xl">{localizedString(plan.title)}</p>
-                    <p className="text-sm font-medium text-gray">
-                      {localizedString(plan.description)}
-                    </p>
+                    {plan.price?.initial_price && (
+                      <p className="text-blue font-medium whitespace-nowrap">
+                        {localizedString(plan.price.currency_symbol)}{' '}
+                        {localizedNumber(plan.price?.initial_price)}
+                      </p>
+                    )}
                   </div>
                 </div>
-                <div className="w-[76px] flex flex-col justify-around items-center">
-                  <Input
-                    checkboxValue={plan._key}
-                    name={'optionalVisits.' + place.name}
-                    type="checkbox"
-                    control={control}
-                  />
-                  {plan.price?.initial_price && (
-                    <p className="text-blue font-medium whitespace-nowrap">
-                      {localizedString(plan.price.currency_symbol)}{' '}
-                      {localizedNumber(plan.price?.initial_price)}
-                    </p>
-                  )}
+              ))}
+              {(place.visits?.length || 0) > 2 && (
+                <div className="px-10 pb-7 pt-4">
+                  <button
+                    onClick={() => setViewMore((o) => (o === place._key ? undefined : place._key))}
+                    className="text-blue flex items-center gap-3 mx-auto font-bold"
+                  >
+                    View {viewMore === place._key ? 'Less' : 'More'}{' '}
+                    {viewMore === place._key ? <CaretUp /> : <CaretDown />}
+                  </button>
                 </div>
-              </div>
-            ))}
+              )}
+            </div>
           </div>
-        </div>
-      ))}
-      <div className="px-10 pb-7 pt-4">
-        <button className="text-blue flex items-center gap-3 mx-auto font-bold">
-          View More <CaretDown />
-        </button>
-      </div>
+        )
+      })}
     </div>
   )
 }

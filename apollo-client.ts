@@ -16,7 +16,9 @@ export function getSSRClient(id?: string) {
   })
 
   return new NextSSRApolloClient({
-    cache: new NextSSRInMemoryCache(),
+    cache: new NextSSRInMemoryCache({
+      addTypename: false,
+    }),
     link:
       typeof window === 'undefined'
         ? ApolloLink.from([
@@ -35,7 +37,9 @@ export const getClient = async (
   try {
     const _client = registerApolloClient(() => {
       return new ApolloClient({
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache({
+          addTypename: false,
+        }),
         link: new HttpLink({
           uri: process.env.NEXT_PUBLIC_GRAPHQL_BASE_URL,
           headers: {

@@ -111,5 +111,5 @@ const Login = ({ email }: { email?: string }) => {
 }
 export default Login
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  return { props: { email: query['email'] } }
+  return { props: { email: query['email'] || null } }
 }

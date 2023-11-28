@@ -43,8 +43,8 @@ export default function Page2({
 }: {
   control: Control<any>
   adultsNumber: number
-  addPassenger: () => void
-  removePassenger: () => void
+  addPassenger?: () => void
+  removePassenger?: () => void
 }) {
   return (
     <div className="md:p-10 md:rounded-2xl overflow-hidden md:border md:border-darkblue/10 flex flex-col gap-10">
@@ -169,12 +169,14 @@ export default function Page2({
         <div>
           <div className="mb-2 flex w-full justify-between items-end">
             <p className="text-2xl text-darkblue font-bold">{i + 2}. Adult Passenger Details</p>
-            <button
-              onClick={removePassenger}
-              className="font-bold text-base text-blue self-start mt-auto"
-            >
-              Remove
-            </button>
+            {removePassenger && (
+              <button
+                onClick={removePassenger}
+                className="font-bold text-base text-blue self-start mt-auto"
+              >
+                Remove
+              </button>
+            )}
           </div>
           <div className="flex flex-col gap-[18px] max-w-[390px]">
             <div className="flex flex-col gap-2">
@@ -238,9 +240,11 @@ export default function Page2({
           </div>
         </div>
       ))}
-      <button onClick={addPassenger} className="font-bold text-base text-blue self-start">
-        Add Passenger
-      </button>
+      {addPassenger && (
+        <button onClick={addPassenger} className="font-bold text-base text-blue self-start">
+          Add Passenger
+        </button>
+      )}
     </div>
   )
 }

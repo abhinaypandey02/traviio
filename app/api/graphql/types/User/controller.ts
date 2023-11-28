@@ -104,7 +104,7 @@ const MutationResolvers = {
 
 const TypeResolvers = {
   async bookings(parent: any) {
-    return BookingModel.find({ user: parent.email })
+    return BookingModel.find({ email: parent.email })
   },
 }
 

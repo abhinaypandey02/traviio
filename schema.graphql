@@ -7,10 +7,10 @@ schema {
 
 "Address broken down"
 type Address {
-    country: String
+    country: String!
     line1: String!
-    state: String
-    town: String!
+    state: String!
+    town: String
 }
 
 "Adult details in a booking"
@@ -26,14 +26,16 @@ type Adult {
 "Tour Booking"
 type Booking {
     _id: ID!
-    adults: [Adult]!
+    adults: [Adult!]!
     children: Int!
     email: String!
     from: String!
     guests: Int!
     hotelType: String!
-    optionalTours: [String!]
+    optionalTours: [OptionalTour!]
+    paid: Float!
     price: Float!
+    requests: [String!]
     roomType: String!
     status: Status!
     to: String!
@@ -47,7 +49,8 @@ type Mutation {
     "[Public] Get access token and refresh token after adding a new"
     addUser(user: AddUserInput!): Tokens
     "[Webhook only] Complete booking"
-    completeBooking(booking: String!, token: String!): Boolean
+    completeBooking(booking: String!, paid: Int!, token: String!): Boolean
+    updateBooking(booking: UpdateBookingInput!): String
     "[Authenticated] Update user details"
     updateUser(user: UpdateUserInput!): User
 }
@@ -58,6 +61,14 @@ type Name {
     firstName: String!
     lastName: String
     middleName: String
+}
+
+type OptionalTour {
+    cityID: String!
+    cityName: String!
+    price: Int!
+    visitID: String!
+    visitName: String!
 }
 
 type Query {
@@ -96,13 +107,13 @@ enum Status {
 
 "Arguments to add booking"
 input AddBookingInput {
-    adults: [AdultInput]!
+    adults: [AdultInput!]!
     children: Int!
     email: ID!
     from: String!
     guests: Int!
     hotelType: String!
-    optionalTours: [String!]
+    optionalTours: [OptionalTourInput!]
     price: Float!
     roomType: String!
     to: String!
@@ -118,10 +129,10 @@ input AddUserInput {
 
 "Address broken down"
 input AddressInput {
-    country: String
+    country: String!
     line1: String!
-    state: String
-    town: String!
+    state: String!
+    town: String
 }
 
 "Adult details in a booking"
@@ -140,6 +151,26 @@ input NameInput {
     firstName: String!
     lastName: String
     middleName: String
+}
+
+input OptionalTourInput {
+    cityID: String!
+    cityName: String!
+    price: Int!
+    visitID: String!
+    visitName: String!
+}
+
+"Arguments to update booking"
+input UpdateBookingInput {
+    adults: [AdultInput!]
+    children: Int
+    guests: Int
+    hotelType: String
+    id: ID!
+    optionalTours: [OptionalTourInput!]
+    requests: [String!]
+    roomType: String
 }
 
 "Arguments to update user"
