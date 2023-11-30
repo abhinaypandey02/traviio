@@ -658,9 +658,10 @@ export type SanityMemorableExperiencesSection = {
   tagline?: SanityLocaleString
   title?: SanityLocaleString
   experience_cards?: {
+    slug?: SanitySlug
     title?: SanityLocaleString
-    image?: SanityImage
-    description?: SanityLocaleText
+    image_hero?: { image: SanityImage }
+    tagline?: SanityLocaleText
   }[]
 }
 

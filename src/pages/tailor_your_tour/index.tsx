@@ -201,7 +201,6 @@ export default function TailorYourTour({
             locale={locale}
             selectedDestination={getValues('selectedDestination')}
             setSelectedDestination={(value: string) => {
-              console.log(value)
               setValue('selectedDestination', value, { shouldValidate: true })
             }}
           />

@@ -34,6 +34,23 @@ const MutationResolvers = {
     await MongooseModel.updateOne({ _id: booking }, { status: 'PAID', paid })
     return true
   },
+  async completeExtrasBooking(
+    _: any,
+    { booking, token }: { booking: string; token: string }
+  ): Promise<true | null> {
+    if (token !== process.env.BACKEND_SECRET) return null
+    const curr = await MongooseModel.findOne({ _id: booking })
+    await MongooseModel.updateOne(
+      { _id: booking },
+      {
+        $set: {
+          optionalTours: curr?.stagedOptionalTours,
+          stagedOptionalTours: [],
+        },
+      }
+    )
+    return true
+  },
 }
 
 const TypeResolvers = {

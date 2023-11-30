@@ -90,7 +90,6 @@ export default function UserProvider({ children }: PropsWithChildren) {
   async function refetch(t?: string) {
     const token = t || (await getAccessToken())
     if (token) {
-      console.log(token)
       setToken(token)
       const user = await getUser(token)
       setUser(user)

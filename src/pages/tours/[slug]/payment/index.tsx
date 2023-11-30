@@ -50,7 +50,6 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
       childrenMembers: 0,
     },
   })
-  console.log(watch('optionalVisits'))
 
   const [optionalVisits, setOptionalVisits] = useState(0)
   const [roomTypes, setRoomTypes] = useState(0)

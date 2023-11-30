@@ -4,6 +4,7 @@ import {
   Control,
   FieldErrors,
   useController,
+  useForm,
   UseFormGetValues,
   UseFormRegister,
   UseFormSetValue,
@@ -17,6 +18,8 @@ import { SanityLocale, SanityTourPage } from '@/sanity/types'
 import { CaretDown, CaretUp, Check } from '@phosphor-icons/react'
 
 import Input, { ERROR_MESSAGES } from '@/components/atoms/Input'
+
+import { BookingsQuery } from '../../../../__generated__/graphql'
 
 export interface IPaymentTourExtras {
   adultMembers: number
@@ -188,17 +191,50 @@ const RomeType = ({
   )
 }
 
-const OptionalVisits = ({
+export const OptionalVisits = ({
   data,
   control,
   locale,
+  defaultValues,
 }: {
   data: NonNullable<SanityTourPage['payment']>['extras']
   control: Control<any>
   locale: SanityLocale
+  defaultValues?: NonNullable<
+    NonNullable<BookingsQuery['user']>['bookings']
+  >[number]['optionalTours']
 }) => {
   const { field } = useController({ control, name: 'optionalVisits' })
+  const { control: localControl, watch } = useForm()
   const [viewMore, setViewMore] = useState<string>()
+  const [fixed, setFixed] = useState<Set<string>>(new Set())
+  console.log(fixed)
+  useEffect(() => {
+    const sub = watch((val, info) => {
+      field.onChange(val['optionalVisits'])
+    })
+    return sub.unsubscribe
+  }, [])
+  useEffect(() => {
+    if (!defaultValues) return
+    const hashmap: Record<string, Set<string>> = {}
+    defaultValues?.forEach((val) => {
+      if (hashmap[val.cityID]) hashmap[val.cityID].add(val.visitID)
+      else hashmap[val.cityID] = new Set([val.visitID])
+      setFixed((o) => {
+        o.add(val.cityID + val.visitID)
+        return o
+      })
+    })
+    const newVal: Record<string, Array<string | undefined>> = {}
+    data?.forEach((city) => {
+      if (city.visits)
+        newVal[city._key] = city.visits.map((visitID) =>
+          hashmap[city._key].has(visitID._key) ? visitID._key : undefined
+        )
+    })
+    field.onChange(newVal)
+  }, [data, defaultValues])
   return (
     <div className="bg-darkblue/[0.02] border border-darkblue/10 rounded-2xl overflow-hidden">
       <div className="py-2 bg-blue">
@@ -207,7 +243,7 @@ const OptionalVisits = ({
       {data?.map((place, index) => {
         const count = field.value?.[place._key]?.filter(Boolean).length || 0
         return (
-          <div key={index}>
+          <div key={place._key}>
             <div className="flex justify-between items-center px-10 pt-10">
               <p className="text-xl font-bold text-blue">
                 {localizedString(place.city_name, locale)}
@@ -218,7 +254,7 @@ const OptionalVisits = ({
             </div>
             <div className="px-10 flex flex-col divide-y divide-yellow">
               {place.visits?.slice(0, viewMore === place._key ? 9999 : 2).map((plan, index) => (
-                <div key={index} className="flex justify-between gap-2 py-[18px]">
+                <div key={place._key + plan._key} className="flex justify-between gap-2 py-[18px]">
                   <div className="flex gap-5">
                     <div className="w-[120px] h-[84px] flex gap-2 border rounded border-blue items-center justify-center">
                       {plan.image && (
@@ -243,16 +279,18 @@ const OptionalVisits = ({
                   </div>
                   <div className="w-[76px] flex flex-col justify-around items-center">
                     <Input
+                      defaultValue={field.value?.[place._key]?.[index]}
                       disabled={count >= (place.count || 0)}
+                      editable={!fixed.has(place._key + plan._key)}
                       checkboxValue={plan._key}
                       name={`optionalVisits.${place._key}.${index}`}
                       type="checkbox"
-                      control={control}
+                      control={localControl}
                     />
                     {plan.price?.initial_price && (
                       <p className="text-blue font-medium whitespace-nowrap">
                         {localizedString(plan.price.currency_symbol)}{' '}
-                        {localizedNumber(plan.price?.initial_price)}
+                        {localizedNumber(plan.price?.discounted_price)}
                       </p>
                     )}
                   </div>

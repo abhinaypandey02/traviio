@@ -23,6 +23,7 @@ export interface UpdateBookingInput {
     adults?: IAdult[]
     hotelType?: string
     roomType?: string
+    stagedOptionalTours?: OptionalTour[]
     optionalTours?: OptionalTour[]
     requests?: string[]
   }
@@ -65,6 +66,7 @@ export interface IMongoose {
   hotelType: string
   roomType: string
   optionalTours: OptionalTour[]
+  stagedOptionalTours: OptionalTour[]
   status: string
   email: string
   requests: string[]

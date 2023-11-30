@@ -6,7 +6,40 @@ import { useForm } from 'react-hook-form'
 
 import Input from '@/components/atoms/Input'
 import OptionSelectButton from '@/components/atoms/OptionSelectButton'
-
+export function PaymentMethod({
+  paymentMethod,
+  setPaymentMethod,
+}: {
+  paymentMethod: string
+  setPaymentMethod: (x: 'stripe' | 'paypal' | 'bank') => any
+}) {
+  return (
+    <div className="flex flex-col gap-5">
+      <p className="text-2xl text-darkblue font-bold">Payment methods</p>
+      <div
+        className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
+        onClick={() => setPaymentMethod('stripe')}
+      >
+        <OptionSelectButton value={paymentMethod === 'stripe'} />
+        <p>Credit Card</p>
+      </div>
+      <div
+        className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
+        onClick={() => setPaymentMethod('paypal')}
+      >
+        <OptionSelectButton value={paymentMethod === 'paypal'} />
+        <p>PayPal</p>
+      </div>
+      <div
+        className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
+        onClick={() => setPaymentMethod('bank')}
+      >
+        <OptionSelectButton value={paymentMethod === 'bank'} />
+        <p>Bank Transfer</p>
+      </div>
+    </div>
+  )
+}
 export default function Page3({
   totalPrice,
   toggleBookOnly,
@@ -113,30 +146,7 @@ export default function Page3({
           })}
         </div>
       </div>
-      <div className="flex flex-col gap-5">
-        <p className="text-2xl text-darkblue font-bold">Payment methods</p>
-        <div
-          className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
-          onClick={() => setPaymentMethod('stripe')}
-        >
-          <OptionSelectButton value={paymentMethod === 'stripe'} />
-          <p>Credit Card</p>
-        </div>
-        <div
-          className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
-          onClick={() => setPaymentMethod('paypal')}
-        >
-          <OptionSelectButton value={paymentMethod === 'paypal'} />
-          <p>PayPal</p>
-        </div>
-        <div
-          className="flex items-center text-base text-darkblue font-medium gap-2 cursor-pointer"
-          onClick={() => setPaymentMethod('bank')}
-        >
-          <OptionSelectButton value={paymentMethod === 'bank'} />
-          <p>Bank Transfer</p>
-        </div>
-      </div>
+      <PaymentMethod paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
       {/*<div className="flex flex-col gap-5">*/}
       {/*  <p className="text-2xl text-darkblue font-bold">Payment options</p>*/}
       {/*  <div className="flex flex-col gap-4">*/}

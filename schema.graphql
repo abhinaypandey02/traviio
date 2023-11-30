@@ -37,6 +37,7 @@ type Booking {
     price: Float!
     requests: [String!]
     roomType: String!
+    stagedOptionalTours: [OptionalTour!]
     status: Status!
     to: String!
     tour: ID!
@@ -50,6 +51,7 @@ type Mutation {
     addUser(user: AddUserInput!): Tokens
     "[Webhook only] Complete booking"
     completeBooking(booking: String!, paid: Int!, token: String!): Boolean
+    completeExtrasBooking(booking: String!, token: String!): Boolean
     updateBooking(booking: UpdateBookingInput!): String
     "[Authenticated] Update user details"
     updateUser(user: UpdateUserInput!): User
@@ -168,9 +170,9 @@ input UpdateBookingInput {
     guests: Int
     hotelType: String
     id: ID!
-    optionalTours: [OptionalTourInput!]
     requests: [String!]
     roomType: String
+    stagedOptionalTours: [OptionalTourInput!]
 }
 
 "Arguments to update user"

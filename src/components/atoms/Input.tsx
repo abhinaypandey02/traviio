@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Control, RegisterOptions, useController } from 'react-hook-form'
 
 import { Check, Minus, Plus } from '@phosphor-icons/react'
@@ -24,6 +24,8 @@ interface Props {
   checkboxValue?: any
   rules?: RegisterOptions
   disabled?: boolean
+  editable?: boolean
+  defaultValue?: any
 }
 
 const VARIANT = {
@@ -53,14 +55,19 @@ export default function Input({
   checkboxValue,
   disabled,
   rules,
+  defaultValue,
+  editable = true,
 }: Props) {
   const {
     field,
     fieldState: { error },
-  } = useController({ control, name, rules })
+  } = useController({ control, name, rules, defaultValue })
   const errorMsg = error?.type
     ? ERROR_MESSAGES[error.type as keyof typeof ERROR_MESSAGES] || error.message || 'Error'
     : undefined
+  useEffect(() => {
+    field.onChange(defaultValue)
+  }, [defaultValue])
   if (type == 'buttonNumber')
     return (
       <div className={`flex font-medium text-base text-black flex-col gap-2 ${className}`}>
@@ -138,7 +145,9 @@ export default function Input({
       <div
         className={`h-6 w-6 flex justify-center items-center rounded-lg border ${
           field.value === checkboxValue
-            ? 'bg-blue border-blue'
+            ? !editable
+              ? 'bg-gray cursor-not-allowed '
+              : 'bg-blue border-blue'
             : errorMsg
             ? 'bg-white border-red'
             : disabled
@@ -146,6 +155,7 @@ export default function Input({
             : 'bg-white  border-gray'
         }`}
         onClick={() => {
+          if (!editable) return
           if (field.value === checkboxValue) field.onChange(undefined)
           else if (!disabled) field.onChange(checkboxValue)
         }}

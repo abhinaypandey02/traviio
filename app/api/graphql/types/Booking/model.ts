@@ -12,6 +12,7 @@ const GraphqlMutation = `
   updateBooking(booking:UpdateBookingInput!): String
   "[Webhook only] Complete booking"
   completeBooking(booking:String!, token:String!, paid:Int!): Boolean
+  completeExtrasBooking(booking:String!, token:String!): Boolean
 `
 const GraphqlType = `
   #graphql
@@ -88,7 +89,7 @@ const GraphqlType = `
       guests:Int
       hotelType:String
       roomType:String
-      optionalTours:[OptionalTourInput!]
+      stagedOptionalTours:[OptionalTourInput!]
       requests:[String!]
   }
   input OptionalTourInput{
@@ -119,6 +120,7 @@ const GraphqlType = `
     hotelType:String!
     roomType:String!
     optionalTours:[OptionalTour!]
+    stagedOptionalTours:[OptionalTour!]
     status:Status!
     user:User
     email:String!  
@@ -161,6 +163,15 @@ export const MongooseSchema = new Schema<IMongoose>(
       required: true,
     },
     optionalTours: [
+      {
+        cityID: String,
+        visitID: String,
+        cityName: String,
+        visitName: String,
+        price: Number,
+      },
+    ],
+    stagedOptionalTours: [
       {
         cityID: String,
         visitID: String,

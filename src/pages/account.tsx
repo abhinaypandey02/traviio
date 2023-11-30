@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import ReactStars from 'react-stars'
 
-import { localizedString } from '@/contexts/LocaleProvider'
+import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { useUser } from '@/contexts/UserProvider'
 import client, { urlFor } from '@/sanity/client'
 import { SanityGlobals, SanityLocale, SanityTourPage } from '@/sanity/types'
@@ -17,7 +17,9 @@ import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
 import Layout from '@/components/layout'
 import { TourSectionsMap } from '@/components/sections'
+import { OptionalVisits } from '@/components/sections/Payment/Page1'
 import Page2 from '@/components/sections/Payment/Page2'
+import { PaymentMethod } from '@/components/sections/Payment/Page3'
 import TourHeroSection from '@/components/sections/Tours/TourHeroSection'
 
 import TabSelector from '@/components/atoms/Selector'
@@ -221,6 +223,12 @@ const Account = (props: PageProps) => {
   const [booking, setBooking] = useState<Booking>()
   const [bookingTour, setBookingTour] = useState<SanityTourPage>()
   const router = useRouter()
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'bank'>('stripe')
+  const { control, watch, getValues } = useForm<{ optionalVisits: Record<string, string[]> }>({
+    defaultValues: {
+      optionalVisits: {},
+    },
+  })
   const fetchUpcomingTour = useCallback(async () => {
     if (token) {
       const client = getReactClient(token)
@@ -235,6 +243,10 @@ const Account = (props: PageProps) => {
                 requests
                 from
                 to
+                optionalTours {
+                  cityID
+                  visitID
+                }
                 _id
                 adults {
                   name {
@@ -273,6 +285,47 @@ const Account = (props: PageProps) => {
   useEffect(() => {
     void fetchUpcomingTour()
   }, [fetchUpcomingTour])
+
+  let newPrice = 0
+  const op: Record<string, Array<string>> = watch('optionalVisits')
+  bookingTour?.payment?.extras?.forEach(
+    (city) =>
+      city.visits?.forEach((visit, i) => {
+        if (
+          op[city._key]?.[i] &&
+          booking?.optionalTours?.findIndex(
+            (x) => x.cityID === city._key && x.visitID === visit._key
+          ) === -1
+        ) {
+          newPrice += localizedNumber(visit.price?.discounted_price, props.locale)
+        }
+      })
+  )
+  function pay() {
+    const optionalInputData = getValues('optionalVisits')
+    const optionalVisits = Object.keys(optionalInputData).flatMap((cityID) => {
+      const city = bookingTour?.payment?.extras?.find((city) => city._key === cityID)
+      return optionalInputData?.[cityID].filter(Boolean).map((visitID: string) => {
+        const visit = city?.visits?.find((visit) => visit._key === visitID)
+        return {
+          cityID,
+          visitID,
+          cityName: localizedString(city?.city_name, props.locale),
+          visitName: localizedString(visit?.title, props.locale),
+          price: localizedNumber(visit?.price?.discounted_price, props.locale),
+        }
+      })
+    })
+    fetch('/api/extras-checkout', {
+      method: 'POST',
+      body: JSON.stringify({
+        stagedOptionalTours: optionalVisits,
+        id: booking?._id,
+      }),
+    }).then(async (res) => {
+      router.replace(await res.text())
+    })
+  }
   if (user === null) router.push('/login')
   if (user) {
     return (
@@ -360,6 +413,21 @@ const Account = (props: PageProps) => {
             <AccountTab bookingTour={bookingTour} booking={booking} locale={props.locale} />,
             <Payment bookingTour={bookingTour} booking={booking} locale={props.locale} />,
           ][selected]}
+        <Container>
+          {watch('optionalVisits') && (
+            <OptionalVisits
+              defaultValues={booking?.optionalTours}
+              data={bookingTour?.payment?.extras}
+              control={control}
+              locale={props.locale}
+            />
+          )}
+          <div>
+            You have selected ${newPrice}
+            <PaymentMethod paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
+          </div>
+          <button onClick={pay}>Pay</button>
+        </Container>
         <button
           onClick={() => {
             logout().then(() => {

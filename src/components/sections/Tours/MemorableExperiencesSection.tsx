@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { A11y, Controller, Navigation, Pagination, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -32,7 +33,6 @@ export default function MemorableExperiencesSection({
       swiper.navigation && swiper.navigation.update()
     }
   }, [swiper])
-
   return (
     <div className="flex flex-col gap-12 mb-16">
       <div className="flex gap-3 flex-col justify-center w-fit mx-auto items-center">
@@ -50,7 +50,7 @@ export default function MemorableExperiencesSection({
         <Container className="flex flex-col py-7 relative">
           <Swiper
             modules={[Navigation, Scrollbar, A11y, Controller]}
-            className="external-buttons mySwiper "
+            className="external-buttons mySwiper w-full"
             breakpoints={{
               0: {
                 slidesPerView: 1,
@@ -112,14 +112,21 @@ const Card = ({
 }) => {
   if (!data) return null
   return (
-    <div className="w-full min-h-[400px] min-w-[300px] rounded-2xl overflow-hidden bg-white shadow-md m-1">
-      <div className="h-[220px] relative">
-        <Image alt="" src={data.image ? urlFor(data.image) : ''} fill className="object-cover" />
+    <Link href={'/wiki' + data.slug?.current}>
+      <div className="w-full min-w-[300px] rounded-2xl overflow-hidden bg-white shadow-md m-1">
+        <div className="h-[220px] relative">
+          <Image
+            alt=""
+            src={data.image_hero?.image ? urlFor(data.image_hero?.image) : ''}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="p-4 flex flex-col gap-1">
+          <p className="font-bold text-xl text-darkblue">{data.title?.en}</p>
+          <p className="font-medium text-sm text-gray">{data.tagline?.en}</p>
+        </div>
       </div>
-      <div className="p-4 flex flex-col gap-1">
-        <p className="font-bold text-xl text-darkblue">{data.title?.en}</p>
-        <p className="font-medium text-sm text-gray">{data.description?.en}</p>
-      </div>
-    </div>
+    </Link>
   )
 }

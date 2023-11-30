@@ -27,7 +27,6 @@ function HeaderLink({
       document.body.classList.remove('overflow-hidden')
     }
   }, [open])
-  console.log(router.asPath, item)
   return (
     <>
       {item?._type === 'link' && (
