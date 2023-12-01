@@ -208,7 +208,6 @@ export const OptionalVisits = ({
   const { control: localControl, watch } = useForm()
   const [viewMore, setViewMore] = useState<string>()
   const [fixed, setFixed] = useState<Set<string>>(new Set())
-  console.log(fixed)
   useEffect(() => {
     const sub = watch((val, info) => {
       field.onChange(val['optionalVisits'])

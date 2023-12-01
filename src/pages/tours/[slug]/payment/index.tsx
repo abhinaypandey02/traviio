@@ -78,7 +78,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
             (acc, extra) =>
               acc +
               (value['roomType'] === localizedString(extra?.title)
-                ? localizedNumber(extra.price?.initial_price)
+                ? localizedNumber(extra.price?.discounted_price)
                 : 0),
             0
           ) || 0
@@ -90,7 +90,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
             (acc, extra) =>
               acc +
               (value['hotelChoice'] === localizedString(extra?.title)
-                ? localizedNumber(extra.price?.initial_price)
+                ? localizedNumber(extra.price?.discounted_price)
                 : 0),
             0
           ) || 0

@@ -66,7 +66,7 @@ export default function Input({
     ? ERROR_MESSAGES[error.type as keyof typeof ERROR_MESSAGES] || error.message || 'Error'
     : undefined
   useEffect(() => {
-    field.onChange(defaultValue)
+    if (defaultValue) field.onChange(defaultValue)
   }, [defaultValue])
   if (type == 'buttonNumber')
     return (
