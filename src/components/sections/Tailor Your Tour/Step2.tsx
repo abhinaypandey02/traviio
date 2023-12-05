@@ -42,7 +42,7 @@ export default function Step2({
   }, [mobileNumber, setValue])
 
   return (
-    <div className="grid lg:grid-cols-2 gap-[18px] px-12">
+    <div className="grid lg:grid-cols-2 grid-cols-1 gap-[18px] px-3 lg:px-12">
       <Input name="name" label="Name*" type="text" control={control} />
       <Input name="email" label="Email*" type="text" control={control} />
       <Input
@@ -56,7 +56,7 @@ export default function Step2({
       />
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         <label htmlFor="mobileNumber">Mobile</label>
-        <div className="grid grid-cols-[120px_1fr] gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-[120px_1fr] gap-3">
           <Input
             name="mobileCode"
             rules={{ required: true }}
@@ -72,7 +72,7 @@ export default function Step2({
       </div>
       <div className="flex flex-col gap-2">
         <p className="font-medium text-base text-black">Number of People*</p>
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <Input name="numberOfAdults" placeholder="Adults" type="buttonNumber" control={control} />
           <Input
             name="numberOfChildrens"

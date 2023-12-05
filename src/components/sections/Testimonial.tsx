@@ -51,7 +51,7 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
             height={73}
             alt=""
             style={{ borderRadius: '10px' }}
-            className={'my-[30px] md:mt-[38px] md:p h-[160px] md:h-full w-full '}
+            className={'my-[30px] object-cover md:mt-[38px] md:p h-[160px] md:h-full w-full '}
           />
         </div>
         <div className="overflow-x-none md:overflow-hidden nlg:block h-full  pb-11 md:pb-0 ">

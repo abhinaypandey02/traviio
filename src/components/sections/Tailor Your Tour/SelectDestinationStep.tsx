@@ -18,7 +18,7 @@ export default function SelectDestinationStep({
   locale: any
 }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
+    <div className="grid grid-cols-2 px-3 md:grid-cols-3 lg:grid-cols-4 gap-7">
       {destinations.map((d: any, ind: any) => (
         <div
           key={ind}

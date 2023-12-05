@@ -27,6 +27,7 @@ function HeaderLink({
       document.body.classList.remove('overflow-hidden')
     }
   }, [open])
+
   return (
     <>
       {item?._type === 'link' && (
@@ -41,7 +42,7 @@ function HeaderLink({
       )}
       {item?._type === 'tour_dropdown' && (
         <>
-          <div className={'flex items-center'}>
+          <div className={'hidden lg:flex items-center'}>
             <span className="flex items-center cursor-pointer" onClick={() => setOpen(!open)}>
               <p className={'font-medium'}>Destinations</p>
               <Image
@@ -55,8 +56,8 @@ function HeaderLink({
 
             <div
               className={
-                'w-full h-fit overflow-scroll bg-primary transition-all shadow-md absolute top-[100%] left-0 lg:top-[100px] -z-[1]' +
-                (open ? '' : ' -translate-y-[100%]')
+                'w-full h-fit  overflow-scroll bg-white transition-all shadow-md absolute top-[100%] left-0 lg:top-[100px] -z-[1]' +
+                (open ? ' translate-y-2' : ' -translate-y-[100%]')
               }
               onClick={() => setOpen(false)}
             >
@@ -73,7 +74,7 @@ function HeaderLink({
                     selectedItemToggle={setDest}
                   />
                   <div className="flex flex-col gap-3">
-                    <p className="font-semibold mb-2">{localizedString(item.tours_title)}</p>
+                    <p className="font-semibold  mb-2">{localizedString(item.tours_title)}</p>
                     {(item.destinations as any[])
                       ?.filter((item, index) => {
                         return index === dest

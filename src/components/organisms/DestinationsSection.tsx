@@ -51,7 +51,7 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
     <Container className={'mb-[50px] md:mb-[80px]'}>
       <div>
         <header>
-          <p className="text-blue text-xs  md:text-base font-medium uppercase leading-tight md:leading-normal ">
+          <p className="text-blue  text-xs  md:text-base font-medium uppercase leading-tight md:leading-normal ">
             <LocalizedString text={data.tagline} />
           </p>
 
@@ -62,6 +62,7 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
             <hr className="w-[85px] md:w-1/3 text-yellow  bg-yellow mt-[9px] rounded-full border-t border-b-2" />
           </div>
         </header>
+
         <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 md:gap-7 mt-[30px] md:mt-12">
           {validDestinations.map((destination, idx) => (
             <DestinationCard

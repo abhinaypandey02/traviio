@@ -61,7 +61,7 @@ const FAQSection = ({ data, locale }: PropsWithLocale<FAQSectionProps>) => {
 
             <div
               className={`${open === index ? '' : 'hidden'} ml-10 max-w-[90%] text-gray
-              text-xs md:text-base font-normal leading-normal md:leading-tight
+              text-xs lg:text-base font-normal leading-normal md:leading-tight
               `}
             >
               <p>{localizedString(faq?.answer, locale)}</p>

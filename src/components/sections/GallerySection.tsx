@@ -38,7 +38,10 @@ const TourGallerySection = (props: GallerySectionProps) => {
     <div className="pt-5 md:pt-10 bg-[#F2FAFF] min-h-[482px] md:min-h-[522px] text-black">
       <Container>
         {/* <div className="w-[335px] text-center text-slate-900 text-2xl font-bold font-['Satoshi Variable'] leading-loose">Small Group Travel & Authentic Local Experiences</div> */}
-        <h2 className="text-[24px] md:text-[40px] leading-[32px]  md:leading-tight -tracking-[1.2px] font-bold text-center">
+        <h2
+          id="triphighlights"
+          className="text-[24px] md:text-[40px] leading-[32px]  md:leading-tight -tracking-[1.2px] font-bold text-center"
+        >
           {title?.en}
         </h2>
         {/* <div className="w-[335px] text-center"><span style="text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-normal">Over </span><span style="text-sky-400 text-sm font-medium font-['Satoshi Variable'] leading-normal">200,000 Satisfied Travelers</span><span style="text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-normal"> in 20 years of travel excellence with our local tour operator</span></div> */}

@@ -83,8 +83,8 @@ const InfoSection = ({ data }: any) => {
       </div> */}
 
       {/* <hr className='py-5 text-gray opacity-40' /> */}
-      <div className="flex gap-x-20 px-20 justify-between">
-        <div className="w-1/5 flex flex-col gap-y-2">
+      <div className="lg:flex lg:flex-row  lg:gap-x-20 px-5 lg:px-20 justify-between">
+        <div className="lg:w-1/5 w-full flex flex-col gap-y-2">
           {data?.map((item: any, index: any) => {
             return (
               <a
@@ -107,7 +107,7 @@ const InfoSection = ({ data }: any) => {
           })}
         </div>
 
-        <div className="w-2/3">
+        <div className="lg:w-2/3 mt-20 lg:mt-0 w-full">
           {data?.map((item: any, index: any) => {
             return (
               <div key={index} id={item.title?.en} className="mb-10">

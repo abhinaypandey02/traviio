@@ -90,12 +90,12 @@ function BestToursSection({
         </h2>
       </div>
 
-      <div className=" grid  md:grid-cols-4 grid-cols-1 gap-5">
-        <div className="h-full ">
-          <FilterDropdown items={[]} />
+      <div className=" grid  w-full  md:grid-cols-4 grid-cols-1 lg:gap-5 ">
+        <div className="h-full w-full ">
+          <FilterDropdown items={[{ title: 'DFestination', link: '/' }]} />
         </div>
         <BestTours
-          className="col-span-3"
+          className="col-span-3 mt-12 lg:mt-0"
           numberOfTours={pageData.length}
           destination="Egypt"
           tags={tags as SanityTag[]}
