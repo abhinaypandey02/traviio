@@ -15,12 +15,18 @@ type Address {
 
 "Adult details in a booking"
 type Adult {
+    additionalInformation: String
+    additionalTravellers: [String]
     address: Address
     dob: String!
     email: String!
     name: Name!
     nationality: String
-    phone: String
+    passportCopy: String
+    passportExpiry: String
+    passportNumber: String
+    phone: Phone
+    travelInsuranceCopy: String
 }
 
 "Tour Booking"
@@ -71,6 +77,11 @@ type OptionalTour {
     price: Int!
     visitID: String!
     visitName: String!
+}
+
+type Phone {
+    code: String!
+    number: String!
 }
 
 type Query {
@@ -144,7 +155,7 @@ input AdultInput {
     email: String!
     name: NameInput!
     nationality: String
-    phone: String
+    phone: PhoneInput
 }
 
 "Name broken down"
@@ -161,6 +172,11 @@ input OptionalTourInput {
     price: Int!
     visitID: String!
     visitName: String!
+}
+
+input PhoneInput {
+    code: String!
+    number: String!
 }
 
 "Arguments to update booking"

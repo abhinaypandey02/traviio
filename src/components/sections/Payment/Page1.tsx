@@ -51,7 +51,7 @@ export default function Page1({
             placeholder="Adults (+ 12 year)"
             type="buttonNumber"
             variant="secondary"
-            rules={{ required: true }}
+            rules={{ required: true, min: 1 }}
           />
           <Input
             name="childrenMembers"

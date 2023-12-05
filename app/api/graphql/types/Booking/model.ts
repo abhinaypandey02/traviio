@@ -49,14 +49,28 @@ const GraphqlType = `
       state:String!
       country:String!
   }
+  type Phone{
+      code:String!
+      number:String!
+  }
+  input PhoneInput{
+      code:String!
+      number:String!
+  }
   "Adult details in a booking"
   type Adult{
       name:Name!
       dob:String!
       nationality:String
       email:String!
-      phone:String
+      phone:Phone
       address:Address
+      passportNumber: String
+      passportExpiry: String
+      additionalInformation: String
+      additionalTravellers: [String]
+      passportCopy: String
+      travelInsuranceCopy: String
   }
   "Adult details in a booking"
   input AdultInput{
@@ -64,8 +78,15 @@ const GraphqlType = `
       dob:String!
       nationality:String
       email:String!
-      phone:String
+      phone:PhoneInput
       address:AddressInput
+
+      passportNumber: String
+      passportExpiry: String
+      additionalInformation: String
+      additionalTravellers: [String]
+      passportCopy: String
+      travelInsuranceCopy: String
   }
   "Arguments to add booking"
   input AddBookingInput{
@@ -241,7 +262,16 @@ export const MongooseSchema = new Schema<IMongoose>(
             type: String,
             required: true,
           },
-          phone: String,
+          phone: {
+            code: String,
+            number: String,
+          },
+          passportNumber: String,
+          passportExpiry: Schema.Types.Date,
+          additionalInformation: String,
+          additionalTravellers: [String],
+          passportCopy: String,
+          travelInsuranceCopy: String,
         },
       },
     ],

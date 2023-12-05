@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { PropsWithChildren, useCallback, useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,6 +10,7 @@ import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { useUser } from '@/contexts/UserProvider'
 import client, { urlFor } from '@/sanity/client'
 import { SanityGlobals, SanityLocale, SanityTourPage } from '@/sanity/types'
+import countries from '@/utils/countries.json'
 import { LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
@@ -22,6 +23,7 @@ import Page2 from '@/components/sections/Payment/Page2'
 import { PaymentMethod } from '@/components/sections/Payment/Page3'
 import TourHeroSection from '@/components/sections/Tours/TourHeroSection'
 
+import Input from '@/components/atoms/Input'
 import TabSelector from '@/components/atoms/Selector'
 
 import { gql } from '../../__generated__'
@@ -139,8 +141,56 @@ function TripInformation({
 }: {
   bookingTour: SanityTourPage
   booking: Booking
-  locale: string
+  locale: SanityLocale
 }) {
+  const { control, watch, getValues } = useForm<{ optionalVisits: Record<string, string[]> }>({
+    defaultValues: {
+      optionalVisits: {},
+    },
+  })
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'bank'>('stripe')
+  const router = useRouter()
+
+  let newPrice = 0
+  const op: Record<string, Array<string>> = watch('optionalVisits')
+  bookingTour?.payment?.extras?.forEach(
+    (city) =>
+      city.visits?.forEach((visit, i) => {
+        if (
+          op[city._key]?.[i] &&
+          booking?.optionalTours?.findIndex(
+            (x) => x.cityID === city._key && x.visitID === visit._key
+          ) === -1
+        ) {
+          newPrice += localizedNumber(visit.price?.discounted_price, locale)
+        }
+      })
+  )
+  function pay() {
+    const optionalInputData = getValues('optionalVisits')
+    const optionalVisits = Object.keys(optionalInputData).flatMap((cityID) => {
+      const city = bookingTour?.payment?.extras?.find((city) => city._key === cityID)
+      return optionalInputData?.[cityID].filter(Boolean).map((visitID: string) => {
+        const visit = city?.visits?.find((visit) => visit._key === visitID)
+        return {
+          cityID,
+          visitID,
+          cityName: localizedString(city?.city_name, locale),
+          visitName: localizedString(visit?.title, locale),
+          price: localizedNumber(visit?.price?.discounted_price, locale),
+        }
+      })
+    })
+    fetch('/api/extras-checkout', {
+      method: 'POST',
+      body: JSON.stringify({
+        stagedOptionalTours: optionalVisits,
+        id: booking?._id,
+      }),
+    }).then(async (res) => {
+      router.replace(await res.text())
+    })
+  }
   return (
     <div>
       {bookingTour?.sections
@@ -166,6 +216,93 @@ function TripInformation({
           )
         })}
       <RequestForm booking={booking} />
+      <Container>
+        {watch('optionalVisits') && (
+          <OptionalVisits
+            defaultValues={booking?.optionalTours}
+            data={bookingTour?.payment?.extras}
+            control={control}
+            locale={locale}
+          />
+        )}
+        <div>
+          You have selected ${newPrice}
+          <PaymentMethod paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
+        </div>
+        <button onClick={pay}>Pay</button>
+      </Container>
+    </div>
+  )
+}
+function SidebarBox({ children }: PropsWithChildren) {
+  return <div className={'bg-light-blue rounded-2xl p-9 border border-darkblue/10'}>{children}</div>
+}
+function SidebarTitles({ title, subtitle }: { title: string; subtitle: string }) {
+  return (
+    <div>
+      <h4 className={'text-sm text-gray mb-1'}>{title}</h4>
+      <h4 className={'font-medium text-darkblue'}>{subtitle}</h4>
+    </div>
+  )
+}
+function Sidebar({
+  bookingTour,
+  booking,
+  locale,
+}: {
+  bookingTour: SanityTourPage
+  booking: Booking
+  locale: SanityLocale
+}) {
+  return (
+    <div className={'flex flex-col gap-7 min-w-max'}>
+      <SidebarBox>
+        <h3 className={'text-2xl font-bold'}>Tour details</h3>
+        <hr className={'border-yellow mt-2 border-[2px] w-20 mb-4'} />
+        <div className={'grid grid-cols-2 gap-y-4 gap-x-12'}>
+          <div className={'col-span-2'}>
+            <SidebarTitles
+              title={'Name'}
+              subtitle={localizedString(bookingTour.hero_section?.title, locale)}
+            />
+          </div>
+          <SidebarTitles
+            title={'Trip start'}
+            subtitle={new Date(parseInt(booking.from)).toDateString()}
+          />
+          <SidebarTitles
+            title={'Trip end'}
+            subtitle={new Date(parseInt(booking.to)).toDateString()}
+          />
+          <SidebarTitles
+            title={'Countries'}
+            subtitle={`${bookingTour.overview_card?.countries} Countries`}
+          />
+          <SidebarTitles title={'City'} subtitle={`${bookingTour.overview_card?.cities} cities`} />
+        </div>
+      </SidebarBox>
+      <SidebarBox>
+        <div className={'flex justify-between items-center mb-3 text-gray font-medium'}>
+          <span>Tour Package</span>
+          <span>
+            {booking.adults.length} x ${(booking.price / booking.adults.length).toLocaleString()}
+          </span>
+        </div>
+        <div className={'flex justify-between items-center mb-3 text-gray font-medium'}>
+          <span>Total</span>
+          <span>${booking.price.toLocaleString()}</span>
+        </div>
+        <div className={'flex justify-between items-center text-gray font-medium'}>
+          <span>Total paid</span>
+          <span className={'text-blue'}>-${booking.paid.toLocaleString()}</span>
+        </div>
+        <hr className={'my-4 border-yellow'} />
+
+        <div className={'flex justify-between items-center font-bold'}>
+          <span>Total Remaining</span>
+          <span>${(booking.price - booking.paid).toLocaleString()}</span>
+        </div>
+      </SidebarBox>
     </div>
   )
 }
@@ -176,13 +313,320 @@ function PersonalInformation({
 }: {
   bookingTour: SanityTourPage
   booking: Booking
-  locale: string
+  locale: SanityLocale
 }) {
-  const { control } = useForm()
+  const { token } = useUser()
+  const [loading, setLoading] = useState(false)
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      adults: booking.adults.map((adult) => ({
+        ...adult,
+        dob: new Date(parseInt(adult.dob)).toISOString().slice(0, 10),
+        passportExpiry:
+          adult.passportExpiry &&
+          new Date(parseInt(adult.passportExpiry)).toISOString().slice(0, 10),
+      })),
+    },
+  })
+  function onSubmit(data: { adults: Booking['adults'] }) {
+    const client = getReactClient(token)
+    setLoading(true)
+    client
+      .mutate({
+        mutation: gql(`
+        #graphql
+        mutation UpdateBooking($booking: UpdateBookingInput!){
+          updateBooking(booking: $booking)
+        }
+      `),
+        variables: {
+          booking: {
+            id: booking._id,
+            adults: data.adults.map((adult) => ({
+              ...adult,
+              dob: new Date(adult.dob).toString(),
+              passportExpiry: adult.passportExpiry && new Date(adult.passportExpiry).toString(),
+            })),
+          },
+        },
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
   return (
-    <div>
-      <Page2 adultsNumber={booking.adults.length} control={control} />
-    </div>
+    <Container className={'flex justify-between'}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="md:p-10 md:pt-0 md:rounded-2xl overflow-hidden flex flex-col gap-10"
+      >
+        <div className="flex flex-col gap-6">
+          <p className="text-2xl text-darkblue font-bold">1. Primary Passenger Details</p>
+          <p className="text-base text-gray font-medium">
+            Have you reviewed the details in the booking summary? If something isn't correct, you
+            can adjust your details in the previous steps.
+          </p>
+        </div>
+        <div className="flex flex-col gap-[18px] ">
+          <div className="flex flex-col gap-2">
+            <p className="text-base font-medium text-darkblue">Full Name</p>
+            <div className="grid grid-cols-[80px_1fr_1fr_1fr] gap-3">
+              <Input
+                name="adults.0.name.designation"
+                control={control}
+                placeholder="Prefix"
+                type="select"
+                options={[
+                  { label: 'Mr', value: 'Mr' },
+                  { label: 'Ms', value: 'Ms' },
+                  { label: 'Dr', value: 'Dr' },
+                ]}
+                rules={{ required: true }}
+              />
+              <Input
+                rules={{ required: true }}
+                name="adults.0.name.firstName"
+                control={control}
+                placeholder="First Name"
+                type="text"
+              />
+              <Input
+                name="adults.0.name.middleName"
+                control={control}
+                placeholder="Middle Name"
+                type="text"
+              />
+              <Input
+                rules={{ required: true }}
+                name="adults.0.name.lastName"
+                control={control}
+                placeholder="Last Name"
+                type="text"
+              />
+            </div>
+            <div className={'grid grid-cols-2 gap-3'}>
+              <div>
+                <p className="text-base font-medium text-darkblue">Date of Birth</p>
+                <Input
+                  name="adults.0.dob"
+                  control={control}
+                  placeholder="Date"
+                  type="date"
+                  rules={{ required: true }}
+                />
+              </div>
+              <div>
+                <p className="text-base font-medium text-darkblue">Mobile</p>
+
+                <div className="grid grid-cols-[120px_1fr] gap-3">
+                  <Input
+                    name="adults.0.phone.code"
+                    rules={{ required: true }}
+                    control={control}
+                    type="select"
+                    options={countries.map((c) => ({
+                      value: c.dial_code,
+                      label: `${c.name} (${c.dial_code})`,
+                    }))}
+                  />
+                  <Input
+                    name="adults.0.phone.number"
+                    rules={{ required: true }}
+                    control={control}
+                    type="number"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 max-w-[390px]">
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-medium text-darkblue">Nationality</p>
+              <Input
+                name="adults.0.nationality"
+                control={control}
+                placeholder=" "
+                rules={{ required: true }}
+                type="select"
+                options={countries.map((c) => ({ value: c.name, label: c.name }))}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 max-w-[390px]">
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-medium text-darkblue">Passport Number</p>
+              <Input
+                name={`adults.0.passportNumber`}
+                control={control}
+                type={'text'}
+                rules={{ required: true }}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 max-w-[390px]">
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-medium text-darkblue">Date of Passport Expiry*</p>
+              <Input
+                name={`adults.0.passportExpiry`}
+                control={control}
+                rules={{ required: true }}
+                type="date"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 max-w-[390px]">
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-medium text-darkblue">Additional Information</p>
+              <Input
+                name={`adults.0.additionalInformation`}
+                control={control}
+                placeholder={
+                  'Provide Additional Preferences and Special Requests: Allergies, room requests etc...'
+                }
+                rules={{ required: true }}
+                type="textarea"
+              />
+            </div>
+          </div>
+          <Button disabled={loading} text={'Submit'} />
+        </div>
+        {Array.from(Array(booking.adults.length - 1).keys()).map((i) => (
+          <div>
+            <div className="flex flex-col gap-6">
+              <p className="text-2xl text-darkblue font-bold">{i + 2}. Adult Passenger Details</p>
+              <p className="text-base text-gray font-medium">
+                Have you reviewed the details in the booking summary? If something isn't correct,
+                you can adjust your details in the previous steps.
+              </p>
+            </div>
+            <div className="flex flex-col gap-[18px] ">
+              <div className="flex flex-col gap-2">
+                <p className="text-base font-medium text-darkblue">Full Name</p>
+                <div className="grid grid-cols-[80px_1fr_1fr_1fr] gap-3">
+                  <Input
+                    name={`adults.${i + 1}.name.designation`}
+                    control={control}
+                    placeholder="Prefix"
+                    type="select"
+                    options={[
+                      { label: 'Mr', value: 'Mr' },
+                      { label: 'Ms', value: 'Ms' },
+                      { label: 'Dr', value: 'Dr' },
+                    ]}
+                    rules={{ required: true }}
+                  />
+                  <Input
+                    rules={{ required: true }}
+                    name={`adults.${i + 1}.name.firstName`}
+                    control={control}
+                    placeholder="First Name"
+                    type="text"
+                  />
+                  <Input
+                    name={`adults.${i + 1}.name.middleName`}
+                    control={control}
+                    placeholder="Middle Name"
+                    type="text"
+                  />
+                  <Input
+                    rules={{ required: true }}
+                    name={`adults.${i + 1}.name.lastName`}
+                    control={control}
+                    placeholder="Last Name"
+                    type="text"
+                  />
+                </div>
+                <div className={'grid grid-cols-2 gap-3'}>
+                  <div>
+                    <p className="text-base font-medium text-darkblue">Date of Birth</p>
+                    <Input
+                      name={`adults.${i + 1}.dob`}
+                      control={control}
+                      placeholder="Date"
+                      type="date"
+                      rules={{ required: true }}
+                    />
+                  </div>
+                  <div>
+                    <p className="text-base font-medium text-darkblue">Mobile</p>
+
+                    <div className="grid grid-cols-[120px_1fr] gap-3">
+                      <Input
+                        name={`adults.${i + 1}.phone.code`}
+                        rules={{ required: true }}
+                        control={control}
+                        type="select"
+                        options={countries.map((c) => ({
+                          value: c.dial_code,
+                          label: `${c.name} (${c.dial_code})`,
+                        }))}
+                      />
+                      <Input
+                        name={`adults.${i + 1}.phone.number`}
+                        rules={{ required: true }}
+                        control={control}
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 max-w-[390px]">
+                <div className="flex flex-col gap-2">
+                  <p className="text-base font-medium text-darkblue">Nationality</p>
+                  <Input
+                    name={`adults.${i + 1}.nationality`}
+                    control={control}
+                    placeholder=" "
+                    rules={{ required: true }}
+                    type="select"
+                    options={countries.map((c) => ({ value: c.name, label: c.name }))}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 max-w-[390px]">
+                <div className="flex flex-col gap-2">
+                  <p className="text-base font-medium text-darkblue">Passport Number</p>
+                  <Input
+                    name={`adults.${i + 1}.passportNumber`}
+                    control={control}
+                    rules={{ required: true }}
+                    type={'text'}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 max-w-[390px]">
+                <div className="flex flex-col gap-2">
+                  <p className="text-base font-medium text-darkblue">Date of Passport Expiry*</p>
+                  <Input
+                    name={`adults.${i + 1}.passportExpiry`}
+                    control={control}
+                    rules={{ required: true }}
+                    type="date"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 max-w-[390px]">
+                <div className="flex flex-col gap-2">
+                  <p className="text-base font-medium text-darkblue">Additional Information</p>
+                  <Input
+                    name={`adults.${i + 1}.additionalInformation`}
+                    control={control}
+                    placeholder={
+                      'Provide Additional Preferences and Special Requests: Allergies, room requests etc...'
+                    }
+                    rules={{ required: true }}
+                    type="textarea"
+                  />
+                </div>
+              </div>
+            </div>
+            <Button disabled={loading} text={'Submit'} />
+          </div>
+        ))}
+      </form>
+      <Sidebar bookingTour={bookingTour} booking={booking} locale={locale} />
+    </Container>
   )
 }
 function FlightInformation({
@@ -192,9 +636,13 @@ function FlightInformation({
 }: {
   bookingTour: SanityTourPage
   booking: Booking
-  locale: string
+  locale: SanityLocale
 }) {
-  return <div></div>
+  return (
+    <Container className={'flex justify-between'}>
+      <Sidebar bookingTour={bookingTour} booking={booking} locale={locale} />
+    </Container>
+  )
 }
 function AccountTab({
   bookingTour,
@@ -205,7 +653,7 @@ function AccountTab({
   booking: Booking
   locale: string
 }) {
-  return <div></div>
+  return <Container></Container>
 }
 function Payment({
   bookingTour,
@@ -214,21 +662,20 @@ function Payment({
 }: {
   bookingTour: SanityTourPage
   booking: Booking
-  locale: string
+  locale: SanityLocale
 }) {
-  return <div></div>
+  return (
+    <Container className={'flex justify-between'}>
+      <Sidebar bookingTour={bookingTour} booking={booking} locale={locale} />
+    </Container>
+  )
 }
 const Account = (props: PageProps) => {
   const { user, logout, token } = useUser()
   const [booking, setBooking] = useState<Booking>()
   const [bookingTour, setBookingTour] = useState<SanityTourPage>()
   const router = useRouter()
-  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'bank'>('stripe')
-  const { control, watch, getValues } = useForm<{ optionalVisits: Record<string, string[]> }>({
-    defaultValues: {
-      optionalVisits: {},
-    },
-  })
+
   const fetchUpcomingTour = useCallback(async () => {
     if (token) {
       const client = getReactClient(token)
@@ -242,6 +689,8 @@ const Account = (props: PageProps) => {
                 email
                 requests
                 from
+                paid
+                price
                 to
                 optionalTours {
                   cityID
@@ -264,7 +713,14 @@ const Account = (props: PageProps) => {
                   }
                   dob
                   nationality
-                  phone
+                  phone{
+                    code
+                    number
+                  }
+                  passportExpiry
+                  passportNumber
+                  additionalInformation
+                  additionalTravellers
                 }
               }
             }
@@ -286,46 +742,6 @@ const Account = (props: PageProps) => {
     void fetchUpcomingTour()
   }, [fetchUpcomingTour])
 
-  let newPrice = 0
-  const op: Record<string, Array<string>> = watch('optionalVisits')
-  bookingTour?.payment?.extras?.forEach(
-    (city) =>
-      city.visits?.forEach((visit, i) => {
-        if (
-          op[city._key]?.[i] &&
-          booking?.optionalTours?.findIndex(
-            (x) => x.cityID === city._key && x.visitID === visit._key
-          ) === -1
-        ) {
-          newPrice += localizedNumber(visit.price?.discounted_price, props.locale)
-        }
-      })
-  )
-  function pay() {
-    const optionalInputData = getValues('optionalVisits')
-    const optionalVisits = Object.keys(optionalInputData).flatMap((cityID) => {
-      const city = bookingTour?.payment?.extras?.find((city) => city._key === cityID)
-      return optionalInputData?.[cityID].filter(Boolean).map((visitID: string) => {
-        const visit = city?.visits?.find((visit) => visit._key === visitID)
-        return {
-          cityID,
-          visitID,
-          cityName: localizedString(city?.city_name, props.locale),
-          visitName: localizedString(visit?.title, props.locale),
-          price: localizedNumber(visit?.price?.discounted_price, props.locale),
-        }
-      })
-    })
-    fetch('/api/extras-checkout', {
-      method: 'POST',
-      body: JSON.stringify({
-        stagedOptionalTours: optionalVisits,
-        id: booking?._id,
-      }),
-    }).then(async (res) => {
-      router.replace(await res.text())
-    })
-  }
   if (user === null) router.push('/login')
   if (user) {
     return (
@@ -413,21 +829,7 @@ const Account = (props: PageProps) => {
             <AccountTab bookingTour={bookingTour} booking={booking} locale={props.locale} />,
             <Payment bookingTour={bookingTour} booking={booking} locale={props.locale} />,
           ][selected]}
-        <Container>
-          {watch('optionalVisits') && (
-            <OptionalVisits
-              defaultValues={booking?.optionalTours}
-              data={bookingTour?.payment?.extras}
-              control={control}
-              locale={props.locale}
-            />
-          )}
-          <div>
-            You have selected ${newPrice}
-            <PaymentMethod paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
-          </div>
-          <button onClick={pay}>Pay</button>
-        </Container>
+
         <button
           onClick={() => {
             logout().then(() => {

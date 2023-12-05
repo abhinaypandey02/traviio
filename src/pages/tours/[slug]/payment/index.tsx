@@ -130,7 +130,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
             middleName: _data.middleName,
             designation: _data.titlePrefix,
           },
-          phone: _data.mobileCode + _data.mobileNumber,
+          phone: { code: _data.mobileCode, number: _data.mobileNumber },
           nationality: _data.nationality,
           address: {
             country: _data.country,

@@ -44,7 +44,16 @@ interface IAdult {
   dob: typeof Date
   nationality?: string
   email: string
-  phone?: string
+  phone?: {
+    code: string
+    number: string
+  }
+  passportNumber?: string
+  passportExpiry?: typeof Date
+  additionalInformation?: string
+  additionalTravellers?: string[]
+  passportCopy?: string
+  travelInsuranceCopy?: string
 }
 interface OptionalTour {
   cityID: string

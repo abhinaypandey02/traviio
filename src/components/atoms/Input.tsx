@@ -78,7 +78,13 @@ export default function Input({
             <div
               className={`w-[22px] h-[22px] ${VARIANT.buttonNumber.button[variant]} flex items-center justify-center`}
               onClick={() => {
-                field.onChange(Math.max(parseInt(field.value || '0') - 1, 1).toString(), 'members')
+                field.onChange(
+                  Math.max(
+                    parseInt(field.value || '0') - 1,
+                    typeof rules?.min === 'number' ? rules.min : 0
+                  ),
+                  'members'
+                )
               }}
             >
               {<Minus color="white" />}
@@ -91,7 +97,13 @@ export default function Input({
             <div
               className={`w-[22px] h-[22px] ${VARIANT.buttonNumber.button[variant]} flex items-center justify-center`}
               onClick={() => {
-                field.onChange(Math.min(parseInt(field.value || '0') + 1, 30).toString(), 'members')
+                field.onChange(
+                  Math.min(
+                    parseInt(field.value || '0') + 1,
+                    typeof rules?.max === 'number' ? rules.max : 99999
+                  ),
+                  'members'
+                )
               }}
             >
               {<Plus color="white" />}
@@ -108,7 +120,7 @@ export default function Input({
         <select
           disabled={disabled}
           id={name}
-          className={`border bg-white border-darkblue/10 text-gray rounded p-1 ${className}`}
+          className={`border bg-white border-darkblue/10 text-gray rounded p-1 min-h-[38px] ${className}`}
           {...field}
           placeholder="Select"
         >
@@ -130,7 +142,7 @@ export default function Input({
           id={name}
           type={type}
           placeholder={placeholder}
-          className="border border-darkblue/10 text-gray rounded p-1 min-w-0"
+          className="border border-darkblue/10 text-gray rounded p-1 min-w-0 min-h-[38px]"
           // value={value}
           // onChange={(e) => {
           //   setValue(type === 'number' ? parseInt(e.target.value) : e.target.value)

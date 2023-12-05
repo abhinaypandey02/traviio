@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         blue: '#3FA9F5',
+        'light-blue': '#F2FAFF',
         darkblue: '#140D31',
         secondaryDarkBlue: '#1A4767',
         gray: '#726E83',
@@ -25,10 +26,10 @@ module.exports = {
       animation: {
         fade: 'fadeOut infinite 1s ease-in-out',
       },
-      keyframes: theme => ({
+      keyframes: (theme) => ({
         fadeOut: {
-          '0%': { background: "rgba(0, 0, 0, 0)" },
-          '100%': { background: "rgba(0, 0, 0, 0)" },
+          '0%': { background: 'rgba(0, 0, 0, 0)' },
+          '100%': { background: 'rgba(0, 0, 0, 0)' },
         },
       }),
     },
