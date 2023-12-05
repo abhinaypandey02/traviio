@@ -22,13 +22,13 @@ export default function ItinerarySection({
   // console.log('ItinerarySection-> ', data)
   // console.log(Country.getAllCountries())
   return (
-    <Container className=" flex flex-col py-20 gap-10">
-      <div className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
+    <Container className=" mt-20 flex flex-col py-20 gap-10">
+      <div id="itinerary" className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
         <h2 className="text-blue text-base font-medium capitalize">
           {localizedString(data?.tagline, locale)}
         </h2>
         <div>
-          <h3 className="text-black font-bold text-[40px] tracking-tight">
+          <h3 className="text-black font-bold text-[24px] lg:text-[40px] tracking-tight">
             {localizedString(data?.title, locale)}
           </h3>
           <hr className="lg:w-1/3 w-1/3 my-2 text-yellow m-auto  bg-yellow  rounded-full border-2" />
@@ -60,15 +60,15 @@ const TravelSchedule = ({
     <div className="w-full flex flex-1 flex-col gap-5">
       <div className="flex justify-end w-full">
         <button
-          className="text-blue text-lg flex gap-2 font-bold mr-8"
+          className="text-blue text-[16px] flex gap-2 font-bold lg:mr-8"
           onClick={() => {
             setOpenStatus(Object.assign({}, Array(data?.length ?? 0).fill(true)))
           }}
         >
-          Expand All {<CaretDown />}
+          Expand All <div className="hidden lg:block">{<CaretDown />}</div>
         </button>
       </div>
-      <div className="flex flex-col gap-5">
+      <div className="flex  flex-col gap-5">
         {data?.map((day, index) => (
           <Expandable
             isOpen={openStatus[index]}
@@ -104,7 +104,7 @@ const EnquireTab = () => {
     setFormData({ ...formData, [key]: value })
   }
   return (
-    <div className="w-[282px] max-lg:hidden h-fit rounded-2xl border text-white overflow-hidden bg-primary mt-12">
+    <div className="w-[282px]  max-lg:hidden h-fit rounded-2xl border text-white overflow-hidden bg-primary mt-12">
       <div className="py-2 px-5 bg-secondaryDarkBlue">
         <div className="flex justify-between">
           <div className="">
@@ -303,21 +303,21 @@ const Expandable = ({
           toggleOpen()
         }}
       >
-        <p className="w-5 font-bold text-xl flex-1">{data.title?.en}</p>
+        <p className="w-5 font-bold lg:text-xl flex-1">{data.title?.en}</p>
         <CaretDown width={'24px'} height={'24px'} className={`${isOpen && 'rotate-180'}`} />
       </div>
       <div
-        className={`flex flex-col gap-6 transition-all rounded-b-2xl ${
-          !isOpen ? 'overflow-hidden h-0' : 'p-7'
+        className={`flex flex-col gap-6 transition-all  rounded-b-2xl ${
+          !isOpen ? 'overflow-hidden h-0' : 'p-5'
         }`}
       >
-        <div className="flex max-sm:flex-col gap-6">
-          <div className="relative w-full h-fit sm:w-[168px] sm:h-[112px] md:w-[252px] md:h-[168px] rounded-2xl ">
+        <div className="flex lg:flex-row flex-col gap-6">
+          <div className="relative w-full h-[200px] overflow-hidden sm:w-[168px] sm:h-[112px] md:w-[252px] md:h-[168px] rounded-2xl ">
             <Image
               alt=""
               src={data.image ? urlFor(data.image || '') : ''}
               fill
-              className="object-contain"
+              className="object-cover w-full h-full"
             />
           </div>
           <p className="flex-1">{data.description?.en}</p>

@@ -19,12 +19,14 @@ function AllBlogsSection({ data }: { data: SanityAllBlogsSection }) {
   // ]
 
   return (
-    <Container className="flex flex-col items-center">
+    <Container className="flex flex-col mt-20 items-center">
       <div>
         <h2 className="text-blue text-base font-medium text-center">
           {localizedString(data.tagline)}
         </h2>
-        <h4 className="text-4xl font-[700] mt-5  text-center">{localizedString(data.title)}</h4>
+        <h4 className="lg:text-4xl text-2xl font-[700] mt-2  text-center">
+          {localizedString(data.title)}
+        </h4>
         <hr className="w-32 my-2 text-yellow m-auto bg-yellow  rounded-full border-2" />
       </div>
       <div className="flex flex-wrap mt-10 w-full">

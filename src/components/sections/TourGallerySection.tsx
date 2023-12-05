@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
+import Plane from '../../../public/plane.svg'
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 
 import { localizedString } from '@/contexts/LocaleProvider'
@@ -36,20 +37,22 @@ const GallerySection = (props: GallerySectionProps) => {
   }
 
   return (
-    <div className="pt-10  text-black">
+    <div className="py-10   text-black">
       <Container>
-        <h3 className="text-[40px] leading-tight -tracking-[1.2px] font-bold ">{title?.en}</h3>
-        <hr className="text-yellow bg-yellow my-2 h-1 rounded-full border-1 w-1/6" />
-        <div className="text-lg mt-1.5 text-gray  leading-[28px]">
+        <h3 className="text-[24px] text-center lg:text-start leading-tight -tracking-[1.2px] font-bold ">
+          {title?.en}
+        </h3>
+        <hr className="text-yellow hidden lg:block bg-yellow my-2 h-1 rounded-full border-1 w-1/6" />
+        <div className="text-lg text-center lg:text-start  mt-1.5 text-gray  leading-[28px]">
           {localizedString(subtitle).substring(0, 5)}
           <span className="text-blue opacity-100">
             {localizedString(subtitle).substring(5, 32)}
           </span>
           {localizedString(subtitle).substring(32)}
         </div>
-        <div className={'mt-2 mb-[30px]'}>
+        <div className={'mt-2 mb-[40px]'}>
           <Image
-            width={80}
+            width={100}
             height={40}
             src={'/small-logo.svg'}
             alt={'small logo'}
@@ -106,6 +109,13 @@ const GallerySection = (props: GallerySectionProps) => {
             )
           )}
         </Swiper>
+        <div>
+          <Image
+            src={Plane}
+            className="w-auto -mt-[40px]  -left-10 h-60 rotate-45  absolute "
+            alt="plane"
+          />
+        </div>
       </Container>
     </div>
   )

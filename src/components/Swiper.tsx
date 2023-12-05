@@ -38,14 +38,20 @@ export default function Swiper({
     )
   }
   return (
-    <div className={'relative'}>
-      <div className={'flex relative overflow-x-auto items-center ' + className} ref={swiperRef}>
+    <div className={'relative overflow-hidden'}>
+      <div
+        className={
+          'flex justify-start pl-2 lg:pl-5 overflow-hidden relative overflow-x-auto items-center ' +
+          className
+        }
+        ref={swiperRef}
+      >
         {children}
       </div>
       {showNext && (
         <div
           className={
-            'rounded-full bg-blue  h-10 z-50 flex items-center justify-center w-10 absolute right-4 -bottom-20 md:top-1/2 -translate-y-1/2 cursor-pointer'
+            'rounded-full bg-blue  h-10 z-[600] flex items-center justify-center w-10 absolute right-4 -bottom-20 md:top-1/2 -translate-y-1/2 cursor-pointer'
           }
           onClick={onNext}
         >
@@ -66,7 +72,7 @@ export default function Swiper({
       {showPrev && (
         <div
           className={
-            'rounded-full  z-50 bg-blue h-10 flex items-center justify-center w-10 absolute right-20 -bottom-20  md:right-0 md:left-4 md:top-1/2 -translate-y-1/2 cursor-pointer '
+            'rounded-full  z-[600] bg-blue h-10 flex items-center justify-center w-10 absolute right-20 -bottom-20  md:right-0 md:left-4 md:top-1/2 -translate-y-1/2 cursor-pointer '
           }
           onClick={onPrev}
         >

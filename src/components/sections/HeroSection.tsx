@@ -9,6 +9,7 @@ import Container from '@/components/Container'
 
 import PrimaryButton from '../buttons/PrimaryButton'
 import SecondaryButton from '../buttons/SecondaryButton'
+import PromoBanner from '@/sanity/schemas/atoms/PromoBanner'
 
 export type HeroSectionProps = {
   data: SanityHeroSection

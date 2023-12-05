@@ -10,6 +10,7 @@ import Container from '@/components/Container'
 export type ContentSectionProps = {
   data: SanityContentSection
 }
+
 const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
   const {
     data: { title, tagline, content },
@@ -24,6 +25,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         </div>
       )
     },
+
     layout_group: (props: any) => {
       return (
         <div className="flex w-full max-md:flex-col  gap-4 md:gap-12">
@@ -75,26 +77,17 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
     },
     content_image: (props: any) => {
       const { dimensions } = decodeAssetId(props.image.asset._ref)
-      // const imgWidth = ` md:w-[${dimensions?.width}px] `
-      // const imgHeight = `md:h-[${dimensions?.height}px] `
-      // console.log(dimensions)
-      // console.log(imgWidth)
+
       return (
-        <div
-          style={{
-            width: dimensions?.width,
-            height: dimensions?.height,
-          }}
-          className={`shrink-0   flex  w-full box-border`}
-        >
+        <div className="shrink-0 w-full lg:w-[400px]  box-border">
           <Image
             alt=""
             src={urlFor(props.image)}
             width={dimensions?.width}
             height={dimensions?.height}
-            className="object-fill md:object-cover w-full"
+            className="object-fill w-full h-auto"
           />
-          <div className={'text-center'}>
+          <div className="text-center mt-2">
             <LocalizedString text={props.image.alt} />
           </div>
         </div>
@@ -103,7 +96,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
   }
 
   return (
-    <Container className="mt-12 mb-20">
+    <Container id="overview" className="mt-12 mb-20">
       <div className="mb-[30px] md:mb-12 flex flex-col items-center">
         <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {localizedString(tagline, props.locale)}
@@ -119,7 +112,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         {content[props.locale] && (
           <PortableText
             content={content[props.locale]}
-            className="flex flex-col gap-[10px] md:gap-6 leading-normal md:leading-7 md:tracking-wide"
+            className="flex flex-col gap-[10px] font-[500] md:gap-6 leading-normal md:leading-7 md:tracking-wide"
             serializers={PortableTextSerializer}
           />
         )}

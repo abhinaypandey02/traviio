@@ -12,7 +12,7 @@ export type FeatureSectionProps = {
 const TourFeature = ({ data }: FeatureSectionProps) => {
   return (
     <Container
-      className="my-20 mb-[69px]  
+      className="my-20  mb-[69px]  
         "
     >
       {data.title?.en && (
@@ -26,16 +26,19 @@ const TourFeature = ({ data }: FeatureSectionProps) => {
       <div
         className={
           data?.type == 'small'
-            ? 'bg-[#F2FAFF] rounded-2xl text-center lg:w-3/4 w-full py-8'
-            : 'bg-[#F2FAFF] text-center lg:w-3/4 w-full py-8'
+            ? 'bg-[#F2FAFF] rounded-2xl text-center max-w-5xl w-full pb-8'
+            : 'bg-[#F2FAFF] text-center rounded-2xl  max-w-5xl w-full pb-8'
         }
       >
         {data?.type == 'small' ? (
-          <div className="grid md:grid-cols-2 gap-7 lg:grid-cols-4 w-fit mx-auto">
-            {data?.features?.map((feature, index) => <Feature key={index} data={feature} />)}
-          </div>
+          <>
+            <div className="lg:text-xl text-base py-8 lg:py-6 font-bold">Keep Things Simple</div>
+            <div className="grid grid-cols-2 gap-7 lg:grid-cols-4 w-fit mx-auto">
+              {data?.features?.map((feature, index) => <Feature key={index} data={feature} />)}
+            </div>
+          </>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3  md:gap-10 md:gap-x-16 gap-x-4 w-full px-[60px] py-[4px] relative">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 lg:gap-x-16 px-4 w-full pt-8 lg:px-[60px] relative">
             {data?.features?.map((feature, index) => <LargeFeature key={index} data={feature} />)}
           </div>
         )}
@@ -48,12 +51,12 @@ export type FeatureProps = { data: SanityFeature }
 
 const Feature = ({ data }: FeatureProps) => {
   return (
-    <div className=" w-full min-w-[250px] text-center flex flex-col items-center z-[2]">
+    <div className=" w-full max-w-5xl text-center flex flex-col items-center z-[2]">
       {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={48} height={48} alt="" />}
 
       {/* {data.title?.en} */}
 
-      <p className="font-[500] text-[15px]  mb-2">{data.title?.en}</p>
+      <p className="font-[500] lg:text-[15px] text-[12px] mb-2">{data.title?.en}</p>
       <p className="mx-20 opacity-60"> {data.description?.en}</p>
     </div>
   )
@@ -61,12 +64,12 @@ const Feature = ({ data }: FeatureProps) => {
 
 const LargeFeature = ({ data }: FeatureProps) => {
   return (
-    <div className=" w-full text-start gap-x-3 flex  items-center z-[2]">
+    <div className=" w-full text-start flex  gap-3   items-center z-[2]">
       {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={28} height={28} alt="" />}
 
-      <div>
-        <p className="font-[500] text-[20px]  mb-2">{data.title?.en}</p>
-        <p className="mx-20 opacity-60"> {data.description?.en}</p>
+      <div className=" flex-1">
+        <p className="font-[500] text-base lg:text-[20px]  mb-2">{data.title?.en}</p>
+        <p className=" opacity-60"> {data.description?.en}</p>
       </div>
     </div>
   )

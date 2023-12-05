@@ -38,8 +38,8 @@ export default function Step1({ onChange }: { onChange: (date: string) => void }
     'December',
   ]
   return (
-    <div className={`flex flex-col gap-14 px-9 sm:px-14`}>
-      <div className="flex max-lg:flex-col gap-4 px-10 lg:gap-12">
+    <div className={`flex flex-col   gap-10 lg:px-9`}>
+      <div className="flex max-lg:flex-col justify-center items-start gap-4 px-12 lg:gap-12">
         <div
           className="text-lg font-medium text-darkblue flex gap-[6px] items-center flex-nowrap whitespace-nowrap w-fit"
           onClick={() => {

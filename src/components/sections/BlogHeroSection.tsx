@@ -17,16 +17,16 @@ const BlogHeroSection = (props: ImageHeaderSectionProps) => {
     data: { header, image, content },
   } = props
   return (
-    <div>
-      <div>
+    <div className=" lg:h-[480px]  relative h-[200px]">
+      <div className="w-full h-full flex flex-col justify-center items-center">
         <Image
           src={image ? urlFor(image) : ''}
-          style={{ width: '100%', height: '420px', objectFit: 'cover' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           width={700}
           height={73}
           alt=""
         />
-        <h2 className="text-[56px]  text-white translate-x-[-10px] -translate-y-[125px]  font-extrabold text-center ">
+        <h2 className="lg:text-[56px] text-[28px] absolute  bottom-5 text-white   font-extrabold text-center ">
           {header?.en}
         </h2>
       </div>

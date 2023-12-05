@@ -23,11 +23,14 @@ function BlogDetailCard(props: {
 }) {
   const { country, title, date, image, excerpt, link, author, className } = props
   return (
-    <Link href={link} className="w-[410px] rounded-xl overflow-hidden shadow-md h-fit">
+    <Link
+      href={link}
+      className="lg:w-[350px] w-[320px] rounded-xl overflow-hidden shadow-xl shadow-[#f5f5f5] h-fit"
+    >
       {/* {JSON.stringify({props})} */}
       <div className={`rounded-xl shadow-md w-full h-full min-h-fit flex flex-col ${className}`}>
-        <div className="min-h-[300px] grow w-full relative">
-          <Image src={image} fill alt="" />
+        <div className="min-h-[250px] grow w-full relative">
+          <Image src={image} className="w-full h-full object-cover" fill alt="image" />
         </div>
         <div className="px-5 pt-3 text-sm  pb-5 flex flex-col gap-1 h-fit">
           <p className="uppercase text-blue text-lg font-semibold">{country}</p>

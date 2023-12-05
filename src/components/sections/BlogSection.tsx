@@ -87,8 +87,8 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
     data: { tagline, title, featured_blogs },
   } = props
   return (
-    <Container className="pt-[50px] pb-[100px] md:pt-[84px] mb:pb-20   bg-white text-darkblue">
-      <header>
+    <Container className="pt-20  pb-[120px] lg:pt-[60px]   bg-white text-darkblue">
+      <header className="pb-5">
         <p className="text-blue text-xs md:text-base font-medium text-center uppercase leading-tight md:leading-normal">
           {localizedString(tagline, props.locale)}
         </p>
@@ -96,7 +96,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
         <div className="text-2xl mt-2 md:mt-3  -tracking-[1.2px] mb-[30px] md:mb-12 w-fit mx-auto md:text-[40px] font-bold  leading-loose md:leading-[50px]  text-center">
           <h2>{localizedString(title, props.locale)}</h2>
 
-          <hr className=" mt-[4px] md:mt-[12px] w-10/12 mx-auto text-yellow  bg-yellow  rounded-full border-b-2" />
+          <hr className=" mt-[4px] md:mt-[12px] w-1/3 mx-auto text-yellow  bg-yellow  rounded-full border-b-2" />
         </div>
       </header>
       <div>
