@@ -12,6 +12,7 @@ import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout/index'
 import SEO from '@/components/Seo'
+import App_Tabs from '@/components/molecule/App_Tabs'
 
 type GuidePageProps = {
   slug: string
@@ -24,13 +25,16 @@ const ImageHeader = ({ image, Title }: any) => {
     <div className="">
       <div>
         <div>
-          <Image
-            src={image ? urlFor(image) : ''}
-            style={{ width: '100%', height: '400px' }}
-            width={700}
-            height={73}
-            alt=""
-          />
+          <div className=" w-full lg:h-[400px] h-[200px] ">
+            <Image
+              src={image ? urlFor(image) : ''}
+              style={{ width: '100%', height: '100%' }}
+              width={700}
+              height={73}
+              alt=""
+              className=" object-cover"
+            />
+          </div>
 
           <h2 className="text-4xl  text-white -translate-y-20  font-extrabold text-center ">
             {Title}
@@ -83,8 +87,8 @@ const InfoSection = ({ data }: any) => {
       </div> */}
 
       {/* <hr className='py-5 text-gray opacity-40' /> */}
-      <div className="lg:flex lg:flex-row  lg:gap-x-20 px-5 lg:px-20 justify-between">
-        <div className="lg:w-1/5 w-full flex flex-col gap-y-2">
+      <div className="lg:flex lg:flex-row  lg:gap-x-20 px-5 lg:px-10 justify-between">
+        <div className="lg:w-1/5 hidden lg:flex w-full  flex-1 flex-col gap-y-2">
           {data?.map((item: any, index: any) => {
             return (
               <a
@@ -106,7 +110,33 @@ const InfoSection = ({ data }: any) => {
             )
           })}
         </div>
-
+        {/* Mocile List  */}
+        {data?.map((item: any, index: any) => {
+          return (
+            <a
+              href={'#' + item.title?.en}
+              onClick={() => {
+                sethead(index)
+              }}
+              className={` flex flex-row lg:hidden  font-[500] justify-start items-center ${
+                head == index ? 'text-blue' : ' text-darkblue'
+              } `}
+            >
+              <p>{index + 1}</p>
+              <div
+                className={`${
+                  head == index
+                    ? 'underline cursor-pointer  text-blue font-[500]   border-none rounded-lg px-3 py-2'
+                    : ' cursor-pointer text-darkblue font-[500]  border-opacity-40 rounded-lg px-3 py-2'
+                }
+                  'text-sm'
+                  `}
+              >
+                {item.title?.en}
+              </div>
+            </a>
+          )
+        })}
         <div className="lg:w-2/3 mt-20 lg:mt-0 w-full">
           {data?.map((item: any, index: any) => {
             return (
@@ -124,6 +154,15 @@ const InfoSection = ({ data }: any) => {
 }
 
 export default function GuidePage({ slug, data, locale, globals }: GuidePageProps) {
+  const tabs = [
+    { name: 'Egypt', href: '#' },
+    { name: 'Jordan', href: '#' },
+    { name: 'Dubai', href: '#' },
+    { name: 'Saudi Arabia', href: '#' },
+    { name: 'Israel', href: '#' },
+    { name: 'Turkey', href: '#' },
+  ]
+
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -134,6 +173,7 @@ export default function GuidePage({ slug, data, locale, globals }: GuidePageProp
       <Layout locale={locale} breadcrumbs={[]} globals={globals}>
         <ImageHeader image={data?.image_hero?.image} Title={data?.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data?.tagline?.en} />
+        <App_Tabs tabs={tabs} />
         <InfoSection data={data?.sections} />
       </Layout>
     </LocaleProvider>
