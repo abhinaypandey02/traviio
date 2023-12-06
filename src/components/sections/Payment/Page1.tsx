@@ -115,10 +115,10 @@ const HotelChoosing = ({
                 control={control}
                 rules={{ required: true }}
               />
-              {room.price?.initial_price && (
+              {room.price?.discounted_price && (
                 <p className="text-blue font-medium">
                   {localizedString(room.price?.currency_symbol, locale)}
-                  {localizedNumber(room.price?.initial_price, locale)}
+                  {localizedNumber(room.price?.discounted_price, locale)}
                 </p>
               )}
             </div>
@@ -172,10 +172,10 @@ const RomeType = ({
                 control={control}
                 rules={{ required: true }}
               />
-              {option.price?.initial_price && (
+              {option.price?.discounted_price && (
                 <p className="text-blue font-medium">
                   {localizedString(option.price.currency_symbol, locale)}{' '}
-                  {localizedNumber(option.price.initial_price, locale)}
+                  {localizedNumber(option.price.discounted_price, locale)}
                 </p>
               )}
             </div>
@@ -229,7 +229,7 @@ export const OptionalVisits = ({
     data?.forEach((city) => {
       if (city.visits)
         newVal[city._key] = city.visits.map((visitID) =>
-          hashmap[city._key].has(visitID._key) ? visitID._key : undefined
+          hashmap[city._key]?.has(visitID._key) ? visitID._key : undefined
         )
     })
     field.onChange(newVal)
@@ -286,7 +286,7 @@ export const OptionalVisits = ({
                       type="checkbox"
                       control={localControl}
                     />
-                    {plan.price?.initial_price && (
+                    {plan.price?.discounted_price && (
                       <p className="text-blue font-medium whitespace-nowrap">
                         {localizedString(plan.price.currency_symbol)}{' '}
                         {localizedNumber(plan.price?.discounted_price)}
