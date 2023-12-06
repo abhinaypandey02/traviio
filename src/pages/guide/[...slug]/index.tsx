@@ -25,13 +25,16 @@ const ImageHeader = ({ image, Title }: any) => {
     <div className="">
       <div>
         <div>
-          <Image
-            src={image ? urlFor(image) : ''}
-            style={{ width: '100%', height: '400px' }}
-            width={700}
-            height={73}
-            alt=""
-          />
+          <div className=" w-full lg:h-[400px] h-[200px] ">
+            <Image
+              src={image ? urlFor(image) : ''}
+              style={{ width: '100%', height: '100%' }}
+              width={700}
+              height={73}
+              alt=""
+              className=" object-cover"
+            />
+          </div>
 
           <h2 className="text-4xl  text-white -translate-y-20  font-extrabold text-center ">
             {Title}
