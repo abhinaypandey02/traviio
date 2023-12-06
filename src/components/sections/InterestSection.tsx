@@ -14,18 +14,18 @@ const InterestSection = (props: PropsWithLocale<InterestSectionProps>) => {
     data: { title, tagline, interests },
   } = props as any
   return (
-    <div className="my-10">
-      <h2 className="text-blue text-base font-medium text-center">{tagline?.en}</h2>
-      <h4 className="text-4xl  mt-4 font-[700] text-center">{title?.en}</h4>
-      <hr className="lg:w-1/12 w-1/3 my-3 text-yellow m-auto  bg-yellow  rounded-full border-2" />
+    <div className="my-16 flex flex-col justify-center items-center">
+      <h2 className="text-blue text-sm lg:text-base font-medium text-center">{tagline?.en}</h2>
+      <h4 className="lg:text-4xl text-2xl  mt-3 font-[700] text-center">{title?.en}</h4>
+      <hr className="lg:w-1/12 w-1/5 my-3 text-yellow m-auto  bg-yellow  rounded-full border-2" />
 
-      <div className="shadow-lg rounded-sm mx-[200px] px-10 pt-14 pb-10    my-10">
+      <div className="shadow-lg shadow-[#f5f5f5] rounded-sm max-w-6xl w-full px-2 lg:px-10 lg:pt-14 pb-10    my-10">
         {interests
           ? interests.map((item: any, index: any) => {
               if (index % 3 == 0) {
                 return (
                   <div>
-                    <div className="grid grid-flow-row grid-cols-3">
+                    <div className="grid  grid-flow-row gap-3 grid-cols-3">
                       {interests[index] ? (
                         <Link
                           href={'/blogs/' + item.slug?.current}
@@ -43,11 +43,12 @@ const InterestSection = (props: PropsWithLocale<InterestSectionProps>) => {
                             height={80}
                             alt=""
                           />
-                          <h3 className="text-center my-5 font-semibold text-blue">
+                          <h3 className="text-center lg:text-base text-sm my-5 font-semibold text-blue">
                             {localizedString(interests[index]?.name, props.locale)}
                           </h3>
                         </Link>
                       ) : null}
+
                       {interests[index + 1] ? (
                         <Link
                           href={'/blogs/' + interests[index + 1].slug?.current}
@@ -65,11 +66,12 @@ const InterestSection = (props: PropsWithLocale<InterestSectionProps>) => {
                             height={80}
                             alt=""
                           />
-                          <h3 className="text-center my-5 font-semibold text-blue">
+                          <h3 className="text-center lg:text-base text-sm my-5 font-semibold text-blue">
                             {localizedString(interests[index + 1]?.name, props.locale)}
                           </h3>
                         </Link>
                       ) : null}
+
                       {interests[index + 2] ? (
                         <Link
                           href={'/blogs/' + interests[index + 2].slug?.current}
@@ -85,7 +87,7 @@ const InterestSection = (props: PropsWithLocale<InterestSectionProps>) => {
                             height={80}
                             alt=""
                           />
-                          <h3 className="text-center my-5 font-semibold text-blue">
+                          <h3 className="text-center lg:text-base text-sm my-5 font-semibold text-blue">
                             {localizedString(interests[index + 2]?.name, props.locale)}
                           </h3>
                         </Link>

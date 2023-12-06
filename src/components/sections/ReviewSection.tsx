@@ -76,7 +76,7 @@ const Filter = ({
   ratings: { count: number; stars: number }[]
 }) => {
   return (
-    <div className="rounded-xl shadow-xl md:w-[300px] my-2 ">
+    <div className="rounded-xl shadow shadow-[#f1f1f1] md:w-[300px] my-2 ">
       <div className=" py-[16px] tracking-wide font-medium rounded-t-2xl px-[18px] bg-[#ecf4ff] ">
         Filter by Rating
       </div>
@@ -113,7 +113,11 @@ const Filter = ({
 
 const RatingCard = ({ title, review, country, name, date, star, varient }: any) => {
   return (
-    <div className={'w-full rounded-2xl   px-[20px] py-[24px] space-y-[16px]  shadow-xl'}>
+    <div
+      className={
+        'w-full rounded-2xl   px-[20px] py-[24px] space-y-[16px]  shadow shadow-[#f1f1f1] border-[0.2px] border-[#eeeeee]'
+      }
+    >
       <div className="flex  text-xl">
         {Array.from(Array(star).keys()).map((x) => (
           <Star />
@@ -171,8 +175,8 @@ const ReviewSection = (props: PropsWithLocale<ReviewSectionProps>) => {
   }
   const pageSize = 3
   return (
-    <Container className=" py-[50px] md:py-[90px]  bg-white text-black">
-      <div className="flex flex-col items-center">
+    <Container className=" py-[50px] md:py-[90px]   text-black">
+      <div id="review" className="flex flex-col items-center">
         <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {localizedString(tagline, locale)}
         </p>
@@ -183,7 +187,7 @@ const ReviewSection = (props: PropsWithLocale<ReviewSectionProps>) => {
         </h2>
       </div>
 
-      <div className="flex  gap-y-[30px] md:gap-x-5 px-5 mt-8 flex-col md:flex-row">
+      <div className="flex  gap-y-[30px] md:gap-x-5 px-0 lg:px-5 mt-8 flex-col md:flex-row">
         <div className="w-full md:w-[430px] ">
           <Filter
             addSelectedRating={(rating) => setSelectedRating((old) => [...old, rating])}

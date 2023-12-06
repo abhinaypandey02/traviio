@@ -54,42 +54,46 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
   return (
     <div className="w-full bg-primary">
       <Container>
-        <div className="mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
+        <div className="lg:mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
           {/* Left side */}
           <div className="flex flex-col gap-2 mb-12 md:mt-5 max-w-[364px]">
-            <div className="flex flex-col gap-1 md:gap-2">
-              <div className="relative w-40 md:w-[260px] h-[34px] md:h-[48px]">
-                <Image
-                  src={(footer?.logo && urlFor(footer?.logo)) || ''}
-                  // width={260}
-                  // height={48}
-                  layout="fill"
-                  alt="Company logo"
-                ></Image>
-              </div>
-              <p>
-                <Link
-                  href="/"
-                  className="text-sm md:text-base md:font-normal font-medium leading-normal text-blue"
-                >
-                  {localizedString(footer?.title)}
-                </Link>
-              </p>
-            </div>
+            <div className="flex flex-col-reverse lg:flex-col justify-start items-start">
+              <div className=" lg:mt-0 mt-10 ">
+                <div className="flex flex-col gap-1 md:gap-2">
+                  <div className="relative w-40 md:w-[260px] h-[34px] md:h-[48px]">
+                    <Image
+                      src={(footer?.logo && urlFor(footer?.logo)) || ''}
+                      // width={260}
+                      // height={48}
+                      layout="fill"
+                      alt="Company logo"
+                    ></Image>
+                  </div>
+                  <p>
+                    <Link
+                      href="/"
+                      className="text-sm md:text-base md:font-normal font-medium leading-normal text-blue"
+                    >
+                      {localizedString(footer?.title)}
+                    </Link>
+                  </p>
+                </div>
 
-            <p className="text-gray text-sm md:text-base font-medium md:font-normal leading-normal mt-5">
-              {localizedString(footer?.description)}
-            </p>
-            <div className="flex flex-wrap gap-6 mt-5  justify-center md:justify-start">
-              {SOCIAL_LINKS.map((item, index) => {
-                return (
-                  <Link href={item.href} key={index}>
-                    <Image width={20} height={20} src={item.icon} alt={item.alt} />
-                  </Link>
-                )
-              })}
+                <p className="text-gray text-sm md:text-base font-medium md:font-normal leading-normal mt-5">
+                  {localizedString(footer?.description)}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-6 lg:mt-5 mt-0 w-full justify-center lg:justify-start">
+                {SOCIAL_LINKS.map((item, index) => {
+                  return (
+                    <Link href={item.href} key={index}>
+                      <Image width={20} height={20} src={item.icon} alt={item.alt} />
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2 mt-auto">
+            <div className="lg:flex hidden  flex-wrap gap-2 mt-auto">
               {CARDS.map((item, index) => {
                 return (
                   <Image
@@ -133,6 +137,20 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
               })}
             </div>
           </div>
+        </div>
+        <div className="flex flex-wrap lg:hidden  py-5 gap-2 mt-auto">
+          {CARDS.map((item, index) => {
+            return (
+              <Image
+                width={50}
+                height={32}
+                src={item}
+                alt=""
+                key={index}
+                className="w-[50px] h-[32px]"
+              />
+            )
+          })}
         </div>
         <hr className="opacity-30 border-blue" />
         <p className="text-center py-3 opacity-50">{localizedString(footer?.copyright_text)}</p>

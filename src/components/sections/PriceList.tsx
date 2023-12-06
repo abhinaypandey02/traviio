@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -133,13 +133,13 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
   }, [])
 
   return (
-    <Container id="price-list">
+    <Container className=" bg-[rgba(20,13,49,0.02)] lg:bg-transparent" id="price-list">
       <div
-        className={` transition-all font-semibold rounded-2xl bg-[#f5f3f0] bg-opacity-60 w-[970px] py-3 px-7`}
+        className={` transition-all font-semibold rounded-2xl lg:bg-[rgba(20,13,49,0.02)] bg-transparent bg-opacity-60 w-full  max-w-5xl py-3 lg:px-5 px-0`}
       >
-        <div className="flex justify-between">
+        <div className="flex-col  lg:flex-row  flex justify-between">
           <div className="gap-3 flex flex-col my-2">
-            <h1 className="tracking-wide font-semibold">
+            <h1 className="tracking-wide text-[14px] text-gray lg:text-base font-semibold">
               These dates don't work for you? Tailor your trip{' '}
               <Link href={'/tailor_your_tour'} className="text-blue">
                 here
@@ -147,42 +147,50 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
             </h1>
             <div className="flex items-center gap-2">
               <Image src="/lock_icon.svg" height={24} width={24} alt="lock" />
-              <p className="text-md font-semibold text-blue">Secure Payments</p>
+              <p className="text-md font-semibold text-[14px] lg:text-base text-blue">
+                Secure Payments
+              </p>
             </div>
           </div>
-          <div className="my-3 font-semibold">
-            <div className="h-12 w-[280px] grid grid-cols-[1fr_36px] bg-white divide-x-2 divide-darkblue p-3 border border-darkblue rounded-md">
-              <div className="flex gap-3 items-center">
+          <div className="my-3 flex flex-col justify-end items-end font-semibold">
+            <div
+              // onClick={() => datePicker?.current?.}
+              className="h-12 w-fit shadow-xl shadow-[#ebebeb] lg:w-[280px] grid grid-cols-[1fr_36px] bg-white divide-x-2 divide-darkblue p-3 border border-darkblue rounded-md"
+            >
+              <div className="flex gap-3  relative items-center">
                 <Image src="/calendar.svg" alt="" height={24} width={24} />
-                <p className="text-darkblue font-normal text-base">June 2023</p>
+                <input
+                  type="date"
+                  className="w-5 cursor-pointer opacity-0 scale-[1.5]  z-[100] absolute"
+                />
+                <p className="text-darkblue font-[600]  text-base">June 2023</p>
               </div>
-              <div className="flex justify-end items-start">
+              <div className="flex justify-end ml-2 items-start">
                 <CaretDown height={24} width={24} />
               </div>
             </div>
-            {/* <input type="date" /> */}
           </div>
         </div>
         <div className="flex flex-col gap-3">
           <div
-            className={`grid gap-2 py-3 px-2 font-semibold text-xl ${
+            className={`grid gap-2 w-full text-[14px]  py-3 px-2 font-semibold lg:text-xl ${
               collapsed ? ' grid-cols-6' : 'grid-cols-12'
             }`}
           >
-            <h1 className="text-left ml-5 col-span-2">From</h1>
+            <h1 className="text-left ml-5 lg:col-span-2 col-span-2">From</h1>
             <p></p>
-            <h1 className="col-span-2">To</h1>
+            <h1 className="lg:col-span-3 col-span-3">To</h1>
             {!collapsed && (
               <>
-                <p className="col-span-3"></p>
-                <h1 className="col-span-3 text-center">Price</h1>
+                {/* <p className="lg:col-span-3"></p> */}
+                <h1 className="lg:col-span-6 col-span-1 text-center">Price</h1>
               </>
             )}
           </div>
           {prices.map((price, index) =>
             index < show ? (
               <div
-                className={`rounded-lg shadow transition-all ${
+                className={`rounded-lg  transition-all ${
                   selected !== index ? 'bg-white py-1' : 'bg-blue text-white'
                 }`}
                 key={index}
@@ -307,16 +315,16 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
               onClick={() => {
                 setShow(show + 4)
               }}
-              className="text-center flex gap-x-2 items-center justify-center text-lg font-semibold mt-3 text-blue cursor-pointer"
+              className="text-center flex gap-x-2 items-center justify-center text-base lg:text-lg font-semibold my-3 text-blue cursor-pointer"
             >
-              view more <CaretDown />
+              view All <CaretDown />
             </div>
           ) : (
             <div
               onClick={() => {
                 setShow(show - 4)
               }}
-              className="text-center text-lg font-semibold flex gap-x-2 items-center justify-center mt-3 text-blue cursor-pointer"
+              className="text-center  text-base lg:text-lg font-semibold flex gap-x-2 items-center justify-center my-3 text-blue cursor-pointer"
             >
               view less
               <div className="rotate-180">

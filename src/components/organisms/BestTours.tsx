@@ -34,39 +34,34 @@ function BestTours({
   setPageNumber,
   locale,
 }: BestToursProps) {
+  const handleSelectedTag = (tag: string) => {
+    const updatedTags = selectedTags.includes(tag)
+      ? selectedTags.filter((t) => t !== tag)
+      : [...selectedTags, tag]
+
+    setSelectedTags(updatedTags)
+  }
+
   return (
-    <div className={`flex flex-col m-3 gap-3 ${className}`}>
-      <p className="text-base md:text-[20px] font-normal  text-[#726E83] md:font-medium tracking-wide  leading-normal">
+    <div className={`flex flex-col justify-center m-3 w-full gap-3 ${className}`}>
+      <p className="text-base md:text-[20px] font-normal  text-[#726E83] md:font-medium tracking-wide  leading-normal ">
         Found {numberOfTours} Tours - {destination}{' '}
       </p>
-      <div className="flex flex-nowrap overflow-x-auto gap-2">
-        {selectedTags?.map((tag, index) => {
+      <div className="flex  flex-nowrap overflow-x-auto gap-2">
+        {tags?.map((tag, index) => {
           return (
             <div
-              className="border cursor-pointer border-blue whitespace-nowrap text-blue border-opacity-50 rounded-full p-2"
-              onClick={() => {
-                setSelectedTags([...selectedTags.filter((t) => t !== tag)])
-              }}
+              className={`border cursor-pointer  text-xs ${
+                tag?.name?.en && selectedTags?.includes(tag?.name?.en)
+                  ? ' text-blue border-blue'
+                  : ' border-gray text-gray'
+              }  md:text-sm font-normal md:font-[500] whitespace-nowrap  border-opacity-50 rounded-full p-2 px-3 leading-tight`}
+              onClick={() => handleSelectedTag(tag?.name?.en || '')}
               key={index}
             >
-              {tag}
+              {tag?.name?.en}
             </div>
           )
-        })}
-        {tags?.map((tag, index) => {
-          if (tag?.name?.en && !selectedTags?.includes(tag?.name?.en)) {
-            return (
-              <div
-                className="border cursor-pointer border-gray text-xs  md:text-sm font-normal md:font-[500] whitespace-nowrap text-gray border-opacity-50 rounded-full p-2 px-3 leading-tight"
-                onClick={() => {
-                  setSelectedTags([...selectedTags, tag?.name?.en || ''])
-                }}
-                key={index}
-              >
-                {tag?.name?.en}
-              </div>
-            )
-          }
         })}
       </div>
 
