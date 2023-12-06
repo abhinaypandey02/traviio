@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import PortableText from 'react-portable-text'
+import App_Tabs from '../../../components/molecule/App_Tabs'
 
 import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
@@ -26,13 +27,16 @@ const ImageHeader = ({ image, Title }: any) => {
     <div className="">
       <div>
         <div>
-          <Image
-            src={image ? urlFor(image) : ''}
-            style={{ width: '100%', height: '400px' }}
-            width={700}
-            height={73}
-            alt=""
-          />
+          <div className="lg:h-[400px] h-[200px]">
+            <Image
+              src={image ? urlFor(image) : ''}
+              style={{ width: '100%', height: '100%' }}
+              width={700}
+              height={73}
+              alt=""
+              className="object-cover"
+            />
+          </div>
 
           <h2 className="text-4xl  text-white -translate-y-20  font-extrabold text-center ">
             {Title}
@@ -83,7 +87,7 @@ const InfoSection = ({ data }: any) => {
       </div> */}
 
       {/* <hr className='py-5 text-gray opacity-40' /> */}
-      <div className="flex gap-x-20 px-20 justify-between">
+      <div className="lg:flex-row flex flex-col gap-x-20 px-3 lg:px-20 justify-between">
         {/* <div className="w-1/5 flex flex-col gap-y-2">
           {data?.map((item: any, index: any) => {
             return (
@@ -116,7 +120,7 @@ const InfoSection = ({ data }: any) => {
           className="min-w-[390px]"
         />
 
-        <div className="w-2/3">
+        <div className="lg:w-2/3 w-full lG:mt-0 mt-20">
           {data?.map((item: any, index: any) => {
             return (
               <div key={index} id={item.title?.en} className="mb-10">
@@ -133,6 +137,17 @@ const InfoSection = ({ data }: any) => {
 }
 
 export default function WikiPage({ slug, data, locale, globals }: WikiPageProps) {
+  // href - is the respective scetion so it auto scrolls to that section when active
+
+  const tabs = [
+    { name: 'Egypt', href: '#' },
+    { name: 'Jordan', href: '#' },
+    { name: 'Dubai', href: '#' },
+    { name: 'Saudi Arabia', href: '#' },
+    { name: 'Israel', href: '#' },
+    { name: 'Turkey', href: '#' },
+  ]
+
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -143,6 +158,7 @@ export default function WikiPage({ slug, data, locale, globals }: WikiPageProps)
       <Layout locale={locale} breadcrumbs={[]} globals={globals}>
         <ImageHeader image={data?.image_hero?.image} Title={data?.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data?.tagline?.en} />
+        <App_Tabs tabs={tabs} />
         <InfoSection data={data?.sections} />
       </Layout>
     </LocaleProvider>
