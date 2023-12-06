@@ -30,7 +30,19 @@ export async function getUser(token: string) {
       #graphql
       query GetUser{
         user{
-          name
+          name{
+            firstName
+            designation
+            middleName
+            lastName
+          }
+          dob
+          email
+          phone {
+            number
+            code
+          }
+          nationality
         }
       }
     `),

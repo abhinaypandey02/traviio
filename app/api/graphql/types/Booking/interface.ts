@@ -28,13 +28,14 @@ export interface UpdateBookingInput {
     requests?: string[]
   }
 }
+export interface Name {
+  designation: string
+  firstName: string
+  middleName?: string
+  lastName?: string
+}
 interface IAdult {
-  name: {
-    designation: string
-    firstName: string
-    middleName?: string
-    lastName?: string
-  }
+  name: Name
   address?: {
     line1: string
     state: string

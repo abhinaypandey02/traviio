@@ -23,14 +23,14 @@ const GraphqlType = `
   }
   "Name broken down"
   type Name{
-      designation:String!
+      designation:String
       firstName:String!
       middleName:String
       lastName:String
   }
   "Name broken down"
   input NameInput{
-      designation:String!
+      designation:String
       firstName:String!
       middleName:String
       lastName:String
@@ -50,12 +50,12 @@ const GraphqlType = `
       country:String!
   }
   type Phone{
-      code:String!
-      number:String!
+      code:String
+      number:String
   }
   input PhoneInput{
-      code:String!
-      number:String!
+      code:String
+      number:String
   }
   "Adult details in a booking"
   type Adult{

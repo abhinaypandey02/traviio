@@ -27,7 +27,7 @@ import Input from '@/components/atoms/Input'
 import TabSelector from '@/components/atoms/Selector'
 
 import { gql } from '../../__generated__'
-import { BookingsQuery } from '../../__generated__/graphql'
+import { BookingsQuery, GetUserQuery } from '../../__generated__/graphql'
 import { getReactClient } from '../../apollo-client-ssr'
 
 type PageProps = {
@@ -653,7 +653,203 @@ function AccountTab({
   booking: Booking
   locale: string
 }) {
-  return <Container></Container>
+  const { user, token, refetch } = useUser()
+  const { control, handleSubmit } = useForm<{ user: GetUserQuery['user'] }>({
+    defaultValues: {
+      user: { ...user, dob: user?.dob && new Date(parseInt(user?.dob)).toISOString().slice(0, 10) },
+    },
+  })
+  const {
+    control: controlPassword,
+    handleSubmit: handleSubmitPassword,
+    getValues,
+  } = useForm<{
+    new_password: string
+    old_password: string
+    confirm_password: string
+  }>()
+  const [loading, setLoading] = useState(false)
+  function onSubmit(data: { user: GetUserQuery['user'] }) {
+    const client = getReactClient(token)
+    setLoading(true)
+    client
+      .mutate({
+        mutation: gql(`
+        #graphql
+        mutation UpdateUser($user: UpdateUserInput!){
+          updateUser(user: $user){
+            name {
+                firstName
+            }
+          }
+        }
+      `),
+        variables: {
+          user: { ...user, ...data.user },
+        },
+      })
+      .finally(() => setLoading(false))
+  }
+  function onSubmitPassword(data: {
+    new_password: string
+    old_password: string
+    confirm_password: string
+  }) {
+    if (data.new_password !== data.confirm_password || !user?.email) {
+      return
+    }
+    const client = getReactClient(token)
+    setLoading(true)
+    client
+      .mutate({
+        mutation: gql(`
+        #graphql
+        mutation UpdateUserPassword($email:String!, $old_password: String!, $new_password: String!){
+          updateUserPassword(email: $email, old_password: $old_password, new_password: $new_password)
+        }
+      `),
+        variables: { ...data, email: user.email },
+      })
+      .then((res) => {
+        if (res) alert('Updated')
+      })
+      .finally(() => setLoading(false))
+  }
+  return (
+    <Container>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[18px] ">
+        <div className="flex flex-col gap-6">
+          <p className="text-2xl text-darkblue font-bold">1. Personal Information</p>
+          <p className="text-base text-gray font-medium">
+            Have you reviewed the details in the booking summary? If something isn't correct, you
+            can adjust your details in the previous steps.
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 max-w-screen-md">
+          <p className="text-base font-medium text-darkblue">Full Name</p>
+          <div className="grid grid-cols-[80px_1fr_1fr_1fr] gap-3">
+            <Input
+              name="user.name.designation"
+              control={control}
+              placeholder="Prefix"
+              type="select"
+              options={[
+                { label: 'Mr', value: 'Mr' },
+                { label: 'Ms', value: 'Ms' },
+                { label: 'Dr', value: 'Dr' },
+              ]}
+              rules={{ required: true }}
+            />
+            <Input
+              rules={{ required: true }}
+              name="user.name.firstName"
+              control={control}
+              placeholder="First Name"
+              type="text"
+            />
+            <Input
+              name="user.name.middleName"
+              control={control}
+              placeholder="Middle Name"
+              type="text"
+            />
+            <Input
+              rules={{ required: true }}
+              name="user.name.lastName"
+              control={control}
+              placeholder="Last Name"
+              type="text"
+            />
+          </div>
+          <div className={'max-w-sm'}>
+            <div>
+              <p className="text-base font-medium text-darkblue">Date of Birth</p>
+              <Input
+                name="user.dob"
+                control={control}
+                placeholder="Date"
+                type="date"
+                rules={{ required: true }}
+              />
+            </div>
+          </div>
+          <div className={'max-w-sm'}>
+            <p className="text-base font-medium text-darkblue">Mobile</p>
+
+            <div className="grid grid-cols-[120px_1fr] gap-3">
+              <Input
+                name="user.phone.code"
+                rules={{ required: true }}
+                control={control}
+                type="select"
+                options={countries.map((c) => ({
+                  value: c.dial_code,
+                  label: `${c.name} (${c.dial_code})`,
+                }))}
+              />
+              <Input
+                name="user.phone.number"
+                rules={{ required: true }}
+                control={control}
+                type="number"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 max-w-sm">
+          <div className="flex flex-col gap-2">
+            <p className="text-base font-medium text-darkblue">Nationality</p>
+            <Input
+              name="user.nationality"
+              control={control}
+              placeholder=" "
+              rules={{ required: true }}
+              type="select"
+              options={countries.map((c) => ({ value: c.name, label: c.name }))}
+            />
+          </div>
+        </div>
+        <Button disabled={loading} text={'Submit'} />
+      </form>
+      <form onSubmit={handleSubmitPassword(onSubmitPassword)} className="flex flex-col gap-[18px] ">
+        <div className="flex flex-col gap-6">
+          <p className="text-2xl text-darkblue font-bold">2. Change Password</p>
+          <p className="text-base text-gray font-medium">
+            Have you reviewed the details in the booking summary? If something isn't correct, you
+            can adjust your details in the previous steps.
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 max-w-screen-md">
+          <p className="text-base font-medium text-darkblue">Old Password</p>
+          <Input
+            name="old_password"
+            control={controlPassword}
+            placeholder="XXXXXXXXX"
+            type="password"
+            rules={{ required: true }}
+          />
+          <p className="text-base font-medium text-darkblue">New Password</p>
+          <Input
+            name="new_password"
+            control={controlPassword}
+            placeholder="XXXXXXXXX"
+            type="password"
+            rules={{ required: true }}
+          />
+          <p className="text-base font-medium text-darkblue">Confirm Password</p>
+          <Input
+            name="confirm_password"
+            control={controlPassword}
+            placeholder="XXXXXXXXX"
+            type="password"
+            rules={{ required: true, validate: (v) => v === getValues('new_password') }}
+          />
+        </div>
+
+        <Button disabled={loading} text={'Submit'} />
+      </form>
+    </Container>
+  )
 }
 function Payment({
   bookingTour,
@@ -756,7 +952,7 @@ const Account = (props: PageProps) => {
               alt=""
             />
             <div className="text-3xl lg:text-[52px] leading-tight  text-white absolute bottom-[60px]  font-black text-center inset-x-0 ">
-              <h2>Welcome {user.name}</h2>
+              <h2>Welcome {user.name.firstName}</h2>
               <div className={'font-bold text-[40px]'}>
                 <span className="text-yellow">
                   {localizedString((bookingTour?.destination as any)?.name, props.locale)} tour:{' '}

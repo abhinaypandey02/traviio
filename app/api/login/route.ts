@@ -29,7 +29,9 @@ export const POST = async (req: Request) => {
           }
         }
       `),
-      variables: { user: { name: user.name, email: user.email, password: user.password } },
+      variables: {
+        user: { name: { firstName: user.name }, email: user.email, password: user.password },
+      },
     })
     token = res.data?.addUser
     if (!token)
