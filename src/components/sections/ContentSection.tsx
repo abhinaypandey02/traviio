@@ -39,8 +39,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         </div>
       )
     },
-    layout_stack: (_props: any) => {
-      const props = { ..._props, grid: true }
+    layout_stack: (props: any) => {
       return (
         <div
           style={{
