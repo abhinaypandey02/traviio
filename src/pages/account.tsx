@@ -81,7 +81,9 @@ function RequestForm({ booking }: { booking: Booking }) {
   const router = useRouter()
   return (
     <Container
-      className={'relative bg-[#F2FAFF] my-11 py-12 text-center flex flex-col z-10 items-center'}
+      className={
+        'relative bg-[#F2FAFF] px-5 md:px-20  my-11 py-12 text-center flex flex-col z-10 items-center'
+      }
     >
       <h2 className={'text-[40px] font-bold mb-2'}>Request Form</h2>
       <p className={'text-lg '}>Have any requests that you would like to inform us about?</p>
