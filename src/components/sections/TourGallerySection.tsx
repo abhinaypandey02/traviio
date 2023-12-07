@@ -37,18 +37,20 @@ const GallerySection = (props: GallerySectionProps) => {
   }
 
   return (
-    <div className="py-10   text-black">
+    <div className="py-10  text-black">
       <Container>
-        <h3 className="text-[24px] text-center lg:text-start leading-tight -tracking-[1.2px] font-bold ">
-          {title?.en}
-        </h3>
-        <hr className="text-yellow hidden lg:block bg-yellow my-2 h-1 rounded-full border-1 w-1/6" />
-        <div className="text-lg text-center lg:text-start  mt-1.5 text-gray  leading-[28px]">
-          {localizedString(subtitle).substring(0, 5)}
-          <span className="text-blue opacity-100">
-            {localizedString(subtitle).substring(5, 32)}
-          </span>
-          {localizedString(subtitle).substring(32)}
+        <div className=" px-5 md:px-20">
+          <h3 className="text-[24px]  text-center lg:text-start leading-tight -tracking-[1.2px] font-bold ">
+            {title?.en}
+          </h3>
+          <hr className="text-yellow hidden lg:block bg-yellow my-2 h-1 rounded-full border-1 w-1/6" />
+          <div className="text-lg text-center lg:text-start  mt-1.5 text-gray  leading-[28px]">
+            {localizedString(subtitle).substring(0, 5)}
+            <span className="text-blue opacity-100">
+              {localizedString(subtitle).substring(5, 32)}
+            </span>
+            {localizedString(subtitle).substring(32)}
+          </div>
         </div>
         <div className={'mt-2 mb-[40px]'}>
           <Image
@@ -59,10 +61,10 @@ const GallerySection = (props: GallerySectionProps) => {
             className={'mx-auto'}
           />
         </div>
-        <Swiper className="gap-x-2.5 !pb-0">
+        <Swiper className="gap-x-2.5 !pl-5 !pb-0">
           {imgs?.map((image, i) =>
             i % 2 == 0 ? (
-              <div className={'min-w-[320px] h-[320px] overflow-hidden rounded-lg'}>
+              <div className={'min-w-[320px] h-[320px] overflow-hidden rounded-xl'}>
                 <PhotoProvider>
                   <PhotoView key={i} src={urlFor(image[0])}>
                     <Image
@@ -77,7 +79,7 @@ const GallerySection = (props: GallerySectionProps) => {
               </div>
             ) : (
               <div className={'min-w-[160px] h-[320px] flex flex-col gap-2.5'}>
-                <div className={'h-[160px] w-[160px] overflow-hidden rounded-lg'}>
+                <div className={'h-[160px] w-[160px] overflow-hidden rounded-xl'}>
                   <PhotoProvider>
                     <PhotoView key={i} src={urlFor(image[0])}>
                       <Image
@@ -91,7 +93,7 @@ const GallerySection = (props: GallerySectionProps) => {
                   </PhotoProvider>
                 </div>
                 {image[1] && (
-                  <div className={'h-[160px] w-[160px] overflow-hidden rounded-lg'}>
+                  <div className={'h-[160px] w-[160px] overflow-hidden rounded-xl'}>
                     <PhotoProvider>
                       <PhotoView key={i} src={urlFor(image[1])}>
                         <Image
