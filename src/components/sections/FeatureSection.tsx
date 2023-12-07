@@ -50,7 +50,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
     return (
       <Container
         className={
-          'text-center  pb-[60px] h-fit  px-5   md:!px-[80px] md:pb-0 pt-[50px] md:pt-[84px] text-[#140D31] relative'
+          'text-center  pb-[60px] h-fit  px-5  md:!px-[80px] md:pb-0 pt-[50px] md:pt-[84px] text-[#140D31] relative'
         }
       >
         {data.title?.en && (
@@ -84,10 +84,10 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
     )
   }
   return (
-    <div className={'bg-[#F2FAFF]  md:px-20 text-center py-3 '}>
+    <div className={'bg-[#F2FAFF] px-5  md:px-20 text-center py-3 '}>
       <Container className={'px-5 md:px-0  '}>
         {data.title?.en && (
-          <div className="flex md:items-start items-center justify-center md:justify-start flex-col text-2xl -tracking-[0.72px] font-bold w-fit mx-auto leading-[30px] md:leading-[34px]  ">
+          <div className="flex md:items-start  items-center justify-center md:justify-start flex-col text-2xl -tracking-[0.72px] font-bold w-fit mx-auto leading-[30px] md:leading-[34px]  ">
             <h2>{data.title?.en}</h2>
             <hr className="w-[85px] md:w-1/2 mt-[6px] bg-yellow text-yellow h-0.5  mb-4" />
           </div>

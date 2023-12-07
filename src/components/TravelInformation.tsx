@@ -14,7 +14,7 @@ const TravelInformation = ({
   locale,
 }: PropsWithLocale<{ data: SanityTravelInfoSection }>) => {
   return (
-    <Container>
+    <Container className={'md:px-20 px-5'}>
       <div
         id="essentials"
         className="flex flex-col my-8 gap-5 text-center items-center justify-center px-5 rounded-2xl border-yellow border-[1px] shadow-md shadow-[#f5f5f5] lg:px-20 py-10 pb-7"

@@ -36,7 +36,7 @@ const TourGallerySection = (props: GallerySectionProps) => {
 
   return (
     <div className="pt-5 md:pt-10 bg-[#F2FAFF] min-h-[482px] md:min-h-[522px] text-black">
-      <Container className={' '}>
+      <Container>
         {/* <div className="w-[335px] text-center text-slate-900 text-2xl font-bold font-['Satoshi Variable'] leading-loose">Small Group Travel & Authentic Local Experiences</div> */}
         <h2
           id="triphighlights"
