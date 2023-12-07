@@ -34,13 +34,14 @@ export default function TourHeroSection({
             height={73}
             alt=""
           />
-          <h2 className="text-3xl px-5  lg:text-[52px]  text-yellow absolute bottom-5 lg:bottom-[70px]  font-black lg:text-center inset-x-0 ">
+          <h2 className="text-3xl px-5 z-50  lg:text-[52px]  text-yellow absolute bottom-5 lg:bottom-[70px]  font-black lg:text-center inset-x-0 ">
             Title:
             <span className="text-white">{localizedString(hero_section?.title, locale)}</span>
           </h2>
+          <div className=" bg-gradient-to-t w-full h-full top-0 from-black via-transparent to-transparent absolute" />
         </div>
         <OverViewCard slug={slug} data={overview_card} />
-        <div className=" h-[100px] relative">
+        <div className=" h-[56px] mt-[40px] flex flex-col w-full justify-center items-center  md:mt-[48px] relative">
           <TourTabs />
         </div>
       </div>
@@ -87,7 +88,6 @@ const TourTabs = () => {
         position: isFixed ? 'fixed' : 'absolute',
         top: 0,
         zIndex: 1000,
-        marginTop: isFixed ? '0' : '50px',
         backgroundColor: 'white', // Optional: set a background color
       }}
       className=" w-full border-b border-[rgba(20,13,49,0.10)]"
@@ -127,7 +127,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
   const price: any = data?.price
   return (
     <div className="relative lg:h-[80px] bg-primary lg:bg-transparent pb-5 w-full h-fit ">
-      <div className="lg:absolute grid p-5 grid-cols-2 gap-3 lg:flex max-w-[1280px]  inset-x-0 lg:divide-x-2 divide-darkblue/10 top-[-34px] w-full lg:w-6xl mx-auto bg-primary rounded-t-2xl py-7">
+      <div className="lg:absolute grid p-5 grid-cols-2 gap-3 lg:flex max-w-[1200px]  inset-x-0 lg:divide-x-2 divide-darkblue/10 top-[-34px] w-full lg:w-6xl mx-auto bg-primary rounded-t-2xl py-7">
         <div className="flex gap-2 bg-white lg:bg-transparent justify-start lg:justify-center lg:px-5 shadow-lg lg:shadow-none shadow-[rgba(200,200,200,0.2)] lg:rounded-none rounded-xl p-2 w-full lg:w-fit">
           <div className="relative lg:h-12 w-8 h-8 lg:w-12">
             <Image alt="" src={'/ColoredCalender.svg'} fill className="object-contain" />
@@ -218,7 +218,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
             className="text-center text-lg font-semibold px-10 py-3 translate-y-[-10px]"
           />
         </Link>
-        <p className="text-xs font-medium text-red">{data?.cta_helper_text?.en}</p>
+        <p className="text-xs font-medium -mt-3 text-red">{data?.cta_helper_text?.en}</p>
       </div>
     </div>
   )

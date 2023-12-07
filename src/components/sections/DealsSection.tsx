@@ -161,7 +161,7 @@ const DealsSection = ({
 
         <h2 className="text-[24px] flex flex-col md:justify-start md:items-start md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
           {title?.en}
-          <hr className="w-1/2 mx-auto md:mx-0 text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
+          <hr className="w-1/2 md:mx-0 text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
         </h2>
       </div>
       <div className=" h-fit relative mt-12  ">
