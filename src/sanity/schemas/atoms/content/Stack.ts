@@ -18,6 +18,11 @@ export default defineType({
       type: 'array',
       of: content_layouts.map((layout) => ({ type: layout })),
     }),
+    defineField({
+      name: 'grid',
+      title: 'Grid?',
+      type: 'boolean',
+    }),
   ],
   preview: {
     select: {
