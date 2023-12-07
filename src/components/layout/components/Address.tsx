@@ -13,7 +13,7 @@ const Address = ({
   email: string
 }) => {
   return (
-    <div className="flex flex-col text-gray text-sm gap-3 max-w-[218px]">
+    <div className="flex flex-col flex-none text-gray text-sm gap-3 max-w-[218px]">
       <p className="text-base text-darkblue">{heading}</p>
       <div className="flex items-start gap-2">
         <Image width={20} height={20} alt="" src="/map_icon.svg"></Image>

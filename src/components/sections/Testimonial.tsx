@@ -30,9 +30,9 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
   } = props
 
   return (
-    <div className="w-full bg-[#F2FAFF]  text-black py-[30px]  md:h-full relative">
-      <Container className={'lg:flex items-center gap-x-10 '}>
-        <div className="lg:max-w-xs shrink-0 w-full text-center md:text-start">
+    <div className="w-full bg-[#F2FAFF] !mt-[84px]   text-black py-[30px]  md:h-full relative">
+      <Container className={'lg:flex pl-5  md:!pl-[80px] md:pr-0  items-center gap-x-10 '}>
+        <div className="lg:max-w-xs shrink-0 w-full pr-5  md:pr-0  text-center md:text-start">
           {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
           {/* <div class="w-[335px] text-center text-sky-400 text-xl font-bold font-['Satoshi Variable'] leading-[30px]">Hear it from our Happy travelers</div> */}
           <h2 className=" text-xl  md:text-[40px] leading-[30px] md:leading-tight -tracking-[1.2px] font-bold">
@@ -42,7 +42,7 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
             <span className="">{localizedString(title, locale).substring(0, 16)}</span>
             <span className="text-blue">{localizedString(title, locale).substring(16)}</span>
           </h2>
-          <p className="text-sm md:text-lg mt-3 opacity-60">
+          <p className="text-sm md:text-lg mt-3 text-gray ">
             {localizedString(subtitle, props.locale)}
           </p>
           <Image
@@ -51,13 +51,15 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
             height={73}
             alt=""
             style={{ borderRadius: '10px' }}
-            className={'my-[30px] object-cover md:mt-[38px] md:p h-[160px] md:h-full w-full '}
+            className={
+              'my-[30px] object-cover md:mt-[38px]  h-[160px] md:h-full md:w-[260px] w-full '
+            }
           />
         </div>
-        <div className="overflow-x-none md:overflow-hidden nlg:block h-full  pb-11 md:pb-0 ">
+        <div className="overflow-x-none md:overflow-hidden pr-5    lg:block h-full  pb-11 md:pb-0 ">
           <Swiper
             scrollCount={2}
-            className={'gap-[40px] md:gap-[48px]  '}
+            className={'gap-[40px] md:gap-[48px] md:!mr-10  '}
             length={testimonials?.length}
           >
             {testimonials?.map((item, index: any) => {
@@ -98,7 +100,7 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
                     {localizedString(item.title, props.locale)}
                   </h3>
                   {/* <div class="w-[280px] text-gray-500 text-xs font-normal font-['Satoshi Variable'] leading-tight">We had an unforgettable stay with Michelle & Michael. Everything was perfect and even better than the pictures, better than the pictures.</div> */}
-                  <p className="text-xs md:text-sm font-normal md:font-medium opacity-60 leading-tight md:leading-[22px] max-w-[273px]">
+                  <p className="text-xs md:text-sm font-normal text-darkblue md:font-medium  leading-tight md:leading-[22px] max-w-[273px]">
                     {localizedString(item.text, props.locale)}
                   </p>
                   <div className="flex gap-x-3 mt-4  items-center">
@@ -107,7 +109,7 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
                     </div>
                     <div className="gap-1 md:gap-0">
                       {/* <div class="text-slate-900 text-xs font-bold font-['Satoshi Variable'] leading-tight">Andrzej Przybylski</div> */}
-                      <div className="font-bold text-xs md:text-sm  leading-tight md:leading-[22px]">
+                      <div className="font-bold text-darkblue text-xs md:text-sm  leading-tight md:leading-[22px]">
                         {localizedString(item?.name, props.locale)}
                       </div>
 
