@@ -15,7 +15,7 @@ export type FAQSectionProps = {
 const FAQSection = ({ data, locale }: PropsWithLocale<FAQSectionProps>) => {
   const [open, setOpen] = React.useState(-1)
   return (
-    <Container className="bg-white flex flex-col items-center py-[52px] md:py-[75px] ">
+    <Container className="bg-white flex flex-col items-center px-5 py-[52px] md:px-20 md:py-[75px] ">
       <Schema
         data={{
           '@context': 'https://schema.org',
@@ -32,10 +32,10 @@ const FAQSection = ({ data, locale }: PropsWithLocale<FAQSectionProps>) => {
       />
       <header className="flex flex-col items-center gap-3">
         <h2 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
-          {localizedString(data.tagline, locale)}
+          {localizedString(data?.title, locale)}
         </h2>
         <p className="text-darkblue text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px] ">
-          {localizedString(data?.title, locale)}
+          {localizedString(data.tagline, locale)}
         </p>
         <hr className="w-[85px] md:w-[117px] bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
       </header>
@@ -54,7 +54,7 @@ const FAQSection = ({ data, locale }: PropsWithLocale<FAQSectionProps>) => {
                 className={`${open === index ? '' : '-rotate-90'} transition-all`}
               />
 
-              <strong className="font-medium text-base md:text-xl leading-normal md:leading-loose">
+              <strong className="font-medium text-base text-darkblue md:text-xl leading-normal md:leading-[32px]">
                 {localizedString(faq?.question, locale)}
               </strong>
             </div>

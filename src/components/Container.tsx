@@ -8,11 +8,7 @@ interface PropsType {
 
 function Container(props: PropsWithChildren<PropsType>) {
   return (
-    <section
-      id={props.id}
-      style={props.style}
-      className={'mx-auto max-w-[1312px] px-4 ' + props.className}
-    >
+    <section id={props.id} style={props.style} className={'w-full ' + props.className}>
       {props.children}
     </section>
   )

@@ -87,7 +87,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
     data: { tagline, title, featured_blogs },
   } = props
   return (
-    <Container className="pt-20  pb-[120px] lg:pt-[60px]   bg-white text-darkblue">
+    <Container className="pt-20 md:!pl-[80px] pl-5  pb-[120px] lg:pt-[84px]   bg-white text-darkblue">
       <header className="pb-5">
         <p className="text-blue text-xs md:text-base font-medium text-center uppercase leading-tight md:leading-normal">
           {localizedString(tagline, props.locale)}
@@ -96,10 +96,10 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
         <div className="text-2xl mt-2 md:mt-3  -tracking-[1.2px] mb-[30px] md:mb-12 w-fit mx-auto md:text-[40px] font-bold  leading-loose md:leading-[50px]  text-center">
           <h2>{localizedString(title, props.locale)}</h2>
 
-          <hr className=" mt-[4px] md:mt-[12px] w-1/3 mx-auto text-yellow  bg-yellow  rounded-full border-b-2" />
+          <hr className=" mt-[4px] md:mt-[12px] w-1/3 md:w-[117px] mx-auto text-yellow  bg-yellow  rounded-full border-b-2" />
         </div>
       </header>
-      <div>
+      <div className="relative">
         <Swiper
           className={'gap-3 md:gap-6 w-screen  overflow-hidden '}
           length={featured_blogs?.length}
@@ -107,6 +107,8 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
         >
           {featured_blogs?.map((blog: any) => <BlogCard blog={blog} locale={props?.locale} />)}
         </Swiper>
+
+        <div className=" absolute w-40 top-0 p-3 h-full z-[300] bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.2)] to-white right-0" />
       </div>
     </Container>
   )
