@@ -36,16 +36,16 @@ const TourGallerySection = (props: GallerySectionProps) => {
 
   return (
     <div className="pt-5 md:pt-10 bg-[#F2FAFF] min-h-[482px] md:min-h-[522px] text-black">
-      <Container>
+      <Container className={' '}>
         {/* <div className="w-[335px] text-center text-slate-900 text-2xl font-bold font-['Satoshi Variable'] leading-loose">Small Group Travel & Authentic Local Experiences</div> */}
         <h2
           id="triphighlights"
-          className="text-[24px] md:text-[40px] leading-[32px]  md:leading-tight -tracking-[1.2px] font-bold text-center"
+          className="text-[24px] px-5 md:text-[40px] leading-[32px]  md:leading-tight -tracking-[1.2px] font-bold text-center"
         >
           {title?.en}
         </h2>
         {/* <div className="w-[335px] text-center"><span style="text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-normal">Over </span><span style="text-sky-400 text-sm font-medium font-['Satoshi Variable'] leading-normal">200,000 Satisfied Travelers</span><span style="text-gray-500 text-sm font-medium font-['Satoshi Variable'] leading-normal"> in 20 years of travel excellence with our local tour operator</span></div> */}
-        <p className="text-sm md:text-lg mt-[10px] md:mt-1.5  text-gray text-center md:leading-[28px] leading-[24px]">
+        <p className="text-sm px-5 md:text-lg mt-[10px] md:mt-1.5  text-gray text-center md:leading-[28px] leading-[24px]">
           {subtitle?.en?.substring(0, 5)}
           <span className="text-blue opacity-100">{subtitle?.en?.substring(5, 32)}</span>
           {subtitle?.en?.substring(32)}
@@ -60,15 +60,15 @@ const TourGallerySection = (props: GallerySectionProps) => {
           />
         </div>
         <PhotoProvider>
-          <Swiper className="gap-x-2.5 !pb-0 " scrollCount={4}>
-            {imgs?.map((image, i) =>
+          <Swiper className="gap-x-2.5 pl-5 md:!pl-20 !pb-0 " scrollCount={4}>
+            {imgs.slice(0, 3)?.map((image, i) =>
               i % 2 == 0 ? (
                 <div
                   className={
-                    'min-w-[233px] w-full h-[190px]  md:h-[320px]   md:min-w-[310px] md:max-w-[400px]  overflow-hidden rounded-lg'
+                    'min-w-[233px] w-full h-[190px]  md:h-[320px]   md:min-w-[310px] md:max-w-[400px]  overflow-hidden rounded-xl'
                   }
                   // className={
-                  //   'min-h-[190px] md:min-h-[320px]   md:sh-[320px] overflow-hidden rounded-lg'
+                  //   'min-h-[190px] md:min-h-[320px]   md:sh-[320px] overflow-hidden rounded-xl'
                   // }
                 >
                   <PhotoView key={i} src={urlFor(image[0])}>
@@ -77,7 +77,7 @@ const TourGallerySection = (props: GallerySectionProps) => {
                       width={320}
                       height={320}
                       alt={'image'}
-                      className={'w-full h-full flex-shrink-0 object-fill '}
+                      className={'w-full h-full flex-shrink-0 object-cover '}
                     />
                   </PhotoView>
                 </div>
@@ -85,7 +85,7 @@ const TourGallerySection = (props: GallerySectionProps) => {
                 <div className={'w-full  h-[190px]  md:h-[320px] flex flex-col gap-2.5 '}>
                   <div
                     className={
-                      'w-[94px] h-[91px] md:h-[160px] md:w-[160px] overflow-hidden rounded-lg '
+                      'w-[94px] h-[91px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl '
                     }
                   >
                     <PhotoView key={i} src={urlFor(image[0])}>
@@ -94,14 +94,14 @@ const TourGallerySection = (props: GallerySectionProps) => {
                         width={160}
                         height={160}
                         alt={'image'}
-                        className={'object-fill w-full h-full'}
+                        className={'object-cover w-full h-full'}
                       />
                     </PhotoView>
                   </div>
                   {image[1] && (
                     <div
                       className={
-                        'w-[94px] h-[91px] md:h-[160px] md:w-[160px] overflow-hidden rounded-lg '
+                        'w-[94px] h-[91px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl '
                       }
                     >
                       <PhotoView key={i} src={urlFor(image[1])}>
@@ -110,7 +110,77 @@ const TourGallerySection = (props: GallerySectionProps) => {
                           width={160}
                           height={160}
                           alt={'image'}
-                          className={'object-fill w-full h-full'}
+                          className={'object-cover w-full h-full'}
+                        />
+                      </PhotoView>
+                    </div>
+                  )}
+                </div>
+              )
+            )}
+            <div className={'w-full  h-[190px]  md:h-[320px] flex flex-col gap-2.5 '}>
+              <div className={'w-[94px] md:w-[200px] h-full overflow-hidden rounded-xl '}>
+                <PhotoView src={urlFor(imgs[5][0])}>
+                  <Image
+                    src={urlFor(imgs[5][0])}
+                    width={160}
+                    height={160}
+                    alt={'image'}
+                    className={'object-cover w-full h-full'}
+                  />
+                </PhotoView>
+              </div>
+            </div>
+            {imgs.slice(3, 6)?.map((image, i) =>
+              i % 2 == 1 ? (
+                <div
+                  className={
+                    'min-w-[233px] w-full h-[190px]  md:h-[320px]   md:min-w-[310px] md:max-w-[400px]  overflow-hidden rounded-xl'
+                  }
+                  // className={
+                  //   'min-h-[190px] md:min-h-[320px]   md:sh-[320px] overflow-hidden rounded-xl'
+                  // }
+                >
+                  <PhotoView key={i} src={urlFor(image[0])}>
+                    <Image
+                      src={urlFor(image[0])}
+                      width={320}
+                      height={320}
+                      alt={'image'}
+                      className={'w-full h-full flex-shrink-0 object-cover '}
+                    />
+                  </PhotoView>
+                </div>
+              ) : (
+                <div className={'w-full  h-[190px]  md:h-[320px] flex flex-col gap-2.5 '}>
+                  <div
+                    className={
+                      'w-[94px] h-[91px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl '
+                    }
+                  >
+                    <PhotoView key={i} src={urlFor(image[0])}>
+                      <Image
+                        src={urlFor(image[0])}
+                        width={160}
+                        height={160}
+                        alt={'image'}
+                        className={'object-cover w-full h-full'}
+                      />
+                    </PhotoView>
+                  </div>
+                  {image[1] && (
+                    <div
+                      className={
+                        'w-[94px] h-[91px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl '
+                      }
+                    >
+                      <PhotoView key={i} src={urlFor(image[1])}>
+                        <Image
+                          src={urlFor(image[1])}
+                          width={160}
+                          height={160}
+                          alt={'image'}
+                          className={'object-cover w-full h-full'}
                         />
                       </PhotoView>
                     </div>

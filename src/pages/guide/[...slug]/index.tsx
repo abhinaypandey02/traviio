@@ -67,6 +67,7 @@ const InfoSection = ({ data }: any) => {
     <div className="py-20">
       {/* <div className="flex justify-between px-20 ">
         {cities.map((item: any, index: any) => {
+
           return (
             <h4
               onClick={() => {
