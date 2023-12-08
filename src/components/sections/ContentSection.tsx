@@ -96,7 +96,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
   }
 
   return (
-    <Container id="overview" className="mt-[60px] px-5 md:px-20 mb-20">
+    <Container id="overview" className="mt-[60px] mx-auto max-w-[1312px] px-4 mb-20">
       <div className="mb-[30px] md:mb-12 flex flex-col items-center">
         <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {localizedString(tagline, props.locale)}
@@ -108,7 +108,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         </h2>
       </div>
 
-      <div className="text-sm md:text-base mt-[48px] font-normal">
+      <div className="text-sm md:text-base mt-[48px] text-darkblue  leading-[24px] font-normal">
         {content[props.locale] && (
           <PortableText
             content={content[props.locale]}

@@ -44,7 +44,7 @@ export default function TourHeroSection({
         <div className=" h-[56px] mt-[40px] flex flex-col w-full justify-center items-center  md:mt-[48px] relative">
           <TourTabs />
         </div>
-        <TourInfoTab/>
+        <TourInfoTab />
       </div>
     </>
   )
@@ -150,21 +150,16 @@ const TourInfoTab = () => {
   ]
 
   return (
-    <div className=" flex flex-row text-[12px] font-normal flex-wrap justify-evenly bg-blue p-5 md:hidden text-white">
+    <div className=" flex mt-[50px] flex-row leading-[24px] text-[14px] font-normal flex-wrap justify-evenly bg-blue py-5 px-[30px] md:hidden text-white">
       {list.map((item, key) => (
-        <div key={key}>
-        <div >{item.icon}</div>
-        <p>
-          {item.title}
-          </p>
+        <div className=" flex flex-col justify-center items-center" key={key}>
+          <div>{item.icon}</div>
+          <p>{item.title}</p>
         </div>
       ))}
     </div>
   )
 }
-
-
-
 
 const TourTabs = () => {
   const [isFixed, setIsFixed] = useState(false)
@@ -326,6 +321,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
           <p className="text-xs font-medium text-red">{data?.cta_helper_text?.en}</p>
         </div>
       </div>
+
       {/* Mobile CTA */}
       <div className="flex lg:hidden flex-col w-full justify-between items-center  px-7">
         <Link href={`#price-list`}>
@@ -335,7 +331,8 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
             className="text-center text-lg font-semibold px-10 py-3 translate-y-[-10px]"
           />
         </Link>
-        <p className="text-xs font-medium -mt-3 text-red">{data?.cta_helper_text?.en}</p      </div>
+        <p className="text-xs font-medium -mt-3 text-red">{data?.cta_helper_text?.en}</p>
+      </div>
     </div>
   )
 }
