@@ -108,7 +108,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         </h2>
       </div>
 
-      <div className="text-sm md:text-base mt-[48px] font-normal">
+      <div className="text-sm md:text-base mt-[48px] text-darkblue  leading-[24px] font-normal">
         {content[props.locale] && (
           <PortableText
             content={content[props.locale]}
