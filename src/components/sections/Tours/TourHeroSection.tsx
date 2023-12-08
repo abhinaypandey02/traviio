@@ -152,10 +152,12 @@ const TourInfoTab = () => {
   return (
     <div className=" flex flex-row text-[12px] font-normal flex-wrap justify-evenly bg-blue p-5 md:hidden text-white">
       {list.map((item, key) => (
-        <div key={key}>{item.icon}</div>
+        <div key={key}>
+        <div >{item.icon}</div>
         <p>
           {item.title}
           </p>
+        </div>
       ))}
     </div>
   )
@@ -333,8 +335,7 @@ const OverViewCard = ({ data, slug }: { data: SanityTourPage['overview_card']; s
             className="text-center text-lg font-semibold px-10 py-3 translate-y-[-10px]"
           />
         </Link>
-        <p className="text-xs font-medium -mt-3 text-red">{data?.cta_helper_text?.en}</p>
-      </div>
+        <p className="text-xs font-medium -mt-3 text-red">{data?.cta_helper_text?.en}</p      </div>
     </div>
   )
 }
