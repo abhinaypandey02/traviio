@@ -61,7 +61,12 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
               <div className=" lg:mt-0 mt-10 ">
                 <div className="flex flex-col gap-1 md:gap-2">
                   <div className="relative bg-red-400 w-36 flex items-start justify-start md:w-[220px] h-[38px] md:h-[52px]">
-                    <Image src="/traviio.png" className="" layout="fill" alt="Company logo"></Image>
+                    <Image
+                      src={(footer?.logo && urlFor(footer?.logo)) || ''}
+                      className=""
+                      layout="fill"
+                      alt="Company logo"
+                    ></Image>
                   </div>
                   <p>
                     <Link
