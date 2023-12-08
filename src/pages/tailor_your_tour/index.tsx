@@ -170,7 +170,7 @@ export default function TailorYourTour({
           disableNext={getValues('selectedDestination') == ''}
           onSubmit={handleSubmit((data) => {
             setLoading(true)
-            fetch('/api/email', {Featre
+            fetch('/api/email', {
               method: 'POST',
               body: JSON.stringify({
                 subject: 'New Tailor Tour Request',
