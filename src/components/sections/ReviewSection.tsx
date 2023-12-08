@@ -126,7 +126,7 @@ const RatingCard = ({ title, review, country, name, date, star, varient }: any) 
 
       <h3 className="text-base font-bold leading-normal ">{title.substring(0, 33)}...</h3>
 
-      <h5 className="text-xs md:text-sm font-medium text-gray opacity-80 leading-normal md:leading-snug">
+      <h5 className="text-xs md:text-sm font-medium text-gray opacity-80 leading-[24px] md:leading-snug">
         {review}...
       </h5>
       <div className="flex gap-x-2 ">
@@ -140,9 +140,11 @@ const RatingCard = ({ title, review, country, name, date, star, varient }: any) 
           />
         </div>
         <div className="ml-2 md:ml-3 my-auto ">
-          <h6 className="text-xs md:text-sm font-bold leading-tight md:leading-snug">{name}</h6>
+          <h6 className="text-xs md:text-sm font-bold text-darkblue leading-tight md:leading-snug">
+            {name}
+          </h6>
 
-          <h6 className="text-[10px] md:text-xs   font-medium  md:font-normal text-gray  leading-tight">
+          <h6 className="text-[10px] md:text-xs   font-medium  md:font-normal text-gray  leading-[20px]">
             {date}
           </h6>
         </div>
