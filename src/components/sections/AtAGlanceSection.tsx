@@ -18,7 +18,7 @@ const AtAGlanceSection = (props: PropsWithLocale<AtAGlanceSectionProps>) => {
 
   return (
     <div className=" ">
-      <Container className="bg-[#F2FAFF] px-5 md:px-20 py-12">
+      <Container className="bg-[#F2FAFF] mx-auto max-w-[1312px] px-4 py-12">
         <div className="flex flex-col items-center">
           <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
             {localizedString(tagline, locale)}

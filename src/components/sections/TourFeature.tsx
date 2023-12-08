@@ -11,7 +11,7 @@ export type FeatureSectionProps = {
 }
 const TourFeature = ({ data }: FeatureSectionProps) => {
   return (
-    <Container className="my-20 px-5 md:px-20 mb-[69px] ">
+    <Container className="my-20 mx-auto max-w-[1312px] px-4 mb-[69px] ">
       {data.title?.en && (
         <div className="mb-10 px-5 md:px-0">
           <h2 className="text-[20px] md:text-[24px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">

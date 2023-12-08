@@ -79,7 +79,7 @@ function RequestForm({ booking }: { booking: Booking }) {
   return (
     <Container
       className={
-        'relative bg-[#F2FAFF] px-5 md:px-20  my-11 py-12 text-center flex flex-col z-10 items-center'
+        'relative bg-[#F2FAFF] mx-auto max-w-[1312px] px-4  my-11 py-12 text-center flex flex-col z-10 items-center'
       }
     >
       <h2 className={'text-[40px] font-bold mb-2'}>Request Form</h2>

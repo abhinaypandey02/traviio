@@ -44,7 +44,7 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
         />
       )}
 
-      <div className="text-white  px-0 md:py-5 md:px-20 py-3 z-10  w-full">
+      <div className="text-white    md:py-5 mx-auto max-w-[1312px] px-4 py-3 z-10  w-full">
         <Container className="flex  items-center  md:items-start justify-center md:justify-between flex-col">
           <div className="w-full  md:w-[572px] ">
             <header>

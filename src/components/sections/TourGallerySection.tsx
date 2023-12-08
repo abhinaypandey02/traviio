@@ -39,7 +39,7 @@ const GallerySection = (props: GallerySectionProps) => {
   return (
     <div className="py-10  text-black">
       <Container>
-        <div className=" px-5 md:px-20">
+        <div className=" mx-auto max-w-[1312px] px-4">
           <h3 className="text-[24px]  text-center lg:text-start leading-tight -tracking-[1.2px] font-bold ">
             {title?.en}
           </h3>

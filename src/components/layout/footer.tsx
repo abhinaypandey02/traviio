@@ -52,9 +52,9 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
   const ADDRESSES = (footer?.locations as SanityGlobals['footer'])?.locations || []
   const LINKS = footer?.link_groups || []
   return (
-    <div className="w-full bg-primary px-5 md:px-20">
-      <Container>
-        <div className="lg:mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
+    <div className="w-full bg-primary ">
+      <Container className="mx-auto max-w-[1312px] px-4">
+        <div className="lg:mt-4 flex mx-auto max-w-[1312px] px-4 max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
           {/* Left side */}
           <div className="flex flex-col gap-2 mb-12 md:mt-5 max-w-[364px]">
             <div className="flex flex-col-reverse lg:flex-col justify-start items-start">
@@ -92,7 +92,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                 })}
               </div>
             </div>
-            <div className="lg:flex hidden  flex-wrap gap-2 mt-auto">
+            <div className="lg:flex hidden  flex-wrap gap-2 px-4 md:px-0 mt-auto">
               {CARDS.map((item, index) => {
                 return (
                   <Image
@@ -137,7 +137,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap lg:hidden  py-5 gap-2 mt-auto">
+        <div className="flex flex-wrap lg:hidden  py-5 px-4 md:px-0 gap-2 mt-auto">
           {CARDS.map((item, index) => {
             return (
               <Image

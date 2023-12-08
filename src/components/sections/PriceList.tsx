@@ -134,7 +134,7 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
 
   return (
     <Container
-      className=" bg-[rgba(20,13,49,0.02)] px-5 md:px-20 lg:bg-transparent"
+      className=" bg-[rgba(20,13,49,0.02)] mx-auto max-w-[1312px] px-4 lg:bg-transparent"
       id="price-list"
     >
       <div
