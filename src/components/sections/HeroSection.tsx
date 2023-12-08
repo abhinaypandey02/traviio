@@ -21,7 +21,7 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
   return (
     <div
       className={
-        'relative z-10 h-screen max-h-[540px] flex items-end md:items-center justify-center border  md:h-full'
+        'relative z-10 h-screen max-h-[538px] flex items-end md:items-center justify-center border  md:h-full'
       }
     >
       <div
@@ -44,14 +44,14 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
         />
       )}
 
-      <div className="text-white md:py-5 py-3 z-10  w-full">
-        <Container className="flex items-center  md:items-start justify-center md:justify-between flex-col">
-          <div className="w-[335px]  md:w-[572px] ">
+      <div className="text-white    md:py-5 mx-auto max-w-[1312px] px-4 py-3 z-10  w-full">
+        <Container className="flex  items-center  md:items-start justify-center md:justify-between flex-col">
+          <div className="w-full  md:w-[572px] ">
             <header>
-              <h1 className="text-[28px] md:text-[56px] font-black -tracking-[1.68px] leading-[38px] md:leading-[76px] text-center md:text-start ">
+              <h1 className="text-[28px] md:text-[56px] font-[900] -tracking-[1.68px] leading-[38px] md:leading-[76px] text-center md:text-start ">
                 {localizedString(data.title, locale)}
               </h1>
-              <p className="mt-2 md:mt-[10px] text-sm md:text-[20px] leading-[20px] md:leading-[30px] text-center md:text-start ">
+              <p className="mt-2 md:mt-[10px] text-sm md:text-[20px] font-[400] leading-[20px] md:leading-[32px] text-center md:text-start ">
                 {localizedString(data?.subtitle, locale)}
               </p>
             </header>
@@ -59,20 +59,36 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
               <PrimaryButton title={'Inquire Now'} />
               <SecondaryButton title={'Customize Your Own Trip'} />
             </div>
-            <p className={'text-xs font-bold pl-[115px] mt-2 opacity-60'}>In less than 1 minute</p>
+            <p className={'text-xs font-bold text-center leading-5 lg:pl-[115px] mt-2 opacity-60'}>
+              In less than 1 minute
+            </p>
           </div>
-          <footer className="mt-[28px] md:mt-[72px] flex items-center relative bottom-0">
+          <footer className="mt-[28px] md:mt-[71px] flex items-center relative bottom-0">
             {data.scores?.map((score, index) => (
               <React.Fragment key={index}>
                 {index !== 0 && (
-                  <div className="border-[0.69px]  rounded-full border-yellow mx-4 h-[73px]"></div>
+                  <svg
+                    className="mx-[18px]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="2"
+                    height="75"
+                    viewBox="0 0 2 75"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 74L1 0.999997"
+                      stroke="#FFBB0B"
+                      stroke-width="0.689655"
+                      stroke-linecap="round"
+                    />
+                  </svg>
                 )}
                 <Image
                   src={urlFor(score)}
                   width={136}
                   height={73}
                   alt=""
-                  className={'h-[73px] w-auto'}
+                  className={'h-[74px] w-auto'}
                 />
               </React.Fragment>
             ))}

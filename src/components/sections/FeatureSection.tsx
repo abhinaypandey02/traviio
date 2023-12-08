@@ -49,7 +49,9 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
   if (data?.type != 'small') {
     return (
       <Container
-        className={'text-center  pb-[60px] md:pb-20 pt-[50px] md:pt-[84px] text-[#140D31] relative'}
+        className={
+          'text-center  pb-[60px] h-fit  mx-auto max-w-[1312px] px-4  md:!px-[80px] md:pb-0 pt-[50px] md:pt-[84px] text-[#140D31] relative'
+        }
       >
         {data.title?.en && (
           <>
@@ -59,7 +61,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
             </div>
           </>
         )}
-        <div className="flex flex-col md:flex-row md:justify-between  mt-[54px] md:mt-[74px]   gap-[60px] md:gap-6 w-full ">
+        <div className="flex flex-col md:flex-row  md:justify-between  mt-[54px] md:mt-[74px]   gap-[60px] md:gap-6 w-full ">
           {data?.features?.map((feature, index) => (
             <Feature key={index} data={feature} locale={locale} />
           ))}
@@ -82,15 +84,15 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
     )
   }
   return (
-    <div className={'bg-[#F2FAFF] text-center py-3 '}>
-      <Container>
+    <div className={'bg-[#F2FAFF]   md:px-20 text-center py-3 '}>
+      <Container className={'  mx-auto max-w-[1312px] px-4 '}>
         {data.title?.en && (
-          <div className="flex items-center justify-center flex-col text-2xl -tracking-[0.72px] font-bold w-fit mx-auto leading-[30px] md:leading-[34px]  ">
+          <div className="flex md:items-start  items-center justify-center md:justify-start flex-col text-2xl -tracking-[0.72px] font-bold w-fit mx-auto leading-[30px] md:leading-[34px]  ">
             <h2>{data.title?.en}</h2>
-            <hr className="w-[85px] md:w-1/2 mt-1 bg-yellow text-yellow h-0.5  mb-4" />
+            <hr className="w-[85px] md:w-1/2 mt-[6px] bg-yellow text-yellow h-0.5  mb-4" />
           </div>
         )}
-        <div className="flex justify-between w-full  flex-wrap gap-[15px] ">
+        <div className="flex justify-between w-full flex-wrap gap-[15px] ">
           {data?.features?.map((feature, index) => (
             <SmallFeature key={index} data={feature} locale={locale} />
           ))}
@@ -104,7 +106,7 @@ export type FeatureProps = { data: SanityFeature }
 
 const Feature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
   return (
-    <div className="relative text-center flex flex-row-reversse justify-between md:flex-col items-center z-[2] h-[90px] md:h-[194px] [&:nth-child(odd)]:flex-row-reverse md:[&:nth-child(odd)]:flex-col">
+    <div className="relative text-center  flex flex-row-reversse justify-between md:flex-col items-center z-[2] h-[90px] md:h-fit [&:nth-child(odd)]:flex-row-reverse md:[&:nth-child(odd)]:flex-col">
       {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={68} height={68} alt="" />}
       <div
         className={`md:mt-9 md:mb-2.5  text-start md:text-center max-w-[231px] md:max-w-[348px]`}
@@ -113,7 +115,7 @@ const Feature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
           {localizedString(data.title, locale)}
         </h3>
 
-        <p className="opacity-60 text-xs md:text-base  leading-tight md:leading-normal">
+        <p className="opacity-60 text-xs md:text-base  text-gray leading-tight md:leading-normal">
           {localizedString(data.description, locale)}
         </p>
       </div>
@@ -123,7 +125,7 @@ const Feature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
 
 const SmallFeature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
   return (
-    <div className="text-center flex items-center  min-w-[160px] min-h-[64px] md:min-h-[48px] flex-col md:flex-row ">
+    <div className="text-center flex items-center  minP-w-[160px] min-h-[64px] md:min-h-[48px] flex-col md:flex-row ">
       <Image
         src={data.icon ? urlFor(data.icon) : ''}
         width={48}

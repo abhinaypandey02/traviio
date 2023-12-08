@@ -11,16 +11,13 @@ export type FeatureSectionProps = {
 }
 const TourFeature = ({ data }: FeatureSectionProps) => {
   return (
-    <Container
-      className="my-20  mb-[69px]  
-        "
-    >
+    <Container className="my-20 mx-auto max-w-[1312px] px-4 mb-[69px] ">
       {data.title?.en && (
-        <div className="mb-10">
+        <div className="mb-10 px-5 md:px-0">
           <h2 className="text-[20px] md:text-[24px] font-[700] leading-[30px] md:leading-[34px] pt-[20px] md:pt-[16px] ">
             {data.title?.en}
           </h2>
-          <hr className="w-[85px] md:w-[110px] my-2  bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" />
+          <hr className="w-[143px] md:w-[110px]  my-2  bg-yellow text-yellow h-[1px] rounded-full md:rounded-[3px] mb-5" />
         </div>
       )}
       <div
@@ -31,12 +28,12 @@ const TourFeature = ({ data }: FeatureSectionProps) => {
         }
       >
         {data?.type == 'small' ? (
-          <>
+          <div className=" px-5 ">
             <div className="lg:text-xl text-base py-8 lg:py-6 font-bold">Keep Things Simple</div>
             <div className="grid grid-cols-2 gap-7 lg:grid-cols-4 w-fit mx-auto">
               {data?.features?.map((feature, index) => <Feature key={index} data={feature} />)}
             </div>
-          </>
+          </div>
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 lg:gap-x-16 px-4 w-full pt-8 lg:px-[60px] relative">
             {data?.features?.map((feature, index) => <LargeFeature key={index} data={feature} />)}

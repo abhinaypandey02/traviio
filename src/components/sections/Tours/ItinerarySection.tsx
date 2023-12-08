@@ -22,7 +22,7 @@ export default function ItinerarySection({
   // console.log('ItinerarySection-> ', data)
   // console.log(Country.getAllCountries())
   return (
-    <Container className=" mt-20 flex flex-col py-20 gap-10">
+    <Container className=" mt-20   mx-auto max-w-[1312px] px-4 flex flex-col py-20 gap-10">
       <div id="itinerary" className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
         <h2 className="text-blue text-base font-medium capitalize">
           {localizedString(data?.tagline, locale)}

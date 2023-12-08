@@ -19,52 +19,51 @@ const SOCIAL_LINKS = [
   },
   {
     href: 'https://www.facebook.com/promotravels',
-    icon: '/fb_logo.svg',
+    icon: '/insta.svg',
     alt: 'Facebook',
   },
   {
     href: 'https://www.facebook.com/promotravels',
-    icon: '/fb_logo.svg',
+    icon: '/twitter.svg',
     alt: 'Facebook',
   },
   {
     href: 'https://www.facebook.com/promotravels',
-    icon: '/fb_logo.svg',
+    icon: '/youtube.svg',
     alt: 'Facebook',
   },
   {
     href: 'https://www.facebook.com/promotravels',
-    icon: '/fb_logo.svg',
+    icon: '/random.svg',
     alt: 'Facebook',
   },
 ]
 
 const CARDS = [
   '/visa_card.png',
-  '/visa_card.png',
-  '/visa_card.png',
-  '/visa_card.png',
-  '/visa_card.png',
-  '/visa_card.png',
+  '/mastercard.png',
+  '/amex.png',
+  '/discover.png',
+  '/paypal.png',
+  '/bank-transfer.png',
 ]
 
 const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
   const ADDRESSES = (footer?.locations as SanityGlobals['footer'])?.locations || []
   const LINKS = footer?.link_groups || []
   return (
-    <div className="w-full bg-primary">
-      <Container>
-        <div className="lg:mt-4 flex max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
+    <div className="w-full bg-primary ">
+      <Container className="mx-auto max-w-[1312px] px-4">
+        <div className="lg:mt-4 flex mx-auto max-w-[1312px] px-4 max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
           {/* Left side */}
           <div className="flex flex-col gap-2 mb-12 md:mt-5 max-w-[364px]">
             <div className="flex flex-col-reverse lg:flex-col justify-start items-start">
               <div className=" lg:mt-0 mt-10 ">
                 <div className="flex flex-col gap-1 md:gap-2">
-                  <div className="relative w-40 md:w-[260px] h-[34px] md:h-[48px]">
+                  <div className="relative bg-red-400 w-36 flex items-start justify-start md:w-[220px] h-[38px] md:h-[52px]">
                     <Image
                       src={(footer?.logo && urlFor(footer?.logo)) || ''}
-                      // width={260}
-                      // height={48}
+                      className=""
                       layout="fill"
                       alt="Company logo"
                     ></Image>
@@ -93,7 +92,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                 })}
               </div>
             </div>
-            <div className="lg:flex hidden  flex-wrap gap-2 mt-auto">
+            <div className="lg:flex hidden  flex-wrap gap-2 px-4 md:px-0 mt-auto">
               {CARDS.map((item, index) => {
                 return (
                   <Image
@@ -102,7 +101,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                     src={item}
                     alt=""
                     key={index}
-                    className="w-[50px] h-[32px]"
+                    className="w-[50px]  h-[32px]"
                   />
                 )
               })}
@@ -138,7 +137,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap lg:hidden  py-5 gap-2 mt-auto">
+        <div className="flex flex-wrap lg:hidden  py-5 px-4 md:px-0 gap-2 mt-auto">
           {CARDS.map((item, index) => {
             return (
               <Image
@@ -152,9 +151,11 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
             )
           })}
         </div>
-        <hr className="opacity-30 border-blue" />
-        <p className="text-center py-3 opacity-50">{localizedString(footer?.copyright_text)}</p>
       </Container>
+      <hr className="opacity-30 border-blue/20" />
+      <p className="text-center py-4 text-[#726E83] opacity-50">
+        {localizedString(footer?.copyright_text)}
+      </p>
     </div>
   )
 }

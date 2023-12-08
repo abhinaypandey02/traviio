@@ -9,7 +9,7 @@ import { useState } from 'react'
 export default function WhatsIncludedSection({ data }: { data: SanityWhatsIncludedSection }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   return (
-    <Container className="flex flex-col py-7  relative">
+    <Container className="flex flex-col py-7 mx-auto max-w-[1312px] px-4  relative">
       <div id="inclusions">
         <h2 className="text-black  font-bold text-[20px] lg:text-2xl text-c">{data?.title?.en}</h2>
         <hr className=" w-28 my-2 text-yellow bg-yellow  rounded-full border-2" />

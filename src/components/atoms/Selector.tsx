@@ -15,7 +15,7 @@ function TabSelector({
     <div className={'border-b border-[#140D311A]'}>
       <Container
         style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}
-        className={'grid '}
+        className={'grid mx-auto max-w-[1312px] px-4'}
       >
         {tabs.map((tab, i) => (
           <div

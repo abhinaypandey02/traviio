@@ -17,7 +17,7 @@ const FeatureTopBlogSection = (props: PropsWithLocale<SanityFeaturedBlogs>) => {
     data: { cards },
   } = props
   return (
-    <Container>
+    <Container className={'mx-auto max-w-[1312px] px-4'}>
       <div className="  md:py-10 py-5">
         <div className="mb-[30px] my-10 md:mb-12 flex flex-col lg:items-center items-start">
           <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">

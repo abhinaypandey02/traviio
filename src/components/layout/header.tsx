@@ -33,17 +33,19 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
 
   return (
     <div>
-      <div className="w-full z-50 hidden bg-white lg:block h-[100px] relative">
-        <div className="bg-primary py-1 ">
-          <a target={'_blank'} href={'whatsapp://+919456679268'}>
-            <Container className="flex justify-end gap-1">
-              <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
-              <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
-            </Container>
-          </a>
-        </div>
-        <div className="bg-white">
-          <Container className="py-[15px] bg-white flex gap-[138px] items-center">
+      <div className="w-full  z-50 hidden bg-white lg:block h-[100px] relative">
+        <Container className="bg-primary py-1 px-5 md:!px-20 ">
+          <div className="mx-auto max-w-[1312px] px-4">
+            <a target={'_blank'} href={'whatsapp://+919456679268'}>
+              <div className="flex px-0 justify-end gap-1">
+                <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
+                <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
+              </div>
+            </a>
+          </div>
+        </Container>
+        <div className="bg-white  px-5 md:px-[80px]">
+          <Container className="py-[15px] mx-auto max-w-[1312px] px-4 bg-white flex gap-[138px] items-center">
             <Link href={'/'}>
               <Image
                 className={'h-10 w-[172px]'}
@@ -58,7 +60,7 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
                 return <HeaderLink item={item} key={index} />
               })}
             </div>
-            <div className="flex gap-3 items-stretch ml-auto">
+            <div className="flex flex-none gap-3 items-stretch ml-auto">
               <Link href={navbar?.cta?.url || '/'}>
                 <ButtonTwo className="flex gap-2.5 items-center">
                   {navbar?.cta?.icon && (

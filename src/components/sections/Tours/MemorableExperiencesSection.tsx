@@ -47,7 +47,7 @@ export default function MemorableExperiencesSection({
         </div>
       </div>
       <div className="w-full bg-primary">
-        <Container className="flex flex-col py-7 relative">
+        <Container className="flex mx-auto max-w-[1312px] px-4 flex-col py-7 relative">
           <Swiper
             modules={[Navigation, Scrollbar, A11y, Controller]}
             className="external-buttons mySwiper w-full"
@@ -86,7 +86,7 @@ export default function MemorableExperiencesSection({
           </Swiper>
         </Container>
       </div>
-      <Container className="gap-12  relative flex justify-center">
+      <Container className="gap-12 mx-auto max-w-[1312px] px-4  relative flex justify-center">
         <div
           className="w-[50px] h-[50px] rounded-full bg-blue flex items-center justify-center"
           ref={prevRef}

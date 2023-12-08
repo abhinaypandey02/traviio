@@ -30,7 +30,7 @@ const BlogHeroSection = (props: ImageHeaderSectionProps) => {
           {header?.en}
         </h2>
       </div>
-      <Container className="px-10 text-[16px] -translate-y-9  font-[400] opacity-80 leading-6 ">
+      <Container className="px-10 mx-auto max-w-[1312px] px-4 text-[16px] -translate-y-9  font-[400] opacity-80 leading-6 ">
         {/* {content?content} */} <LocalizedString text={content} />
       </Container>
     </div>

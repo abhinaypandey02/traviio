@@ -126,7 +126,7 @@ const RatingCard = ({ title, review, country, name, date, star, varient }: any) 
 
       <h3 className="text-base font-bold leading-normal ">{title.substring(0, 33)}...</h3>
 
-      <h5 className="text-xs md:text-sm font-medium text-gray opacity-80 leading-normal md:leading-snug">
+      <h5 className="text-xs md:text-sm font-medium text-gray opacity-80 leading-[24px] md:leading-snug">
         {review}...
       </h5>
       <div className="flex gap-x-2 ">
@@ -140,9 +140,11 @@ const RatingCard = ({ title, review, country, name, date, star, varient }: any) 
           />
         </div>
         <div className="ml-2 md:ml-3 my-auto ">
-          <h6 className="text-xs md:text-sm font-bold leading-tight md:leading-snug">{name}</h6>
+          <h6 className="text-xs md:text-sm font-bold text-darkblue leading-tight md:leading-snug">
+            {name}
+          </h6>
 
-          <h6 className="text-[10px] md:text-xs   font-medium  md:font-normal text-gray  leading-tight">
+          <h6 className="text-[10px] md:text-xs   font-medium  md:font-normal text-gray  leading-[20px]">
             {date}
           </h6>
         </div>
@@ -175,7 +177,7 @@ const ReviewSection = (props: PropsWithLocale<ReviewSectionProps>) => {
   }
   const pageSize = 3
   return (
-    <Container className=" py-[50px] md:py-[90px]   text-black">
+    <Container className=" py-[50px] md:py-[90px]  mx-auto max-w-[1312px] px-4 text-black">
       <div id="review" className="flex flex-col items-center">
         <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {localizedString(tagline, locale)}

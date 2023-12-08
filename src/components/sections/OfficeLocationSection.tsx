@@ -16,7 +16,7 @@ const OfficeLocationSection = (props: PropsWithLocale<OfficeLocationSectionProps
     locale,
   } = props
   return (
-    <div className="bg-white my-12 md:my-20  ">
+    <div className="bg-white my-12 md:my-20 mx-auto max-w-[1312px] px-4  ">
       <Container className="px-5 text-2xl font-bold  ">
         <h3 className="leading-loose md:leading-[34px] text-center md:text-start">
           {localizedString(title, locale)}

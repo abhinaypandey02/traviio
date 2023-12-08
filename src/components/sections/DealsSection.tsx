@@ -70,7 +70,7 @@ export const TourCard = ({
           },
         }}
       />
-      <div className="bg-white relative h-min shadow-md hover:shadow-sm transition-all rounded-2xl cursor-pointer">
+      <div className="bg-white relative h-min shadow-md shadow-[rgba(0,0,0,0.06)] hover:shadow-sm transition-all rounded-2xl cursor-pointer">
         <span className="bg-red absolute m-3 right-0 px-3 py-1 leading-[20px] text-white font-bold text-[10px] md:text-xs rounded-full">
           Hot Deal
         </span>
@@ -83,10 +83,10 @@ export const TourCard = ({
           src={image.src}
         />
         <div className="p-4">
-          <h3 className="text-base md:text-xl font-bold leading-[24px] md:leading-[28px]">
+          <h3 className="text-base md:text-xl text-darkblue font-bold leading-[24px] md:leading-[28px]">
             {process.env.NEXT_PUBLIC_DEVELOPMENT ? "Safari Falls: Cape's Exotic Adventure" : title}
           </h3>
-          <div className="flex mt-3 justify-between">
+          <div className="flex mt-3 justify-between  text-darkblue">
             <div className="text-xs md:text-sm  items-center font-medium md:font-bold leading-none md:leading-[22px] flex gap-1.5">
               <Image
                 height={100}
@@ -119,17 +119,17 @@ export const TourCard = ({
             </div>
           </div>
           <div className="mt-6  flex justify-between items-start">
-            <div className="line-through opacity-50 font-bold  text-sm md:text-xl leading-[20px] md:leading-[28px]">
+            <div className="line-through opacity-50 text-gray font-bold  text-sm md:text-xl leading-[20px] md:leading-[28px]">
               {currency}
               {old_price}
             </div>
 
-            <div className="text-right">
-              <div className="text-base md:text-lg font-bold md:font-black leading-[20px] md:leading-[28px]">
+            <div className="text-right md:font-[900] ">
+              <div className="text-base md:text-lg font-bold text-darkblue leading-[20px] md:leading-[28px]">
                 From {currency}
                 {new_price}
               </div>
-              <div className="text-[10px] md:text-xs text-red font-bold leading-[20px] md:leading-[28px]">
+              <div className="text-[10px] md:-mt-2 md:text-xs text-red font-bold leading-[20px] md:leading-[28px]">
                 You Save {currency}
                 {old_price - new_price}
               </div>
@@ -137,7 +137,7 @@ export const TourCard = ({
           </div>
           <Button
             className={'!mt-3 !mb-0 !py-2.5 !px-7 !leading-[22px]'}
-            text="View Tour"
+            text="View Trip"
             varient="primary"
           />
         </div>
@@ -151,38 +151,43 @@ const DealsSection = ({
   locale,
 }: PropsWithLocale<DealSectionProps>) => {
   return (
-    <Container className="pt-[68px] pb-[72px]  text-black bg-white smd:mr-0 md:pxs-0 ws-[100vw] max-ws-[1440px]">
-      <div
-        className={_type === ('featured_tours_section' as any) ? 'flex flex-col items-center' : ''}
-      >
-        <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
-          {tagline?.en}
-        </p>
+    <Container className="pt-[68px] pb-[72px] pl-5 md:!pl-[80px] !pr-0 md:!pt-[80px]  text-black w-full smd:mr-0  ">
+      <div className="md:ml-28">
+        <div
+          className={
+            _type === ('featured_tours_section' as any) ? 'flex flex-col items-center ' : ''
+          }
+        >
+          <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
+            {tagline?.en}
+          </p>
 
-        <h2 className="text-[24px] md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
-          {title?.en}
-          <hr className="w-1/2 mx-auto text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
-        </h2>
-      </div>
-      <div className=" h-fit  mt-12  ">
-        {/* <div className="absolute hidden md:block h-full bg-white opacity-70  right-0 z-30  w-[4.5%] "></div> */}
-        <Swiper className={'gap-6 pb-3 '} length={deals?.length} scrollCount={4}>
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
-        </Swiper>
+          <h2 className="text-[24px] flex flex-col md:justify-start md:items-start md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
+            {title?.en}
+            <hr className="w-1/2 md:mx-0 text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
+          </h2>
+        </div>
+        <div className=" h-fit relative mt-12  ">
+          {/* <div className="absolute hidden md:block h-full bg-white opacity-70  right-0 z-30  w-[4.5%] "></div> */}
+          <Swiper className={'gap-6 pb-3 '} length={deals?.length} scrollCount={4}>
+            {deals?.map((({ tour }: { tour: SanityTourPage }) => (
+              <TourCard
+                title={localizedString(tour?.hero_section?.title, locale)}
+                image={{
+                  src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
+                  alt: localizedString(tour?.hero_section?.title, locale) || '',
+                }}
+                href={tour?.slug ? '/tours' + tour.slug.current : ''}
+                duration={localizedString(tour?.overview_card?.duration, locale)}
+                currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
+                cities={tour.overview_card?.cities}
+                old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
+                new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
+              />
+            )) as any)}
+          </Swiper>
+          <div className=" absolute hidden md:block w-[150px] top-0 p-3 h-full z-[100] bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.5)] to-white right-0" />
+        </div>
       </div>
     </Container>
   )

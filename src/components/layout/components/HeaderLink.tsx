@@ -34,7 +34,8 @@ function HeaderLink({
         <Link
           href={item.url || '/'}
           className={
-            'font-medium ' + ((item.url || '/') === router.asPath ? 'text-blue' : 'text-darkblue')
+            'font-medium flex-none ' +
+            ((item.url || '/') === router.asPath ? 'text-blue' : 'text-darkblue')
           }
         >
           <LocalizedString text={item.text} />

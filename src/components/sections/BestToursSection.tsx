@@ -78,7 +78,7 @@ function BestToursSection({
     refetchData(selectedTags, lastIds.current, 0)
   }, [])
   return (
-    <Container className="flex flex-col items-center gap-5">
+    <Container className="flex mx-auto max-w-[1312px] px-4 flex-col items-center gap-5">
       <div className="flex flex-col items-center">
         <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {localizedString(tagline, locale)}
