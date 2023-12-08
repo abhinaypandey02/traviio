@@ -125,7 +125,7 @@ const Feature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
 
 const SmallFeature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
   return (
-    <div className="text-center flex items-center  min-w-[160px] min-h-[64px] md:min-h-[48px] flex-col md:flex-row ">
+    <div className="text-center flex items-center  minP-w-[160px] min-h-[64px] md:min-h-[48px] flex-col md:flex-row ">
       <Image
         src={data.icon ? urlFor(data.icon) : ''}
         width={48}
