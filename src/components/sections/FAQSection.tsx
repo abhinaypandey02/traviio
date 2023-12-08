@@ -15,7 +15,7 @@ export type FAQSectionProps = {
 const FAQSection = ({ data, locale }: PropsWithLocale<FAQSectionProps>) => {
   const [open, setOpen] = React.useState(-1)
   return (
-    <Container className="bg-white flex flex-col items-center px-5 py-[52px] md:px-20 md:py-[75px] ">
+    <Container className="bg-white max-w-[1312px] mx-auto flex flex-col items-center   py-[52px]   md:py-[75px] ">
       <Schema
         data={{
           '@context': 'https://schema.org',
