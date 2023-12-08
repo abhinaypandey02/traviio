@@ -177,7 +177,7 @@ const ReviewSection = (props: PropsWithLocale<ReviewSectionProps>) => {
   }
   const pageSize = 3
   return (
-    <Container className=" py-[50px] md:py-[90px]  px-5 md:px-20 text-black">
+    <Container className=" py-[50px] md:py-[90px]  mx-auto max-w-[1312px] px-4 text-black">
       <div id="review" className="flex flex-col items-center">
         <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
           {localizedString(tagline, locale)}

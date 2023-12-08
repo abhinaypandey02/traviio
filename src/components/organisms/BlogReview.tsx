@@ -13,7 +13,7 @@ interface BlogReviewProps {
 function BlogReview(props: BlogReviewProps) {
   const { data } = props
   return (
-    <Container className="rounded-xl px-5 md:px-20 my-10 bg-primary py-12">
+    <Container className="rounded-xl mx-auto max-w-[1312px] px-4 my-10 bg-primary py-12">
       <div className="flex gap-7 mx-auto justify-center items-center">
         {/* left side */}
         <div className="flex flex-col gap-2 items-center">

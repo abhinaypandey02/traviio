@@ -19,7 +19,7 @@ function AllBlogsSection({ data }: { data: SanityAllBlogsSection }) {
   // ]
 
   return (
-    <Container className="flex flex-col px-5 md:px-20 mt-20 items-center">
+    <Container className="flex flex-col mx-auto max-w-[1312px] px-4 mt-20 items-center">
       <div>
         <h2 className="text-blue text-base font-medium text-center">
           {localizedString(data.tagline)}

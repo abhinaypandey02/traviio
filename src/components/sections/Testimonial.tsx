@@ -31,7 +31,9 @@ const Testimonial = (props: PropsWithLocale<TestimonialSectionProps>) => {
 
   return (
     <div className="w-full bg-[#F2FAFF] !mt-[84px]   text-black py-[30px]  md:h-full relative">
-      <Container className={'lg:flex pl-5  md:!pl-[80px] md:pr-0  items-center gap-x-10 '}>
+      <Container
+        className={'lg:flex pl-5 mx-auto max-w-[1312px] px-4    md:pr-0  items-center gap-x-10 '}
+      >
         <div className="lg:max-w-xs shrink-0 w-full pr-5  md:pr-0  text-center md:text-start">
           {/* <h3 className='font-semibold text-4xl'>{title?.en}</h3> */}
           {/* <div class="w-[335px] text-center text-sky-400 text-xl font-bold font-['Satoshi Variable'] leading-[30px]">Hear it from our Happy travelers</div> */}

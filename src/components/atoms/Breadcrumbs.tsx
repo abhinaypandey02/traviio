@@ -12,7 +12,7 @@ const Breadcrumbs = ({ paths }: { paths: Breadcrumb[] }) => {
   if (!paths?.length) return null
   const lastIndex = paths.length - 1
   return (
-    <Container className="w-full my-2 md:my-5  px-5  md:px-20  tracking-tight flex items-center gap-x-1.5  text-xs  md:text-base  font-normal leading-tight md:leading-normal">
+    <Container className="w-full my-2 md:my-5  mx-auto max-w-[1312px] px-4  tracking-tight flex items-center gap-x-1.5  text-xs  md:text-base  font-normal leading-tight md:leading-normal">
       {/* <div class="text-slate-900 text-base font-normal font-['Satoshi Variable'] leading-normal">Home</div> */}
       {/* <div class="text-slate-900 text-xs font-normal font-['Satoshi Variable'] leading-tight">Home</div> */}
       <Link href={'/'} className="">

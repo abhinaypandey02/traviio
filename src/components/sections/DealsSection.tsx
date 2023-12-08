@@ -152,38 +152,42 @@ const DealsSection = ({
 }: PropsWithLocale<DealSectionProps>) => {
   return (
     <Container className="pt-[68px] pb-[72px] pl-5 md:!pl-[80px] !pr-0 md:!pt-[80px]  text-black w-full smd:mr-0  ">
-      <div
-        className={_type === ('featured_tours_section' as any) ? 'flex flex-col items-center ' : ''}
-      >
-        <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
-          {tagline?.en}
-        </p>
+      <div className="md:ml-28">
+        <div
+          className={
+            _type === ('featured_tours_section' as any) ? 'flex flex-col items-center ' : ''
+          }
+        >
+          <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
+            {tagline?.en}
+          </p>
 
-        <h2 className="text-[24px] flex flex-col md:justify-start md:items-start md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
-          {title?.en}
-          <hr className="w-1/2 md:mx-0 text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
-        </h2>
-      </div>
-      <div className=" h-fit relative mt-12  ">
-        {/* <div className="absolute hidden md:block h-full bg-white opacity-70  right-0 z-30  w-[4.5%] "></div> */}
-        <Swiper className={'gap-6 pb-3 '} length={deals?.length} scrollCount={4}>
-          {deals?.map((({ tour }: { tour: SanityTourPage }) => (
-            <TourCard
-              title={localizedString(tour?.hero_section?.title, locale)}
-              image={{
-                src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
-                alt: localizedString(tour?.hero_section?.title, locale) || '',
-              }}
-              href={tour?.slug ? '/tours' + tour.slug.current : ''}
-              duration={localizedString(tour?.overview_card?.duration, locale)}
-              currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
-              cities={tour.overview_card?.cities}
-              old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
-              new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
-            />
-          )) as any)}
-        </Swiper>
-        <div className=" absolute hidden md:block w-[150px] top-0 p-3 h-full z-[100] bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.5)] to-white right-0" />
+          <h2 className="text-[24px] flex flex-col md:justify-start md:items-start md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
+            {title?.en}
+            <hr className="w-1/2 md:mx-0 text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
+          </h2>
+        </div>
+        <div className=" h-fit relative mt-12  ">
+          {/* <div className="absolute hidden md:block h-full bg-white opacity-70  right-0 z-30  w-[4.5%] "></div> */}
+          <Swiper className={'gap-6 pb-3 '} length={deals?.length} scrollCount={4}>
+            {deals?.map((({ tour }: { tour: SanityTourPage }) => (
+              <TourCard
+                title={localizedString(tour?.hero_section?.title, locale)}
+                image={{
+                  src: (tour?.hero_section?.image && urlFor(tour?.hero_section?.image)) || '',
+                  alt: localizedString(tour?.hero_section?.title, locale) || '',
+                }}
+                href={tour?.slug ? '/tours' + tour.slug.current : ''}
+                duration={localizedString(tour?.overview_card?.duration, locale)}
+                currency={localizedString(tour?.overview_card?.price?.currency_symbol, locale)}
+                cities={tour.overview_card?.cities}
+                old_price={localizedNumber(tour.overview_card?.price?.initial_price, locale)}
+                new_price={localizedNumber(tour.overview_card?.price?.discounted_price, locale)}
+              />
+            )) as any)}
+          </Swiper>
+          <div className=" absolute hidden md:block w-[150px] top-0 p-3 h-full z-[100] bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.5)] to-white right-0" />
+        </div>
       </div>
     </Container>
   )
