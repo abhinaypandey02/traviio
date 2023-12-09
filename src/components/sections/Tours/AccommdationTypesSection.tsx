@@ -6,7 +6,7 @@ import Swiper from '@/components/Swiper'
 
 export default function AccommdationTypesSection({ data }: { data: SanityAccommodationSection }) {
   return (
-    <Container className="flex flex-col py-7 md:px-20   relative gap-10">
+    <Container className="flex flex-col py-7  mx-auto max-w-[1312px] px-4 relative gap-10">
       <div className=" w-full">
         <div className=" pl-5 md:pl-0">
           <h2 className="text-black font-bold text-xl lg:text-2xl text-c">{data?.title?.en}</h2>
