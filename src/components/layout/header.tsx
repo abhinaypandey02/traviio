@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import LocaleContext, { LocalizedString, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
@@ -12,7 +13,6 @@ import ButtonTwo from '../buttons/ButtonTwo'
 
 import HeaderLink from './components/HeaderLink'
 import LanguageDropdown from './components/LanguageDropdown'
-import { useRouter } from 'next/router'
 
 const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
   const router = useRouter()
@@ -34,16 +34,18 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
   return (
     <div>
       <div className="w-full  z-50 hidden bg-white lg:block h-[100px] relative">
-        <Container className="bg-primary py-1 px-5 md:!px-20 ">
-          <div className="mx-auto max-w-[1312px] px-4">
-            <a target={'_blank'} href={'whatsapp://+919456679268'}>
-              <div className="flex px-0 justify-end gap-1">
-                <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
-                <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
-              </div>
-            </a>
-          </div>
-        </Container>
+        <div className={'bg-primary '}>
+          <Container className="py-1  ">
+            <div className="mx-auto max-w-[1312px] px-4">
+              <a target={'_blank'} href={'whatsapp://+919456679268'}>
+                <div className="flex px-0 justify-end gap-1">
+                  <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
+                  <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
+                </div>
+              </a>
+            </div>
+          </Container>
+        </div>
         <div className="bg-white  px-5 md:px-[80px]">
           <Container className="py-[15px] mx-auto max-w-[1312px] px-4 bg-white flex gap-[138px] items-center">
             <Link href={'/'}>

@@ -87,7 +87,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
     data: { tagline, title, featured_blogs },
   } = props
   return (
-    <Container className="pt-20 md:!pl-[80px] md:ml-28 pl-5  pb-[120px] lg:pt-[84px]   bg-white text-darkblue">
+    <Container className="pt-20 pb-[120px] lg:pt-[84px]   bg-white text-darkblue">
       <header className="pb-5">
         <p className="text-blue text-xs md:text-base font-medium text-center uppercase leading-tight md:leading-normal">
           {localizedString(tagline, props.locale)}
