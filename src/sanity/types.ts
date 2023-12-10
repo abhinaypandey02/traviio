@@ -86,6 +86,13 @@ export type SanityIcon = {
     _id: string
     _ref: string
   }
+  variants?: {
+    _type: 'variant'
+    _id: string
+    _key: string
+    name?: SanityLocaleString
+    icon?: SanityImage
+  }[]
 }
 
 export type SanityFormButton = {
