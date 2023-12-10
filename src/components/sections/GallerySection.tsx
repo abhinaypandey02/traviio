@@ -60,7 +60,7 @@ const TourGallerySection = (props: GallerySectionProps) => {
           />
         </div>
         <PhotoProvider>
-          <Swiper className="gap-x-2.5 pl-5 md:!pl-20 md:ml-28 !pb-0 " scrollCount={4}>
+          <Swiper className="gap-x-2.5  !pb-0 " scrollCount={4}>
             {imgs.slice(0, 3)?.map((image, i) =>
               i % 2 == 0 ? (
                 <div

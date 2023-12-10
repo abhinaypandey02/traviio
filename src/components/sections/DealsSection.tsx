@@ -151,8 +151,8 @@ const DealsSection = ({
   locale,
 }: PropsWithLocale<DealSectionProps>) => {
   return (
-    <Container className="pt-[68px] pb-[72px] pl-5 md:!pl-[80px] !pr-0 md:!pt-[80px]  text-black w-full smd:mr-0  ">
-      <div className="md:ml-28">
+    <Container className="pt-[68px] pb-[72px] md:!pt-[80px]  text-black w-full smd:mr-0  ">
+      <div className="">
         <div
           className={
             _type === ('featured_tours_section' as any) ? 'flex flex-col items-center ' : ''
