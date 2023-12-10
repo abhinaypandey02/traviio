@@ -112,6 +112,7 @@ const GraphqlType = `
       roomType:String
       stagedOptionalTours:[OptionalTourInput!]
       requests:[String!]
+      flights:[FlightInformationInput!]
   }
   input OptionalTourInput{
       cityID:String!
@@ -126,6 +127,20 @@ const GraphqlType = `
       visitID:String!
       visitName:String!
       price:Int!
+  }
+  input FlightInformationInput{
+      flightNumber:String!
+      departureTime:String!
+      arrivalAirport:String!
+      airCompany:String!
+      arrivalTime:String!
+  }
+  type FlightInformation{
+      flightNumber:String!
+      departureTime:String!
+      arrivalAirport:String!
+      airCompany:String!
+      arrivalTime:String!
   }
   "Tour Booking"
   type Booking {
@@ -146,6 +161,7 @@ const GraphqlType = `
     user:User
     email:String!  
     requests:[String!]
+    flights:[FlightInformation!]
   }
 `
 
@@ -217,6 +233,15 @@ export const MongooseSchema = new Schema<IMongoose>(
       type: Number,
       required: true,
     },
+    flights: [
+      {
+        flightNumber: String,
+        departureTime: Schema.Types.Date,
+        arrivalAirport: String,
+        airCompany: String,
+        arrivalTime: Schema.Types.Date,
+      },
+    ],
     adults: [
       {
         type: {

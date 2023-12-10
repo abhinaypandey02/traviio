@@ -20,7 +20,7 @@ import Layout from '@/components/layout'
 import { TourSectionsMap } from '@/components/sections'
 import { OptionalVisits } from '@/components/sections/Payment/Page1'
 import Page2 from '@/components/sections/Payment/Page2'
-import { PaymentMethod } from '@/components/sections/Payment/Page3'
+import Page3, { PaymentMethod } from '@/components/sections/Payment/Page3'
 import TourHeroSection from '@/components/sections/Tours/TourHeroSection'
 
 import Input from '@/components/atoms/Input'
@@ -640,8 +640,122 @@ function FlightInformation({
   booking: Booking
   locale: SanityLocale
 }) {
+  const [flights, setFlights] = useState(1)
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      flights: booking.flights?.map((f) => ({
+        ...f,
+        arrivalTime: new Date(parseInt(f.arrivalTime)).toISOString().slice(0, 16),
+        departureTime: new Date(parseInt(f.departureTime)).toISOString().slice(0, 16),
+      })),
+    },
+  })
+
+  const { token } = useUser()
+  const [loading, setLoading] = useState(false)
+  async function onSubmit(data: any) {
+    const client = getReactClient(token)
+    setLoading(true)
+    await client.mutate({
+      mutation: gql(`
+      #graphql
+      mutation UpdateFlightInfo($booking:UpdateBookingInput!){
+        updateBooking(booking: $booking)
+      }
+    `),
+      variables: {
+        booking: {
+          flights: data.flights,
+          id: booking._id,
+        },
+      },
+    })
+    setLoading(false)
+  }
   return (
     <Container className={'flex justify-between'}>
+      <form onSubmit={handleSubmit(onSubmit)} className={'p-10 md:pt-0'}>
+        {Array.from(Array(flights).keys()).map((i) => (
+          <div className="flex flex-col gap-6 mb-6">
+            <div>
+              <p className="text-2xl text-darkblue font-bold flex justify-between">
+                <span>{i + 1}. Flight Information</span>
+                {i > 0 && (
+                  <button
+                    type={'button'}
+                    className={'text-blue font-medium text-lg'}
+                    onClick={() => setFlights((o) => o - 1)}
+                  >
+                    Remove
+                  </button>
+                )}
+              </p>
+              <p className="text-base text-gray font-medium">
+                Have you reviewed the details in the booking summary? If something isn't correct,
+                you can adjust your details in the previous steps.
+              </p>
+            </div>
+            <div className="">
+              <p className="text-base font-medium text-darkblue mb-2">Flight Number</p>
+              <Input
+                name={`flights.${i}.flightNumber`}
+                control={control}
+                placeholder=" "
+                rules={{ required: true }}
+                type="text"
+              />
+            </div>
+            <div className="">
+              <p className="text-base font-medium text-darkblue mb-2">Departure Time</p>
+              <Input
+                name={`flights.${i}.departureTime`}
+                control={control}
+                placeholder="Select date and time"
+                rules={{ required: true }}
+                type="datetime-local"
+              />
+            </div>
+            <div className="">
+              <p className="text-base font-medium text-darkblue mb-2">Arrival Airport</p>
+              <Input
+                name={`flights.${i}.arrivalAirport`}
+                control={control}
+                placeholder=" "
+                rules={{ required: true }}
+                type="text"
+              />
+            </div>
+            <div className="">
+              <p className="text-base font-medium text-darkblue mb-2">Air Company</p>
+              <Input
+                name={`flights.${i}.airCompany`}
+                control={control}
+                placeholder=" "
+                rules={{ required: true }}
+                type="text"
+              />
+            </div>
+            <div className="">
+              <p className="text-base font-medium text-darkblue mb-2">Arrival Time</p>
+              <Input
+                name={`flights.${i}.arrivalTime`}
+                control={control}
+                placeholder=" "
+                rules={{ required: true }}
+                type="datetime-local"
+              />
+            </div>
+            <Button text={'Submit' + (loading ? 'ting' : '')} disabled={loading} />
+          </div>
+        ))}
+        <button
+          type={'button'}
+          className={'text-blue font-medium text-lg'}
+          onClick={() => setFlights((o) => o + 1)}
+        >
+          Add another flight
+        </button>
+      </form>
       <Sidebar bookingTour={bookingTour} booking={booking} locale={locale} />
     </Container>
   )
@@ -862,8 +976,20 @@ function Payment({
   booking: Booking
   locale: SanityLocale
 }) {
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'bank'>('bank')
+  const [bookOnly, setBookOnly] = useState(false)
   return (
     <Container className={'flex justify-between'}>
+      <div className={'p-10 md:pt-0'}>
+        <Page3
+          paid={booking.paid}
+          totalPrice={booking.price}
+          paymentMethod={paymentMethod}
+          setPaymentMethod={setPaymentMethod}
+          bookOnly={bookOnly}
+          toggleBookOnly={() => setBookOnly((o) => !o)}
+        />
+      </div>
       <Sidebar bookingTour={bookingTour} booking={booking} locale={locale} />
     </Container>
   )
@@ -888,6 +1014,13 @@ const Account = (props: PageProps) => {
                 requests
                 from
                 paid
+                flights{
+                  airCompany
+                  arrivalAirport
+                  arrivalTime
+                  departureTime
+                  flightNumber
+                }
                 price
                 to
                 optionalTours {

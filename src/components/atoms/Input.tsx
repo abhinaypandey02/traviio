@@ -15,6 +15,7 @@ interface Props {
     | 'boxSelection'
     | 'date'
     | 'textarea'
+    | 'datetime-local'
   control: Control<any>
   variant?: 'primary' | 'secondary'
   placeholder?: string
@@ -133,7 +134,7 @@ export default function Input({
         {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
-  if (['text', 'number', 'password', 'date'].includes(type))
+  if (['text', 'number', 'password', 'date', 'datetime-local'].includes(type))
     return (
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         {label && <label htmlFor={name}>{label}</label>}

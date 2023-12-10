@@ -13,6 +13,7 @@ export const POST = async (req: Request) => {
   }
   const client = await getClient()
   let token
+  console.log(user)
   if (user.signup) {
     if (!user.name) {
       return new NextResponse('', {

@@ -1,13 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Modal } from 'react-responsive-modal'
 
 import 'react-responsive-modal/styles.css'
 
 const Popup = () => {
-  const [open, setOpen] = useState(true)
-
-  const onOpenModal = () => setOpen(true)
+  const [open, setOpen] = useState(false)
+  const [dirty, setDirty] = useState(false)
+  useEffect(() => {
+    const t = !dirty
+      ? setTimeout(() => {
+          if (!dirty) {
+            setOpen(true)
+            setDirty(true)
+          }
+        }, 10000)
+      : 0
+    const windowBlurListener = () => {
+      if (!dirty) {
+        setOpen(true)
+        setDirty(true)
+      }
+    }
+    const windowScrollListener = () => {
+      const height = document.body.scrollHeight
+      const scrolled = window.scrollY
+      console.log(scrolled)
+      if (!dirty && scrolled > height / 2) {
+        setOpen(true)
+        setDirty(true)
+      }
+    }
+    if (!dirty) {
+      window.addEventListener('blur', windowBlurListener)
+      window.addEventListener('scroll', windowScrollListener)
+    }
+    return () => {
+      clearInterval(t)
+      window.removeEventListener('blur', windowBlurListener)
+      window.removeEventListener('scroll', windowScrollListener)
+    }
+  }, [dirty])
   const onCloseModal = () => setOpen(false)
 
   const closeIcon = (
@@ -32,11 +65,11 @@ const Popup = () => {
       <Modal open={open} onClose={onCloseModal} center closeIcon={closeIcon}>
         <div className="rounded-xl  p-0 flex text-black  overflow-hidden overflow-x-auto">
           <div className="w-1/2">
-            <Image height={600} width={440} src="./popup_image.png" alt="Background" />
+            <Image height={600} width={440} src="/popup_image.png" alt="Background" />
           </div>
 
           <div className="w-1/2  items-center px-4 pt-16">
-            <Image width={208} height={48} src="./Traviio.png" className="m-auto" alt="" />
+            <Image width={208} height={48} src="/Traviio.png" className="m-auto" alt="" />
             <p className="text-center pt-5 font-medium">
               Don't miss out on incredible discounted travel opportunities
             </p>

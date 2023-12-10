@@ -46,12 +46,14 @@ export default function Page3({
   bookOnly,
   paymentMethod,
   setPaymentMethod,
+  paid,
 }: {
   totalPrice: number
   paymentMethod: 'stripe' | 'paypal' | 'bank'
   setPaymentMethod: (o: 'stripe' | 'paypal' | 'bank') => void
   toggleBookOnly: () => void
   bookOnly: boolean
+  paid?: number
 }) {
   const [formData, setFormData] = useState({
     bookingMode: 'payFull',

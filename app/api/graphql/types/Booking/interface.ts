@@ -1,5 +1,11 @@
 import { Types } from 'mongoose'
-
+interface FlightInformation {
+  flightNumber: string
+  departureTime: string
+  arrivalAirport: string
+  airCompany: string
+  arrivalTime: string
+}
 export interface AddBookingInput {
   booking: {
     guests: number
@@ -26,6 +32,7 @@ export interface UpdateBookingInput {
     stagedOptionalTours?: OptionalTour[]
     optionalTours?: OptionalTour[]
     requests?: string[]
+    flights: FlightInformation[]
   }
 }
 export interface Name {
@@ -80,4 +87,5 @@ export interface IMongoose {
   status: string
   email: string
   requests: string[]
+  flights: FlightInformation[]
 }

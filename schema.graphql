@@ -35,6 +35,7 @@ type Booking {
     adults: [Adult!]!
     children: Int!
     email: String!
+    flights: [FlightInformation!]
     from: String!
     guests: Int!
     hotelType: String!
@@ -48,6 +49,14 @@ type Booking {
     to: String!
     tour: ID!
     user: User
+}
+
+type FlightInformation {
+    airCompany: String!
+    arrivalAirport: String!
+    arrivalTime: String!
+    departureTime: String!
+    flightNumber: String!
 }
 
 type Mutation {
@@ -168,6 +177,14 @@ input AdultInput {
     travelInsuranceCopy: String
 }
 
+input FlightInformationInput {
+    airCompany: String!
+    arrivalAirport: String!
+    arrivalTime: String!
+    departureTime: String!
+    flightNumber: String!
+}
+
 "Name broken down"
 input NameInput {
     designation: String
@@ -193,6 +210,7 @@ input PhoneInput {
 input UpdateBookingInput {
     adults: [AdultInput!]
     children: Int
+    flights: [FlightInformationInput!]
     guests: Int
     hotelType: String
     id: ID!
