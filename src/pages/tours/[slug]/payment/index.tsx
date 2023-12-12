@@ -57,6 +57,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
   useEffect(() => {
     const unsub = watch((value, _info) => {
       const info = _info as { name: keyof typeof value }
+      console.log(info)
       if (info.name?.startsWith('optionalVisits')) {
         let sum = 0
         for (const cityId in value['optionalVisits']) {
@@ -77,8 +78,8 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
           data?.payment?.room_sharing_options?.reduce(
             (acc, extra) =>
               acc +
-              (value['roomType'] === localizedString(extra?.title)
-                ? localizedNumber(extra.price?.discounted_price)
+              (value['roomType'] === localizedString(extra?.title, locale)
+                ? localizedNumber(extra.price?.discounted_price, locale)
                 : 0),
             0
           ) || 0
@@ -89,8 +90,8 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
           data?.payment?.room_options?.reduce(
             (acc, extra) =>
               acc +
-              (value['hotelChoice'] === localizedString(extra?.title)
-                ? localizedNumber(extra.price?.discounted_price)
+              (value['hotelChoice'] === localizedString(extra?.title, locale)
+                ? localizedNumber(extra.price?.discounted_price, locale)
                 : 0),
             0
           ) || 0
@@ -162,6 +163,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
       email: _data.email,
       optionalTours: optionalVisits,
     }
+    console.log(booking)
     fetch('/api/checkout', {
       method: 'POST',
       body: JSON.stringify(booking),
@@ -177,7 +179,6 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         setLoading(false)
       })
   }
-
   const [totalPrice, setTotalPrice] = useState(0)
   const [bookOnly, setBookOnly] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal' | 'bank'>('stripe')
@@ -211,7 +212,11 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         <Page1 locale={locale} errors={errors} control={control} payment={data.payment} />
         <Page2
           addPassenger={() => setValue('adultMembers', getValues('adultMembers') + 1)}
-          removePassenger={() => setValue('adultMembers', getValues('adultMembers') - 1)}
+          removePassenger={() => {
+            const len = getValues('adultMembers')
+            setValue('adultMembers', len - 1)
+            setValue('adultPassenger', getValues('adultPassenger').slice(0, len - 1))
+          }}
           adultsNumber={watch('adultMembers')}
           control={control}
         />

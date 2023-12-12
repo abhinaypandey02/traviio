@@ -15,6 +15,7 @@ interface Props {
     | 'boxSelection'
     | 'date'
     | 'textarea'
+    | 'datetime-local'
   control: Control<any>
   variant?: 'primary' | 'secondary'
   placeholder?: string
@@ -72,7 +73,7 @@ export default function Input({
     return (
       <div className={`flex font-medium text-base text-black flex-col gap-2 ${className}`}>
         {label && <p>{label}</p>}
-        <div className="border border-darkblue/10 flex gap-2 bg-white p-2 justify-between rounded">
+        <div className="border border-darkblue/10 flex gap-2 bg-white p-3 justify-between rounded">
           <div className="font-normal text-sm">{placeholder}</div>
           <div className="flex">
             <div
@@ -133,7 +134,7 @@ export default function Input({
         {errorMsg && <span className="font-thin text-xs text-red">{errorMsg}</span>}
       </div>
     )
-  if (['text', 'number', 'password', 'date'].includes(type))
+  if (['text', 'number', 'password', 'date', 'datetime-local'].includes(type))
     return (
       <div className="flex  font-medium text-base text-black flex-col gap-2">
         {label && <label htmlFor={name}>{label}</label>}

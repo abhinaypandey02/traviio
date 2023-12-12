@@ -35,6 +35,7 @@ type Booking {
     adults: [Adult!]!
     children: Int!
     email: String!
+    flights: [FlightInformation!]
     from: String!
     guests: Int!
     hotelType: String!
@@ -50,6 +51,14 @@ type Booking {
     user: User
 }
 
+type FlightInformation {
+    airCompany: String!
+    arrivalAirport: String!
+    arrivalTime: String!
+    departureTime: String!
+    flightNumber: String!
+}
+
 type Mutation {
     "[Auth required] Add new booking"
     addBooking(booking: AddBookingInput!): String
@@ -61,11 +70,12 @@ type Mutation {
     updateBooking(booking: UpdateBookingInput!): String
     "[Authenticated] Update user details"
     updateUser(user: UpdateUserInput!): User
+    updateUserPassword(email: String!, new_password: String!, old_password: String!): Boolean
 }
 
 "Name broken down"
 type Name {
-    designation: String!
+    designation: String
     firstName: String!
     lastName: String
     middleName: String
@@ -80,8 +90,8 @@ type OptionalTour {
 }
 
 type Phone {
-    code: String!
-    number: String!
+    code: String
+    number: String
 }
 
 type Query {
@@ -107,8 +117,11 @@ type Tokens {
 type User {
     _id: ID!
     bookings: [Booking!]
+    dob: String
     email: String!
-    name: String!
+    name: Name!
+    nationality: String
+    phone: Phone
     refreshTokens: [String!]
 }
 
@@ -136,7 +149,7 @@ input AddBookingInput {
 "Arguments to add user"
 input AddUserInput {
     email: String!
-    name: String!
+    name: NameInput!
     password: String!
 }
 
@@ -150,17 +163,31 @@ input AddressInput {
 
 "Adult details in a booking"
 input AdultInput {
+    additionalInformation: String
+    additionalTravellers: [String]
     address: AddressInput
     dob: String!
     email: String!
     name: NameInput!
     nationality: String
+    passportCopy: String
+    passportExpiry: String
+    passportNumber: String
     phone: PhoneInput
+    travelInsuranceCopy: String
+}
+
+input FlightInformationInput {
+    airCompany: String!
+    arrivalAirport: String!
+    arrivalTime: String!
+    departureTime: String!
+    flightNumber: String!
 }
 
 "Name broken down"
 input NameInput {
-    designation: String!
+    designation: String
     firstName: String!
     lastName: String
     middleName: String
@@ -175,14 +202,15 @@ input OptionalTourInput {
 }
 
 input PhoneInput {
-    code: String!
-    number: String!
+    code: String
+    number: String
 }
 
 "Arguments to update booking"
 input UpdateBookingInput {
     adults: [AdultInput!]
     children: Int
+    flights: [FlightInformationInput!]
     guests: Int
     hotelType: String
     id: ID!
@@ -193,6 +221,9 @@ input UpdateBookingInput {
 
 "Arguments to update user"
 input UpdateUserInput {
+    dob: String
     email: String
-    name: String
+    name: NameInput
+    nationality: String
+    phone: PhoneInput
 }

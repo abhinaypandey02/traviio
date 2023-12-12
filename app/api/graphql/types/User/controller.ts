@@ -100,6 +100,24 @@ const MutationResolvers = {
     const newUser = await MongooseModel.findOneAndUpdate({ email: user.email }, user, { new: true })
     return newUser
   },
+  async updateUserPassword(
+    _: any,
+    {
+      email,
+      new_password,
+      old_password,
+    }: { email: string; new_password: string; old_password: string }
+  ): Promise<boolean> {
+    const user = await MongooseModel.findOne({ email })
+    if (!user) return false
+    const pwd = user.password
+    if (await bcrypt.compare(old_password, pwd)) {
+      const encrypted = await bcrypt.hash(new_password, 10)
+      await MongooseModel.updateOne({ email }, { password: encrypted })
+      return true
+    }
+    return false
+  },
 }
 
 const TypeResolvers = {

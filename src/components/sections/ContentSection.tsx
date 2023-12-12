@@ -39,22 +39,39 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
     },
     layout_stack: (props: any) => {
       return (
-        <div className="flex flex-col  gap-[18px]">
-          <PortableText
-            // className="flex-1"
-            content={props.items[0]}
-            serializers={PortableTextSerializer}
-          />
-          <PortableText
-            // className="w-fit"
-            content={props.items[1]}
-            serializers={PortableTextSerializer}
-          />
+        <div
+          style={{
+            gridTemplateColumns:
+              props.items?.[0]?._type === 'layout_group' && props.grid
+                ? `repeat(${props.items?.[0].items?.length}, minmax(0, auto))`
+                : '',
+          }}
+          className={props.grid ? 'grid gap-[18px]' : 'flex flex-col gap-[18px]'}
+        >
+          {props.items
+            .map((item: any) =>
+              props.grid && item._type === 'layout_group' ? (
+                item.items?.map((item: any) => (
+                  <PortableText
+                    // className="flex-1"
+                    content={item}
+                    serializers={PortableTextSerializer}
+                  />
+                ))
+              ) : (
+                <PortableText
+                  // className="flex-1"
+                  content={item}
+                  serializers={PortableTextSerializer}
+                />
+              )
+            )
+            .flat()}
         </div>
       )
     },
     content_text: (props: any) => {
-      return <p>{props.text}</p>
+      return <p style={{ color: props.styles?.color }}>{props.text}</p>
     },
     content_image: (props: any) => {
       const { dimensions } = decodeAssetId(props.image.asset._ref)

@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
-    "prepare": "chmod ug+x ./.husky/* && husky install",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w"
   },

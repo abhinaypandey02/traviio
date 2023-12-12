@@ -17,6 +17,7 @@ const GraphqlMutation = `
   addUser(user:AddUserInput!): Tokens
   "[Authenticated] Update user details"
   updateUser(user:UpdateUserInput!): User
+  updateUserPassword(email:String!, old_password:String!, new_password:String!): Boolean
 `
 const GraphqlType = `
   #graphql
@@ -27,20 +28,26 @@ const GraphqlType = `
   }
   "Arguments to add user"
   input AddUserInput{
-    name:String!
+    name:NameInput!
     password:String!
     email:String!
   }
   "Arguments to update user"
   input UpdateUserInput{
     email:String
-    name:String
+    name:NameInput
+      dob:String
+      phone:PhoneInput
+      nationality:String
   }
   "User type"
   type User {
     _id:ID!
-    name:String!
+    name:Name!
     email:String!
+    dob:String
+    phone:Phone
+    nationality:String
     refreshTokens:[String!]
     bookings:[Booking!]
   }
@@ -49,13 +56,30 @@ const GraphqlType = `
 export const MongooseSchema = new Schema<IMongoose>(
   {
     name: {
-      type: String,
-      required: true,
+      designation: {
+        type: String,
+      },
+      firstName: {
+        type: String,
+        required: true,
+      },
+      middleName: String,
+      lastName: String,
     },
     email: {
       type: String,
       unique: true,
       index: true,
+    },
+    dob: {
+      type: Schema.Types.Date,
+    },
+    phone: {
+      code: String,
+      number: String,
+    },
+    nationality: {
+      type: String,
     },
     password: {
       type: String,

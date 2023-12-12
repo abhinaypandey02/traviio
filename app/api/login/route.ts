@@ -13,6 +13,7 @@ export const POST = async (req: Request) => {
   }
   const client = await getClient()
   let token
+  console.log(user)
   if (user.signup) {
     if (!user.name) {
       return new NextResponse('', {
@@ -29,7 +30,9 @@ export const POST = async (req: Request) => {
           }
         }
       `),
-      variables: { user: { name: user.name, email: user.email, password: user.password } },
+      variables: {
+        user: { name: { firstName: user.name }, email: user.email, password: user.password },
+      },
     })
     token = res.data?.addUser
     if (!token)

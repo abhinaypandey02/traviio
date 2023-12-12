@@ -8,6 +8,7 @@ import { LocalePage } from '@/utils/locales'
 import { getAllPages, PageData } from '@/utils/utils'
 
 import { SectionMap } from '@/components/sections'
+import Popup from '@/components/sections/Popup'
 import SEO from '@/components/Seo'
 
 type PageProps = {
@@ -18,6 +19,7 @@ type PageProps = {
 export default function Page({ data, locale, globals }: PageProps) {
   return (
     <LocaleProvider locale={locale}>
+      <Popup />
       <SEO
         title={data?.meta_data?.meta_title && localizedString(data.meta_data?.meta_title, locale)}
         description={
