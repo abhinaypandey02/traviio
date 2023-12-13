@@ -7,7 +7,13 @@ import * as yup from 'yup'
 import { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { useYupValidationResolver } from '@/pages/tailor_your_tour'
 import client, { urlFor } from '@/sanity/client'
-import { SanityGlobals, SanityLocale, SanityPricingSection, SanityTourPage } from '@/sanity/types'
+import {
+  SanityGlobals,
+  SanityLocale,
+  SanityPricingSection,
+  SanityPromoCode,
+  SanityTourPage,
+} from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
@@ -24,12 +30,13 @@ type PageProps = {
   slug: string
   data: SanityTourPage
   globals: SanityGlobals
+  promo: SanityPromoCode[]
   from: number
   to: number
 } & LocalePage
 
 export type PaymentSchema = IPaymentTourExtras & IContactInfo
-export default function Page({ slug, data, locale, globals, from, to }: PageProps) {
+export default function Page({ slug, data, locale, globals, from, to, promo }: PageProps) {
   const pricingData: SanityPricingSection = data?.sections?.find(
     (section) => section._type === 'pricing_section'
   ) as SanityPricingSection
@@ -57,7 +64,6 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
   useEffect(() => {
     const unsub = watch((value, _info) => {
       const info = _info as { name: keyof typeof value }
-      console.log(info)
       if (info.name?.startsWith('optionalVisits')) {
         let sum = 0
         for (const cityId in value['optionalVisits']) {
@@ -196,6 +202,7 @@ export default function Page({ slug, data, locale, globals, from, to }: PageProp
         image={data?.meta_data?.meta_image && urlFor(data?.meta_data?.meta_image)}
       />
       <Tabs
+        promo={promo}
         control={control}
         onSubmit={handleSubmit(onSubmit)}
         tour={data}
@@ -278,7 +285,10 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
   if (isNaN(fromDate) || isNaN(toDate)) return { props: {}, notFound: true }
 
   const pageData = await fetchPageData(slug)
-  const globals = (await client.fetch(`*[_type == "globals"][0]{
+  // const promo = await client.fetch()
+  const globals = (await client.fetch(`
+  {"promo":*[_type=="promo"],
+  "globals":*[_type == "globals"][0]{
     ...,
     navbar {
   ...,
@@ -295,7 +305,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
         }
       }
 }
-}`)) as SanityGlobals
+}}
+`)) as any
   return {
     props: {
       slug: slug,
@@ -303,7 +314,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
       locale: (locale ?? 'en') as SanityLocale,
       from: fromDate,
       to: toDate,
-      globals,
+      globals: globals.globals,
+      promo: globals.promo,
     },
   }
 }

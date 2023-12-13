@@ -23,6 +23,7 @@ import blog_page from './documents/BlogPage'
 import destination_page from './documents/DestinationPage'
 import Globals, { TourDropdown } from './documents/Globals'
 import Page from './documents/Page'
+import PromoCode from './documents/PromoCode'
 import Tag from './documents/Tag'
 import tailor_your_tour from './documents/TailorYourTour'
 import tour_page from './documents/TourPage'
@@ -105,4 +106,5 @@ export const schemaTypes = [
   travel_guide,
   travel_wiki,
   destination_page,
+  PromoCode,
 ]

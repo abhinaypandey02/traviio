@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { Control } from 'react-hook-form'
+import { Control, useForm } from 'react-hook-form'
 
 import LocaleContext, { localizedNumber, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
-import { SanityPrice, SanityPricingSection, SanityTourPage } from '@/sanity/types'
+import { SanityPrice, SanityPricingSection, SanityPromoCode, SanityTourPage } from '@/sanity/types'
 
 import Button from '@/components/buttons/Button'
 import Container from '@/components/Container'
@@ -25,6 +25,7 @@ export default function Tabs({
   control,
   trigger,
   loading,
+  promo,
 }: {
   children?: any[]
   tour: SanityTourPage
@@ -39,7 +40,9 @@ export default function Tabs({
   control: Control<any>
   trigger: () => any
   loading: boolean
+  promo: SanityPromoCode[]
 }) {
+  const [promoCode, setPromoCode] = useState<SanityPromoCode>()
   let priceOverrides = pricingData.price_overrides ?? []
   const price = (pricingData as any)?.price
 
@@ -57,9 +60,15 @@ export default function Tabs({
     (priceOverrides.length > 0
       ? localizedNumber(priceOverrides[0].price?.discounted_price)
       : localizedNumber(price?.discounted_price)) || actualPrice
-  setTotalPrice(
+  let totalPrice =
     currentPrice * (adultsNumber + childrenNumber) + (addons || 0) * (adultsNumber + childrenNumber)
-  )
+  let discount = 0
+  if (promoCode) {
+    discount = Math.min((totalPrice * promoCode.percent) / 100, promoCode.max_discount)
+    totalPrice -= discount
+  }
+  console.log(totalPrice)
+  setTotalPrice(totalPrice)
   const [page, setPage] = useState(1)
   useEffect(() => {}, [page])
   return (
@@ -142,7 +151,17 @@ export default function Tabs({
           <SelectedTour tour={tour} />
           <TripDuration startDate={startDate} endDate={endDate} />
           <Costing
-            control={control}
+            clearPromoCode={() => setPromoCode(undefined)}
+            setPromoCode={(x: string) => {
+              const code = promo.find((p) => p.code === x)
+              if (code) {
+                setPromoCode(code)
+                return true
+              }
+              return false
+            }}
+            promoCode={promoCode?.code}
+            promoCodeDiscount={discount}
             actualPrice={actualPrice}
             currentPrice={currentPrice}
             adults={adultsNumber || 0}
@@ -224,24 +243,24 @@ const Costing = ({
   currentPrice,
   promoCodeDiscount,
   setPromoCode,
+  clearPromoCode,
   promoCode,
   addons,
-  control,
 }: {
   adults: number
   childrenNumber: number
   actualPrice: number
   currentPrice: number
-  promoCodeDiscount?: number
-  setPromoCode?: (value: string) => void
+  promoCodeDiscount: number
+  setPromoCode: (x: string) => boolean
+  clearPromoCode: () => void
   promoCode?: string
   addons?: number
-  control: Control<any>
 }) => {
-  const [promoApplied, setPromoApplied] = useState(false)
+  const { control, handleSubmit, setError } = useForm()
   const people = adults + childrenNumber
   const originalPrice = people * actualPrice + parseInt(people.toString()) * (addons || 0)
-  const totalPrice = people * (currentPrice + (addons || 0))
+  const totalPrice = people * (currentPrice + (addons || 0)) - promoCodeDiscount
   return (
     <div className="bg-primary border border-darkblue/10 rounded-2xl overflow-hidden p-10">
       <div className="flex flex-col gap-5">
@@ -280,7 +299,7 @@ const Costing = ({
               </p>
             </div>
           )}
-          {promoCodeDiscount && (
+          {promoCodeDiscount > 0 && (
             <div className="flex justify-between gap-2">
               <p className="text-base font-medium text-gray">Promo Code</p>
               <p className="text-base font-medium text-green">- $ {promoCodeDiscount}</p>
@@ -303,7 +322,7 @@ const Costing = ({
             {originalPrice != totalPrice && (
               <div>
                 <p className="text-red font-bold text-[10px] text-end">
-                  You save ${originalPrice - totalPrice}
+                  You save ${(originalPrice - totalPrice).toFixed(2)}
                 </p>
               </div>
             )}
@@ -314,30 +333,34 @@ const Costing = ({
           </div>
         </div>
 
-        {promoApplied ? (
-          <div
-            className="flex flex-col items-center gap-2"
-            onClick={() => {
-              setPromoApplied(false)
-            }}
-          >
+        {promoCode ? (
+          <div className="flex flex-col items-center gap-2" onClick={clearPromoCode}>
             <div className="w-full text-center py-2 bg-white font-medium text-darkblue text-sm border border-gray rounded">
               {promoCode}
             </div>
             <p className="font-medium text-blue text-base ">Promocode applied</p>
           </div>
         ) : (
-          <div className="w-full relative">
-            <Input placeholder="Add promo code" type="text" control={control} name="promoCode" />
-            <button
-              className="absolute right-2 inset-y-0 text-blue font-medium"
-              onClick={() => {
-                if ((promoCode || '').length > 2) setPromoApplied(true)
-              }}
-            >
-              Apply
-            </button>
-          </div>
+          <form
+            onSubmit={handleSubmit((data) => {
+              if (!setPromoCode(data.promoCode)) {
+                setError('promoCode', {
+                  type: 'invalid',
+                  message: 'This code is invalid',
+                })
+              }
+            })}
+            className="w-full relative"
+          >
+            <Input
+              rules={{ required: true }}
+              placeholder="Add promo code"
+              type="text"
+              control={control}
+              name="promoCode"
+            />
+            <button className="absolute right-2 inset-y-0 text-blue font-medium">Apply</button>
+          </form>
         )}
       </div>
     </div>

@@ -686,6 +686,14 @@ export type SanityPricingSection = {
     price?: SanityPrice
   }[]
 }
+export type SanityPromoCode = {
+  _type: 'promo'
+  _id: string
+  _key: string
+  code: string
+  percent: number
+  max_discount: number
+}
 
 export type SanityTravelInfoSection = {
   _type: 'travel_info_section'
