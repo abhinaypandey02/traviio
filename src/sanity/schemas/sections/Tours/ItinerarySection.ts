@@ -66,7 +66,7 @@ export default defineType({
             defineField({
               name: 'image',
               title: 'Image',
-              type: 'image',
+              type: 'photo',
             }),
             defineField({
               name: 'itinerary_details_lists',

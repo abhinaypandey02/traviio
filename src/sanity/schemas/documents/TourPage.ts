@@ -54,7 +54,7 @@ export default defineType({
         defineField({
           name: 'image',
           title: 'Image',
-          type: 'image',
+          type: 'photo',
         }),
       ],
     }),
@@ -211,7 +211,7 @@ export default defineType({
                 defineField({
                   name: 'image',
                   title: 'Image',
-                  type: 'image',
+                  type: 'photo',
                 }),
                 defineField({
                   name: 'rating',
@@ -266,7 +266,7 @@ export default defineType({
                 defineField({
                   name: 'image',
                   title: 'Image',
-                  type: 'image',
+                  type: 'photo',
                 }),
                 defineField({
                   name: 'price',
@@ -335,7 +335,7 @@ export default defineType({
                         defineField({
                           name: 'image',
                           title: 'Image',
-                          type: 'image',
+                          type: 'photo',
                         }),
                         defineField({
                           name: 'price',

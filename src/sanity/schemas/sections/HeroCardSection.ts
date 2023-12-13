@@ -21,7 +21,7 @@ export default defineType({
       name: 'image',
       title: 'Image',
       description: 'The image for the hero card section',
-      type: 'image',
+      type: 'photo',
     }),
   ],
   preview: {

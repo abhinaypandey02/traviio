@@ -24,7 +24,7 @@ export default defineType({
       name: 'image',
       title: 'Image',
       description: 'Background image for the newsletter section',
-      type: 'image',
+      type: 'photo',
     }),
     // defineField({
     //   name: 'email_form',
@@ -48,7 +48,7 @@ export default defineType({
     //   name: 'query_section_subtitle_icon',
     //   title: 'Query Section Subtitle Icon',
     //   description: 'Icon for the subtitle in the query section',
-    //   type: 'image',
+    //   type: 'photo',
     // }),
   ],
   preview: {

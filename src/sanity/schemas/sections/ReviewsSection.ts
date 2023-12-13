@@ -55,7 +55,7 @@ export default defineType({
               name: 'avatar',
               title: 'Avatar',
               description: 'Avatar of the author',
-              type: 'image',
+              type: 'photo',
             }),
             defineField({
               name: 'rating',

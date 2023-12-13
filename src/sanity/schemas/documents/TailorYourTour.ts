@@ -49,7 +49,7 @@ export default defineType({
                 defineField({
                   name: 'image',
                   title: 'Image',
-                  type: 'image',
+                  type: 'photo',
                 }),
                 defineField({
                   name: 'is_primary_label',

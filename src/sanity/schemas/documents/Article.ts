@@ -21,7 +21,7 @@ export default defineType({
       name: 'cover_image',
       title: 'Cover Image',
       description: 'The cover image for the blog',
-      type: 'image',
+      type: 'photo',
     }),
     defineField({
       name: 'title',
@@ -71,7 +71,7 @@ export default defineType({
           name: 'avatar',
           title: 'Avatar',
           description: 'Avatar of the author',
-          type: 'image',
+          type: 'photo',
         }),
         defineField({
           name: 'bio',
@@ -100,7 +100,7 @@ export default defineType({
                   name: 'icon',
                   title: 'Icon',
                   description: 'Icon of the social',
-                  type: 'image',
+                  type: 'photo',
                 }),
                 defineField({
                   name: 'link',

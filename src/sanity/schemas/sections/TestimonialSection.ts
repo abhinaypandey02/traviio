@@ -25,7 +25,7 @@ export const testimonial_section = defineType({
       name: 'image',
       title: 'Image',
       description: 'Image for the testimonial section',
-      type: 'image',
+      type: 'photo',
     }),
     defineField({
       name: 'testimonials',
@@ -74,7 +74,7 @@ export const testimonial = defineType({
       name: 'avatar',
       title: 'Avatar',
       description: 'Avatar for the testimonial',
-      type: 'image',
+      type: 'photo',
     }),
     defineField({
       name: 'rating',

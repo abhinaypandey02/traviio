@@ -25,7 +25,7 @@ export default defineType({
       name: 'image',
       title: 'Image',
       description: 'The image for the link card',
-      type: 'image',
+      type: 'photo',
     }),
   ],
   preview: {

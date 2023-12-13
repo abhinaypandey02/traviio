@@ -12,6 +12,12 @@ export default defineType({
       description: 'Alternative text of the image',
       type: 'locale_string',
     }),
+    defineField({
+      name: 'mobile',
+      title: 'Mobile Image',
+      description: 'Alternative image for mobile',
+      type: 'image',
+    }),
   ],
   preview: {
     select: {

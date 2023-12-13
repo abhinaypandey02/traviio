@@ -26,7 +26,7 @@ export default defineType({
       name: 'meta_image',
       title: 'Meta Image',
       description: 'Meta image for SEO',
-      type: 'image',
+      type: 'photo',
     }),
   ],
 })

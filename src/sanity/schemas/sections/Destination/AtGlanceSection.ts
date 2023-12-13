@@ -49,7 +49,7 @@ export default defineType({
               name: 'icon',
               title: 'Icon',
               description: 'The icon for the fact',
-              type: 'image',
+              type: 'photo',
             }),
           ],
           preview: {
@@ -102,7 +102,7 @@ export default defineType({
                   name: 'icon',
                   title: 'Icon',
                   description: 'The icon for the link',
-                  type: 'image',
+                  type: 'photo',
                 }),
               ],
               preview: {

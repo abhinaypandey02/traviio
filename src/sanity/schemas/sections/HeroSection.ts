@@ -27,7 +27,7 @@ export default defineType({
       title: 'Image',
       icon: Image as any,
       description: 'Image for the hero background',
-      type: 'image',
+      type: 'photo',
     }),
     defineField({
       name: 'cta_buttons',
@@ -60,7 +60,7 @@ export default defineType({
       title: 'Scores',
       description: 'Ratings for the hero section to display instead of the search input field',
       type: 'array',
-      of: [defineArrayMember({ type: 'image' })],
+      of: [defineArrayMember({ type: 'photo' })],
     }),
   ],
   preview: {

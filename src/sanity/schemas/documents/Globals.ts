@@ -46,7 +46,7 @@ export default defineType({
           name: 'logo',
           title: 'Logo',
           description: 'The logo for the navbar',
-          type: 'image',
+          type: 'photo',
         }),
         defineField({
           name: 'links',
@@ -139,7 +139,7 @@ export default defineType({
           name: 'logo',
           title: 'Logo',
           description: 'The logo for the footer',
-          type: 'image',
+          type: 'photo',
         }),
         defineField({
           name: 'title',
@@ -275,7 +275,7 @@ export default defineType({
                 defineField({
                   name: 'icon',
                   title: 'Icon',
-                  type: 'image',
+                  type: 'photo',
                 }),
                 defineField({
                   name: 'link',
@@ -301,7 +301,7 @@ export default defineType({
                 defineField({
                   name: 'icon',
                   title: 'Icon',
-                  type: 'image',
+                  type: 'photo',
                 }),
                 defineField({
                   name: 'link',

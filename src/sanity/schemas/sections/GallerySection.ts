@@ -26,7 +26,7 @@ export default defineType({
       title: 'Images',
       description: 'Images for the gallery section',
       type: 'array',
-      of: [defineArrayMember({ type: 'image' })],
+      of: [defineArrayMember({ type: 'photo' })],
     }),
   ],
   preview: {
