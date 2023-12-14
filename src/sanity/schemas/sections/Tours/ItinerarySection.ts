@@ -104,6 +104,28 @@ export default defineType({
                 }),
               ],
             }),
+            defineField({
+              name: 'special_information',
+              title: 'Special Information',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'locale_string',
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'locale_text',
+                }),
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'icon',
+                }),
+              ],
+            }),
           ],
         }),
       ],

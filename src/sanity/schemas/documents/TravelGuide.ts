@@ -43,6 +43,11 @@ export default defineType({
       type: 'locale_string',
     }),
     defineField({
+      name: 'tab_title',
+      title: 'Tab Title',
+      type: 'locale_string',
+    }),
+    defineField({
       name: 'location',
       title: 'Location',
       type: 'locale_string',
@@ -62,6 +67,12 @@ export default defineType({
             collapsed: true,
           },
           fields: [
+            defineField({
+              name: 'tree_title',
+              title: 'Tree Title',
+              description: 'The title to display in the tree',
+              type: 'locale_string',
+            }),
             defineField({
               name: 'title',
               title: 'Title',

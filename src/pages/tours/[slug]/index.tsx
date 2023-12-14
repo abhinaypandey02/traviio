@@ -116,6 +116,13 @@ async function fetchPageData(slug: string): Promise<SanityTourPage> {
             ...,
             link_to->
           }
+        },
+        _type == "other_tours_section" => {
+          ...,
+          tour_cards[] {
+            ...,
+            content->
+          }
         }
       }
     }`
