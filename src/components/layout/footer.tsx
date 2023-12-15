@@ -53,12 +53,12 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
   const LINKS = footer?.link_groups || []
   return (
     <div className="w-full bg-primary ">
-      <Container className="mx-auto max-w-[1312px] px-4">
-        <div className="lg:mt-4 flex mx-auto max-w-[1312px] px-4 max-lg:flex-wrap justify-between gap-7 lg:gap-[166px] py-5">
+      <Container>
+        <div className="flex max-lg:flex-wrap justify-between gap-10 lg:gap-[166px] py-5 lg:py-20">
           {/* Left side */}
-          <div className="flex flex-col gap-2 mb-12 md:mt-5 max-w-[364px]">
+          <div className="flex flex-col gap-2 mb-0 md:max-w-[364px]">
             <div className="flex flex-col-reverse lg:flex-col justify-start items-start">
-              <div className=" lg:mt-0 mt-10 ">
+              <div className="mt-9 lg:mt-0">
                 <div className="flex flex-col gap-1 md:gap-2">
                   <div className="relative bg-red-400 w-36 flex items-start justify-start md:w-[220px] h-[38px] md:h-[52px]">
                     <Image
@@ -78,11 +78,11 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                   </p>
                 </div>
 
-                <p className="text-gray text-sm md:text-base font-medium md:font-normal leading-normal mt-5">
+                <p className="text-gray text-sm md:text-base font-medium md:font-normal leading-[24px] mt-5">
                   {localizedString(footer?.description)}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-6 lg:mt-5 mt-0 w-full justify-center lg:justify-start">
+              <div className="flex flex-wrap gap-5 md:gap-6 lg:mt-10 mt-0 w-full justify-center lg:justify-start">
                 {SOCIAL_LINKS.map((item, index) => {
                   return (
                     <Link href={item.href} key={index}>
@@ -109,7 +109,7 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
           </div>
           {/* Right side */}
           <div className="grow flex flex-col gap-4 text-darkblue">
-            <div className="grid  grid-cols-3 gap-3 justify-between">
+            <div className="grid grid-cols-3 gap-3 justify-between">
               {LINKS.map((item, index) => {
                 return (
                   <Footer__links
@@ -120,8 +120,8 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                 )
               })}
             </div>
-            <hr className="border-gray opacity-20" />
-            <p className="font-semibold text-xl">Contact Us</p>
+            <hr className="hidden md:block border-gray opacity-20" />
+            <p className="psb-2 font-bold text-base md:text-lg leading-[24px] pt-7">Contact Us</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {ADDRESSES.map((item, index) => {
                 return (
@@ -146,14 +146,14 @@ const Footer = ({ footer }: { footer: SanityGlobals['footer'] }) => {
                 src={item}
                 alt=""
                 key={index}
-                className="w-[50px] h-[32px]"
+                className="w-[40px] md:w-[50px] h-[26px] md:h-[32px]"
               />
             )
           })}
         </div>
       </Container>
-      <hr className="opacity-30 border-blue/20" />
-      <p className="text-center py-4 text-[#726E83] opacity-50">
+      <hr className="border-blue/20" />
+      <p className="text-xs md:text-base leading-[20px] md:leading-[24px] text-center py-3 text-[#726E83]">
         {localizedString(footer?.copyright_text)}
       </p>
     </div>

@@ -13,8 +13,8 @@ export type NewsletterSectionProps = {
 
 const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionProps>) => {
   return (
-    <Container className="flex mx-auto max-w-[1312px] md:px-4  justify-center items-center bg-white text-white">
-      <div className=" mb-10 pt-[30px] md:pt-[55px] pb-[45px] px-[60px] h-[300px] md:h-full w-screen md:w-full bg-blue md:rounded-3xl overflow-hidden  relative">
+    <Container className="px-0 flex justify-center items-center bg-white text-white">
+      <div className="pt-[30px] md:pt-[55px] pb-[45px] px-[60px] h-[300px] md:h-full w-screen md:w-full bg-blue md:rounded-3xl overflow-hidden relative">
         <Image
           width={640}
           height={222}
@@ -27,7 +27,7 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
         />
         <div className="flex relative z-10 flex-col justify-center md:justify-start items-center md:items-start ">
           <header>
-            <h2 className="text-center -tracking-[1.2px] max-w-3xl md:text-start text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] w-[335px] md:w-full">
+            <h2 className="text-center -tracking-[1.2px] max-w-3xl md:text-start text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px] w-[335px] md:w-full">
               {localizedString(data.title, locale)}
             </h2>
 
@@ -50,8 +50,8 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
             <strong className="text-[12px] md:text-[20px] font-bold leading-[20px] md:leading-[32px] ">
               Have any questions?
             </strong>
-            <div className="flex items-center gap-1">
-              <svg width="24px" height="24px" viewBox="0 0 32 32" fill="none">
+            <div className="flex items-center gap-0.5 md:gap-1">
+              <svg className='h-[18px] w-[18px] md:h-[24px] md:w-[24px]' viewBox="0 0 32 32" fill="none">
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"

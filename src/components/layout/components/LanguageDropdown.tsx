@@ -23,11 +23,13 @@ const LanguageDropdown = () => {
   return (
     <div className="relative">
       <div
-        className="rounded-full bg-opacity-5 w-fit bg-[#325EFB] border-[#325EFB] border border-opacity-10 md:py-[7px] md:px-[9px] flex items-center cursor-pointer gap-1 md:gap-2.5"
+        className="rounded-full bg-opacity-5 bg-[#325EFB] border-[#325EFB] border border-opacity-10 py-1 md:py-[8px] px-1 md:px-[10px] flex items-center cursor-pointer gap-1 md:gap-2.5"
         onClick={() => setOpen(!open)}
       >
-        <Image height={24} width={24} alt={curr} src={currimg} />
-        <Image height={16} width={16} alt="" src="/down_icon.svg" />
+        <Image className='hidden md:block' height={24} width={24} alt={curr} src={currimg} />
+        <Image className='hidden md:block' height={16} width={16} alt="" src="/down_icon.svg" />
+        <Image className='block md:hidden' height={16} width={16} alt={curr} src={currimg} />
+        <Image className='block md:hidden' height={12} width={12} alt="" src="/down_icon.svg" />
       </div>
       {open && (
         <div className="absolute pt-3 px-2 border-blue bg-blue rounded-xl min-w-max right-0 my-2">

@@ -21,16 +21,16 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
   return (
     <div
       className={
-        'relative z-10 h-screen max-h-[538px] flex items-end md:items-center justify-center border  md:h-full'
+        'relative z-10 h-[540px] md:h-full flex items-end lg:items-center justify-center'
       }
     >
       <div
-        className={'w-full h-full absolute top-0 left-0 -z-10'}
+        className={'w-full h-[540px] lg:h-full absolute top-0 left-0 -z-10'}
         style={{ background: linearGradient }}
       ></div>
       {data.image && (
         <Image
-          className={'absolute -z-20 left-0 top-0 w-full h-full object-cover'}
+          className={'absolute -z-20 left-0 top-0 w-full h-[540px] lg:h-full object-cover'}
           style={{ boxShadow: linearGradient }}
           height={538}
           width={1440}
@@ -44,22 +44,27 @@ const HeroSection = ({ data, locale }: PropsWithLocale<HeroSectionProps>) => {
         />
       )}
 
-      <div className="text-white    md:py-5 mx-auto max-w-[1312px] px-4 py-3 z-10  w-full">
-        <Container className="flex  items-center  md:items-start justify-center md:justify-between flex-col">
-          <div className="w-full  md:w-[572px] ">
-            <header>
+      <div className="text-white py-5 z-10 w-full">
+        <Container className="-mt-20 md:mt-0 flex items-center md:items-start justify-center md:justify-between flex-col">
+          <div className="w-full md:w-[572px]">
+            <header className='flex flex-col gap-2.5'>
               <h1 className="text-[28px] md:text-[56px] font-[900] -tracking-[1.68px] leading-[38px] md:leading-[76px] text-center md:text-start ">
                 {localizedString(data.title, locale)}
               </h1>
-              <p className="mt-2 md:mt-[10px] text-sm md:text-[20px] font-[400] leading-[20px] md:leading-[32px] text-center md:text-start ">
+              <p className="text-sm md:text-[20px] leading-[20px] md:leading-[32px] text-center md:text-start ">
                 {localizedString(data?.subtitle, locale)}
               </p>
             </header>
-            <div className="flex gap-3 md:gap-4 mt-5 md:mt-12 items-center justify-center md:justify-start">
+            <div className="flex gap-1 md:gap-4 mt-5 md:mt-12 items-center justify-center md:justify-start">
               <PrimaryButton title={'Inquire Now'} />
-              <SecondaryButton title={'Customize Your Own Trip'} />
+              <div className='hidden lg:flex' >
+                <SecondaryButton title={'Customize Your Own Trip'} />
+              </div>
+              <div  className='flex lg:hidden'>
+                <SecondaryButton title={'Customize Your Trip'} />
+              </div>
             </div>
-            <p className={'text-xs font-bold text-center leading-5 lg:pl-[115px] mt-2 opacity-60'}>
+            <p className={'text-xs font-bold text-center md:text-left leading-5 lg:pl-[115px] mt-1.5 text-white/60'}>
               In less than 1 minute
             </p>
           </div>
