@@ -558,7 +558,14 @@ export type SanityTopThingsSection = {
   } & SanityDestinationPage
   tagline?: SanityLocaleString
   title?: SanityLocaleString
-  top_things?: ({ _type: 'reference'; _ref: string } & SanityArticle)[]
+  // top_things?: ({ _type: 'reference'; _ref: string } & SanityArticle)[]
+  top_things?: {
+    _type: 'top_thing'
+    title?: SanityLocaleString
+    description?: SanityLocaleText
+    image?: SanityImage
+    link?: SanityLink
+  }[]
   cta?: SanityLocaleString
 }
 
@@ -780,6 +787,9 @@ export type SanityDestinationPage = {
   //   title?: SanityLocaleString
   //   image?: SanityImage
   // }
+  discounts_section?: {
+    header_section: SanityImageHeaderSection
+  }
   sections?: SanityDestinationSection[]
 }
 
