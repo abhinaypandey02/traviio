@@ -75,8 +75,7 @@ async function fetchPageData(slug: string): Promise<SanityDestinationPage> {
         ...,
         _type == "top_things_section" => {
           ...,
-          destination->,
-          top_things[]->
+          destination->
         },
         _type == "tour_selection_section" => {
           ...,
