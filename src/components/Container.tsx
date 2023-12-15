@@ -11,7 +11,7 @@ function Container(props: PropsWithChildren<PropsType>) {
     <section
       id={props.id}
       style={props.style}
-      className={'mx-auto max-w-[1312px] px-4 w-full ' + props.className}
+      className={'main-content-wrapper w-full ' + props.className}
     >
       {props.children}
     </section>

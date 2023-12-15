@@ -115,3 +115,9 @@ opacity: 1;
   }
  
 }
+
+@layer base {
+  .main-content-wrapper {
+    @apply mx-auto max-w-screen-xl px-5 md:px-20 xl:px-0
+  }
+}

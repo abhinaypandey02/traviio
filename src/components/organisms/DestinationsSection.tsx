@@ -48,10 +48,10 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
   }, [])
 
   return (
-    <Container className={'mb-[50px] mx-auto max-w-[1312px] px-4  md:pt-[80px] md:mb-[80px]'}>
+    <Container className={'mb-[50px] md:mb-[84px] md:pt-[80px]'}>
       <div>
         <header>
-          <p className="text-blue  text-xs  md:text-base font-medium uppercase leading-tight md:leading-normal ">
+          <p className="text-blue text-xs md:text-base font-medium uppercase leading-tight md:leading-normal ">
             <LocalizedString text={data.tagline} />
           </p>
 
@@ -59,7 +59,7 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
             <h2>
               <LocalizedString text={data.title} />
             </h2>
-            <hr className="w-[85px] md:w-1/3 text-yellow  bg-yellow mt-[9px] rounded-full border-t border-b-2" />
+            <hr className="w-[85px] md:w-1/3 text-yellow  bg-yellow mt-1 lg:mt-[9px] rounded-full border-t border-b-2" />
           </div>
         </header>
 

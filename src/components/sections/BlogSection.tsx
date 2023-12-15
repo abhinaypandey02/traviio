@@ -48,14 +48,14 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
         <div className=" w-full ">
           <div
             className={
-              '  relative rounded-3xl overflow-hidden  w-[250px] h-[280px] md:w-[410px] md:h-[460px]'
+              '  relative rounded-3xl overflow-hidden w-[250px] h-[280px] md:w-[410px] md:h-[460px]'
             }
           >
             {blog?.cover_image && (
               <Image
                 width={410}
                 height={460}
-                className=" absolute h-full  object-cover w-full "
+                className=" absolute h-full w-full "
                 src={urlFor(blog?.cover_image)}
                 alt="w"
                 sizes={`
@@ -65,13 +65,13 @@ const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
             )}
           </div>
           <div className="mt-4">
-            <h3 className="text-base  md:text-xl max-w-[250px] md:max-w-[380px] font-bold  md:font-medium  leading-normal md:leading-loose ">
+            <h3 className="text-base md:text-xl max-w-[250px] md:max-w-[380px] font-bold md:font-medium leading-normal md:leading-[32px] ">
               {process.env.NEXT_PUBLIC_DEVELOPMENT
                 ? '10 Indonesian Destinations you should visit in this year'
                 : localizedString(blog?.title, locale)}
             </h3>
 
-            <p className="mt-[6px] md:mt-2 text-[10px] md:text-xs font-normal leading-3 md:leading-tight  text-gray ">{`By ${localizedString(
+            <p className="mt-[6px] md:mt-2 text-[10px] md:text-xs font-normal leading-3 md:leading-[20px]  text-gray ">{`By ${localizedString(
               blog?.author?.name,
               locale
             )} ${blog?._updatedAt ? 'on ' + DateFormat(new Date(blog?._updatedAt)) : ''}`}</p>
@@ -87,19 +87,19 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
     data: { tagline, title, featured_blogs },
   } = props
   return (
-    <Container className="pt-20 pb-[120px] lg:pt-[84px]   bg-white text-darkblue">
+    <Container className="pt-20 pb-[80px] lg:pt-[84px] bg-white text-darkblue">
       <header className="pb-5">
         <p className="text-blue text-xs md:text-base font-medium text-center uppercase leading-tight md:leading-normal">
           {localizedString(tagline, props.locale)}
         </p>
-        <div className="text-2xl mt-2 md:mt-3  -tracking-[1.2px] mb-[30px] md:mb-12 w-fit mx-auto md:text-[40px] font-bold  leading-loose md:leading-[50px]  text-center">
+        <div className="text-2xl mt-2 md:mt-3 -tracking-[1.2px] mb-[30px] md:mb-12 w-fit mx-auto md:text-[40px] font-bold leading-[32px] md:leading-[50px] text-center">
           <h2>{localizedString(title, props.locale)}</h2>
-          <hr className=" mt-[4px] md:mt-[12px] w-1/3 md:w-[117px] mx-auto text-yellow  bg-yellow  rounded-full border-b-2" />
+          <hr className=" mt-[4px] md:mt-[12px] w-2/3 md:w-[117px] mx-auto text-yellow  bg-yellow  rounded-full border-b-2" />
         </div>
       </header>
       <div className="relative">
         <Swiper
-          className={'gap-3 md:gap-6 w-screen  overflow-hidden '}
+          className={'gap-3 md:gap-6 w-screen overflow-hidden '}
           length={featured_blogs?.length}
           scrollCount={2}
         >

@@ -31,18 +31,18 @@ const DestinationCard = ({ data, tourCount, locale }: PropsWithLocale<Destinatio
           <Image
             height={310}
             width={408}
-            className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
+            className="absolute top-0 left-0 w-full h-full rounded-2xl"
             src={urlFor(image)}
             alt=""
           />
         )}
       </div>
-      <h3 className="mt-2 md:mt-4 text-lg font-bold leading-7">
+      <h3 className="mt-2 md:mt-4 text-lg font-bold">
         {/* @ts-ignore */}
         <LocalizedString text={data.destination?.name} />
       </h3>
       {tourCount && (
-        <p className="text-gray font-medium mt-0 md:mt-[2px] text-xs leading-tight">
+        <p className="text-gray font-medium mt-0 md:mt-[2px] text-xs leading-normal">
           {displayNumber(tourCount, 'Tour Package')}
         </p>
       )}
