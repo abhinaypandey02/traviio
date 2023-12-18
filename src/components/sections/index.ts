@@ -55,6 +55,7 @@ export const SectionMap: {
   reviews_section: ReviewSection,
   office_locations_section: OfficeLocationSection,
   index_section: IndexSection,
+  image_header_section: ImageHeaderSection,
 }
 
 export const DestinationSectionsMap: {
