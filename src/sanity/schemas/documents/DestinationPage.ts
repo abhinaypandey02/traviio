@@ -58,6 +58,20 @@ export default defineType({
     //   ],
     // }),
     defineField({
+      name: 'discounts_section',
+      title: 'Discounts Section',
+      description: 'Discounts section for the page',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'header_section',
+          title: 'Header Section',
+          description: 'Header section for the discounts section',
+          type: 'image_header_section',
+        }),
+      ],
+    }),
+    defineField({
       name: 'sections',
       title: 'Sections',
       description: 'Sections for the page',

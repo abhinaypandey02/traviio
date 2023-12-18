@@ -34,8 +34,8 @@ function HeaderLink({
         <Link
           href={item.url || '/'}
           className={
-            'font-medium flex-none ' +
-            ((item.url || '/') === router.asPath ? 'text-blue' : 'text-darkblue')
+            'leading-[24px] flex-none ' +
+            ((item.url || '/') === router.asPath ? 'text-blue font-bold' : 'text-darkblue font-medium')
           }
         >
           <LocalizedString text={item.text} />
@@ -45,7 +45,7 @@ function HeaderLink({
         <>
           <div className={'hidden lg:flex items-center'}>
             <span className="flex items-center cursor-pointer" onClick={() => setOpen(!open)}>
-              <p className={'font-medium'}>Destinations</p>
+              <p className={'font-medium leading-[24px]'}>Destinations</p>
               <Image
                 src="/down_icon.svg"
                 height="16"

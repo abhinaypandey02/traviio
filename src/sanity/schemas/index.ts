@@ -28,7 +28,7 @@ import Tag from './documents/Tag'
 import tailor_your_tour from './documents/TailorYourTour'
 import tour_page from './documents/TourPage'
 import travel_guide from './documents/TravelGuide'
-import travel_wiki from './documents/TravelWiki'
+import travel_wiki, { TravelWikiSection as travel_wiki_section } from './documents/TravelWiki'
 import { BlogSectionExports } from './sections/Blog'
 import content_section from './sections/ContentSection'
 import deals_section from './sections/DealsSection'
@@ -89,6 +89,7 @@ export const schemaTypes = [
   testimonial_section,
   testimonial,
   hero_card_section,
+  travel_wiki_section,
   // Blog Sections
   ...BlogSectionExports,
   ...TourSectionExports,

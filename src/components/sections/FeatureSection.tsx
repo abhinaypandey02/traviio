@@ -57,7 +57,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
           <>
             <div className=" text-darkblue w-fit -tracking-[1.2px] mx-auto text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px]  text-center ">
               <h2>{localizedString(data.title, locale)}</h2>
-              <hr className="w-1/3 mt-[9px] m-auto bg-yellow text-yellow h-[3px] rounded-full  " />
+              <hr className="w-1/3 m-auto mt-1 lg:mt-[9px] bg-yellow text-yellow h-[3px] rounded-full  " />
             </div>
           </>
         )}
@@ -84,8 +84,8 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
     )
   }
   return (
-    <div className={'bg-[#F2FAFF]   md:px-20 text-center py-3 '}>
-      <Container className={'  mx-auto max-w-[1312px] px-4 '}>
+    <div className={'bg-[#F2FAFF] md:px-20 text-center py-5 md:py-3 '}>
+      <Container>
         {data.title?.en && (
           <div className="flex md:items-start  items-center justify-center md:justify-start flex-col text-2xl -tracking-[0.72px] font-bold w-fit mx-auto leading-[30px] md:leading-[34px]  ">
             <h2>{data.title?.en}</h2>
@@ -109,13 +109,13 @@ const Feature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
     <div className="relative text-center  flex flex-row-reversse justify-between md:flex-col items-center z-[2] h-[90px] md:h-fit [&:nth-child(odd)]:flex-row-reverse md:[&:nth-child(odd)]:flex-col">
       {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={68} height={68} alt="" />}
       <div
-        className={`md:mt-9 md:mb-2.5  text-start md:text-center max-w-[231px] md:max-w-[348px]`}
+        className={`md:mt-9 md:mb-2.5 text-start md:text-center max-w-[231px] md:max-w-[348px]`}
       >
-        <h3 className="font-bold -tracking-[0.6px] text-base md:text-xl  leading-normal md:leading-loose">
+        <h3 className="font-bold lg:-tracking-[0.6px] text-base md:text-xl leading-normal md:leading-loose">
           {localizedString(data.title, locale)}
         </h3>
 
-        <p className="opacity-60 text-xs md:text-base  text-gray leading-tight md:leading-normal">
+        <p className="mt-1.5 lg:mt-2.5 lg:px-3.5 opacity-60 text-xs md:text-base  text-gray leading-tight md:leading-normal">
           {localizedString(data.description, locale)}
         </p>
       </div>
@@ -133,7 +133,7 @@ const SmallFeature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
         alt=""
         className={'h-12 w-12'}
       />
-      <h3 className="text-center font-medium md:text-start text-xs md:text-base  leading-[20px] md:leading-[24px] ml-3">
+      <h3 className="text-center font-medium md:text-start text-xs md:text-base  leading-[20px] md:leading-[24px] md:ml-3">
         {localizedString(data.title, locale)}
       </h3>
     </div>

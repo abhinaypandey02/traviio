@@ -70,7 +70,7 @@ export const TourCard = ({
           },
         }}
       />
-      <div className="bg-white relative h-min shadow-md shadow-[rgba(0,0,0,0.06)] hover:shadow-sm transition-all rounded-2xl cursor-pointer">
+      <div className="bg-white relative h-min shadow-[0px_4px_20px_0px_rgba(0,0,0,0.06)] transition-all rounded-2xl cursor-pointer">
         <span className="bg-red absolute m-3 right-0 px-3 py-1 leading-[20px] text-white font-bold text-[10px] md:text-xs rounded-full">
           Hot Deal
         </span>
@@ -83,11 +83,11 @@ export const TourCard = ({
           src={image.src}
         />
         <div className="p-4">
-          <h3 className="text-base md:text-xl text-darkblue font-bold leading-[24px] md:leading-[28px]">
+          <h3 className="text-base md:text-xl text-darkblue font-bold">
             {process.env.NEXT_PUBLIC_DEVELOPMENT ? "Safari Falls: Cape's Exotic Adventure" : title}
           </h3>
           <div className="flex mt-3 justify-between  text-darkblue">
-            <div className="text-xs md:text-sm  items-center font-medium md:font-bold leading-none md:leading-[22px] flex gap-1.5">
+            <div className="text-xs md:text-sm items-center font-medium leading-none md:leading-[22px] flex gap-1.5">
               <Image
                 height={100}
                 width={100}
@@ -97,7 +97,7 @@ export const TourCard = ({
               ></Image>
               <p>{duration}</p>
             </div>
-            <div className="text-xs md:text-sm  items-center font-medium md:font-bold leading-none md:leading-[22px] flex gap-1.5">
+            <div className="text-xs md:text-sm items-center font-medium leading-none md:leading-[22px] flex gap-1.5">
               <Image
                 height={100}
                 width={100}
@@ -107,7 +107,7 @@ export const TourCard = ({
               ></Image>
               <p>{cities} Cities</p>
             </div>
-            <div className="text-xs md:text-sm  items-center font-medium md:font-bold leading-none md:leading-[22px] flex gap-1.5">
+            <div className="text-xs md:text-sm items-center font-medium leading-none md:leading-[22px] flex gap-1.5">
               <Image
                 height={100}
                 width={100}
@@ -118,14 +118,14 @@ export const TourCard = ({
               <p>{countries} Countries </p>
             </div>
           </div>
-          <div className="mt-6  flex justify-between items-start">
-            <div className="line-through opacity-50 text-gray font-bold  text-sm md:text-xl leading-[20px] md:leading-[28px]">
+          <div className="mt-6 flex justify-between items-start">
+            <div className="line-through opacity-50 text-gray font-bold text-sm md:text-[18px] leading-[20px] md:leading-[28px]">
               {currency}
               {old_price}
             </div>
 
             <div className="text-right md:font-[900] ">
-              <div className="text-base md:text-lg font-bold text-darkblue leading-[20px] md:leading-[28px]">
+              <div className="text-base md:text-lg font-black text-darkblue leading-[20px] md:leading-[28px]">
                 From {currency}
                 {new_price}
               </div>
@@ -136,9 +136,10 @@ export const TourCard = ({
             </div>
           </div>
           <Button
-            className={'!mt-3 !mb-0 !py-2.5 !px-7 !leading-[22px]'}
+            className={'!!mt-3 !mb-0 !py-2.5 !px-7 !leading-[22px]'}
             text="View Trip"
             varient="primary"
+            style={{width: '100%'}}
           />
         </div>
       </div>
@@ -151,20 +152,20 @@ const DealsSection = ({
   locale,
 }: PropsWithLocale<DealSectionProps>) => {
   return (
-    <Container className="pt-[68px] pb-[72px] md:!pt-[80px]  text-black w-full smd:mr-0  ">
+    <Container className="pt-[50px] md:pt-[68px] pb-[72px]  text-black w-full smd:mr-0  ">
       <div className="">
         <div
           className={
             _type === ('featured_tours_section' as any) ? 'flex flex-col items-center ' : ''
           }
         >
-          <p className="text-blue text-xs md:text-base  font-medium uppercase leading-tight md:leading-normal">
+          <p className="text-blue text-xs leading-[20px] md:leading-[24px] md:text-base font-medium uppercase">
             {tagline?.en}
           </p>
 
-          <h2 className="text-[24px] flex flex-col md:justify-start md:items-start md:text-[40px] leading-[32px] md:leading-tight  -tracking-[1.2px] mt-3 w-fit  font-bold">
+          <h2 className="text-[24px] flex flex-col md:justify-start md:items-start md:text-[40px] leading-[32px] md:leading-[50px] -tracking-[1.2px] mt-2 md:mt-3 w-fit font-bold">
             {title?.en}
-            <hr className="w-1/2 md:mx-0 text-yellow  bg-yellow  rounded-full mt-2.5 border-b-2" />
+            <hr className="w-1/2 md:mx-0 text-yellow  bg-yellow  rounded-full mt-1 md:mt-2.5 border-b-2" />
           </h2>
         </div>
         <div className=" h-fit relative mt-12  ">

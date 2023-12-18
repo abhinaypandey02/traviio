@@ -1,4 +1,5 @@
 import at_glance_section from './AtGlanceSection'
+import contact_agent_section from './ContactAgent'
 import top_things_section from './TopThingsSection'
 import tour_selection_section from './TourSelectionSection'
 
@@ -6,6 +7,7 @@ export const DestinationSectionExports = [
   tour_selection_section,
   top_things_section,
   at_glance_section,
+  contact_agent_section,
 ]
 
 export const DestinationSections = [
@@ -20,4 +22,5 @@ export const DestinationSections = [
   'tour_selection_section',
   'top_things_section',
   'at_glance_section',
+  'contact_agent_section',
 ] as const

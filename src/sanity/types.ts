@@ -87,11 +87,7 @@ export type SanityIcon = {
     _ref: string
   }
   variants?: {
-    _type: 'variant'
-    _id: string
-    _key: string
-    name?: SanityLocaleString
-    icon?: SanityImage
+    variant?: SanityImage
   }[]
 }
 
@@ -250,6 +246,7 @@ export type SanityDestinationsSection = {
   tagline?: SanityLocaleString
   title?: SanityLocaleString
   destinations?: {
+    count: number
     _type: 'destination'
     _id: string
     _key: string
@@ -344,6 +341,20 @@ export type SanityIndexSection = {
     _id: string
     _ref: string
   } & SanityTourPage)[]
+}
+
+export type SanityOtherToursSection = {
+  _type: 'other_tours_section'
+  title?: SanityLocaleString
+  tagline?: SanityLocaleString
+  tour_cards?: {
+    badge_content?: SanityLocaleString
+    content?: {
+      _type: 'reference'
+      _id: string
+      _ref: string
+    } & SanityTourPage
+  }[]
 }
 
 export type SanityNewsletterSection = {
@@ -547,7 +558,14 @@ export type SanityTopThingsSection = {
   } & SanityDestinationPage
   tagline?: SanityLocaleString
   title?: SanityLocaleString
-  top_things?: ({ _type: 'reference'; _ref: string } & SanityArticle)[]
+  // top_things?: ({ _type: 'reference'; _ref: string } & SanityArticle)[]
+  top_things?: {
+    _type: 'top_thing'
+    title?: SanityLocaleString
+    description?: SanityLocaleText
+    image?: SanityImage
+    link?: SanityLink
+  }[]
   cta?: SanityLocaleString
 }
 
@@ -642,6 +660,11 @@ export type SanityItineraryDetailsListItem = {
     title?: SanityLocaleString
     itinerary_details_list_items?: SanityLocaleString[]
   }[]
+  special_information?: {
+    title?: SanityLocaleString
+    description?: SanityLocaleText
+    icon?: SanityIcon
+  }
 }
 
 export type SanityItinerarySection = {
@@ -742,8 +765,16 @@ export type SanityDestinationSection =
   | SanityTourSelectionSection
   | SanityTopThingsSection
   | SanityAtGlanceSection
+  | SanityContactAgentSection
 
 export type SanityDestinationSectionNames = SanityDestinationSection['_type']
+
+export type SanityContactAgentSection = {
+  _type: 'contact_agent_section'
+  title?: SanityLocaleString
+  cta?: SanityLinkButton
+  hero_image?: SanityPhoto
+}
 
 export type SanityDestinationPage = {
   _type: 'destination_page'
@@ -756,6 +787,9 @@ export type SanityDestinationPage = {
   //   title?: SanityLocaleString
   //   image?: SanityImage
   // }
+  discounts_section?: {
+    header_section: SanityImageHeaderSection
+  }
   sections?: SanityDestinationSection[]
 }
 
@@ -827,6 +861,10 @@ export type SanityAllBlogsSection = {
   blogs?: SanityArticle[]
 }
 
+export type SanityFeaturedImagesSection = {
+  _type: 'featured_images_section'
+} & { [x: string]: SanityImage }[]
+
 export type SanityBlogPageSection =
   | SanityFeaturedBlogsSection
   | SanityAllBlogsSection
@@ -836,6 +874,7 @@ export type SanityBlogPageSection =
   | SanityContentSection
   | SanityNewsletterSection
   | SanityLatestPostsSection
+  | SanityFeaturedImagesSection
 
 export type SanityBlogPageSectionNames = SanityBlogPageSection['_type']
 
@@ -979,6 +1018,7 @@ export type SanityTourPage = {
 }
 
 export type SanityTravelGuideSection = {
+  tree_title?: SanityLocaleString
   title?: SanityLocaleString
   content?: SanityContentRichText
 }
@@ -993,13 +1033,18 @@ export type SanityTravelGuide = {
   }
   tagline?: SanityLocaleString
   title?: SanityLocaleString
+  tab_title?: SanityLocaleString
   location?: SanityLocaleString
   sections?: SanityTravelGuideSection[]
 }
 
 export type SanityTravelWikiSection = {
+  tree_title?: SanityLocaleString
   title?: SanityLocaleString
   content?: SanityContentRichText
+  nested_sections?: ({
+    _type: 'nested_section'
+  } & SanityTravelWikiSection)[]
 }
 
 export type SanityTravelWiki = {

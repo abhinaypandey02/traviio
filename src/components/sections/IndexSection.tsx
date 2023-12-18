@@ -22,14 +22,13 @@ const IndexSextion = (props: IndexSectionProps) => {
     data: { title },
   } = props
   return (
-    <div className="pb-10 px-5 md:px-[80px] ">
-      <Container className="mx-auto max-w-[1312px] px-4 ">
-        <h2 className="font-[700] text-darkblue text-[24px]">{title?.en}</h2>
+    <Container className="md:py-[48px]">
+        <h2 className="font-[700] text-darkblue text-[24px] tracking-[-0.72px]">{title?.en}</h2>
         <hr className="text-yellow bg-yellow w-[85px] md:w-1/12 rounded-full border-2 my-2" />
-        <div className="my-10 mt-[30px] md:mt-10   flex flex-wrap text-gray">
+        <div className="my-12 mt-[30px] md:mt-10 flex flex-wrap text-gray">
           {data.map((item: any, index) => {
             return (
-              <div className="flex space-x-[11px] pr-[11px]">
+              <div className="text-xs md:text-sm leading-[20px] md:leading-[22px] font-medium flex space-x-2 pr-2">
                 <Link key={index} href={item?.slug?.current ? item?.slug?.current : '/'}>
                   {item?.meta_data?.meta_title?.en ? item?.meta_data?.meta_title?.en : 'page'}
                 </Link>
@@ -39,7 +38,6 @@ const IndexSextion = (props: IndexSectionProps) => {
           })}
         </div>
       </Container>
-    </div>
   )
 }
 

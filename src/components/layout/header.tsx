@@ -33,12 +33,12 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
 
   return (
     <div>
-      <div className="w-full  z-50 hidden bg-white lg:block h-[100px] relative">
-        <div className={'bg-primary '}>
-          <Container className="py-1  ">
-            <div className="mx-auto max-w-[1312px] px-4">
+      <div className="w-full z-50 hidden bg-white lg:block h-[100px] relative">
+        <div className={'bg-primary h-[30px]'}>
+          <Container className="py-1">
+            <div className="main-content-wrapper">
               <a target={'_blank'} href={'whatsapp://+919456679268'}>
-                <div className="flex px-0 justify-end gap-1">
+                <div className="flex justify-end gap-1">
                   <Image src="/whatsapp_logo.svg" height={18} width={18} alt="Whatsapp logo" />
                   <p className={'text-sm font-medium leading-[22px]'}>+1 0000 000 000</p>
                 </div>
@@ -46,8 +46,8 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
             </div>
           </Container>
         </div>
-        <div className="bg-white  px-5 md:px-[80px]">
-          <Container className="py-[15px] mx-auto max-w-[1312px] px-4 bg-white flex gap-[138px] items-center">
+        <div className="bg-white h-[70px] flex flex-col items-center justify-center">
+          <Container className="main-content-wrapper flex gap-[138px] items-center">
             <Link href={'/'}>
               <Image
                 className={'h-10 w-[172px]'}
@@ -83,10 +83,9 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
       </div>
       <div className="w-full lg:hidden z-50 lg:h-[80px] h-[60px] p-base">
         <div className="px-5 flex justify-between items-center w-full bg-white relative h-full  py-[16px] md:py-5 z-[50]">
-          <Image src="/company_logo.svg" height={24} width={105} alt="Company logo" />
-          <div className="flex gap-3  h-[24px]  items-center">
+          <Image src="/company_logo.svg" height={24} width={103} alt="Company logo" />
+          <div className="flex gap-3 h-[24px]  items-center">
             <Image src="/whatsapp_logo.svg" height={24} width={24} alt="Whatsapp logo" />
-
             {/* Language selector */}
             <LanguageDropdown />
             <button onClick={() => setOpen(!open)}>
@@ -132,7 +131,7 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
                     <Link
                       href={item.url || '/'}
                       className={
-                        'font-medium' +
+                        'font-medium ' +
                         ((item.url || '/') === router.asPath ? 'text-blue' : 'text-darkblue')
                       }
                     >
@@ -152,16 +151,20 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
                         height="16"
                         width="16"
                         alt=""
-                        className={`ml-1 ${open && '-rotate-180'} transition-all`}
+                        className={`ml-1 ${openDropDown && '-rotate-180'} transition-all`}
                       ></Image>
                     </span>
                     {openDropDown && (
                       <div>
                         {dropdownList.map((item, index) => (
-                          <div className=" text-[#726E83] p-[10px] px-[24px]">
-                            <Link key={index} href={'/'}>
-                              {item}
-                            </Link>
+                          <div>
+                            <label 
+                              className="flex items-center gap-3 text-[#726E83] p-[10px] px-[24px]" 
+                              htmlFor={'nav-sub-item' + index}
+                            >
+                              <input type="radio" name="nav-sub-item" id={'nav-sub-item' + index} />
+                              <Link key={index} href={'/'}> {item}</Link>
+                            </label>
                           </div>
                         ))}
                       </div>

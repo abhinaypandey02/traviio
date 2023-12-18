@@ -63,6 +63,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
             ...,
             'destination': {
               '_ref': destination._ref,
+              'count': (*[_type == "tour_page" && document._ref == ^._id && !(_id in path("drafts.*"))]),
               ...destination->
             }
           }

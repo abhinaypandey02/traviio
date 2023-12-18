@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 import { displayNumber, joinStrings } from '@/utils/utils'
 import { RocketLaunch } from '@phosphor-icons/react'
@@ -34,10 +34,41 @@ export default defineType({
       description: 'The top things for the top things section',
       type: 'array',
       of: [
-        {
-          type: 'reference',
-          to: [{ type: 'article' }],
-        },
+        // {
+        //   type: 'reference',
+        //   to: [{ type: 'article' }],
+        // },
+        defineArrayMember({
+          name: 'top_thing',
+          title: 'Card',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              description: 'The title for the card',
+              type: 'locale_string',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              description: 'The description for the card',
+              type: 'locale_text',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Image',
+              description: 'The image for the card',
+              type: 'image',
+            }),
+            defineField({
+              name: 'link',
+              title: 'Link',
+              description: 'The link for the card',
+              type: 'locale_string',
+            }),
+          ],
+        }),
       ],
     }),
     defineField({

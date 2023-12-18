@@ -9,10 +9,11 @@ import Container from '@/components/Container'
 function PromoBanner({ banner, locale }: { banner?: SanityPromoBanner; locale: SanityLocale }) {
   if (!banner) return null
   return (
-    <div className="w-full z-10 py-2 px-5  md:py-2  md:font-[500] text-white bg-darkblue text-[11px] md:text-sm font-medium leading-tight  md:leading-[21px] ">
-      <Container>
-        <div className={'w-full leading-[20px] md:leading-[24px] text-center '}>
+    <div className="w-full h-[40px] flex flex-col items-center justify-center z-10 text-white bg-darkblue">
+      <Container className='pl-[18px] pr-[19px]'>
+        <div className={'font-medium text-[11px] md:text-base leading-[20px] md:leading-[24px] text-center '}>
           {localizedString(banner.text, locale)}
+          {' '}
           <Link
             href={banner.link?.url || '/'}
             className="underline cursor-pointer font-bold underline-offset-[3px] "

@@ -3,6 +3,7 @@ import featured_tours_section from './FeaturedToursSection'
 import image_showcase_section from './ImageShowcaseSection'
 import itinerary_section from './ItinerarySection'
 import memorable_experiences_section from './MemorableExperiencesSection'
+import other_tours_section from './OtherToursSection'
 import pricing_section from './PricingSection'
 import travel_info_section from './TravelInfoSection'
 import whats_included_section from './WhatsIncludedSection'
@@ -16,6 +17,7 @@ export const TourSectionExports = [
   travel_info_section,
   featured_tours_section,
   whats_included_section,
+  other_tours_section,
 ]
 
 export const TourSections = [
@@ -33,4 +35,5 @@ export const TourSections = [
   'travel_info_section',
   'featured_tours_section',
   'whats_included_section',
+  'other_tours_section',
 ] as const

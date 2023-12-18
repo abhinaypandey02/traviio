@@ -16,28 +16,15 @@ export default defineType({
       name: 'variants',
       title: 'Variants',
       description: 'Variants of the icon',
-      type: 'array',
-      of: [
-        defineArrayMember({
+      type: 'object',
+      fields: ['mobile'].map((variant) =>
+        defineField({
           name: 'variant',
-          title: 'Variant',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'name',
-              title: 'Name',
-              description: 'Name of the variant',
-              type: 'string',
-            }),
-            defineField({
-              name: 'icon',
-              title: 'Icon',
-              description: 'Icon of the variant',
-              type: 'image',
-            }),
-          ],
-        }),
-      ],
+          title: variant + ' variant',
+          description: variant + ' variant of the icon',
+          type: 'image',
+        })
+      ),
     }),
   ],
   preview: {
