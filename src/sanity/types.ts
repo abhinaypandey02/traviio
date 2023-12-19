@@ -337,10 +337,8 @@ export type SanityIndexSection = {
   _key: string
   title?: SanityLocaleString
   tours?: ({
-    _type: 'reference'
-    _id: string
-    _ref: string
-  } & SanityTourPage)[]
+    _type: 'link'
+  } & SanityLink)[]
 }
 
 export type SanityOtherToursSection = {
