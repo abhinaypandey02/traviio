@@ -33,6 +33,7 @@ export default function MemorableExperiencesSection({
       swiper.navigation && swiper.navigation.update()
     }
   }, [swiper])
+  // console.log(data)
   return (
     <div className="flex flex-col gap-12 mb-16">
       <div className="flex gap-3 flex-col justify-center w-fit mx-auto items-center">
@@ -117,14 +118,14 @@ const Card = ({
         <div className="h-[220px] relative">
           <Image
             alt=""
-            src={data.image_hero?.image ? urlFor(data.image_hero?.image) : ''}
+            src={data?.image ? urlFor(data?.image) : ''}
             fill
             className="object-cover"
           />
         </div>
         <div className="p-4 flex flex-col gap-1">
           <p className="font-bold text-xl text-darkblue">{data.title?.en}</p>
-          <p className="font-medium text-sm text-gray">{data.tagline?.en}</p>
+          <p className="font-medium text-sm text-gray">{data.description?.en}</p>
         </div>
       </div>
     </Link>

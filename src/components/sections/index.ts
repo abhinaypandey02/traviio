@@ -96,7 +96,7 @@ export const TourSectionsMap: {
   accommodation_types_section: AccommdationTypesSection,
   reviews_section: ReviewSection,
   feature_section: TourFeature,
-  featured_tours_section: DealsSection,
+  featured_tours_section: FeatureTourSection,
   faq_section: FAQSection,
   travel_info_section: TravelInformation,
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import PortableText from 'react-portable-text'
 const InThisPost = ({data}:any) => {
-  console.log(data)
   return (
     <div>
       <h3 className="mt-5  font-[500] text-gray">
