@@ -139,7 +139,7 @@ export const TourCard = ({
             className={'!!mt-3 !mb-0 !py-2.5 !px-7 !leading-[22px]'}
             text="View Trip"
             varient="primary"
-            style={{width: '100%'}}
+            style={{ width: '100%' }}
           />
         </div>
       </div>

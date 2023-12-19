@@ -47,8 +47,8 @@ const Layout = ({
         <Header navbar={globals?.navbar} />
 
         <main className={'grow'}>
-          <Breadcrumbs paths={breadcrumbs} />
           <PromoBanner banner={promo_banner} locale={locale} />
+          <Breadcrumbs paths={breadcrumbs} />
 
           {children}
         </main>

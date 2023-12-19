@@ -51,7 +51,11 @@ const NewsletterSection = ({ data, locale }: PropsWithLocale<NewsletterSectionPr
               Have any questions?
             </strong>
             <div className="flex items-center gap-0.5 md:gap-1">
-              <svg className='h-[18px] w-[18px] md:h-[24px] md:w-[24px]' viewBox="0 0 32 32" fill="none">
+              <svg
+                className="h-[18px] w-[18px] md:h-[24px] md:w-[24px]"
+                viewBox="0 0 32 32"
+                fill="none"
+              >
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"

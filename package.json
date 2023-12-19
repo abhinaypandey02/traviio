@@ -15,6 +15,7 @@
     "@apollo/experimental-nextjs-app-support": "^0.4.3",
     "@apollo/server": "^4.9.3",
     "@as-integrations/next": "^2.0.2",
+    "@headlessui/react": "^1.7.17",
     "@next/bundle-analyzer": "^14.0.1",
     "@phosphor-icons/react": "^2.0.10",
     "@sanity/vision": "^3.14.5",

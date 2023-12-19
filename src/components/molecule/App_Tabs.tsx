@@ -45,7 +45,7 @@ function App_Tabs({ tabs }: TabsProp) {
         <div className="w-full overflow-x-scroll">
           <div className="px-5">
             <nav
-              className="-mb-px flex lg:justify-center lg:items-center justify-start items-start lg:space-x-20 space-x-8"
+              className="-mb-px flex lg:justify-center lg:items-center justify-start items-start lg:space-x-28 space-x-8"
               aria-label="Tabs"
             >
               {tabs.map((tab, index) => (
@@ -55,9 +55,9 @@ function App_Tabs({ tabs }: TabsProp) {
                   onClick={() => setCurrentTab(index)}
                   className={cNames(
                     currentTab === index
-                      ? 'border-yellow text-yellow'
-                      : 'border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700',
-                    'whitespace-nowrap border-b-2 border-gray-100 py-4 px-1 lg:text-base text-gray text-xs font-medium'
+                      ? 'border-yellow text-black'
+                      : 'border-transparent text-gray-500 hover:border-gray-200 text-gray hover:text-gray-700',
+                    'whitespace-nowrap border-b-4 border-gray-100 py-4 px-6 lg:text-base text-xs font-medium'
                   )}
                   aria-current={currentTab ? 'page' : undefined}
                 >

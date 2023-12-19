@@ -23,6 +23,9 @@ module.exports = {
         primary: '#F2FAFF',
         green: '#4CAF50',
       },
+      boxShadow: {
+        disclosure: '0px 4px 20px 0px rgba(0, 0, 0, 0.06)',
+      },
       animation: {
         fade: 'fadeOut infinite 1s ease-in-out',
       },

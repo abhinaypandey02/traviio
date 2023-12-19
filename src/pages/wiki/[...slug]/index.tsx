@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
+import { AnyARecord } from 'dns'
 import PortableText from 'react-portable-text'
-import App_Tabs from '../../../components/molecule/App_Tabs'
 
 import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
@@ -12,9 +12,11 @@ import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout/index'
+import NewsletterSection from '@/components/sections/NewsletterSection'
 import SEO from '@/components/Seo'
+import Wiki_DisclosureItems from '@/components/wiki/Wiki_DisclosureItems'
 
-import FilterDropdown from '@/components/organisms/FilterDropdown'
+import App_Tabs from '../../../components/molecule/App_Tabs'
 
 type WikiPageProps = {
   slug: string
@@ -27,20 +29,32 @@ const ImageHeader = ({ image, Title }: any) => {
     <div className="">
       <div>
         <div>
-          <div className="lg:h-[400px] h-[200px]">
+          <div className="lg:h-[30rem] sm:h-[200px] sm:relative max-sm:text-center">
             <Image
               src={image ? urlFor(image) : ''}
               style={{ width: '100%', height: '100%' }}
-              width={700}
-              height={73}
+              width={1400}
+              height={400}
               alt=""
               className="object-cover"
             />
+            <div
+              style={{
+                background: 'linear-gradient(343deg, #000 -20.24%, rgba(0, 0, 0, 0.00) 88.74%)',
+              }}
+              className="absolute max-sm:hidden inset-0 w-full h-full pointer-events-none"
+            />
+            <h2 className="max-sm:mt-4 sm:absolute bottom-16 inset-x-0 text-xl sm:text-6xl text-black sm:text-white font-extrabold text-center">
+              {Title}
+            </h2>
+            <hr className="w-10 mx-auto sm:hidden bg-yellow text-yellow h-[1.5px] mt-1 rounded-full md:rounded-[3px] " />
+            <p className="sm:hidden px-6 text-sm font-normal pt-6 leading-6">
+              Egypt, a captivating land of ancient wonders, beckons travelers with its rich history
+              and timeless allure. From the towering pyramids of Giza to the magnificent temples of
+              Luxor and the vibrant streets of Cairo, Egypt offers a tapestry of experiences that
+              transport you to a bygone era.
+            </p>
           </div>
-
-          <h2 className="text-4xl  text-white -translate-y-20  font-extrabold text-center ">
-            {Title}
-          </h2>
         </div>
         <div className="px-10 text-sm opacity-80">{''}</div>
       </div>
@@ -49,22 +63,24 @@ const ImageHeader = ({ image, Title }: any) => {
 }
 const Heading = ({ tagline, title }: any) => {
   return (
-    <div className="flex flex-col items-center p-2">
+    <div className="flex flex-col items-center p-2 space-y-2 py-6 pt-14 max-sm:text-center">
       <h1 className="text-blue text-[12px] md:text-[16px] font-[500] leading-[20px] md:leading-[24px] ">
         {title}
       </h1>
-      <h3 className="text-darkblue text-[24px] md:text-[40px] font-[700] leading-[32px] md:leading-[50px] ">
+      <h3 className="text-darkblue text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px] ">
         {tagline}
       </h3>
-      <hr className="w-[85px] md:w-[117px] bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] " />
+      <hr className="w-40 md:w-[117px] bg-yellow text-yellow h-[3px] mt-2 rounded-full md:rounded-[3px] " />
     </div>
   )
 }
 const InfoSection = ({ data }: any) => {
   // const cities = ['Egypt', 'Jordan', 'Saudia Arabia', 'Dubai', 'Isral']
   const [head, sethead] = useState(0)
+
+
   return (
-    <div className="py-20">
+    <div className="py-20 max-w-7xl mx-auto">
       {/* <div className="flex justify-between px-20 ">
         {cities.map((item: any, index: any) => {
           return (
@@ -87,7 +103,7 @@ const InfoSection = ({ data }: any) => {
       </div> */}
 
       {/* <hr className='py-5 text-gray opacity-40' /> */}
-      <div className="lg:flex-row flex flex-col gap-x-20 px-3 lg:px-20 justify-between">
+      <div className="lg:flex-row flex flex-col gap-x-16 px-4 justify-between mt-4">
         {/* <div className="w-1/5 flex flex-col gap-y-2">
           {data?.map((item: any, index: any) => {
             return (
@@ -110,17 +126,9 @@ const InfoSection = ({ data }: any) => {
             )
           })}
         </div> */}
-        <FilterDropdown
-          items={data.map((item: any) => {
-            return {
-              title: localizedString(item.title),
-              link: `#${item.title?.en}`,
-            }
-          })}
-          className="min-w-[390px]"
-        />
+        <Wiki_DisclosureItems />
 
-        <div className="lg:w-2/3 w-full lG:mt-0 mt-20">
+        <div className="lg:w-2/3 w-full lg:mt-0 mt-20">
           {data?.map((item: any, index: any) => {
             return (
               <div key={index} id={item.title?.en} className="mb-10">
@@ -147,7 +155,45 @@ export default function WikiPage({ slug, data, locale, globals }: WikiPageProps)
     { name: 'Israel', href: '#' },
     { name: 'Turkey', href: '#' },
   ]
-
+  const promoBannerTest: any = {
+    _id: '123',
+    _key: '12345',
+    _type: 'promo_banner',
+    link: {
+      _type: 'link',
+      text: {
+        _type: 'locale_string',
+        en: 'Book now',
+      },
+      url: '/',
+    },
+    text: {
+      en: 'More summer for less. Save up to 20% off selected trips*.',
+      _type: 'locale_string',
+    },
+  }
+  const newsletterStatic: any = {
+    data: {
+      subtitle: {
+        _type: 'locale_string',
+        en: 'Be the first to know about our latest travel deals, special promotions, and insider tips',
+      },
+      _type: 'newsletter_section',
+      _key: '75d74a4ff9c3',
+      title: {
+        _type: 'locale_string',
+        en: 'Join Our Travel Community and Unlock Exclusive Deals!',
+      },
+      image: {
+        asset: {
+          _ref: 'image-38956b0ed7d0d908e7b716cda8b2dfe39b9454f8-2560x888-png',
+          _type: 'reference',
+        },
+        _type: 'image',
+      },
+    },
+    locale: 'en',
+  }
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -155,11 +201,22 @@ export default function WikiPage({ slug, data, locale, globals }: WikiPageProps)
         description={data?.tagline && localizedString(data?.tagline, locale)}
         image={data?.image_hero?.image && urlFor(data?.image_hero.image)}
       />
-      <Layout locale={locale} breadcrumbs={[]} globals={globals}>
+      <Layout
+        locale={locale}
+        breadcrumbs={[
+          { label: 'Wiki', value: '/wiki' },
+          { label: 'Egypt', value: '#' },
+        ]}
+        globals={globals}
+        promo_banner={promoBannerTest}
+      >
         <ImageHeader image={data?.image_hero?.image} Title={data?.image_hero?.text?.en} />
         <Heading title={data.title?.en} tagline={data?.tagline?.en} />
         <App_Tabs tabs={tabs} />
         <InfoSection data={data?.sections} />
+        <div className='mb-20'>
+        <NewsletterSection data={newsletterStatic.data} locale={newsletterStatic.locale} />
+        </div>
       </Layout>
     </LocaleProvider>
   )
