@@ -9,6 +9,7 @@ import Schema from '@/components/atoms/Schema'
 
 import Container from '../Container'
 import DestinationCard from '../molecule/DestinationCard'
+import Link from 'next/link'
 
 type DestinationsSectionProps = {
   data: SanityDestinationsSection
@@ -29,6 +30,7 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
     data.destinations?.push(data.destinations[0])
     data.destinations?.push(data.destinations[0])
   }
+  
 
   useEffect(() => {
     const fetchTourCounts = async () => {
@@ -65,12 +67,16 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
 
         <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 md:gap-7 mt-[30px] md:mt-12">
           {validDestinations.map((destination, idx) => (
+            
+           <Link href={'/destinations'+destination.destination?.slug?.current}>
             <DestinationCard
               key={destination._key + idx}
               data={destination}
               tourCount={tourCounts?.[idx]}
               locale={locale}
-            />
+              />
+            </Link>
+       
           ))}
         </div>
       </div>

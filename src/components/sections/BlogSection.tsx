@@ -28,7 +28,7 @@ export type BlogCardProps = {
 const BlogCard = ({ blog, locale }: PropsWithLocale<BlogCardProps>) => {
   return (
     blog && (
-      <Link className={'flex-shrink-0 '} href={blog?.slug ? blog?.slug.current : ''}>
+      <Link className={'flex-shrink-0 '} href={ '/blog'+blog?.slug?.current}>
         <Schema
           data={{
             '@context': 'https://schema.org',
