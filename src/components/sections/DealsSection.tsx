@@ -48,10 +48,7 @@ export const TourCard = ({
   currency?: string
 }) => {
   return (
-    <Link
-      className={'flex-shrink-0 w-[75%] sm:w-[40%] md:w-[36%] lg:w-[28%] xl:w-[21%] '}
-      href={href}
-    >
+    <Link className={'flex-shrink-0 max-w-[250px] md:max-w-[302px]'} href={href}>
       <Schema
         data={{
           '@context': 'https://schema.org',
@@ -82,7 +79,7 @@ export const TourCard = ({
           width={302}
           height={100}
           alt={image.alt}
-          className="rounded-t-2xl w-full h-[180px] md:h-[220px]"
+          className="rounded-t-2xl h-[180px] md:h-[220px]"
           src={image.src}
         />
         <div className="p-4">
@@ -142,7 +139,7 @@ export const TourCard = ({
             className={'!!mt-3 !mb-0 !py-2.5 !px-7 !leading-[22px]'}
             text="View Trip"
             varient="primary"
-            style={{ width: '100%' }}
+            style={{width: '100%'}}
           />
         </div>
       </div>
