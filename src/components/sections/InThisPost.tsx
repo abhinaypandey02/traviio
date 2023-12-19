@@ -1,16 +1,7 @@
 import React from 'react'
-
-const InThisPost = () => {
-  const data = [
-    'Al-Muzz-Deen Allah Street',
-    'Al-Muzz-Deen Allah Street',
-    'Al-Muzz-Deen Allah Street',
-    'Al-Muzz-Deen Allah Street',
-    'Al-Muzz-Deen Allah Street',
-    'Al-Muzz-Deen Allah Street',
-    'Al-Muzz-Deen Allah Street',
-    'Al-Muzz-Deen Allah Street',
-  ]
+import PortableText from 'react-portable-text'
+const InThisPost = ({data}:any) => {
+  console.log(data)
   return (
     <div>
       <h3 className="mt-5  font-[500] text-gray">
@@ -22,14 +13,24 @@ const InThisPost = () => {
         </h2>
         <hr className="w-[85px] md:w-[65px] my-2 mx-auto  bg-yellow text-yellow h-1 rounded-full md:rounded-[3px] mb-5" />
 
-        <div className="mt-6 grid grid-flow-row  grid-cols-2 gap-y-3  m-auto">
-          {data.map((item, index) => {
+        <div className="mt-6 grid px-40 grid-flow-row  grid-cols-2 gap-y-3  m-auto">
+          {/* {data.map((item, index) => {
             return (
               <div key={index}>
                 {index + 1} {'.' + item}
               </div>
             )
-          })}
+          })} */}
+          {
+            data.map((item:any,index:any)=>{
+              return(
+                <div className='flex ' key={index}>
+                 {index + 1} . <PortableText content={item.title?.en} serializers={{}} />
+                </div>
+              )
+            })
+          }
+
         </div>
       </div>
     </div>

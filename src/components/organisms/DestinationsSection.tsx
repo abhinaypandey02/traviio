@@ -32,23 +32,24 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
   }
   
 
-  useEffect(() => {
-    const fetchTourCounts = async () => {
-      const tourCounts = await Promise.all(
-        validDestinations.map(async (destination) => {
-          const ref = destination.destination?._ref
-          if (ref === undefined) return 0
-          const tourCount = await client.fetch(
-            `count(*[_type == "tour_page" && references("${ref}") && !(_id in path("drafts.*"))])`
-          )
-          return tourCount
-        })
-      )
-      setTourCounts(tourCounts)
-    }
-    fetchTourCounts()
-  }, [])
+  // useEffect(() => {
+  //   const fetchTourCounts = async () => {
+  //     const tourCounts = await Promise.all(
+  //       validDestinations.map(async (destination) => {
+  //         const ref = destination.destination?._ref
+  //         if (ref === undefined) return 0
+  //         const tourCount = await client.fetch(
+  //           `count(*[_type == "tour_page" && references("${ref}") && !(_id in path("drafts.*"))])`
+  //         )
+  //         return tourCount
+  //       })
+  //     )
+  //     setTourCounts(tourCounts)
+  //   }
+  //   fetchTourCounts()
+  // }, [])
 
+  
   return (
     <Container className={'mb-[50px] md:mb-[84px] md:pt-[80px]'}>
       <div>
@@ -67,12 +68,12 @@ const DestinationsSection = ({ data, locale }: PropsWithLocale<DestinationsSecti
 
         <div className="grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 md:gap-7 mt-[30px] md:mt-12">
           {validDestinations.map((destination, idx) => (
-            
+             
            <Link href={'/destinations'+destination.destination?.slug?.current}>
             <DestinationCard
               key={destination._key + idx}
               data={destination}
-              tourCount={tourCounts?.[idx]}
+              tourCount={destination.destination?.count?.length}
               locale={locale}
               />
             </Link>

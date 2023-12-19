@@ -27,6 +27,7 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
+   console.log(data)
   return (
     <LocaleProvider locale={locale}>
       <SEO

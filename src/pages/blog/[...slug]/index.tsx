@@ -29,7 +29,7 @@ export default function BlogPage({ data, locale, globals }: BlogPageProps) {
           <div className="flex items-start bg-white w-full gap-x-14">
             <div className="w-3/4">
               <ArticleHeroSection data={data.article} />
-              <InThisPost />
+              <InThisPost  data={data?.article?.subsections} />
 
               <BlogContentSection data={data?.article?.subsections} />
             </div>
