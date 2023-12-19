@@ -23,10 +23,19 @@ export default defineType({
       type: 'locale_string',
     }),
     defineField({
-      name: 'tours_count',
-      title: 'Tours count',
-      description: 'The number of tours to show',
-      type: 'number',
+      name: 'tours',
+      title: 'Tours',
+      description: 'The tours to display in the sidebar related tours section',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'tour',
+          title: 'Tour',
+          description: 'A tour',
+          type: 'reference',
+          to: [{ type: 'tour_page' }],
+        }),
+      ],
     }),
     defineField({
       name: 'tags',

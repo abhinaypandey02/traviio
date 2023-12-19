@@ -21,6 +21,7 @@ type BlogPageProps = {
 } & LocalePage
 
 export default function BlogPage({ data, locale, globals }: BlogPageProps) {
+  console.log({ data })
   return (
     <LocaleProvider locale={locale}>
       <Layout breadcrumbs={[]} locale={locale} globals={globals}>
@@ -62,8 +63,24 @@ async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
         ...,
         tags[]->,
         destination->
+      },
+      sidebar[]{
+        _type == "sidebar_latest_articles" => {
+          ...,
+          articles[]->{
+            ...,
+            tags[]->,
+            destination->
+          }
+        },
+        _type == "sidebar_related_tours" => {
+          ...,
+          tours[]->{
+            ...
+          }
         }
-      }`
+      }
+    }`
   )) as SanityBlogPage
   return page
 }
