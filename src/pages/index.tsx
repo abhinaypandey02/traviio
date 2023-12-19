@@ -68,10 +68,6 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
             }
           }
         },
-        _type == "index_section" => {
-          ...,
-          tours[]->,
-        },
       }
     }`
   )) as SanityPage

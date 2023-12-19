@@ -337,10 +337,8 @@ export type SanityIndexSection = {
   _key: string
   title?: SanityLocaleString
   tours?: ({
-    _type: 'reference'
-    _id: string
-    _ref: string
-  } & SanityTourPage)[]
+    _type: 'link'
+  } & SanityLink)[]
 }
 
 export type SanityOtherToursSection = {
@@ -443,7 +441,11 @@ export type SanitySidebarLatestArticles = {
   _key: string
   title?: SanityLocaleString
   tagline?: SanityLocaleString
-  articles_count?: number
+  articles?: ({
+    _type: 'reference'
+    _id: string
+    _ref: string
+  } & SanityArticle)[]
 }
 
 export type SanitySidebarRelatedTours = {
@@ -452,7 +454,11 @@ export type SanitySidebarRelatedTours = {
   _key: string
   title?: SanityLocaleString
   tagline?: SanityLocaleString
-  tours_count?: number
+  tours?: ({
+    _type: 'reference'
+    _id: string
+    _ref: string
+  } & SanityTourPage)[]
   tags?: ({
     _type: 'reference'
     _id: string

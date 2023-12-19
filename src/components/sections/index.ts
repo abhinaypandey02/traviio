@@ -25,6 +25,8 @@ import FeatureSection from './FeatureSection'
 import FeatureTopBlogSection from './FeatureTopBlogSection'
 import HeroSection from './HeroSection'
 import ImageHeaderSection from './ImageHeaderSection'
+import TopThingsToDo from './TopThingsToDo'
+import FeatureTourSection from './FeatureTourSection'
 const IndexSection = dynamic(() => import('./IndexSection'))
 const WhatsIncludedSection = dynamic(() => import('./Tours/WhatsIncludedSection'))
 const AtAGlanceSection = dynamic(() => import('./AtAGlanceSection'))
@@ -65,9 +67,10 @@ export const DestinationSectionsMap: {
   reviews_section: ReviewSection,
   faq_section: FAQSection,
   all_blogs_section: BlogSection,
-  featured_tours_section: DealsSection,
+  featured_tours_section: FeatureTourSection,
   at_glance_section: AtAGlanceSection,
   tour_selection_section: BestToursSection,
+  top_things_section: TopThingsToDo
 }
 
 export const BlogPageSectionsMap: {

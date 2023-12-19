@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 import { displayNumber, joinStrings } from '@/utils/utils'
 import { EnvelopeOpen } from '@phosphor-icons/react'
@@ -23,10 +23,19 @@ export default defineType({
       type: 'locale_string',
     }),
     defineField({
-      name: 'articles_count',
-      title: 'Articles count',
-      description: 'The number of articles to show',
-      type: 'number',
+      name: 'articles',
+      title: 'Articles',
+      description: 'The articles to display in the sidebar latest articles section',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'article',
+          title: 'Article',
+          description: 'An article',
+          type: 'reference',
+          to: [{ type: 'article' }],
+        }),
+      ],
     }),
   ],
   preview: {

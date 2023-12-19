@@ -21,6 +21,7 @@ type BlogPageProps = {
 } & LocalePage
 
 export default function BlogPage({ data, locale, globals }: BlogPageProps) {
+  console.log({ data })
   return (
     <LocaleProvider locale={locale}>
       <Layout breadcrumbs={[]} locale={locale} globals={globals}>
@@ -28,7 +29,7 @@ export default function BlogPage({ data, locale, globals }: BlogPageProps) {
           <div className="flex items-start bg-white w-full gap-x-14">
             <div className="w-3/4">
               <ArticleHeroSection data={data.article} />
-              <InThisPost />
+              <InThisPost  data={data?.article?.subsections} />
 
               <BlogContentSection data={data?.article?.subsections} />
             </div>
@@ -62,8 +63,24 @@ async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
         ...,
         tags[]->,
         destination->
+      },
+      sidebar[]{
+        _type == "sidebar_latest_articles" => {
+          ...,
+          articles[]->{
+            ...,
+            tags[]->,
+            destination->
+          }
+        },
+        _type == "sidebar_related_tours" => {
+          ...,
+          tours[]->{
+            ...
+          }
         }
-      }`
+      }
+    }`
   )) as SanityBlogPage
   return page
 }

@@ -20,7 +20,13 @@ export default defineType({
       title: 'Tour Links',
       description: 'Tour Link',
       type: 'array',
-      of: [defineArrayMember({ type: 'reference', to: [{ type: 'tour_page' }] })],
+      of: [
+        defineArrayMember({
+          name: 'link',
+          title: 'Link',
+          type: 'link',
+        }),
+      ],
     }),
   ],
   preview: {
