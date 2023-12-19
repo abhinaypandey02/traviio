@@ -25,6 +25,7 @@ export default function Swiper({
       } else setShowNext(true)
     })
   }, [])
+
   function onNext() {
     swiperRef.current?.scrollBy(
       length ? (swiperRef.current.scrollWidth / length) * scrollCount : 100,
@@ -37,11 +38,12 @@ export default function Swiper({
       0
     )
   }
+
   return (
-    <div className={'relative overflow-hidden'}>
+    <div className={'relative'}>
       <div
         className={
-          'flex justify-start pl-2 lg:pl-0 overflow-hidden relative overflow-x-auto items-center ' +
+          'flex justify-start pl-2lg:pl-0 overflow-hidden relative overflow-x-auto items-center ' +
           className
         }
         ref={swiperRef}
