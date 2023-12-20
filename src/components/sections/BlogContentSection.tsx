@@ -10,8 +10,8 @@ const BlogContentSection = ({ data }: any) => {
       {data.map((item: any, index: any) => {
         return (
           <div key={index} className="text-black gap-y-5 flex flex-col ">
-            <PortableText content={item.title?.en} serializers={{}} />
-            <PortableText content={item.content?.en} serializers={{}} />
+            {item.title?.en && <PortableText content={item.title?.en} serializers={{}} />}
+            {item.content?.en && <PortableText content={item.content?.en} serializers={{}} />}
           </div>
         )
       })}
