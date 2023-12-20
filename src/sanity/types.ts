@@ -759,6 +759,7 @@ export type SanityTag = {
   name?: SanityLocaleString
   icon?: SanityPhoto
   hero_image?: SanityPhoto
+  slug?: SanitySlug
 }
 
 export type SanityDestinationSection =
@@ -892,6 +893,13 @@ export type SanityBlogPage = {
   promo_banner?: SanityPromoBanner
   is_article?: boolean
   article?: SanityArticle // reference
+  tags?: ({
+    _type: 'tag'
+    _id: string
+    _key: string
+    _ref: string[]
+    _weak?: boolean
+  } & SanityTag)[]
   sections?: SanityBlogPageSection[]
   sidebar?: SanityBlogSidebar
 }

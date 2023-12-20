@@ -38,10 +38,16 @@ export default defineType({
     }),
     defineField({
       name: 'article',
-      title: 'Article',
-      description: 'Article for the page (select if is_article is true))',
+      title: 'Article (if this is an article page)',
+      description: 'Article for the page (select if is article is true))',
       type: 'reference',
       to: [{ type: 'article' }],
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tags to fetch articles for (if this is not an article page)',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tag' }] }],
     }),
     defineField({
       name: 'sections',

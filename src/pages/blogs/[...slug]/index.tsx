@@ -32,7 +32,7 @@ import SEO from '@/components/Seo'
 type BlogPageProps = {
   slug: string
   articles: SanityArticle[]
-  content: SanityTag | SanityDestinationPage
+  content: SanityTag | SanityDestinationPage | SanityBlogPage
   globals: SanityGlobals
   destinations: { name: SanityLocaleString; slug: string; icon: SanityPhoto }[]
   tags: { name: SanityLocaleString; slug: string; icon: SanityPhoto }[]
@@ -54,6 +54,10 @@ export default function BlogPage({
           image: content.hero_image,
           _type: 'image_header_section' as const,
         }
+      : content?._type === 'destination_page'
+      ? (content?.sections?.find(
+          (s) => s?._type === 'image_header_section'
+        ) as SanityImageHeaderSection)
       : (content?.sections?.find(
           (s) => s?._type === 'image_header_section'
         ) as SanityImageHeaderSection)
@@ -61,7 +65,16 @@ export default function BlogPage({
   const [value, setValue] = React.useState(0)
   return (
     <LocaleProvider locale={locale}>
-      <SEO title={`${localizedString(content?.name, locale)} - Blogs`} />
+      <SEO
+        title={`${localizedString(
+          content._type === 'tag'
+            ? content?.name
+            : content._type === 'destination_page'
+            ? content?.name
+            : content?.meta_data?.meta_title,
+          locale
+        )} - Blogs`}
+      />
       <Layout globals={globals} breadcrumbs={[]} locale={locale}>
         {imageHeaderData && <ImageHeaderSection data={imageHeaderData} />}
         <Container className={'my-5'}>
@@ -130,11 +143,20 @@ export async function fetchDestinationNames() {
   )) as { name: SanityLocaleString; slug: string; icon: SanityPhoto }[]
 }
 
+export async function fetchBlogSlugs() {
+  return (await client.fetch(
+    `*[_type == "blog_page" && defined(is_article) && is_article == false && slug.current != "/"]{
+      "slug": slug.current,
+    }`
+  )) as { slug: string }[]
+}
+
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const destinations = await fetchDestinationNames()
   const tags = await fetchTags()
+  const slugs = await fetchBlogSlugs()
   return {
-    paths: [...destinations, ...tags]
+    paths: [...destinations, ...tags, ...slugs]
       .map((slug) =>
         (locales ?? []).map((locale) => ({
           params: {
@@ -148,7 +170,56 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   }
 }
 
-async function fetchBlogPageData(slug: string): Promise<SanityArticle[]> {
+async function fetchBlogPageData(slug: string): Promise<SanityBlogPage> {
+  return await client.fetch(
+    `*[_type == "blog_page" && slug.current == "${slug}" && is_article == false][0]{
+      ...,
+      article->{
+        ...,
+        tags[]->,
+        destination->
+      },
+      tags[]->,
+      sidebar[]{
+        _type == "sidebar_latest_articles" => {
+          ...,
+          articles[]->{
+            ...,
+            tags[]->,
+            destination->
+          }
+        },
+        _type == "sidebar_related_tours" => {
+          ...,
+          tours[]->{
+            ...
+          }
+        }
+      }
+    }`
+  )
+}
+
+async function fetchArticles(slug: string, blogPageData: SanityBlogPage): Promise<SanityArticle[]> {
+  // Check if this page is in blog pages that isn't an article
+  if (blogPageData) {
+    const tagSlugs = blogPageData?.tags?.map((tag: any) => tag.slug.current) ?? []
+
+    console.log({ str: JSON.stringify(tagSlugs) })
+
+    const articles = await client.fetch(
+      `*[_type == "article" && count((tags[]->{"slug": slug.current}.slug)[@ in ${JSON.stringify(
+        tagSlugs
+      )}]) > 0]{
+        ...,
+        destination->,
+        tags[]->
+      }`
+    )
+
+    return articles as SanityArticle[]
+  }
+
   return (await client.fetch(
     `*[_type == "article" && (destination->slug.current == "${slug}" || "${slug}" in tags[]->.slug.current)]{
       ...,
@@ -160,10 +231,13 @@ async function fetchBlogPageData(slug: string): Promise<SanityArticle[]> {
 
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params, locale }) => {
   const slug = getSanitySlugFromSlugs(params?.slug)
-  const blogPageData = await fetchBlogPageData(slug)
-  const content = await client.fetch(
-    `*[(_type=="tag"||_type=="destination_page") && slug.current=="${slug}"][0]`
-  )
+  let content = await fetchBlogPageData(slug)
+  const blogPageData = await fetchArticles(slug, content)
+  if (!content) {
+    content = await client.fetch(
+      `*[(_type=="tag"||_type=="destination_page") && slug.current=="${slug}"][0]`
+    )
+  }
   const tags = await fetchTags()
   const destinations = await fetchDestinationNames()
   const globals = (await client.fetch(`*[_type == "globals"][0]{
