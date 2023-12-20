@@ -11,8 +11,8 @@ import { getPaths, LocalePage } from '@/utils/locales'
 import { getSanitySlugFromSlugs } from '@/utils/utils'
 
 import Layout from '@/components/layout/index'
-import SEO from '@/components/Seo'
 import App_Tabs from '@/components/molecule/App_Tabs'
+import SEO from '@/components/Seo'
 
 type GuidePageProps = {
   slug: string
@@ -144,7 +144,7 @@ const InfoSection = ({ data }: any) => {
               <div key={index} id={item.title?.en} className="mb-10">
                 <h2 className="text-2xl font-semibold">{item.title?.en}</h2>
                 <hr className="w-1/6 text-yellow bg-yellow h-1 mt-1 my-3 rounded-full" />
-                <PortableText content={item.content?.en} serializers={{}} />
+                {item.content?.en && <PortableText content={item.content?.en} serializers={{}} />}
               </div>
             )
           })}

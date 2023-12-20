@@ -78,7 +78,6 @@ const InfoSection = ({ data }: any) => {
   // const cities = ['Egypt', 'Jordan', 'Saudia Arabia', 'Dubai', 'Isral']
   const [head, sethead] = useState(0)
 
-
   return (
     <div className="py-20 max-w-7xl mx-auto">
       {/* <div className="flex justify-between px-20 ">
@@ -134,7 +133,7 @@ const InfoSection = ({ data }: any) => {
               <div key={index} id={item.title?.en} className="mb-10">
                 <h2 className="text-2xl font-semibold">{item.title?.en}</h2>
                 <hr className="w-1/6 text-yellow bg-yellow h-1 mt-1 my-3 rounded-full" />
-                <PortableText content={item.content?.en} serializers={{}} />
+                {item.content?.en && <PortableText content={item.content?.en} serializers={{}} />}
               </div>
             )
           })}
@@ -214,8 +213,8 @@ export default function WikiPage({ slug, data, locale, globals }: WikiPageProps)
         <Heading title={data.title?.en} tagline={data?.tagline?.en} />
         <App_Tabs tabs={tabs} />
         <InfoSection data={data?.sections} />
-        <div className='mb-20'>
-        <NewsletterSection data={newsletterStatic.data} locale={newsletterStatic.locale} />
+        <div className="mb-20">
+          <NewsletterSection data={newsletterStatic.data} locale={newsletterStatic.locale} />
         </div>
       </Layout>
     </LocaleProvider>
