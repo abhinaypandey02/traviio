@@ -106,11 +106,7 @@ export default function MemorableExperiencesSection({
   )
 }
 
-const Card = ({
-  data,
-}: {
-  data: Exclude<SanityMemorableExperiencesSection['experience_cards'], undefined>[0]
-}) => {
+const Card = ({ data }: { data: any }) => {
   if (!data) return null
   return (
     <Link href={'/wiki' + data.slug?.current}>
