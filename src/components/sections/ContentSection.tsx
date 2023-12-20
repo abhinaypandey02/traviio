@@ -52,7 +52,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         >
           {props.items
             .map((item: any) =>
-              props.grid && item._type === 'layout_group' ? (
+              props.grid && item?._type === 'layout_group' ? (
                 item.items?.map((item: any) => (
                   <PortableText
                     // className="flex-1"

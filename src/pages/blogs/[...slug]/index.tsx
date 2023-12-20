@@ -67,9 +67,9 @@ export default function BlogPage({
     <LocaleProvider locale={locale}>
       <SEO
         title={`${localizedString(
-          content._type === 'tag'
+          content?._type === 'tag'
             ? content?.name
-            : content._type === 'destination_page'
+            : content?._type === 'destination_page'
             ? content?.name
             : content?.meta_data?.meta_title,
           locale
