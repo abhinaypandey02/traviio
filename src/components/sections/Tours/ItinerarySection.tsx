@@ -19,8 +19,7 @@ export default function ItinerarySection({
   data,
   locale,
 }: PropsWithLocale<{ data: SanityItinerarySection }>) {
-  // console.log('ItinerarySection-> ', data)
-  // console.log(Country.getAllCountries())
+  console.log('ItinerarySection-> ', data)
   return (
     <Container className=" mt-20   mx-auto max-w-[1312px] px-4 flex flex-col py-20 gap-10">
       <div id="itinerary" className="flex gap-2 flex-col justify-center w-fit mx-auto items-center">
@@ -331,6 +330,12 @@ const Expandable = ({
               itinerary_details_list_items={list?.itinerary_details_list_items}
             />
           ))}
+          <ExpandableList
+            key={data.itinerary_details_lists?.length}
+            title="Special Information"
+            icon={data.special_information?.icon ? urlFor(data.special_information?.icon) : ''}
+            content={data.special_information?.description}
+          />
         </div>
       </div>
     </div>
@@ -340,10 +345,12 @@ const ExpandableList = ({
   title,
   icon,
   itinerary_details_list_items,
+  content,
 }: {
   title: string
   icon: string
-  itinerary_details_list_items: (SanityLocaleString | undefined)[] | undefined
+  itinerary_details_list_items?: (SanityLocaleString | undefined)[] | undefined
+  content?: SanityLocaleString
 }) => {
   return (
     <div className="">
@@ -364,6 +371,7 @@ const ExpandableList = ({
             </div>
           )
         })}
+        {content && <p className="text-base font-normal">{localizedString(content)}</p>}
       </div>
     </div>
   )
