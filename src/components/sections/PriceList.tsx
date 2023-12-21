@@ -91,7 +91,8 @@ function generatePriceList(
     actualPrice?: SanityLocaleNumber
   }[] = []
   for (let i = 0; i < n; i++) {
-    const startDate = getFirstDayOfMonth(startMonth)
+    const startDate = getFirstDayOfMonth(!Number.isNaN(startMonth) ? startMonth : new Date().getMonth())
+    
     startDate.setDate(startDate.getDate() + (i + 1) * 7)
     startDate.setDate(startDate.getDate() + ((getDay(startDay) - startDate.getDay() + 7) % 7))
     const endDate = new Date(startDate)
@@ -121,16 +122,21 @@ function generatePriceList(
 }
 
 function PriceList({ data, slug }: { data: SanityPricingSection; slug: string }) {
-  const prices: SinglePrice[] = generatePriceList(data, 5)
   const [selected, setSelected] = React.useState(-1)
   const [collapsed, setCollapsed] = React.useState(false)
   const [show, setShow] = React.useState(4)
+  const [startMonth, setStartMonth] = React.useState(new Date().getMonth())
+  let prices: SinglePrice[] = generatePriceList(data, 5, startMonth)
   React.useEffect(() => {
     setCollapsed(window.innerWidth < 768)
     window.addEventListener('resize', () => {
       setCollapsed(window.innerWidth < 768)
     })
   }, [])
+
+  React.useEffect(() => {
+    prices = generatePriceList(data, 5, startMonth)
+  }, [startMonth])
 
   return (
     <Container
@@ -156,7 +162,7 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
             </div>
           </div>
           <div className="my-3 flex flex-col justify-end items-end font-semibold">
-            <div
+            {/* <div
               // onClick={() => datePicker?.current?.}
               className="h-12 w-fit shadow-xl shadow-[#ebebeb] lg:w-[280px] grid grid-cols-[1fr_36px] bg-white divide-x-2 divide-darkblue p-3 border border-gray md:border-darkblue rounded-md"
             >
@@ -173,7 +179,17 @@ function PriceList({ data, slug }: { data: SanityPricingSection; slug: string })
               <div className="flex justify-end ml-2 items-start">
                 <CaretDown height={24} width={24} />
               </div>
-            </div>
+
+            </div> */}
+            <input
+              type="date"
+              name="startMonth"
+              id=""
+              onChange={(e) => {
+                setStartMonth(new Date(e.target.value).getMonth())
+                // console.log(new Date(e.target.value).getMonth())
+              }}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-3">
