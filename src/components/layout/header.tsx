@@ -158,12 +158,15 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
                       <div>
                         {dropdownList.map((item, index) => (
                           <div>
-                            <label 
-                              className="flex items-center gap-3 text-[#726E83] p-[10px] px-[24px]" 
+                            <label
+                              className="flex items-center gap-3  text-[#726E83] p-[10px] px-[24px]"
                               htmlFor={'nav-sub-item' + index}
                             >
                               <input type="radio" name="nav-sub-item" id={'nav-sub-item' + index} />
-                              <Link key={index} href={'/'}> {item}</Link>
+                              <Link key={index} href={'/'}>
+                                {' '}
+                                {item}
+                              </Link>
                             </label>
                           </div>
                         ))}
