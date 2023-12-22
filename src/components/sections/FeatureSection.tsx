@@ -50,7 +50,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
     return (
       <Container
         className={
-          'text-center  pb-[60px] h-fit  mx-auto max-w-[1312px] px-4  md:!px-[80px] md:pb-0 pt-[50px] md:pt-[84px] text-[#140D31] relative'
+          'text-center  pb-[60px] h-fit  mx-auto max-w-[1312px] px-4 md:px-0  md:!spx-[80px] md:pb-0 pt-[50px] md:pt-[84px] text-[#140D31] relative '
         }
       >
         {data.title?.en && (
@@ -61,7 +61,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
             </div>
           </>
         )}
-        <div className="flex flex-col md:flex-row  md:justify-between  mt-[54px] md:mt-[74px]   gap-[60px] md:gap-6 w-full ">
+        <div className="flex flex-col md:flex-row  md:justify-between  mt-[54px] md:mt-[74px]   gap-[60px] md:gap-[150pxs] w-full ">
           {data?.features?.map((feature, index) => (
             <Feature key={index} data={feature} locale={locale} />
           ))}
@@ -74,6 +74,14 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
                 strokeDasharray="6 6"
               />
             </svg>
+          </div>
+          <div className="w-[180px] h-[120px] md:h-[132px] md:w-[300px] absolute right-5 md:bottom-32 bottom-0">
+            <Image
+              fill
+              src={'/airplane-bg.svg'}
+              alt=""
+              className="object-contain h-full w-full   z-50"
+            />
           </div>
           <div className="absolute  w-inherit  md:hidden space-y-[79px] ">
             <div className="w-full mt-14 mr-20"> {mobBgArrowSVG.leftArrow}</div>
@@ -108,9 +116,7 @@ const Feature = ({ data, locale }: PropsWithLocale<FeatureProps>) => {
   return (
     <div className="relative text-center  flex flex-row-reversse justify-between md:flex-col items-center z-[2] h-[90px] md:h-fit [&:nth-child(odd)]:flex-row-reverse md:[&:nth-child(odd)]:flex-col">
       {data.icon?.asset?._ref && <Image src={urlFor(data.icon)} width={68} height={68} alt="" />}
-      <div
-        className={`md:mt-9 md:mb-2.5 text-start md:text-center max-w-[231px] md:max-w-[348px]`}
-      >
+      <div className={`md:mt-9 md:mb-2.5 text-start md:text-center max-w-[231px] md:max-w-[348px]`}>
         <h3 className="font-bold lg:-tracking-[0.6px] text-base md:text-xl leading-normal md:leading-loose">
           {localizedString(data.title, locale)}
         </h3>

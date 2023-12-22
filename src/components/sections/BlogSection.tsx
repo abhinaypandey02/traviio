@@ -99,7 +99,7 @@ const BlogSection = (props: PropsWithLocale<BlogSectionProps>) => {
       </header>
       <div className="relative">
         <Swiper
-          className={'gap-3 md:gap-6 w-screen overflow-hidden '}
+          className={'gap-3 md:gap-6 w-full overflow-hidden '}
           length={featured_blogs?.length}
           scrollCount={2}
         >

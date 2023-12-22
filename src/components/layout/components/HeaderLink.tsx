@@ -35,7 +35,9 @@ function HeaderLink({
           href={item.url || '/'}
           className={
             'leading-[24px] flex-none ' +
-            ((item.url || '/') === router.asPath ? 'text-blue font-bold' : 'text-darkblue font-medium')
+            ((item.url || '/') === router.asPath
+              ? 'text-blue font-bold'
+              : 'text-darkblue font-medium')
           }
         >
           <LocalizedString text={item.text} />
@@ -57,12 +59,12 @@ function HeaderLink({
 
             <div
               className={
-                'w-full h-fit  overflow-scroll bg-white transition-all shadow-md absolute top-[100%] left-0 lg:top-[100px] -z-[1]' +
-                (open ? ' translate-y-2' : ' -translate-y-[100%]')
+                'w-full h-fit   overflow-scroll bg-white transition-all shadow-md absolute top-[100%] left-0 lg:top-[100px] -z-[1]' +
+                (open ? ' translate-y-0' : ' -translate-y-[100%]')
               }
               onClick={() => setOpen(false)}
             >
-              <div className="flex flex-wrap w-full lg:gap-[100px] gap-5 my-[52px] mx-20 h-fit min-h-[260px]">
+              <div className="flex  flex-wrap w-full lg:gap-[100px] gap-5 my-[52px] mx-20 h-fit min-h-[260px]">
                 <div className="flex flex-wrap lg:gap-[85px] gap-5">
                   <Selector
                     title={localizedString(item.destinations_title)}
