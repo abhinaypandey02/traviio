@@ -50,7 +50,7 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
     return (
       <Container
         className={
-          'text-center  pb-[60px] h-fit  mx-auto max-w-[1312px] px-4 md:px-0  md:!spx-[80px] md:pb-0 pt-[50px] md:pt-[84px] text-[#140D31] relative '
+          'text-center  pb-[60px] h-fit  mx-auto max-w-[1312px] px-4 md:px-0  md:!spx-[80px] md:pb-0 pt-[50px] md:pt-[84px] text-[#140D31] relative w-full '
         }
       >
         {data.title?.en && (
@@ -61,7 +61,8 @@ export default function FeatureSection({ data, locale }: PropsWithLocale<Feature
             </div>
           </>
         )}
-        <div className="flex flex-col md:flex-row  md:justify-between  mt-[54px] md:mt-[74px]   gap-[60px] md:gap-[150pxs] w-full ">
+
+        <div className="flex mx-auto flex-col md:flex-row  md:justify-between  mt-[54px] md:mt-[74px]   gap-[60px] md:gap-[150pxs] w-full max-w-[400px]  md:max-w-none">
           {data?.features?.map((feature, index) => (
             <Feature key={index} data={feature} locale={locale} />
           ))}

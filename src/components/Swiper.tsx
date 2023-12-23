@@ -28,13 +28,17 @@ export default function Swiper({
 
   function onNext() {
     swiperRef.current?.scrollBy(
-      length ? (swiperRef.current.scrollWidth / length) * scrollCount : 100,
+      length
+        ? (swiperRef.current.scrollWidth / length) * (window.innerWidth <= 768 ? 1 : scrollCount)
+        : 100,
       0
     )
   }
   function onPrev() {
     swiperRef.current?.scrollBy(
-      length ? -(swiperRef.current.scrollWidth / length) * scrollCount : -100,
+      length
+        ? -(swiperRef.current.scrollWidth / length) * (window.innerWidth <= 768 ? 1 : scrollCount)
+        : -100,
       0
     )
   }
