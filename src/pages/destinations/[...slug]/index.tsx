@@ -27,7 +27,7 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
-   console.log(data)
+  if (!data) return 'There is no data from sanity. some error.'
   return (
     <LocaleProvider locale={locale}>
       <SEO
