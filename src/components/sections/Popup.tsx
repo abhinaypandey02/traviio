@@ -63,12 +63,12 @@ const Popup = () => {
   return (
     <div>
       <Modal open={open} onClose={onCloseModal} center closeIcon={closeIcon}>
-        <div className="rounded-xl  p-0 flex text-black  overflow-hidden overflow-x-auto">
-          <div className="w-1/2">
+        <div className="rounded-xl  p-0 flex flex-col md:flex-row text-black  overflow-hidden overflow-x-auto">
+          <div className="md:w-1/2">
             <Image height={600} width={440} src="/popup_image.png" alt="Background" />
           </div>
 
-          <div className="w-1/2  items-center px-4 pt-16">
+          <div className="md:w-1/2  items-center px-4 pt-16">
             <Image width={208} height={48} src="/Traviio.png" className="m-auto" alt="" />
             <p className="text-center pt-5 font-medium">
               Don't miss out on incredible discounted travel opportunities
