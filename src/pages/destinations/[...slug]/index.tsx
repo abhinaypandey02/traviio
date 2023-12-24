@@ -27,7 +27,7 @@ type PageProps = {
 } & LocalePage
 
 export default function Page({ slug, data, locale, globals }: PageProps) {
-   console.log(data)
+  console.log(data)
   return (
     <LocaleProvider locale={locale}>
       <SEO
@@ -76,7 +76,8 @@ async function fetchPageData(slug: string): Promise<SanityDestinationPage> {
         ...,
         _type == "top_things_section" => {
           ...,
-          destination->
+          destination->,
+          top_things[]->,
         },
         _type == "tour_selection_section" => {
           ...,

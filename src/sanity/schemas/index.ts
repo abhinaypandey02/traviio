@@ -22,10 +22,12 @@ import Article from './documents/Article'
 import blog_page from './documents/BlogPage'
 import destination_page from './documents/DestinationPage'
 import Globals, { TourDropdown } from './documents/Globals'
+import MemorableExperiences from './documents/MemorableExperiences'
 import Page from './documents/Page'
 import PromoCode from './documents/PromoCode'
 import Tag from './documents/Tag'
 import tailor_your_tour from './documents/TailorYourTour'
+import ThingsToDo from './documents/ThingsToDo'
 import tour_page from './documents/TourPage'
 import travel_guide from './documents/TravelGuide'
 import travel_wiki, { TravelWikiSection as travel_wiki_section } from './documents/TravelWiki'
@@ -108,4 +110,6 @@ export const schemaTypes = [
   travel_wiki,
   destination_page,
   PromoCode,
+  ThingsToDo,
+  MemorableExperiences,
 ]

@@ -64,10 +64,7 @@ async function fetchPageData(slug: string): Promise<SanityTourPage> {
         },
         _type == "memorable_experiences_section" => {
           ...,
-          experience_cards[]{
-            ...,
-            link_to->
-          }
+          experience_cards[]->
         }
       }
     }`

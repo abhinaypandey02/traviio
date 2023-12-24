@@ -10,13 +10,6 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({
-      name: 'destination',
-      title: 'Destination',
-      description: 'The destination to show top things for',
-      type: 'reference',
-      to: [{ type: 'destination_page' }],
-    }),
-    defineField({
       name: 'tagline',
       title: 'Tagline',
       description: 'The tagline for the top things section',
@@ -34,48 +27,11 @@ export default defineType({
       description: 'The top things for the top things section',
       type: 'array',
       of: [
-        // {
-        //   type: 'reference',
-        //   to: [{ type: 'article' }],
-        // },
-        defineArrayMember({
-          name: 'top_thing',
-          title: 'Card',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              title: 'Title',
-              description: 'The title for the card',
-              type: 'locale_string',
-            }),
-            defineField({
-              name: 'description',
-              title: 'Description',
-              description: 'The description for the card',
-              type: 'locale_text',
-            }),
-            defineField({
-              name: 'image',
-              title: 'Image',
-              description: 'The image for the card',
-              type: 'image',
-            }),
-            defineField({
-              name: 'link',
-              title: 'Link',
-              description: 'The link for the card',
-              type: 'locale_string',
-            }),
-          ],
-        }),
+        {
+          type: 'reference',
+          to: [{ type: 'things_to_do' }],
+        },
       ],
-    }),
-    defineField({
-      name: 'cta',
-      title: 'CTA',
-      description: 'The CTA for the cards in top things section',
-      type: 'locale_string',
     }),
   ],
   preview: {
