@@ -29,9 +29,10 @@ const TopThingsToDo = (TopThings: any) => {
         </header>
         <div className="p-10 grid grid-flow-row gap-x-6 grid-cols-4">
           {TopThings?.data?.top_things?.map((item: any, index: any) => {
+            if (!item) return null
             return (
               <Link href={item?.link?.en} className="shadow-md" key={index}>
-                <Image alt={''} height={300} width={300} src={urlFor(item.image)} />
+                <Image alt={''} height={300} width={300} src={urlFor(item?.image)} />
                 <div className="px-2">
                   <h2 className="my-1 text-xl font-semibold">{item?.title?.en}</h2>
                   <h3 className="my-1 mb-2">{item?.description?.en}</h3>

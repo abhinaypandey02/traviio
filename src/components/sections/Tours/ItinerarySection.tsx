@@ -314,7 +314,7 @@ const Expandable = ({
           <div className="relative w-full h-[200px] overflow-hidden sm:w-[168px] sm:h-[112px] md:w-[252px] md:h-[168px] rounded-2xl ">
             <Image
               alt=""
-              src={data.image ? urlFor(data.image || '') : ''}
+              src={data?.image ? urlFor(data.image || '') : ''}
               fill
               className="object-cover w-full h-full"
             />

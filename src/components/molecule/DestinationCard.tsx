@@ -14,7 +14,7 @@ type DestinationCardProps = {
 }
 
 const DestinationCard = ({ data, tourCount, locale }: PropsWithLocale<DestinationCardProps>) => {
-  const image = data.image || data.destination?.meta_data?.meta_image
+  const image = data?.image || data?.destination?.meta_data?.meta_image
   return (
     <div className="w-full h-fit">
       <Schema
