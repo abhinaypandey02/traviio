@@ -5,7 +5,6 @@ import client, { urlFor } from '@/sanity/client'
 import Slicer from '@/sanity/slicer'
 import { SanityGlobals, SanityLocale, SanityPage } from '@/sanity/types'
 import { LocalePage } from '@/utils/locales'
-import { getAllPages, PageData } from '@/utils/utils'
 
 import { SectionMap } from '@/components/sections'
 import Popup from '@/components/sections/Popup'

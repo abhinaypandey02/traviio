@@ -11,7 +11,8 @@ import Schema from '@/components/atoms/Schema'
 
 import Footer from './footer'
 import Header from './header'
-const myFont = localFont({ src: '../../../public/Satoshi-Variable.woff2' })
+
+const myFont = localFont({ src: '../../../public/Satoshi-Variable.ttf' })
 const Layout = ({
   children,
   globals,

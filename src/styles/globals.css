@@ -86,7 +86,7 @@ body {
   border-radius: 100%;
   width: 100px;
   height: 100px;
-  padding: 10;
+  padding: 10px;
   scale: 0.4;
   transform:  translateX(50px);
 }
@@ -96,7 +96,7 @@ background-color: rgb(34, 155, 247);
 border-radius: 100%;
 width: 100px;
 height: 100px;
-padding: 10;
+padding: 10px;
 scale: 0.4;
 transform:  translateX(-50px);
 }
