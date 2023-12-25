@@ -143,9 +143,9 @@ const Header = ({ navbar }: { navbar: SanityGlobals['navbar'] }) => {
                   <div>
                     <span
                       onClick={() => setOpenDropDown(!openDropDown)}
-                      className="flex bg-primary rounded-[8px] text-blue  p-[12px] text-[16px] px-[18px] items-center justify-between cursor-pointer"
+                      className="flex hover:bg-primary rounded-[8px] text-blue  p-[12px] text-[16px] px-[18px] items-center justify-between cursor-pointer"
                     >
-                      <p className={'font-medium'}>Destinations</p>
+                      <p className={'font-medium text-darkblue'}>Destinations</p>
                       <Image
                         src="/down_icon.svg"
                         height="16"
