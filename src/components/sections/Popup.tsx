@@ -62,63 +62,93 @@ const Popup = () => {
 
   return (
     <div>
-      <Modal open={open} onClose={onCloseModal} center closeIcon={closeIcon}>
-        <div className="rounded-xl  p-0 flex flex-col md:flex-row text-black  overflow-hidden overflow-x-auto">
-          <div className="md:w-1/2">
+      <Modal
+        open={open}
+        onClose={onCloseModal}
+        center
+        closeIcon={closeIcon}
+        styles={{
+          modalContainer: {
+            padding: '15px',
+          },
+          modal: {
+            maxWidth: '840px',
+            width: '100%',
+            padding: 0,
+            border: 0,
+            margin: 0,
+            borderRadius: '16px',
+          },
+          closeButton: {
+            right: '20px',
+            top: '20px',
+          },
+        }}
+      >
+        <div className="rounded-xl   p-0 flex flex-col md:flex-row text-black  overflow-hidden overflow-x-auto">
+          <div className="hidden md:w-1/2 md:flex ">
             <Image height={600} width={440} src="/popup_image.png" alt="Background" />
           </div>
 
-          <div className="md:w-1/2  items-center px-4 pt-16">
-            <Image width={208} height={48} src="/Traviio.png" className="m-auto" alt="" />
-            <p className="text-center pt-5 font-medium">
-              Don't miss out on incredible discounted travel opportunities
-            </p>
+          <div className="relative  min-h-[600px] md:w-1/2 justify-center items-center flex ">
+            <div className="-z-10 w-full absolute h-[95%] bottom-0 ">
+              <Image fill src="/popup-form-bg.svg" alt="form-background" objectFit="cover" />
+            </div>
+            <div className=" px-[35px] md:px-[45px] min-w-full md:min-w-[350px] ">
+              <Image width={206} height={48} src="/Traviio.png" className="m-auto" alt="" />
+              <p className="text-center w-full pt-3 font-medium text-base">
+                Don't miss out on incredible discounted travel opportunities
+              </p>
 
-            <form action="" className="px-6 mt-10 ">
-              <div className="my-3">
-                <label className="text-[15px] font-medium" htmlFor="name">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  className="w-full mt-2 border-[1px] py-2 px-2 border-gray border-opacity-40 rounded-md"
-                />
-              </div>
-              <div className="mt-5">
-                <label className="text-[15px] font-medium" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  type="text"
-                  className="w-full mt-2 border-[1px] py-2 px-2 border-gray border-opacity-40 rounded-md"
-                />
-              </div>
+              <form action="" className="pxs-6 mt-10 ">
+                <div className="my-3">
+                  <label className="text-base font-medium" htmlFor="name">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full mt-2 border-[1px] py-2 px-2 border-gray border-opacity-40 rounded-md"
+                  />
+                </div>
+                <div className="mt-[18px]">
+                  <label
+                    className="text-base font-medium after:content-['*'] after:ml-0.5 after:text-red"
+                    htmlFor="email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full mt-2 border-[1px] py-2 px-2 border-gray border-opacity-40 rounded-md"
+                  />
+                </div>
 
-              <div className="flex gap-x-2 my-4 items-center">
-                <input
-                  className="w-4 h-4 border-[1px]  rounded-[3px]  border-gray border-opacity-40 "
-                  type="checkbox"
-                />
-                <p className="text-[11px] text-gray">
-                  {' '}
-                  By clicking 'Submit,' you agree to our Privacy Policy{' '}
-                </p>
-              </div>
+                <div className="flex gap-x-2 mt-5 items-center">
+                  <input
+                    className="w-4 h-4 border-[1px]  rounded-[3px]  border-gray border-opacity-40 "
+                    type="checkbox"
+                  />
+                  <p className="text-[12px] font-normal text-gray">
+                    {' '}
+                    By clicking 'Submit,' you agree to our Privacy Policy{' '}
+                  </p>
+                </div>
 
-              <div className="flex gap-x-3 items-center">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 rounded-[3px] border-[1px] border-gray border-opacity-40"
-                />
-                <p className="text-[11px] text-gray">
-                  I want to receive travel updates and offers{' '}
-                </p>
-              </div>
+                <div className="flex gap-x-2 mt-2 items-center ">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 rounded-[3px] border-[1px] border-gray border-opacity-40"
+                  />
+                  <p className="text-[12px] font-normal text-gray">
+                    I want to receive travel updates and offers{' '}
+                  </p>
+                </div>
 
-              <button className="bg-blue w-full rounded-2xl text-white mt-5 py-3 font-semibold">
-                Submit
-              </button>
-            </form>
+                <button className="bg-blue w-full rounded-full text-white mt-5 py-2 font-semibold">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </Modal>
