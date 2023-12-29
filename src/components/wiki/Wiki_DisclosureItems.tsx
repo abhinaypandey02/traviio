@@ -9,8 +9,35 @@ import { CaretDown } from '@phosphor-icons/react'
 import minusIcon from "../../../public/minus_icon.svg"
 import minusIconBlue from "../../../public/minus_icon_blue.svg"
 
-export default function Wiki_DisclosureItems() {
-    const [activeDisclosureId, setActiveDisclosureId] = useState<string | null>(null)
+export default function Wiki_DisclosureItems({ dat }: any) {
+    // console.log('filter',dat)
+    // const [activeDisclosureId, setActiveDisclosureId] = useState<string | null>(null)
+
+    // let tabs=[]
+    // dat.map((item:any,index:any)=>{
+    //     // console.log(item.nested_sections)
+        
+    //     let items=[]
+        
+    //     item?.nested_sections.map((it:any,ind:any)=>{
+    //         // console.log(it)
+    //         console.log(it.nested_sections)
+    //         let ob={
+    //             name:it.title.en,
+    //             id:ind+1,
+
+    //         }
+    //         items.push(ob)
+    //     })
+
+    //     let obj={
+    //         name:item.title.en,
+    //         id:index+1,
+    //         items:items
+    //     }
+    //     tabs.push(obj)
+    // })
+  
     const data = [
         {
             name: 'Egypt Travel Guide',
