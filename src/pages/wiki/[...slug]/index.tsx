@@ -3,7 +3,7 @@ import Image from 'next/image'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { AnyARecord } from 'dns'
 import PortableText from 'react-portable-text'
-
+import Link from '../../../../node_modules/next/link'
 import { LocaleProvider, localizedString } from '@/contexts/LocaleProvider'
 import { urlFor } from '@/sanity/client'
 import client from '@/sanity/client'
@@ -17,6 +17,7 @@ import SEO from '@/components/Seo'
 import Wiki_DisclosureItems from '@/components/wiki/Wiki_DisclosureItems'
 
 import App_Tabs from '../../../components/molecule/App_Tabs'
+import Container from '@/components/Container'
 
 type WikiPageProps = {
   slug: string
@@ -143,9 +144,100 @@ const InfoSection = ({ data }: any) => {
   )
 }
 
+const FeatureTour = (tour: any) => {
+   
+  // console.log(tour.tour)
+  return (<div>
+    {
+      tour ?
+        <Container className='my-10'>
+          <h3 className="text-darkblue text-[20px] md:text-[20px] font-bold leading-[32px] md:leading-[50px] ">
+            Suggested Tour
+          </h3>
+          <hr className="w-40 md:w-[117px] bg-yellow text-yellow h-[3px] mt-2 rounded-full md:rounded-[3px] " />
+          <div className="grid grid-flow-row grid-cols-4 my-5 gap-5">
+          {tour?.tour?.map((item: any, index: any) => {
+            return (
+              <div className="rounded-t-xl shadow-md">
+                <Image
+                  alt={''}
+                  width={340}
+                  height={200}
+                  src={urlFor(item?.hero_section?.image)}
+                />
+                <div className="px-2 py-2">
+                  <h2 className="my-1 text-xl font-semibold rounded-t-xl">
+                    {item?.hero_section?.title?.en}
+                  </h2>
+                  <div className="flex mt-3 justify-between  text-darkblue">
+                    <div className="text-xs md:text-sm items-center font-medium leading-none md:leading-[22px] flex gap-1.5">
+                      <Image
+                        height={100}
+                        width={100}
+                        alt=""
+                        src="/calendar.svg"
+                        className="h-4 w-4 md:h-[18px] md:w-[18px]"
+                      ></Image>
+                      <p> {item?.overview_card?.duration?.en} </p>
+                    </div>
+                    <div className="text-xs md:text-sm items-center font-medium leading-none md:leading-[22px] flex gap-1.5">
+                      <Image
+                        height={100}
+                        width={100}
+                        alt=""
+                        src="/map_plain.svg"
+                        className="h-4 w-4 md:h-[18px] md:w-[18px]"
+                      ></Image>
+                      <p>{item?.overview_card?.cities} Cities</p>
+                    </div>
+                    <div className="text-xs md:text-sm items-center font-medium leading-none md:leading-[22px] flex gap-1.5">
+                      <Image
+                        height={100}
+                        width={100}
+                        alt=""
+                        src="/globe.svg"
+                        className="h-4 w-4 md:h-[18px] md:w-[18px]"
+                      ></Image>
+                      <p>{item?.overview_card?.countries} Countries </p>
+                    </div>
+                  </div>
+                  <div className="mt-6 flex justify-between items-start">
+                    <div className="line-through opacity-50 text-gray font-bold text-sm md:text-[18px] leading-[20px] md:leading-[28px]">
+                      {item?.price_overrides[0]?.price?.initial_price?.en}
+                    </div>
+
+                    <div className="text-right md:font-[900] ">
+                      <div className="text-base md:text-lg font-black text-darkblue leading-[20px] md:leading-[28px]">
+                        From
+                        {item?.price_overrides[0]?.price?.initial_price?.en}
+                      </div>
+                      <div className="text-[10px] md:-mt-2 md:text-xs text-red font-bold leading-[20px] md:leading-[28px]">
+                        You Save
+                        {item?.price_overrides[0]?.price?.initial_price?.en -
+                          item?.price_overrides[0]?.price?.initial_price?.en}
+                      </div>
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-blue text-center py-2 text-lg mt-3 mb-2 rounded-2xl font-bold text-white">
+                    <Link href={'/tours' + item?.content?.slug?.current}>View More</Link>
+                  </button>
+                </div>
+              </div>
+            )
+          })}
+          </div>
+        </Container>
+        :
+        <div></div>
+    }
+  </div>
+  )
+}
+
 export default function WikiPage({ slug, data, locale, globals }: WikiPageProps) {
   // href - is the respective scetion so it auto scrolls to that section when active
-
+  console.log(data)
   const tabs = [
     { name: 'Egypt', href: '#' },
     { name: 'Jordan', href: '#' },
@@ -213,6 +305,8 @@ export default function WikiPage({ slug, data, locale, globals }: WikiPageProps)
         <Heading title={data.title?.en} tagline={data?.tagline?.en} />
         <App_Tabs tabs={tabs} />
         <InfoSection data={data?.sections} />
+
+        <FeatureTour tour={data?.suggested_tours} />
         <div className="mb-20">
           <NewsletterSection data={newsletterStatic.data} locale={newsletterStatic.locale} />
         </div>

@@ -1078,6 +1078,7 @@ export type SanityTravelWikiSection = {
 }
 
 export type SanityTravelWiki = {
+  suggested_tours: any
   _type: 'travel_wiki'
   _id: string
   slug?: SanitySlug
