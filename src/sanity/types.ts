@@ -781,6 +781,7 @@ export type SanityDestinationSection =
   | SanityTopThingsSection
   | SanityAtGlanceSection
   | SanityContactAgentSection
+  | SanityFeaturedBlogsSection
 
 export type SanityDestinationSectionNames = SanityDestinationSection['_type']
 
