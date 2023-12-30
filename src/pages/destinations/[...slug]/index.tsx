@@ -83,6 +83,10 @@ async function fetchPageData(slug: string): Promise<SanityDestinationPage> {
           ...,
           tags[]->
         },
+        _type == "featured_blogs_section" => {
+          ...,
+          featured_blogs[]->
+        },
         _type == "featured_tours_section" => {
           ...,
           tour_cards[] {
