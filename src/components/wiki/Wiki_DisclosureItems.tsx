@@ -11,7 +11,7 @@ import minusIconBlue from "../../../public/minus_icon_blue.svg"
 
 export default function Wiki_DisclosureItems({ dat }: any) {
     // console.log('filter',dat)
-    // const [activeDisclosureId, setActiveDisclosureId] = useState<string | null>(null)
+    const [activeDisclosureId, setActiveDisclosureId] = useState<string | null>(null)
 
     // let tabs=[]
     // dat.map((item:any,index:any)=>{
