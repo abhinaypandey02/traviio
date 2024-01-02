@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Image from 'next/image'
 import PortableText from 'react-portable-text'
 
@@ -15,11 +15,10 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
   const {
     data: { title, tagline, content },
   } = props
-
   const PortableTextSerializer = {
     h3: (props: any) => {
       return (
-        <div>
+        <div className="border bg-red">
           <p className="font-bold text-2xl " {...props} />
           <hr className="w-20 my-2 text-yellow bg-yellow  rounded-full border-2" />
         </div>
@@ -28,10 +27,14 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
 
     layout_group: (props: any) => {
       return (
-        <div className="flex w-full max-md:flex-col  gap-4 md:gap-12">
-          {props.items.map((item: any) => (
+        <div className="flex w-full  max-md:flex-col  gap-4 md:gap-12">
+          {props.items.map((item: any, index: number) => (
             <PortableText
-              // className={item._type === 'content_image' ? 'w-full' : ''}
+              className={
+                item._type === 'content_image'
+                  ? `w-full ${index ? `order-first md:order-last` : `order-last md:order-first`}`
+                  : ''
+              }
               content={item}
               serializers={PortableTextSerializer}
             />
@@ -39,6 +42,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
         </div>
       )
     },
+
     layout_stack: (props: any) => {
       return (
         <div
@@ -48,7 +52,11 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
                 ? `repeat(${props.items?.[0].items?.length}, minmax(0, auto))`
                 : '',
           }}
-          className={props.grid ? 'grid gap-[18px]' : 'flex flex-col gap-[18px]'}
+          className={
+            props.grid
+              ? 'md:grid gap-[10px] md:gap-[18px] flex flex-col'
+              : 'flex flex-col gap-[18px]'
+          }
         >
           {props.items
             .map((item: any) =>
@@ -79,18 +87,21 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
       const { dimensions } = decodeAssetId(props.image.asset._ref)
 
       return (
-        <div className="shrink-0 w-full lg:w-[400px]  box-border">
+        <figure className="shrink-0 w-full lg:w-[400px]  box-border">
           <Image
             alt=""
             src={urlFor(props.image)}
             width={dimensions?.width}
             height={dimensions?.height}
-            className="object-fill w-full h-auto"
+            className=" object-fill w-full h-auto"
           />
-          <div className="text-center mt-2">
+          {/* <div className="">
             <LocalizedString text={props.image.alt} />
-          </div>
-        </div>
+          </div> */}
+          <figcaption className="text-center mt-2 text-darkblue text-opacity-75 text-xs md:text-sm font-normal md:font-medium leading-tight md:leading-snug">
+            {props.alt}
+          </figcaption>
+        </figure>
       )
     },
   }
